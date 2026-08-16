@@ -1,0 +1,24 @@
+# WordPress Import Checklist
+
+- [ ] Backup complete
+- [ ] Parent theme installed
+- [ ] Child theme parent slug updated
+- [ ] Child theme activated
+- [ ] Woodex Core installed
+- [ ] Elementor Free active
+- [ ] XPRO active
+- [ ] WPForms active
+- [ ] Novamira active
+- [ ] Global colors set
+- [ ] Header saved in XPRO library
+- [ ] Footer saved in XPRO library
+- [ ] Pages created
+- [ ] Menu created
+- [ ] Home assigned
+- [ ] Media imported
+- [ ] WPForms tested
+- [ ] Booking URL set
+- [ ] WhatsApp number set
+- [ ] Mobile QA complete
+- [ ] Desktop QA complete
+- [ ] Publish approval received
