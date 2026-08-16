@@ -1,0 +1,9 @@
+/*
+Theme Name: Woodex Interior Child
+Description: Woodex Interior child theme for Elementor Free + XPRO.
+Author: Woodex Interior
+Version: 1.0.0
+Text Domain: woodex-interior
+Template: REPLACE_WITH_PARENT_THEME_SLUG
+*/
+:root{--woodex-black:#111;--woodex-white:#fff;--woodex-gray:#888;--woodex-light:#e6e6e6}
