@@ -1,0 +1,8 @@
+/*
+Theme Name: Woodex Interior Child
+Template: woodex-parent
+Description: Woodex Interior brand overrides for Elementor Free + XPRO.
+Version: 1.0.0
+Text Domain: woodex-child
+*/
+:root{--woodex-black:#111;--woodex-white:#fff;--woodex-gray:#888;--woodex-light:#e6e6e6}
