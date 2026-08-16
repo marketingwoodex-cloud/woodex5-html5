@@ -1,0 +1,9 @@
+/*
+Theme Name: Woodex Interior Parent
+Theme URI: https://github.com/marketingwoodex-cloud/woodex5-html5
+Description: Lightweight Elementor-friendly parent theme for Woodex Interior.
+Author: Woodex Interior
+Version: 1.0.0
+Text Domain: woodex-parent
+*/
+:root{--woodex-black:#111;--woodex-white:#fff;--woodex-gray:#888;--woodex-light:#e6e6e6}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--woodex-black);background:var(--woodex-white);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}.woodex-container{width:min(1240px,calc(100% - 112px));margin:auto}@media(max-width:800px){.woodex-container{width:calc(100% - 40px)}}

@@ -1,0 +1,1 @@
+<?php if(!defined('ABSPATH'))exit; ?><footer class="woodex-site-footer"><div class="woodex-container"><p><?php echo esc_html(get_bloginfo('name')); ?> — Design · Build · Deliver</p><?php wp_nav_menu(array('theme_location'=>'footer','container'=>'nav','fallback_cb'=>false)); ?></div></footer><?php wp_footer(); ?></body></html>
