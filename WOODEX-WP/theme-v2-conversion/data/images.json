@@ -1,0 +1,31 @@
+{
+  "hero": {
+    "layout": "assets/images/hero-layout.jpg",
+    "create": "assets/images/hero-create.jpg",
+    "design": "assets/images/hero-design.jpg"
+  },
+  "services": {
+    "interiorDesign": "assets/images/hero-create.jpg",
+    "commercial": "assets/images/hero-design.jpg",
+    "residential": "assets/images/hero-layout.jpg",
+    "fitOut": "assets/images/hero-create.jpg",
+    "hospitality": "assets/images/hero-design.jpg",
+    "joinery": "assets/images/hero-layout.jpg"
+  },
+  "portfolio": {
+    "quietHouse": "assets/images/hero-layout.jpg",
+    "oakDaylight": "assets/images/hero-create.jpg",
+    "clearLineOffice": "assets/images/hero-design.jpg"
+  },
+  "journal": {
+    "kitchenPlanning": "assets/images/hero-create.jpg",
+    "woodFinishes": "assets/images/hero-design.jpg",
+    "consultation": "assets/images/hero-layout.jpg"
+  },
+  "materialInterlude": {
+    "grain": "assets/images/hero-layout.jpg",
+    "light": "assets/images/hero-design.jpg",
+    "form": "assets/images/hero-create.jpg",
+    "detail": "assets/images/hero-layout.jpg"
+  }
+}

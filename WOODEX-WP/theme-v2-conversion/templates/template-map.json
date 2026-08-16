@@ -1,0 +1,14 @@
+{
+  "rules":{"builder":"Elementor Free","layout":"Containers only","atomicEditor":false,"atomicElements":false,"elementorProWidgets":false},
+  "templates":[
+    {"name":"Woodex Header — Theme V2 Global","type":"xpro_header","scope":"global","sections":["logo","primary_menu","services_dropdown","contact_cta","mobile_menu"]},
+    {"name":"Woodex Footer — Theme V2 Global","type":"xpro_footer","scope":"global","sections":["contact_cta","about","explore_links","services_links","contact_links","legal"]},
+    {"name":"Woodex Homepage — Theme V2","type":"page","sections":["hero_slides","approach","core_services","selected_work_compare","portfolio_grid","process","materials","journal","footer"]},
+    {"name":"Woodex Service Detail — Theme V2","type":"single_service","sections":["hero","problem","deliverables","scope_factors","process","related_projects","faq","cta"]},
+    {"name":"Woodex Portfolio Index — Theme V2","type":"archive_project","sections":["hero","filters","featured_project","project_grid","proof","cta"]},
+    {"name":"Woodex Project Detail — Theme V2","type":"single_project","sections":["hero","facts","brief","response","render_reality","build_details","gallery","result","related_service","cta"]},
+    {"name":"Woodex Journal Index — Theme V2","type":"archive_article","sections":["hero","featured_article","categories","article_grid","cta"]},
+    {"name":"Woodex Article Detail — Theme V2","type":"single_article","sections":["breadcrumbs","meta","hero_image","summary","body","related_service","related_articles","cta"]},
+    {"name":"Woodex Contact — Theme V2","type":"page","sections":["hero","wpforms","whatsapp","booking","what_next","privacy"]}
+  ]
+}
