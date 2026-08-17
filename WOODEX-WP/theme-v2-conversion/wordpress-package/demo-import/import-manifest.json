@@ -1,0 +1,12 @@
+{
+  "name":"Woodex Theme V2 Demo Import",
+  "version":"1.0.0",
+  "backupRequired":true,
+  "overwriteUnrelatedContent":false,
+  "steps":["settings","theme","plugins","globals","templates","pages","services","portfolio","journal","media","menus","homepage","forms"],
+  "pagesFile":"pages.json",
+  "menusFile":"menus.json",
+  "optionsFile":"options.json",
+  "widgetsFile":"widgets.json",
+  "mediaFile":"media-manifest.json"
+}
