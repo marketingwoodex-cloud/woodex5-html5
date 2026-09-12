@@ -162,13 +162,15 @@ export const images = {
       { path: '/images/people/team-ahmed.jpg', alt: 'Ahmed Raza, Head of Joinery', ratio: '3/4' },
       { path: '/images/people/team-zainab.jpg', alt: 'Zainab Iqbal, 3D & Visualisation Lead', ratio: '3/4' },
     ],
+    /* Avatars: monogram medallions until portraits are supplied. They appear
+       in testimonial and stats strips, so a drawing would read as unfinished. */
     avatars: [
-      { path: '/images/people/avatar-01.jpg', alt: 'Client portrait', ratio: '1/1' },
-      { path: '/images/people/avatar-02.jpg', alt: 'Client portrait', ratio: '1/1' },
-      { path: '/images/people/avatar-03.jpg', alt: 'Client portrait', ratio: '1/1' },
-      { path: '/images/people/avatar-04.jpg', alt: 'Client portrait', ratio: '1/1' },
-      { path: '/images/people/avatar-05.jpg', alt: 'Client portrait', ratio: '1/1' },
-      { path: '/images/people/avatar-06.jpg', alt: 'Client portrait', ratio: '1/1' },
+      { path: '/images/people/avatar-01.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'MA' },
+      { path: '/images/people/avatar-02.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'SK' },
+      { path: '/images/people/avatar-03.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'RH' },
+      { path: '/images/people/avatar-04.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'AN' },
+      { path: '/images/people/avatar-05.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'FZ' },
+      { path: '/images/people/avatar-06.jpg', alt: 'Client portrait', ratio: '1/1', kind: 'avatar', initials: 'TB' },
     ],
   },
 

@@ -1,26 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="58%" stop-color="#fcf2e8"/>
-      <stop offset="100%" stop-color="#0f1e36"/>
-    </linearGradient>
-    <pattern id="d" width="46" height="46" patternUnits="userSpaceOnUse">
-      <path d="M0 46L46 0" stroke="#0f1e36" stroke-opacity="0.07" stroke-width="1.4"/>
+    <pattern id="dots" width="39.6" height="39.6" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.3" fill="#0f1e36" fill-opacity="0.09"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="800" fill="url(#g)"/>
-  <rect width="1200" height="800" fill="url(#d)"/>
+  <!-- ground -->
+  <rect width="1200" height="800" fill="#fcf2e8"/>
+  <rect width="1200" height="800" fill="url(#dots)"/>
 
-  <path d="M120 664V376a98.4 98.4 0 0 1 196.8 0V664Z" fill="#fff" fill-opacity="0.5"/>
-  <path d="M408.00000000000006 664V480a62.4 62.4 0 0 1 124.8 0V664Z" fill="#fff" fill-opacity="0.34"/>
-  <rect x="612" y="224.00000000000003" width="240" height="440.00000000000006" fill="#fff" fill-opacity="0.22"/>
-  <path d="M912 0H1200L683.9999999999999 800H420Z" fill="#fff" fill-opacity="0.2"/>
-  <rect y="664" width="1200" height="4" fill="#0f1e36" fill-opacity="0.22"/>
+  <!-- ceiling datum + floor plane, so the drawing has body at card size -->
+  <path d="M0 80h1200" stroke="#0f1e36" stroke-opacity="0.12" stroke-width="1.6666666666666667"/>
+  <rect y="672" width="1200" height="128" fill="#0f1e36" fill-opacity="0.045"/>
+  <path d="M0 672h1200" stroke="#0f1e36" stroke-opacity="0.32" stroke-width="1.6666666666666667"/>
 
-  <text x="600" y="744" text-anchor="middle"
-        font-family="system-ui,-apple-system,Segoe UI,sans-serif"
-        font-size="24" letter-spacing="3.36"
-        fill="#0f1e36" fill-opacity="0.58">SUSTAINABLE MATERIALS COVER</text>
+  <!-- arched opening -->
+  <path d="M84.00000000000001 672V336a109.2 109.2 0 0 1 218.4 0V672Z"
+        fill="#0f1e36" fill-opacity="0.07" stroke="#0f1e36" stroke-opacity="0.45" stroke-width="1.6666666666666667"/>
+  <path d="M193.20000000000002 336V672"
+        stroke="#0f1e36" stroke-opacity="0.16" stroke-width="1.6666666666666667"/>
+
+  <!-- fluting: five thin verticals -->
+  <path d="M372 240V672" stroke="#0f1e36" stroke-opacity="0.26" stroke-width="1.5"/>
+  <path d="M392.4 240V672" stroke="#0f1e36" stroke-opacity="0.26" stroke-width="1.5"/>
+  <path d="M412.8 240V672" stroke="#0f1e36" stroke-opacity="0.26" stroke-width="1.5"/>
+  <path d="M433.2 240V672" stroke="#0f1e36" stroke-opacity="0.26" stroke-width="1.5"/>
+  <path d="M453.6 240V672" stroke="#0f1e36" stroke-opacity="0.26" stroke-width="1.5"/>
+
+  <!-- window: frame, mullion, sill -->
+  <rect x="528" y="128" width="336.00000000000006" height="448.00000000000006"
+        fill="#0f1e36" fill-opacity="0.045" stroke="#0f1e36" stroke-opacity="0.4" stroke-width="1.6666666666666667"/>
+  <path d="M696 128v448.00000000000006" stroke="#0f1e36" stroke-opacity="0.2" stroke-width="1.3333333333333335"/>
+  <path d="M504 576h384" stroke="#0f1e36" stroke-opacity="0.34" stroke-width="1.6666666666666667"/>
+
+  <!-- plinth / bench under the window -->
+  <path d="M504 672h384v-48h-384Z"
+        fill="#0f1e36" fill-opacity="0.1"/>
+  <path d="M504 624h384" stroke="#0f1e36" stroke-opacity="0.38" stroke-width="1.6666666666666667"/>
+
+  <!-- pendant -->
+  <path d="M960 80v128" stroke="#0f1e36" stroke-opacity="0.24" stroke-width="1.3333333333333335"/>
+  <circle cx="960" cy="224.00000000000003" r="20.400000000000002" fill="none"
+          stroke="#0f1e36" stroke-opacity="0.42" stroke-width="1.6666666666666667"/>
+
+  <!-- corner registration marks -->
+  <path d="M54 48v21.599999999999998M54 48h21.599999999999998" fill="none" stroke="#0f1e36" stroke-opacity="0.4" stroke-width="1.6666666666666667"/>
+  <path d="M1146 48v21.599999999999998M1146 48h-21.599999999999998" fill="none" stroke="#0f1e36" stroke-opacity="0.4" stroke-width="1.6666666666666667"/>
+  <path d="M54 624v-21.599999999999998M54 624h21.599999999999998" fill="none" stroke="#0f1e36" stroke-opacity="0.4" stroke-width="1.6666666666666667"/>
+  <path d="M1146 624v-21.599999999999998M1146 624h-21.599999999999998" fill="none" stroke="#0f1e36" stroke-opacity="0.4" stroke-width="1.6666666666666667"/>
+
+  <!-- scale bar -->
+  <rect x="552" y="708" width="24" height="8.4" fill="#0f1e36" fill-opacity="0.28"/>
+  <rect x="576" y="708" width="24" height="8.4" fill="#0f1e36" fill-opacity="0.5"/>
+  <rect x="600" y="708" width="24" height="8.4" fill="#0f1e36" fill-opacity="0.28"/>
+  <rect x="624" y="708" width="24" height="8.4" fill="#0f1e36" fill-opacity="0.5"/>
+
+  <!-- label -->
+  <path d="M66 704.9h1068" stroke="#0f1e36" stroke-opacity="0.18" stroke-width="1.6666666666666667"/>
+  <path d="M66 704.9h60" stroke="#0f1e36" stroke-opacity="0.6" stroke-width="3"/>
+  <text x="66" y="744" font-family="system-ui,-apple-system,Segoe UI,sans-serif"
+        font-size="23" letter-spacing="3.8400000000000003"
+        fill="#0f1e36" fill-opacity="0.62">SUSTAINABLE MATERIALS COVER</text>
+  <text x="1134" y="744" text-anchor="end" font-family="system-ui,-apple-system,sans-serif"
+        font-size="18.86" letter-spacing="3.1199999999999997"
+        fill="#0f1e36" fill-opacity="0.34">PHOTOGRAPH PENDING</text>
 </svg>

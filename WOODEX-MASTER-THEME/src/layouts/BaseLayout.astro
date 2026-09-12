@@ -56,6 +56,25 @@ const {
   padForHeader = false,
   imageTone = theme.imageTone ?? 'cream',
 } = Astro.props;
+
+/* ── Webfonts ─────────────────────────────────────────────────────────────
+   Configured in src/data/site.js → theme.fonts (display + text families).
+   Preconnect plus a single stylesheet request keeps the cost to one round
+   trip; `display=swap` paints text immediately in the fallback stack and
+   swaps when the font is ready, so there is no invisible-text delay.
+   Set fonts.enabled = false for a zero-request build, or self-host per
+   docs/CUSTOMISATION.md §3.                                                */
+const fonts = theme.fonts ?? {};
+const fontHref =
+  fonts.enabled && fonts.provider === 'google'
+    ? `https://fonts.googleapis.com/css2?${[
+        [fonts.display, fonts.displayWeights ?? [400, 500]],
+        [fonts.body, fonts.bodyWeights ?? [400, 500]],
+      ]
+        .filter(([family]) => Boolean(family))
+        .map(([family, weights]) => `family=${String(family).replace(/ /g, '+')}:wght@${weights.join(';')}`)
+        .join('&')}&display=swap`
+    : null;
 ---
 
 <!doctype html>
@@ -84,9 +103,14 @@ const {
     <meta name="theme-color" content="#0f1e36" />
     <meta name="apple-mobile-web-app-title" content={site.shortName} />
 
-    <!-- ── Performance hints ───────────────────────────────────────────── -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- ── Webfonts ────────────────────────────────────────────────────── -->
+    {fontHref && (
+      <>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href={fontHref} />
+      </>
+    )}
   </head>
 
   <body class:list={[bodyClass, padForHeader && 'has-pad-header']}>

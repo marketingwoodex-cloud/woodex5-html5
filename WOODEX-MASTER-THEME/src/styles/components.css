@@ -1380,3 +1380,20 @@ a:focus-visible > img:not([data-tone='none']),
 @media (prefers-reduced-motion: reduce) {
   img { transition: none; }
 }
+
+/* ── Placeholder drawings are already on-palette — never graded ────────────
+   The image treatment exists to pull photographs toward the four colours.
+   A placeholder is drawn from them, so filtering it only makes it muddier.
+   Same specificity as the tone rules above, declared last so it wins.       */
+html[data-image-tone] img[data-placeholder='true'],
+html[data-image-tone] figure[data-placeholder='true'] img,
+html img[data-placeholder='true'] {
+  filter: none;
+}
+
+/* Placeholder chrome: a hairline and a touch of lift, so a grid of drawings
+   reads as an art-directed set rather than a hole in the layout. */
+img[data-placeholder='true'] {
+  background: var(--c-white);
+  box-shadow: inset 0 0 0 1px var(--line);
+}

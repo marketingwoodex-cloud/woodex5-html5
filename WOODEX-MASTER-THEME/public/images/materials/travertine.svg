@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
   <defs>
-    <linearGradient id="s" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0%" stop-color="#fcf2e8"/>
-      <stop offset="100%" stop-color="#0f1e36"/>
-    </linearGradient>
+    <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M0 3h6" stroke="#0f1e36" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
   </defs>
-  <rect width="600" height="600" fill="url(#s)"/>
-  <circle cx="120" cy="156" r="96" fill="#fff" fill-opacity="0.16"/>
-  <circle cx="396" cy="408.00000000000006" r="156" fill="#0f1e36" fill-opacity="0.08"/>
-  <rect y="591.6" width="600" height="8.4" fill="#0f1e36" fill-opacity="0.3"/>
-  <text x="300" y="330" text-anchor="middle"
-        font-family="system-ui,-apple-system,Segoe UI,sans-serif"
-        font-size="27" letter-spacing="2.4"
-        fill="#0f1e36" fill-opacity="0.55">TRAVERTINE</text>
+  <rect width="600" height="600" fill="#fcf2e8"/>
+  <rect width="600" height="600" fill="url(#grain)"/>
+  <rect x="0.5" y="0.5" width="599" height="599" fill="none" stroke="#0f1e36" stroke-opacity="0.16"/>
+  <rect x="42.00000000000001" y="42.00000000000001" width="120" height="120" fill="none"
+        stroke="#0f1e36" stroke-opacity="0.3"/>
+  <text x="42.00000000000001" y="528" font-family="system-ui,-apple-system,Segoe UI,sans-serif"
+        font-size="27" letter-spacing="3.6"
+        fill="#0f1e36" fill-opacity="0.9">TRAVERTINE</text>
 </svg>

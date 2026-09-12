@@ -112,10 +112,12 @@
   --fs-micro: 0.6875rem;
 
   /* ── 3. FONT FAMILIES ───────────────────────────────────────────────────
-     Self-hosted first, system fallback. No remote font CDN dependency.      */
-  --ff-display: 'Woodex Display', 'Instrument Sans', 'Inter Tight',
-                -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  --ff-body: 'Woodex Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+     Set in src/data/site.js → theme.fonts. The <link> is emitted by
+     SEO.astro; if you turn webfonts off, or a request fails, these stacks
+     degrade to the system faces with no layout shift beyond one reflow.     */
+  --ff-display: 'Inter Tight', 'Woodex Display', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, Arial, sans-serif;
+  --ff-body: 'Inter', 'Woodex Sans', -apple-system, BlinkMacSystemFont,
              'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --ff-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 

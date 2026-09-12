@@ -200,8 +200,25 @@ H1 5rem/112.5%/500 · H2 2.812rem/122%/500 · H3 1.875rem/133%/500 · H4 1.562re
 H5 1.25rem/150%/500 · H6 1.125rem/155%/400 · Body 1rem/162%/400 · Sub 0.875rem/185%/400 ·
 Button 0.9375rem/162%/500.
 
-`--ff-display` (headings) and `--ff-body` are **system stacks** — no remote font request, no
-layout shift, no privacy implication. Swapping in a licensed webfont is a two-line change.
+**Typefaces.** The theme ships a real type system, configured in one place
+(`theme.fonts` in `src/data/site.js`) and emitted by `BaseLayout.astro`:
+
+| Token | Family | Used for |
+| --- | --- | --- |
+| `--ff-display` | **Inter Tight** (400/500) | H1–H6, buttons, numerals, marquees |
+| `--ff-body` | **Inter** (400/500) | body copy, tables, form controls |
+| `--ff-mono` | system mono | spec sheets, code, drawing labels |
+
+Both load through one preconnect pair and **a single stylesheet request**, with `display=swap`
+so text paints immediately in the system fallback and swaps when the face arrives — no blank
+text, no layout shift beyond one reflow. This pair is the geometric-grotesque register of the
+reference template, at a quality the system stacks cannot reach; it is what stops the pages
+reading as a wireframe.
+
+Alternatives, one line each in `theme.fonts` (all documented in the config comment): `Fraunces`
+for an editorial serif display, `Instrument Serif` for quiet luxury, `Archivo` for a colder
+architectural voice. Set `fonts.enabled = false` for a zero-request build, or self-host by
+dropping woff2 files in `/public/fonts` — see `docs/CUSTOMISATION.md` §3.
 
 ### 4.3 Space, radius, elevation, motion
 
@@ -407,13 +424,36 @@ whole library reads as one palette no matter who supplied it:
 - The filter is a paint-time effect only: no file is altered, so the originals stay untouched in
   `/public/images/` and can be used full-colour elsewhere at any time.
 
-The placeholder system was re-faced at the same time: every generated SVG now draws from white,
-navy, cream and black only (four palettes, one per image kind), and the inline fallback that
-`SmartImage` renders is gradient-drawn from the same four values.
+#### 8.2 The placeholder system is art-directed, not a grey box
 
-Shipped at v1.1: **10 AI-generated interior photographs, art-directed in the four colours** — navy
-fluted walls, cream bouclé seating, white surfaces, black steel framing — plus 101 branded SVG
-placeholders, 6 icon files and an on-brand favicon, all built from the same four values. The
+A site that is 80% placeholder photography only looks designed if the placeholders themselves are
+designed. Every one of the 93 generated SVGs is therefore an **architectural elevation drawing**
+in the four brand colours: a measured composition (arched opening, fluted panel, window, pendant,
+plinth), one line weight across the whole set, a dot grid, corner registration marks, a scale bar
+and a proof-sheet caption. Four variants cover the four kinds of slot:
+
+| Kind | Drawing | Slots |
+| --- | --- | --- |
+| `photo` (default) | measured elevation | heroes, features, services, projects, journal, offices, CTA |
+| `swatch` | material chip with grain and hairline border | the 8 material-library slots |
+| `logo` | monogram tile + wordmark block | 8 client logos |
+| `avatar` | monogram medallion (initials from the manifest) | 6 portrait slots — used 76× across the site |
+
+Because the composition is fixed and only the ground colour and two proportions vary by slot
+name, **any grid of placeholders reads as a coherent set** rather than a wall of coloured blocks —
+which is what the earlier build looked like. The drawing is never colour-graded (it is already
+on-palette) and carries a hairline so it sits in the layout.
+
+Set `PLACEHOLDER_LABELS=0` at build time to drop the slot name and the
+"photograph pending" tag — for a client-facing demo where the drawings should simply read as art
+direction. The inline fallback that `SmartImage` renders is gradient-drawn from the same four
+values.
+
+Shipped at v1.2: **20 AI-generated interior photographs, art-directed in the four colours** —
+navy fluted walls, cream bouclé seating, white surfaces, black steel framing — covering every
+hero, every project cover, the feature blocks, the CTA banner and the mega-menu panel that renders
+on all 72 pages. Plus 83 elevation-drawing placeholders, 8 client-logo marks, 6 icon files and an
+on-brand favicon, all built from the same four values. The
 paint-time grade then unifies anything dropped in later, so the palette holds no matter who
 supplies the photography.
 

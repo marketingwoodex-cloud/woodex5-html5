@@ -92,10 +92,29 @@ Nothing is baked into the image files, so the originals in `/public/images/` rem
 
 ## 3. Swap the typography
 
-`--ff-display` and `--ff-body` are system stacks by default (no font request, no
-layout shift). To use a licensed webfont, self-host it in `public/fonts/`, add an
-`@font-face` block in `src/styles/base.css`, and point the two tokens at it.
-Type sizes and line heights are the nine fluid steps in `tokens.css`.
+Two families ship: **Inter Tight** for display, **Inter** for text. Both are declared in one
+place — `theme.fonts` in `src/data/site.js` — and the `<link>` tags are emitted by
+`BaseLayout.astro`:
+
+```js
+fonts: {
+  enabled: true,
+  provider: 'google',
+  display: 'Fraunces',       // headings
+  body: 'Inter',             // everything else
+  displayWeights: [400, 500],
+  bodyWeights: [400, 500],
+}
+```
+
+- **Try another pairing** by changing the two family names — `Archivo` (architectural), `Fraunces`
+  (editorial serif), `Instrument Serif` (quiet luxury) are all drop-ins.
+- **Zero requests?** `enabled: false` and the system stacks in `tokens.css` take over.
+- **Self-host** (recommended for production): download the woff2 files to `public/fonts/`, add an
+  `@font-face` block in `src/styles/base.css`, point `--ff-display` / `--ff-body` at them, and set
+  `fonts.enabled = false`.
+- **Change the scale** in `tokens.css` — nine fluid steps (`--fs-h1` … `--fs-btn`) with their line
+  heights and weights, all clamped so they scale between mobile and desktop.
 
 ## 4. Change the motion
 

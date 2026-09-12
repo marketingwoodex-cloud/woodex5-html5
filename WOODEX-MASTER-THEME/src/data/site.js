@@ -88,6 +88,28 @@ export const theme = {
      'none'  → leave photography untouched (raw client photographs)
      'soft'  → a lighter touch of the cream cast
      Any single image can opt out with <Img src="…" tone="none" />.            */
+  /* ── TYPOGRAPHY ───────────────────────────────────────────────────────
+     The theme ships with a real type system out of the box: Inter Tight for
+     display, Inter for text — the same geometric-grotesque register as the
+     reference template, at a quality the system stacks cannot reach.
+
+     Set `enabled: false` for a zero-request build (the system stacks in
+     tokens.css take over). Self-host instead of using the CDN by dropping
+     woff2 files in /public/fonts and following docs/CUSTOMISATION.md §3.
+
+     Alternative pairings worth trying:
+       editorial   display: 'Fraunces',  body: 'Inter'
+       architectural  display: 'Archivo', body: 'Inter'
+       quiet luxury   display: 'Instrument Serif', body: 'Inter'            */
+  fonts: {
+    enabled: true,
+    provider: 'google',
+    display: 'Inter Tight',
+    body: 'Inter',
+    displayWeights: [400, 500],
+    bodyWeights: [400, 500],
+  },
+
   imageTone: 'cream',
   palette: {
     white: '#ffffff',
