@@ -1,0 +1,111 @@
+{{! ==========================================================================
+    PARTIAL · footer.html
+    Big CTA band → giant link marquee → 5-column grid → bottom bar → wordmark.
+    Front-matter switches: footerVariant (default|wood|light), hideFooterCta
+    ========================================================================== }}
+<footer class="site-footer{{#if footerVariant}} site-footer--{{footerVariant}}{{/if}}" id="contact-footer">
+  <div class="container">
+
+    {{#unless hideFooterCta}}
+    <div class="footer-cta">
+      <div class="footer-cta__row">
+        <h2 class="footer-cta__title" data-split>Let&rsquo;s design the space <em>you keep talking about.</em></h2>
+        <div class="footer-cta__note">
+          <p>{{site.cta.note}}</p>
+          <div class="footer-cta__actions" style="margin-top:var(--sp-5);display:flex;flex-wrap:wrap;gap:var(--sp-3)">
+            <a class="btn btn--ghost-light" href="{{base}}contact.html" data-magnetic="0.18">
+              <span class="btn__label"><span>{{site.cta.primary}}</span><span>{{site.cta.primary}}</span></span>
+              <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+            <a class="btn btn--ghost-light" href="https://wa.me/{{site.whatsapp}}" target="_blank" rel="noopener">
+              <span class="btn__label"><span>WhatsApp us</span><span>WhatsApp us</span></span>
+              <span class="btn__med" aria-hidden="true"><svg><use href="#i-whatsapp"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/unless}}
+
+    <div class="footer-marquee marquee marquee--display marquee--fade" data-marquee="42">
+      <div class="marquee__track">
+        {{#each navigation.footer.marquee}}
+        <span class="marquee__item">
+          <a href="{{../base}}{{href}}">{{label}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </span>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <a class="brand" href="{{base}}index.html" aria-label="{{site.name}} — home" style="color:inherit">
+          <span class="brand__mark" aria-hidden="true">W</span>
+          <span class="brand__type"><span class="brand__name">Woodex</span><span class="brand__sub">Interior Studio</span></span>
+        </a>
+        <p>{{site.shortDescription}}</p>
+        <div class="footer-social">
+          <a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
+          <a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+          <a href="{{site.social.pinterest}}" aria-label="Pinterest" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pinterest"/></svg></a>
+          <a href="{{site.social.youtube}}" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a>
+        </div>
+        <div class="badge badge--outline" style="justify-self:start">
+          <span class="badge__dot" style="background:var(--c-success)"></span> Taking projects for Q1 {{year}}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Studio</div>
+        <div class="footer-col__links" data-footer-links="studio">
+          {{#each navigation.footer.studio}}<a href="{{../base}}{{href}}">{{label}}</a>{{/each}}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Services</div>
+        <div class="footer-col__links" data-footer-links="services">
+          {{#each navigation.footer.services}}<a href="{{../base}}{{href}}">{{label}}</a>{{/each}}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Resources</div>
+        <div class="footer-col__links" data-footer-links="resources">
+          {{#each navigation.footer.resources}}<a href="{{../base}}{{href}}">{{label}}</a>{{/each}}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col__title">Visit the studio</div>
+        <address style="font-style:normal;display:grid;gap:var(--sp-3);color:var(--c-text-soft);font-size:var(--fs-small)">
+          <span>{{site.address.line1}}<br>{{site.address.line2}}<br>{{site.address.city}} {{site.address.postalCode}}, {{site.address.country}}</span>
+          <a href="tel:{{site.phoneRaw}}" class="link">{{site.phone}}</a>
+          <a href="mailto:{{site.email}}" class="link">{{site.email}}</a>
+        </address>
+        <form class="footer-news" data-newsletter data-form="newsletter" novalidate>
+          <label class="field__label" for="nl-email">Journal by email — one note a month</label>
+          <div class="inline-form">
+            <input id="nl-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            <button class="icon-btn" type="submit" aria-label="Subscribe">
+              <svg aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span data-year>{{year}}</span> {{site.legalName}}. All rights reserved.</span>
+      <nav aria-label="Legal">
+        {{#each navigation.footer.legal}}<a href="{{../base}}{{href}}">{{label}}</a>{{/each}}
+      </nav>
+      <button class="footer-bottom__to-top" type="button" data-scroll-top>
+        Back to top <svg aria-hidden="true" width="12" height="12"><use href="#i-arrow-up"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="footer-wordmark" aria-hidden="true">WOODEX</div>
+</footer>

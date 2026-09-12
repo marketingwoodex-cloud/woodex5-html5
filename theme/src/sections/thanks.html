@@ -1,0 +1,62 @@
+{{! ==========================================================================
+    SECTION · thanks              id: sec-thanks
+    --------------------------------------------------------------------------
+    Post-submission confirmation panel. Params:
+      thanksTitle, thanksText, thanksItems[{k,v,t}]
+      thanksAside[{k,v}], thanksCta{label,href}, thanksCta2{label,href}
+      thanksNote, thanksRef: true → prints the client-side reference number
+    ========================================================================== }}
+<section class="s-thanks" id="thanks" aria-label="Enquiry received">
+  <div class="container">
+    <div class="s-thanks__card" data-reveal="up">
+
+      <span class="s-thanks__mark" aria-hidden="true">
+        <svg><use href="#i-check"/></svg>
+      </span>
+
+      <div class="s-thanks__head">
+        <div class="eyebrow eyebrow--dot">Enquiry received</div>
+        <h1 class="s-thanks__title" data-split>{{{thanksTitle}}}</h1>
+        {{#if thanksText}}<p class="s-thanks__text">{{thanksText}}</p>{{/if}}
+        {{#if thanksRef}}<p class="s-thanks__ref meta">Reference <strong data-ref="enquiry">WOODEX-000000</strong> — quote this if you call.</p>{{/if}}
+      </div>
+
+      {{#if thanksItems}}
+      <ol class="s-thanks__steps">
+        {{#each thanksItems}}
+        <li class="s-thanks__step" data-reveal="up" data-reveal-delay="{{@index}}">
+          <span class="s-thanks__no" aria-hidden="true">{{k}}</span>
+          <span class="s-thanks__step-v">{{v}}</span>
+          {{#if t}}<span class="s-thanks__step-t meta">{{t}}</span>{{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{/if}}
+
+      {{#if thanksAside}}
+      <dl class="s-thanks__aside">
+        {{#each thanksAside}}
+        <div class="s-thanks__aside-row"><dt>{{k}}</dt><dd>{{v}}</dd></div>
+        {{/each}}
+      </dl>
+      {{/if}}
+
+      <div class="s-thanks__actions">
+        {{#if thanksCta}}
+        <a class="btn btn--solid" href="{{base}}{{thanksCta.href}}" data-magnetic="0.2">
+          <span class="btn__label"><span>{{thanksCta.label}}</span><span>{{thanksCta.label}}</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        {{/if}}
+        {{#if thanksCta2}}
+        <a class="btn" href="{{base}}{{thanksCta2.href}}">
+          <span class="btn__label"><span>{{thanksCta2.label}}</span><span>{{thanksCta2.label}}</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        {{/if}}
+      </div>
+
+      {{#if thanksNote}}<p class="s-thanks__note meta">{{thanksNote}}</p>{{/if}}
+    </div>
+  </div>
+</section>

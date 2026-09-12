@@ -1,0 +1,41 @@
+---
+title: Portfolio — Interior Design Projects in Lahore & Pakistan | Woodex Interior
+description: Selected Woodex Interior projects: homes, workplaces, retail flagships, restaurants, cafés and clinic suites across Lahore, Islamabad and Karachi — each with brief, scope, area and programme.
+page: portfolio-one
+theme: canvas
+bodyClass: page--portfolio
+api: site,navigation,projects,services,testimonials,stats
+ogImage: assets/images/space-villa.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · PROJECT GRID (filterable) ---------- }}
+  {{> sections/projects-grid}}
+
+  {{! ---------- 03 · STATS ---------- }}
+  {{> sections/stats}}
+
+  {{! ---------- 04 · TESTIMONIALS ---------- }}
+  {{> sections/testimonials}}
+
+  {{! ---------- 05 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Woodex Interior portfolio","description":"Selected interior design and fit-out projects delivered across Pakistan.","isPartOf":{"@type":"WebSite","name":"Woodex Interior"},"about":[{{#each projects}}{{#unless @first}},{{/unless}}{"@type":"CreativeWork","name":"{{title}}","description":"{{excerpt}}","locationCreated":"{{location}}","dateCreated":"{{year}}"}{{/each}}]}
+</script>

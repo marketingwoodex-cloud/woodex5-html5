@@ -1,0 +1,31 @@
+{
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This page has <em>moved, been renamed</em> or never existed",
+    "text": "The address you followed is not one of ours any more. Try one of the destinations below, search the journal, or tell us what you were looking for and we will point you at it.",
+    "links": [
+      { "label": "Homepage", "href": "index.html" },
+      { "label": "Services", "href": "service.html" },
+      { "label": "Portfolio", "href": "portfolio-one.html" },
+      { "label": "Journal", "href": "blog.html" },
+      { "label": "About the studio", "href": "about.html" },
+      { "label": "Pricing guide", "href": "pricing.html" },
+      { "label": "Our process", "href": "process.html" },
+      { "label": "Contact", "href": "contact.html" }
+    ]
+  },
+
+  "quickSearch": {
+    "label": "Search the site",
+    "placeholder": "Search services, projects, articles…",
+    "action": "blog.html",
+    "note": "Search runs against the published content index in your browser — nothing is sent to a server."
+  },
+
+  "suggested": [
+    { "title": "Commercial interior design", "href": "services/commercial-interior.html", "text": "Offices, showrooms, clinics and corporate floors planned around headcount and workflow." },
+    { "title": "Turnkey interiors", "href": "services/turnkey-interiors.html", "text": "One contract from measured survey to snag list — design, manufacture and site execution." },
+    { "title": "Selected projects", "href": "portfolio-one.html", "text": "Ten recent handovers across residential, workplace, retail, hospitality and healthcare." },
+    { "title": "Pricing guide", "href": "pricing.html", "text": "Indicative PKR per square foot rates and what is included at each level." }
+  ]
+}

@@ -1,0 +1,82 @@
+{{! ==========================================================================
+    SECTION · testimonials        id: sec-testimonials
+    --------------------------------------------------------------------------
+    Quote deck with a synced image stack, dots and arrows.
+      testiVariant: deck (default) | grid
+      testiLimit: number of quotes
+    Data: testimonials.json
+    ========================================================================== }}
+<section class="s-testi" id="{{testiId}}" aria-label="{{testiLabel}}">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{testiEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{testiTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{testiText}}</p>
+        <div class="s-testi__score" style="margin-top:var(--sp-5)">
+          <b>4.9</b>
+          <span class="stars" aria-hidden="true">
+            <svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg>
+          </span>
+          <span>126 verified reviews<br>across 240 projects</span>
+        </div>
+      </div>
+    </div>
+
+    {{#unless testiGrid}}
+    <div class="s-testi__grid" data-deck data-deck-auto="7500">
+      <div class="s-testi__deck deck deck--absolute">
+        {{#each testimonials limit=@testiLimit where=@testiWhere}}
+        <blockquote class="s-testi__slide deck__slide{{#if @first}} is-active{{/if}}">
+          <svg aria-hidden="true" width="30" height="30" style="color:var(--c-accent)"><use href="#i-quote"/></svg>
+          <p class="s-testi__quote">&ldquo;{{quote}}&rdquo;</p>
+          <footer class="s-testi__by">
+            <span class="avatar avatar--lg" aria-hidden="true">{{initials}}</span>
+            <span><b>{{name}}</b><span>{{role}}</span></span>
+            <span class="stars" aria-label="Rated 5 out of 5" style="margin-left:auto">
+              <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+            </span>
+          </footer>
+        </blockquote>
+        {{/each}}
+      </div>
+
+      <div class="s-testi__side">
+        <div class="s-testi__media" data-deck-media data-reveal="scale">
+          {{#each testimonials limit=@testiLimit where=@testiWhere}}
+          <img src="{{../base}}{{image}}" alt="{{name}} — {{role}}" {{#if @first}}class="is-active"{{/if}} loading="lazy" decoding="async">
+          {{/each}}
+        </div>
+        <div class="s-testi__ctrl">
+          <button class="icon-btn" type="button" data-deck-prev aria-label="Previous testimonial"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+          <button class="icon-btn" type="button" data-deck-next aria-label="Next testimonial"><svg aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+          <div class="dots" data-deck-dots style="margin-left:var(--sp-3)"></div>
+          {{#if testiCta}}
+          <a class="tlink" href="{{base}}{{testiCtaHref}}" style="margin-left:auto">{{testiCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/unless}}
+
+    {{#if testiGrid}}
+    <div class="grid grid-3">
+      {{#each testimonials limit=@testiLimit where=@testiWhere}}
+      <blockquote class="testi-card" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="stars" aria-label="Rated 5 out of 5">
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+        </span>
+        <p class="testi-card__text">&ldquo;{{quote}}&rdquo;</p>
+        <footer class="testi-card__by">
+          <span class="avatar" aria-hidden="true">{{initials}}</span>
+          <span><b>{{name}}</b><span>{{role}}</span></span>
+        </footer>
+      </blockquote>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</section>

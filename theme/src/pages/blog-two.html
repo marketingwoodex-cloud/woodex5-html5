@@ -1,0 +1,37 @@
+---
+title: Journal Archive — Every Article | Woodex Interior
+description: The full Woodex Interior journal archive as dated editorial rows, grouped into materials, planning, budgeting and site execution.
+page: blog-two
+theme: canvas
+bodyClass: page--blog page--blog-list
+api: site,navigation,posts
+ogImage: assets/images/texture-wood.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · TALL PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · EDITORIAL ARTICLE ROWS ---------- }}
+  {{> sections/blog-list}}
+
+  {{! ---------- 03 · TOPIC INDEX ---------- }}
+  {{> sections/topics}}
+
+  {{! ---------- 04 · NEWSLETTER ---------- }}
+  {{> sections/newsletter}}
+
+  {{! ---------- 05 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

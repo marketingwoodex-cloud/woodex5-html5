@@ -1,0 +1,62 @@
+{{! ==========================================================================
+    SECTION · hero-panel          id: sec-hero-panel
+    --------------------------------------------------------------------------
+    Split hero on a light canvas: copy column + tall media with a floating
+    stat card, a rotating seal badge and a quick-points rail.
+    ========================================================================== }}
+<section class="s-hero-panel" id="top" aria-label="Introduction">
+  <div class="container">
+    <div class="s-hero-panel__grid">
+
+      <div class="s-hero-panel__copy">
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{heroEyebrow}}</div>
+        <h1 class="s-hero-panel__title" data-split>{{{heroTitle}}}</h1>
+        <p class="s-hero-panel__text" data-reveal="up" data-reveal-delay="2">{{heroText}}</p>
+
+        <div class="s-hero-panel__actions" data-reveal="up" data-reveal-delay="3">
+          <a class="btn btn--solid btn--lg" href="{{base}}{{heroCta.href}}" data-magnetic="0.22">
+            <span class="btn__label"><span>{{heroCta.label}}</span><span>{{heroCta.label}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="btn btn--lg" href="{{base}}{{heroCta2.href}}">
+            <span class="btn__label"><span>{{heroCta2.label}}</span><span>{{heroCta2.label}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+
+        <div class="s-hero-panel__points" data-reveal="up" data-reveal-delay="4">
+          {{#each heroPoints}}
+          <div><b>{{value}}</b><span>{{label}}</span></div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="s-hero-panel__media" data-reveal="scale" data-reveal-delay="2">
+        <div class="s-hero-panel__frame media" data-kenburns>
+          <img src="{{base}}{{heroImage}}" alt="{{heroImageAlt}}" fetchpriority="high" decoding="async">
+        </div>
+
+        <div class="s-hero-panel__float float" data-reveal="up" data-reveal-delay="6">
+          <span class="stars" aria-label="Rated 4.9 out of 5">
+            <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+            <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+            <svg aria-hidden="true"><use href="#i-star"/></svg>
+          </span>
+          <div><b>4.9 / 5</b><span>126 verified client reviews</span></div>
+        </div>
+
+        <div class="s-hero-panel__badge" aria-hidden="true">
+          <div class="seal">
+            <svg class="seal__ring" viewBox="0 0 140 140">
+              <defs><path id="sealpath" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+              <circle cx="70" cy="70" r="68" fill="rgba(20,17,13,.62)"/>
+              <text><textPath href="#sealpath">DESIGN · MANUFACTURE · INSTALL · WARRANTY · </textPath></text>
+            </svg>
+            <span class="seal__core"><svg aria-hidden="true" width="18" height="18"><use href="#i-compass"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

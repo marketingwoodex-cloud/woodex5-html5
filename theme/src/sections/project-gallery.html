@@ -1,0 +1,29 @@
+{{! ==========================================================================
+    SECTION · project-gallery     id: sec-project-gallery
+    --------------------------------------------------------------------------
+    Editorial gallery for a project: full-bleed single, offset pair, captioned
+    detail. Images come from item.gallery in projects.json.
+    Click any frame to open the lightbox.
+    ========================================================================== }}
+<section class="s-proj-gallery section" aria-label="Project gallery">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:var(--sp-8)">
+      <div class="eyebrow eyebrow--dot" data-reveal="up">{{galleryEyebrow}}</div>
+      <h2 data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4);max-width:24ch">{{{galleryTitle}}}</h2>
+    </div>
+
+    <div class="s-proj-gallery">
+      {{#each item.gallery}}
+      <figure class="{{#if @first}}s-proj-gallery--full{{else}}{{#if @last}}s-proj-gallery--single{{else}}s-proj-gallery--pair{{/if}}{{/if}}"
+              data-reveal="clip" data-reveal-delay="{{@index}}">
+        <a class="media media-hover" href="#" data-lightbox="{{../base}}{{src}}"
+           data-lightbox-caption="{{caption}}" data-cursor-label="Expand">
+          <img src="{{../base}}{{src}}" alt="{{caption}}"
+               {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}} decoding="async">
+        </a>
+        <figcaption>{{caption}}</figcaption>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

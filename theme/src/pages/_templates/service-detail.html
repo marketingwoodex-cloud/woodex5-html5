@@ -1,0 +1,219 @@
+---
+title: "{{item.title}} in Lahore & Pakistan"
+description: "{{item.summary}}"
+page: service-detail
+theme: canvas
+bodyClass: page--service-detail
+api: site,navigation,services,projects,faqs,process,testimonials
+ogImage: "{{item.image}}"
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · SERVICE HERO ---------- }}
+  <section class="s-page-hero s-page-hero--plain" id="top" aria-label="{{item.title}}">
+    <div class="container">
+      <div class="s-page-hero__inner">
+
+        <div class="s-page-hero__top">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="{{base}}index.html">Home</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <a href="{{base}}service.html">Services</a>
+            <span class="crumbs__sep" aria-hidden="true">/</span>
+            <span aria-current="page">{{item.title}}</span>
+          </nav>
+          <span class="badge badge--outline">{{item.group}} · {{item.id}}</span>
+        </div>
+
+        <div class="s-page-hero__split">
+          <div style="display:grid;gap:var(--sp-5)">
+            <div class="eyebrow eyebrow--dot" data-reveal="up">{{item.heroEyebrow}}</div>
+            <h1 class="s-page-hero__title" data-split>{{item.heroTitle}}</h1>
+            <p class="s-page-hero__lead" data-reveal="up" data-reveal-delay="2">{{item.tagline}}</p>
+            <p data-reveal="up" data-reveal-delay="3">{{item.summary}}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center" data-reveal="up" data-reveal-delay="4">
+              <a class="btn btn--solid" href="{{base}}contact.html" data-magnetic="0.2">
+                <span class="btn__label"><span>Request a proposal</span><span>Request a proposal</span></span>
+                <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+              <a class="btn" href="{{base}}pricing.html">
+                <span class="btn__label"><span>Pricing guide</span><span>Pricing guide</span></span>
+                <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+            </div>
+          </div>
+
+          <dl class="s-page-hero__facts" data-reveal="up" data-reveal-delay="3">
+            <div class="s-page-hero__fact"><dt>From</dt><dd>{{item.priceFrom}}</dd></div>
+            <div class="s-page-hero__fact"><dt>Typical programme</dt><dd>{{item.duration}}</dd></div>
+            <div class="s-page-hero__fact"><dt>Typical area</dt><dd>{{item.areaTypical}}</dd></div>
+            <div class="s-page-hero__fact"><dt>Service group</dt><dd>{{item.group}}</dd></div>
+            <div class="s-page-hero__fact"><dt>Warranty</dt><dd>10 years structure</dd></div>
+          </dl>
+        </div>
+
+        {{#if item.heroImage}}
+        <div class="s-page-hero__media" data-reveal="up">
+          <div class="media media--wide"><img src="{{base}}{{item.heroImage}}" alt="{{item.title}}" fetchpriority="high" decoding="async"></div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </section>
+
+  {{! ---------- 02 · INTRODUCTION ---------- }}
+  <section class="s-statement" id="overview" aria-label="Service overview">
+    <div class="container">
+      <div class="s-statement__grid">
+        <div class="s-statement__aside" data-reveal="up">
+          <div class="eyebrow eyebrow--dot">Service overview</div>
+          {{#if item.image}}
+          <figure class="media media--arch" style="margin-top:var(--sp-5)">
+            <img src="{{base}}{{item.image}}" alt="{{item.title}} — recent Woodex work" loading="lazy" decoding="async">
+          </figure>
+          {{/if}}
+        </div>
+        <div class="s-statement__body" data-reveal="up" data-reveal-delay="1">
+          {{#each item.intro}}
+          <p class="{{#if @first}}s-statement__lead{{else}}muted{{/if}}">{{this}}</p>
+          {{/each}}
+          {{#if item.sectors}}
+          <ul class="s-statement__tags" aria-label="Sectors we serve">
+            {{#each item.sectors}}<li><span class="chip">{{this}}</span></li>{{/each}}
+          </ul>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{! ---------- 03 · DELIVERABLES ---------- }}
+  <section class="s-feature s-feature--list" id="deliverables" aria-label="What you receive">
+    <div class="container">
+      <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+        <div>
+          <div class="eyebrow eyebrow--dot" data-reveal="up">What you receive</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">Deliverables, <em>item by item</em></h2>
+        </div>
+        <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+          <p>Everything below is included in this service. Nothing is implied, nothing is assumed — it appears as a line in your proposal.</p>
+        </div>
+      </div>
+      <ol class="s-docs__steps">
+        {{#each item.deliverables}}
+        <li class="s-docs__step" data-reveal="up" data-reveal-delay="{{@index}}">
+          <span class="s-docs__no" aria-hidden="true">{{@index}}</span>
+          <div><h3 class="s-docs__h">{{this}}</h3></div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+
+  {{! ---------- 04 · OUTCOMES ---------- }}
+  {{#if item.outcomes}}
+  <section class="s-values" id="outcomes" aria-label="Outcomes">
+    <div class="container">
+      <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+        <div>
+          <div class="eyebrow eyebrow--dot" data-reveal="up">Outcomes</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">What changes <em>when it is finished</em></h2>
+        </div>
+      </div>
+      <div class="s-values__grid s-values__grid--3">
+        {{#each item.outcomes}}
+        <article class="s-values__item s-values__item--metric" data-reveal="up" data-reveal-delay="{{@index}}">
+          <span class="s-values__no" aria-hidden="true">{{@index}}</span>
+          <strong class="s-values__metric">{{value}}</strong>
+          <p class="s-values__text">{{label}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+  {{/if}}
+
+  {{! ---------- 05 · GALLERY ---------- }}
+  {{#if item.gallery}}
+  <section class="s-gallery" id="gallery" aria-label="Service gallery">
+    <div class="container">
+      <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+        <div>
+          <div class="eyebrow eyebrow--dot" data-reveal="up">Recent frames</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">Work delivered <em>under this service</em></h2>
+        </div>
+      </div>
+      <div class="s-gallery__grid">
+        {{#each item.gallery}}
+        <figure class="media s-gallery__item" data-reveal="up" data-reveal-delay="{{@index}}">
+          <img src="{{base}}{{this}}" alt="{{../item.title}} — Woodex project photograph" loading="lazy" decoding="async">
+        </figure>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+  {{/if}}
+
+  {{! ---------- 06 · PROCESS ---------- }}
+  {{> sections/process}}
+
+  {{! ---------- 07 · RELATED PROJECTS ---------- }}
+  {{> sections/projects-grid}}
+
+  {{! ---------- 08 · SERVICE-SPECIFIC FAQ ---------- }}
+  {{#if item.faq}}
+  <section class="s-faq" id="faq" aria-label="Questions about {{item.title}}">
+    <div class="container">
+      <div class="s-faq__grid">
+        <aside class="s-faq__aside" data-reveal="up">
+          <div class="eyebrow eyebrow--dot">Service questions</div>
+          <h2 data-split style="margin-top:var(--sp-4)">About <em>{{item.title}}</em></h2>
+          <p class="muted" style="margin-top:var(--sp-4)">The questions we are asked most about this service before someone signs a proposal.</p>
+          <div class="panel" style="margin-top:var(--sp-5);padding:var(--sp-6)">
+            <h3 style="font-size:var(--fs-h4)">Have a different question?</h3>
+            <p class="small muted" style="margin-top:var(--sp-3)">Send it with your floor plan. A designer answers within one business day.</p>
+            <a class="btn btn--solid btn--sm btn--block" href="{{base}}contact.html" style="margin-top:var(--sp-5)">
+              <span class="btn__label"><span>Ask us directly</span><span>Ask us directly</span></span>
+              <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+          </div>
+        </aside>
+        <div class="acc" data-accordion="single" data-reveal="up" data-reveal-delay="1">
+          {{#each item.faq}}
+          <div class="acc__item">
+            <button class="acc__head" type="button" id="sfaq-h-{{@index}}" aria-expanded="false" aria-controls="sfaq-p-{{@index}}">
+              <span class="acc__no">{{@index}}</span>
+              <span>{{q}}</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="sfaq-p-{{@index}}" role="region" aria-labelledby="sfaq-h-{{@index}}">
+              <div class="acc__inner"><p>{{a}}</p></div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </section>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{#each item.faq}}{{#unless @first}},{{/unless}}{"@type":"Question","name":"{{q}}","acceptedAnswer":{"@type":"Answer","text":"{{a}}"}}{{/each}}]}
+  </script>
+  {{/if}}
+
+  {{! ---------- 09 · ALL SERVICES INDEX ---------- }}
+  {{> sections/svc-list}}
+
+  {{! ---------- 10 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

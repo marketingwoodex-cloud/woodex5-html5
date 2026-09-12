@@ -1,0 +1,52 @@
+---
+title: "{{item.title}} — {{item.categoryLabel}} Project in {{item.location}}"
+description: "{{item.excerpt}}"
+page: project-detail
+theme: canvas
+bodyClass: page--project-detail has-dark-hero
+api: site,navigation,projects,services,testimonials
+ogImage: "{{item.cover}}"
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PROJECT HERO ---------- }}
+  {{> sections/project-hero}}
+
+  {{! ---------- 02 · RECORD + NARRATIVE ---------- }}
+  {{> sections/project-meta}}
+
+  {{! ---------- 03 · CLIENT QUOTE ---------- }}
+  {{#if item.testimonial}}
+  {{> sections/quote}}
+  {{/if}}
+
+  {{! ---------- 04 · GALLERY ---------- }}
+  {{> sections/project-gallery}}
+
+  {{! ---------- 05 · SERVICES USED ---------- }}
+  {{> sections/svc-list}}
+
+  {{! ---------- 06 · RELATED PROJECTS ---------- }}
+  {{> sections/projects-grid}}
+
+  {{! ---------- 07 · NEXT PROJECT ---------- }}
+  {{> sections/project-next}}
+
+  {{! ---------- 08 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"{{item.title}}","description":"{{item.excerpt}}","dateCreated":"{{item.year}}","locationCreated":{"@type":"Place","name":"{{item.location}}"},"creator":{"@type":"Organization","name":"{{site.name}}"},"keywords":"{{#each item.tags}}{{#unless @first}}, {{/unless}}{{this}}{{/each}}"}
+</script>

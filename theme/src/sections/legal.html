@@ -1,0 +1,49 @@
+{{! ==========================================================================
+    SECTION · legal               id: sec-legal
+    --------------------------------------------------------------------------
+    Long-form legal / policy document from page params:
+      legalTitle, legalUpdated, legalIntro
+      legalToc: true → renders the sticky table of contents
+      legalSections: [{id,title,body}]   — body is raw HTML (use {{{ }}})
+    ========================================================================== }}
+<section class="s-legal" id="legal" aria-label="{{legalTitle}}">
+  <div class="container container--wide">
+
+    <header class="s-legal__head" data-reveal="up">
+      <div class="eyebrow eyebrow--dot">Legal</div>
+      <h1 class="s-legal__title" data-split>{{{legalTitle}}}</h1>
+      {{#if legalUpdated}}<p class="s-legal__updated meta">{{legalUpdated}}</p>{{/if}}
+      {{#if legalIntro}}<div class="s-legal__intro"><p>{{legalIntro}}</p></div>{{/if}}
+    </header>
+
+    <div class="s-legal__layout">
+
+      {{#if legalToc}}
+      <nav class="s-legal__toc" aria-label="On this page" data-sticky-col>
+        <span class="s-legal__toc-label eyebrow">Contents</span>
+        <ol>
+          {{#each legalSections}}
+          <li><a href="#{{id}}" data-toc-link="{{id}}">{{title}}</a></li>
+          {{/each}}
+        </ol>
+        <a class="link-arrow s-legal__toc-cta" href="{{base}}contact.html">
+          <span>Ask us a question</span><svg aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </nav>
+      {{/if}}
+
+      <div class="s-legal__body">
+        {{#each legalSections}}
+        <article class="s-legal__section" id="{{id}}" data-reveal="up">
+          <h2 class="s-legal__h">{{title}}</h2>
+          <div class="prose">{{{body}}}</div>
+        </article>
+        {{/each}}
+
+        <div class="s-legal__foot" data-reveal="up">
+          <p class="meta">Woodex Interior · Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660, Pakistan · <a href="mailto:studio@woodexinterior.pk">studio@woodexinterior.pk</a> · <a href="tel:+923000000000">+92 300 0000000</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

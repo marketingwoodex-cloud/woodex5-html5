@@ -1,0 +1,42 @@
+{{! ==========================================================================
+    SECTION · statement           id: sec-statement
+    --------------------------------------------------------------------------
+    Big editorial paragraph with word-by-word scroll highlight.
+    Content from front matter: statementText (may contain <em>),
+    statementAside, statementSignName, statementSignRole, statementImage.
+    ========================================================================== }}
+<section class="s-statement" aria-label="Statement">
+  <div class="container">
+    <div class="s-statement__grid">
+
+      <div class="s-statement__side" data-reveal="up">
+        <div class="eyebrow eyebrow--dot">{{statementAside}}</div>
+        {{#if statementImage}}
+        <div class="media media--4x5" style="margin-top:var(--sp-6);border-radius:var(--r-lg)" data-parallax="0.06">
+          <img src="{{base}}{{statementImage}}" alt="{{statementImageAlt}}" loading="lazy" decoding="async">
+        </div>
+        {{/if}}
+      </div>
+
+      <div>
+        <p class="s-statement__text" data-highlight>{{{statementText}}}</p>
+
+        <div class="s-statement__foot">
+          {{#if statementSignName}}
+          <div class="s-statement__sign" data-reveal="up" data-reveal-delay="2">
+            <span class="avatar avatar--lg" aria-hidden="true">{{statementInitials}}</span>
+            <span><b>{{statementSignName}}</b><span>{{statementSignRole}}</span></span>
+          </div>
+          {{/if}}
+          {{#if statementCta}}
+          <a class="btn" href="{{base}}{{statementCtaHref}}" data-magnetic="0.2" data-reveal="up" data-reveal-delay="3" style="margin-left:auto">
+            <span class="btn__label"><span>{{statementCta}}</span><span>{{statementCta}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          {{/if}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

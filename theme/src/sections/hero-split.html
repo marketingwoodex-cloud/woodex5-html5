@@ -1,0 +1,90 @@
+{{! ==========================================================================
+    SECTION · hero-split          id: sec-hero-split
+    --------------------------------------------------------------------------
+    Full-viewport hero: dark image deck + giant rotating background word +
+    slide copy deck + stats rail + numbered slide controls.
+
+    EDIT: swap the three <article> blocks (copy) and the three <img> sources.
+    KEEP: the class names and data-* hooks — motion.js and sections.js bind
+          to [data-hero-split], .deck__slide, .hero-word__item, .dots__btn.
+    ========================================================================== }}
+<section class="s-hero-split" id="top" data-hero-split="6800" aria-label="Introduction">
+
+  <div class="s-hero-split__bg" aria-hidden="true">
+    <img src="{{base}}assets/images/hero-living.jpg" alt="" class="is-active" fetchpriority="high" decoding="async">
+    <img src="{{base}}assets/images/hero-kitchen.jpg" alt="" loading="lazy" decoding="async">
+    <img src="{{base}}assets/images/hero-office.jpg" alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="s-hero-split__guides" aria-hidden="true"></div>
+
+  <div class="hero-word" aria-hidden="true">
+    <span class="hero-word__item is-active">LAYOUT</span>
+    <span class="hero-word__item">CRAFT</span>
+    <span class="hero-word__item">DESIGN</span>
+  </div>
+
+  <div class="container s-hero-split__inner">
+    <div class="deck" data-deck-media="">
+
+      <article class="deck__slide s-hero-split__head is-active">
+        <div class="eyebrow s-hero-split__eyebrow">Built for sustainable growth</div>
+        <h1 class="s-hero-split__title" data-split>Interiors made for <em>the way you live</em></h1>
+        <p class="s-hero-split__copy">Woodex plans, designs and builds commercial, residential and hospitality interiors across Pakistan — one accountable team from the first measured survey to the final snag.</p>
+        <div class="s-hero-split__actions">
+          <a class="btn btn--ghost-light btn--lg" href="{{base}}contact.html" data-magnetic="0.2">
+            <span class="btn__label"><span>{{site.cta.primary}}</span><span>{{site.cta.primary}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="tlink" href="{{base}}portfolio-one.html" style="color:var(--raw-cream-200)">See selected work <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="deck__slide s-hero-split__head">
+        <div class="eyebrow s-hero-split__eyebrow">In-house joinery workshop</div>
+        <p class="s-hero-split__title" data-split>Precision in every <em>panel and joint</em></p>
+        <p class="s-hero-split__copy">22,000 sq ft of panel processing, veneer pressing, spray finishing and metal fabrication. Nothing is subcontracted to a carpenter who has never seen your drawing.</p>
+        <div class="s-hero-split__actions">
+          <a class="btn btn--ghost-light btn--lg" href="{{base}}services/custom-furniture-joinery.html" data-magnetic="0.2">
+            <span class="btn__label"><span>Visit the workshop</span><span>Visit the workshop</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+      </article>
+
+      <article class="deck__slide s-hero-split__head">
+        <div class="eyebrow s-hero-split__eyebrow">Fixed-price, line-item proposals</div>
+        <p class="s-hero-split__title" data-split>A budget you can <em>actually hold</em></p>
+        <p class="s-hero-split__copy">Every quotation is a bill of quantities taken from the drawings — which is why our average budget variance stays under three percent across 240 delivered projects.</p>
+        <div class="s-hero-split__actions">
+          <a class="btn btn--ghost-light btn--lg" href="{{base}}pricing.html" data-magnetic="0.2">
+            <span class="btn__label"><span>See pricing guide</span><span>See pricing guide</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="s-hero-split__foot">
+      <div class="s-hero-split__controls">
+        <div class="dots dots--num" role="tablist" aria-label="Hero slides">
+          <button class="dots__btn is-active" type="button" aria-selected="true">01</button>
+          <button class="dots__btn" type="button" aria-selected="false">02</button>
+          <button class="dots__btn" type="button" aria-selected="false">03</button>
+        </div>
+        <div class="slider-nav">
+          <button class="icon-btn" type="button" data-hero-prev aria-label="Previous slide" style="border-color:rgba(248,243,234,.3);color:inherit"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+          <button class="icon-btn" type="button" data-hero-next aria-label="Next slide" style="border-color:rgba(248,243,234,.3);color:inherit"><svg aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+        </div>
+      </div>
+
+      <div class="s-hero-split__stat">
+        {{#each stats.hero}}
+        <div><b data-count="{{value}}" data-count-suffix="">{{value}}</b><span>{{label}}</span></div>
+        {{/each}}
+      </div>
+
+      <div class="scroll-cue s-hero-split__scroll"><span>Scroll</span><span class="scroll-cue__line"></span></div>
+    </div>
+  </div>
+</section>

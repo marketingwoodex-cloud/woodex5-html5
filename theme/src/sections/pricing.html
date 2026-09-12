@@ -1,0 +1,106 @@
+{{! ==========================================================================
+    SECTION · pricing             id: sec-pricing
+    --------------------------------------------------------------------------
+    Three-tier packages with a design-only / design-and-build toggle, plus a
+    sector rate table and exclusions. Data: pricing.json
+    ========================================================================== }}
+<section class="s-pricing" id="pricing" aria-label="Packages and rates">
+  <div class="container">
+
+    <div class="s-pricing__head">
+      <div class="eyebrow eyebrow--dot" data-reveal="up">{{pricingEyebrow}}</div>
+      <h2 data-split data-reveal="up" data-reveal-delay="1">{{{pricingTitle}}}</h2>
+      <p class="muted" style="max-width:56ch" data-reveal="up" data-reveal-delay="2">{{pricing.note}}</p>
+
+      <div class="toggle" role="group" aria-label="Pricing basis" data-tabs style="margin-top:var(--sp-3)" data-reveal="up" data-reveal-delay="3">
+        <button class="toggle__btn" type="button" role="tab" aria-selected="true" data-price-mode="designOnly">{{pricing.toggle.labels.0}}</button>
+        <button class="toggle__btn" type="button" role="tab" aria-selected="false" data-price-mode="designBuild">{{pricing.toggle.labels.1}}</button>
+        <span class="toggle__save">{{pricing.toggle.note}}</span>
+      </div>
+    </div>
+
+    <div class="s-pricing__grid" data-reveal="up">
+      {{#each pricing.tiers}}
+      <article class="price-card{{#if featured}} price-card--featured{{/if}}" data-reveal="up" data-reveal-delay="{{@index}}">
+        {{#if flag}}<span class="price-card__flag">{{flag}}</span>{{/if}}
+        <div>
+          <h3 class="price-card__name">{{name}}</h3>
+          <p class="price-card__desc">{{tagline}}</p>
+        </div>
+
+        <div class="price-card__amount">
+          <b data-price="designOnly">PKR {{designOnly}}</b>
+          <b data-price="designBuild" hidden>PKR {{designBuild}}</b>
+          <span data-price="designOnly">{{unit}} design</span>
+          <span data-price="designBuild" hidden>{{unit}} {{unitNote}}</span>
+        </div>
+
+        <p class="price-card__note">Best for — {{best}}</p>
+
+        <ul class="price-card__list">
+          {{#each features}}
+          <li{{#unless on}} class="is-off"{{/unless}}>
+            <svg aria-hidden="true"><use href="#{{#if on}}i-check{{else}}i-minus{{/if}}"/></svg><span>{{t}}</span>
+          </li>
+          {{/each}}
+        </ul>
+
+        <p class="small muted">{{includes}}</p>
+
+        <a class="btn {{#if featured}}btn--accent{{else}}btn--solid{{/if}} btn--block" href="{{../base}}contact.html?package={{id}}" data-magnetic="0.16">
+          <span class="btn__label"><span>{{cta}}</span><span>{{cta}}</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+      </article>
+      {{/each}}
+    </div>
+
+    <div style="margin-top:var(--sp-12)">
+      <div class="section-head section-head--split" style="margin-bottom:var(--sp-6)">
+        <h3 data-reveal="up">Indicative sector rates</h3>
+        <p class="section-head__aside" data-reveal="up" data-reveal-delay="1">Rates cover design, manufacture and site execution. Landlord fees, plant hardware and statutory charges are listed separately below.</p>
+      </div>
+      <div class="acc" data-reveal="up">
+        <table>
+          <caption class="sr-only">Indicative rates by sector</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="meta" style="padding:var(--sp-4) 0;text-align:left;border-bottom:1px solid var(--c-line)">Sector</th>
+              <th scope="col" class="meta" style="padding:var(--sp-4) 0;text-align:left;border-bottom:1px solid var(--c-line)">Rate range</th>
+              <th scope="col" class="meta" style="padding:var(--sp-4) 0;text-align:left;border-bottom:1px solid var(--c-line)">Typical programme</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each pricing.rateTable}}
+            <tr>
+              <th scope="row" style="padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line);font-weight:var(--fw-medium);text-align:left">{{sector}}</th>
+              <td style="padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line);color:var(--c-text-soft)">{{range}}</td>
+              <td style="padding:var(--sp-4) 0;border-bottom:1px solid var(--c-line)" class="meta">{{typical}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:var(--sp-9);gap:var(--grid-gap-lg)">
+      <div data-reveal="up">
+        <h4 style="font-family:var(--ff-mono);font-size:var(--fs-eyebrow);letter-spacing:var(--tr-widest);text-transform:uppercase;color:var(--c-text-muted)">Not included in these rates</h4>
+        <ul class="tick-list" style="margin-top:var(--sp-4)">
+          {{#each pricing.exclusions}}<li><svg aria-hidden="true"><use href="#i-minus"/></svg><span>{{this}}</span></li>{{/each}}
+        </ul>
+      </div>
+      <div data-reveal="up" data-reveal-delay="1">
+        <h4 style="font-family:var(--ff-mono);font-size:var(--fs-eyebrow);letter-spacing:var(--tr-widest);text-transform:uppercase;color:var(--c-text-muted)">Pricing questions</h4>
+        <div class="acc" data-accordion="multi" style="margin-top:var(--sp-2)">
+          {{#each pricing.faqs}}
+          <div class="acc__item">
+            <button class="acc__head" type="button" aria-expanded="false" style="font-size:var(--fs-h5)">{{q}}<span class="acc__icon" aria-hidden="true"></span></button>
+            <div class="acc__panel"><div class="acc__inner"><p>{{a}}</p></div></div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

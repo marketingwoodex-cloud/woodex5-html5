@@ -1,0 +1,352 @@
+{
+  "name": "Woodex Master Theme",
+  "version": "1.0.0",
+  "built": "2026-09-12T14:34:53.487Z",
+  "pages": 56,
+  "outputs": [
+    "404.html",
+    "about.html",
+    "accessibility.html",
+    "blog-two.html",
+    "blog.html",
+    "contact-three.html",
+    "contact-two.html",
+    "contact.html",
+    "faq.html",
+    "home-three.html",
+    "home-two.html",
+    "index.html",
+    "instructions.html",
+    "portfolio-one.html",
+    "portfolio-three.html",
+    "portfolio-two.html",
+    "pricing.html",
+    "privacy.html",
+    "process.html",
+    "service.html",
+    "style-guide.html",
+    "terms.html",
+    "thank-you.html",
+    "services/commercial-interior.html",
+    "services/residential-interior.html",
+    "services/office-corporate.html",
+    "services/retail-shop.html",
+    "services/brand-shop-outlet.html",
+    "services/office-fit-out.html",
+    "services/commercial-fit-out.html",
+    "services/residential-fit-out.html",
+    "services/turnkey-interiors.html",
+    "services/interior-renovation.html",
+    "services/restaurant-interior.html",
+    "services/cafe-interior.html",
+    "services/custom-furniture-joinery.html",
+    "services/office-furniture.html",
+    "services/3d-studio.html",
+    "project/gulberg-townhouse.html",
+    "project/mm-alam-flagship.html",
+    "project/systems-ltd-hq.html",
+    "project/qissa-coffee-house.html",
+    "project/raavi-farmhouse.html",
+    "project/liberty-boutique.html",
+    "project/karandaaz-workplace.html",
+    "project/serai-dining-room.html",
+    "project/dha-apartment-refresh.html",
+    "project/indus-clinic-suite.html",
+    "blog/choosing-wood-finishes.html",
+    "blog/office-fit-out-budget.html",
+    "blog/kitchen-work-triangle.html",
+    "blog/lighting-layers-guide.html",
+    "blog/restaurant-acoustics.html",
+    "blog/reading-a-boq.html",
+    "blog/small-space-storage.html",
+    "blog/site-supervision-checklist.html"
+  ],
+  "collections": [
+    {
+      "name": "awards",
+      "items": 7
+    },
+    {
+      "name": "clients",
+      "items": 12
+    },
+    {
+      "name": "faqs",
+      "items": 24
+    },
+    {
+      "name": "locations",
+      "items": 4
+    },
+    {
+      "name": "posts",
+      "items": 8
+    },
+    {
+      "name": "projects",
+      "items": 10
+    },
+    {
+      "name": "services",
+      "items": 15
+    },
+    {
+      "name": "team",
+      "items": 8
+    },
+    {
+      "name": "testimonials",
+      "items": 8
+    },
+    {
+      "name": "serviceGroups",
+      "items": 3
+    },
+    {
+      "name": "postCategories",
+      "items": 4
+    },
+    {
+      "name": "projectCategories",
+      "items": 5
+    },
+    {
+      "name": "faqCategories",
+      "items": 5
+    }
+  ],
+  "includes": [
+    {
+      "include": "icons",
+      "used": 56
+    },
+    {
+      "include": "chrome",
+      "used": 56
+    },
+    {
+      "include": "header",
+      "used": 56
+    },
+    {
+      "include": "drawer",
+      "used": 56
+    },
+    {
+      "include": "footer",
+      "used": 56
+    },
+    {
+      "include": "sections/cta",
+      "used": 52
+    },
+    {
+      "include": "sections/projects-grid",
+      "used": 29
+    },
+    {
+      "include": "sections/svc-list",
+      "used": 27
+    },
+    {
+      "include": "sections/process",
+      "used": 18
+    },
+    {
+      "include": "sections/page-hero",
+      "used": 15
+    },
+    {
+      "include": "sections/blog-grid",
+      "used": 11
+    },
+    {
+      "include": "sections/newsletter",
+      "used": 10
+    },
+    {
+      "include": "sections/quote",
+      "used": 10
+    },
+    {
+      "include": "sections/project-hero",
+      "used": 10
+    },
+    {
+      "include": "sections/project-meta",
+      "used": 10
+    },
+    {
+      "include": "sections/project-gallery",
+      "used": 10
+    },
+    {
+      "include": "sections/project-next",
+      "used": 10
+    },
+    {
+      "include": "sections/post",
+      "used": 8
+    },
+    {
+      "include": "sections/stats",
+      "used": 6
+    },
+    {
+      "include": "sections/faq",
+      "used": 6
+    },
+    {
+      "include": "sections/split",
+      "used": 5
+    },
+    {
+      "include": "sections/projects-carousel",
+      "used": 5
+    },
+    {
+      "include": "sections/testimonials",
+      "used": 4
+    },
+    {
+      "include": "sections/contact-split",
+      "used": 4
+    },
+    {
+      "include": "sections/svc-grid",
+      "used": 4
+    },
+    {
+      "include": "sections/feature",
+      "used": 3
+    },
+    {
+      "include": "sections/legal",
+      "used": 3
+    },
+    {
+      "include": "sections/locations",
+      "used": 3
+    },
+    {
+      "include": "sections/marquee",
+      "used": 3
+    },
+    {
+      "include": "sections/awards",
+      "used": 2
+    },
+    {
+      "include": "sections/reel",
+      "used": 2
+    },
+    {
+      "include": "sections/blog-list",
+      "used": 2
+    },
+    {
+      "include": "sections/projects-list",
+      "used": 2
+    },
+    {
+      "include": "sections/statement",
+      "used": 2
+    },
+    {
+      "include": "sections/logos",
+      "used": 2
+    },
+    {
+      "include": "sections/scatter",
+      "used": 2
+    },
+    {
+      "include": "sections/compare",
+      "used": 2
+    },
+    {
+      "include": "sections/notfound",
+      "used": 1
+    },
+    {
+      "include": "sections/values",
+      "used": 1
+    },
+    {
+      "include": "sections/team",
+      "used": 1
+    },
+    {
+      "include": "sections/milestones",
+      "used": 1
+    },
+    {
+      "include": "sections/topics",
+      "used": 1
+    },
+    {
+      "include": "sections/hero-panel",
+      "used": 1
+    },
+    {
+      "include": "sections/hero-slider",
+      "used": 1
+    },
+    {
+      "include": "sections/hero-split",
+      "used": 1
+    },
+    {
+      "include": "sections/svc-acc",
+      "used": 1
+    },
+    {
+      "include": "sections/docs",
+      "used": 1
+    },
+    {
+      "include": "sections/pricing",
+      "used": 1
+    },
+    {
+      "include": "sections/guide",
+      "used": 1
+    },
+    {
+      "include": "sections/thanks",
+      "used": 1
+    },
+    {
+      "include": "posts/choosing-wood-finishes.html",
+      "used": 1
+    },
+    {
+      "include": "posts/office-fit-out-budget.html",
+      "used": 1
+    },
+    {
+      "include": "posts/kitchen-work-triangle.html",
+      "used": 1
+    },
+    {
+      "include": "posts/lighting-layers-guide.html",
+      "used": 1
+    },
+    {
+      "include": "posts/restaurant-acoustics.html",
+      "used": 1
+    },
+    {
+      "include": "posts/reading-a-boq.html",
+      "used": 1
+    },
+    {
+      "include": "posts/small-space-storage.html",
+      "used": 1
+    },
+    {
+      "include": "posts/site-supervision-checklist.html",
+      "used": 1
+    }
+  ]
+}

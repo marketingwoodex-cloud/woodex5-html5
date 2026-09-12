@@ -1,0 +1,30 @@
+{{! ==========================================================================
+    SECTION · marquee             id: sec-marquee
+    --------------------------------------------------------------------------
+    Infinite text band. Front-matter switches:
+      marqueeVariant: default | display | small | outline
+      marqueeSurface: default | inverse | accent
+      marqueeText: "Words · repeated"  (optional custom copy)
+      marqueeSpeed: seconds per loop (default 34)
+    Default copy is the Woodex USP strip.
+    ========================================================================== }}
+<section class="s-marquee{{#if marqueeVariant}} s-marquee--{{marqueeVariant}}{{/if}}{{#if marqueeSurface}} s-marquee--{{marqueeSurface}}{{/if}}" aria-label="{{marqueeLabel}}" data-marquee="{{marqueeSpeed}}">
+  <div class="marquee marquee--fade{{#if marqueeVariant}} marquee--{{marqueeVariant}}{{/if}}">
+    <div class="marquee__track">
+      {{#if marqueeText}}
+      <span class="marquee__item">{{marqueeText}}</span>
+      {{else}}
+      <span class="marquee__item">Measured surveys <svg class="marquee__star" aria-hidden="true"><use href="#i-star4"/></svg></span>
+      <span class="marquee__item">Fixed-price proposals <svg class="marquee__star" aria-hidden="true"><use href="#i-star4"/></svg></span>
+      <span class="marquee__item">In-house joinery <svg class="marquee__star" aria-hidden="true"><use href="#i-star4"/></svg></span>
+      <span class="marquee__item">3D approved before production <svg class="marquee__star" aria-hidden="true"><use href="#i-star4"/></svg></span>
+      <span class="marquee__item">10-year warranty <svg class="marquee__star" aria-hidden="true"><use href="#i-star4"/></svg></span>
+      {{/if}}
+    </div>
+  </div>
+  {{#if marqueeText2}}
+  <div class="marquee marquee--reverse marquee--fade marquee--outline s-marquee__row" data-marquee="{{marqueeSpeed2}}">
+    <div class="marquee__track"><span class="marquee__item">{{marqueeText2}}</span></div>
+  </div>
+  {{/if}}
+</section>

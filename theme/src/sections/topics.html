@@ -1,0 +1,33 @@
+{{! ==========================================================================
+    SECTION · topics              id: sec-topics
+    --------------------------------------------------------------------------
+    Journal topic index. Params:
+      topicsId, topicsLabel, topicsEyebrow, topicsTitle, topicsText
+      topics: [{slug,label,count,text,href}]
+    Clicking a chip links to the blog grid filtered by topic.
+    ========================================================================== }}
+<section class="s-topics" id="{{#if topicsId}}{{topicsId}}{{else}}topics{{/if}}" aria-label="{{#if topicsLabel}}{{topicsLabel}}{{else}}Journal topics{{/if}}">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{topicsEyebrow}}</div>
+        <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{topicsTitle}}}</h2>
+      </div>
+      {{#if topicsText}}<div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{topicsText}}</p></div>{{/if}}
+    </div>
+
+    <div class="s-topics__grid">
+      {{#each topics}}
+      <a class="s-topics__card" href="{{base}}{{href}}" data-reveal="up" data-reveal-delay="{{@index}}" data-topic="{{slug}}">
+        <span class="s-topics__no" aria-hidden="true">{{@index}}</span>
+        <h3 class="s-topics__title">{{label}}</h3>
+        <p class="s-topics__text">{{text}}</p>
+        <span class="s-topics__foot">
+          <span class="meta">{{count}} {{#if count}}article{{/if}}</span>
+          <span class="s-topics__arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </span>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</section>

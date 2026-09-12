@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Woodex Interior">
+  <!--
+    WOODEX INTERIOR — ORIGINAL BRAND MARK
+    -------------------------------------
+    An arch (the signature .media--arch motif used across the theme) carrying a
+    "W" drawn as two mitred timber chevrons, with a brass shadow-gap rule
+    beneath. Geometry only — no typeface dependency, so it renders identically
+    everywhere and stays legible at 16px.
+
+    Palette is taken straight from theme/src/assets/css/01-tokens.css:
+      canvas  #F8F3EA   clay  #A94E2B   brass #B9922E
+    To rebrand: change the three fills below, or point the mark at a different
+    arch radius. Nothing else in the theme needs to change.
+  -->
+  <rect width="64" height="64" rx="14" fill="#F8F3EA"/>
+
+  <!-- arch -->
+  <path d="M14 54V28a18 18 0 0 1 36 0v26z" fill="#A94E2B"/>
+
+  <!-- mitred W: two chevrons meeting at a central vertex -->
+  <path d="M21 24l5.5 20L32 30l5.5 14L43 24"
+        fill="none" stroke="#F8F3EA" stroke-width="4.2"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- brass shadow-gap rule -->
+  <rect x="20" y="47" width="24" height="2.4" rx="1.2" fill="#B9922E"/>
+</svg>

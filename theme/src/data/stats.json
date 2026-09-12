@@ -1,0 +1,21 @@
+{
+  "primary": [
+    { "id": "01", "value": 240, "suffix": "+", "label": "Spaces designed and delivered", "note": "Since 2014, across six cities" },
+    { "id": "02", "value": 1450000, "suffix": " sq ft", "label": "Floor area fitted out", "note": "Residential, commercial and hospitality" },
+    { "id": "03", "value": 97, "suffix": "%", "label": "Projects handed over on programme", "note": "Measured against the contracted date" },
+    { "id": "04", "value": 94, "suffix": "%", "label": "Clients who return or refer us", "note": "Tracked across eleven years" }
+  ],
+  "secondary": [
+    { "id": "05", "value": 11, "suffix": "", "label": "Years in practice" },
+    { "id": "06", "value": 68, "suffix": "", "label": "Team members" },
+    { "id": "07", "value": 22000, "suffix": " sq ft", "label": "In-house workshop" },
+    { "id": "08", "value": 41, "suffix": "", "label": "Craftsmen on our payroll" },
+    { "id": "09", "value": 10, "suffix": " yr", "label": "Workmanship warranty" },
+    { "id": "10", "value": 3, "suffix": "%", "label": "Average budget variance", "prefix": "< " }
+  ],
+  "hero": [
+    { "value": 240, "suffix": "+", "label": "Projects" },
+    { "value": 11, "suffix": "", "label": "Years" },
+    { "value": 6, "suffix": "", "label": "Cities" }
+  ]
+}

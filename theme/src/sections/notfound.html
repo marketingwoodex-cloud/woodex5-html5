@@ -1,0 +1,35 @@
+{{! ==========================================================================
+    SECTION · notfound            id: sec-notfound
+    --------------------------------------------------------------------------
+    404 block: outline numeral, message, quick links and a search prompt.
+    Data: home.notFound
+    ========================================================================== }}
+<section class="s-404" aria-label="Page not found">
+  <div class="container">
+    <div class="s-404__inner">
+      <div class="s-404__code" aria-hidden="true" data-parallax="0.05">404</div>
+      <div class="eyebrow eyebrow--dot">{{home.notFound.eyebrow}}</div>
+      <h1 class="s-404__title" data-split>{{{home.notFound.title}}}</h1>
+      <p class="muted" style="max-width:46ch" data-reveal="up" data-reveal-delay="2">{{home.notFound.text}}</p>
+
+      <nav class="s-404__links" aria-label="Useful pages" data-reveal="up" data-reveal-delay="3">
+        {{#each home.notFound.links}}
+        <a class="chip" href="{{../base}}{{href}}">{{label}}</a>
+        {{/each}}
+      </nav>
+
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center;justify-content:center;margin-top:var(--sp-6)" data-reveal="up" data-reveal-delay="4">
+        <a class="btn btn--solid" href="{{base}}index.html" data-magnetic="0.2">
+          <span class="btn__label"><span>Back to homepage</span><span>Back to homepage</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="btn" href="{{base}}contact.html">
+          <span class="btn__label"><span>Report a broken link</span><span>Report a broken link</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+      </div>
+
+      <p class="meta" style="margin-top:var(--sp-8)">Studio line — <a class="link" href="tel:{{site.phoneRaw}}">{{site.phone}}</a></p>
+    </div>
+  </div>
+</section>

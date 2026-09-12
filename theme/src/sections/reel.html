@@ -1,0 +1,34 @@
+{{! ==========================================================================
+    SECTION · reel                id: sec-reel
+    --------------------------------------------------------------------------
+    Video showreel. Poster + play button; on click swaps in <video> or an
+    embed. Set reelSrc to a local .mp4 or a YouTube/Vimeo URL.
+      reelPoster, reelSrc, reelEyebrow, reelTitle, reelText, reelStats[]
+    ========================================================================== }}
+<section class="s-reel" aria-label="{{reelLabel}}" data-reel="{{reelSrc}}">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-7)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{reelEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{reelTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{reelText}}</p></div>
+    </div>
+
+    <div class="s-reel__frame media-hover" data-reveal="clip" role="button" tabindex="0" aria-label="Play the studio showreel" data-cursor-label="Play">
+      <img src="{{base}}{{reelPoster}}" alt="Woodex Interior studio showreel" loading="lazy" decoding="async">
+      <div class="s-reel__play">
+        <span class="play-btn" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
+        <span class="s-reel__label">{{reelDuration}}</span>
+      </div>
+    </div>
+
+    {{#if reelStats}}
+    <div class="s-reel__meta">
+      {{#each reelStats}}
+      <div class="meta">{{k}} — <strong style="color:var(--c-text)">{{v}}</strong></div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</section>

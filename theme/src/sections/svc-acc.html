@@ -1,0 +1,80 @@
+{{! ==========================================================================
+    SECTION · svc-acc             id: sec-svc-acc
+    --------------------------------------------------------------------------
+    SIGNATURE BLOCK — sticky two-column service accordion.
+    Left: pinned image stack that swaps with the active row.
+    Right: accordion rows, one open at a time, with tags, deliverables and CTA.
+
+    Data: services.json. Limit via front matter svcLimit (default 6).
+    ========================================================================== }}
+<section class="s-svc-acc" id="{{svcAccId}}" aria-label="{{svcAccLabel}}" data-sticky-col>
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{svcAccEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{svcAccTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{svcAccText}}</p>
+        {{#if svcAccCta}}
+        <a class="tlink" href="{{base}}{{svcAccCtaHref}}" style="margin-top:var(--sp-5)">{{svcAccCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="s-svc-acc__grid">
+
+      <div class="s-svc-acc__sticky sticky-col">
+        <div class="s-svc-acc__media" data-swap-media data-reveal="scale">
+          {{#each services limit=@svcLimit}}
+          <img src="{{../base}}{{image}}" alt="{{title}}" {{#if @first}}class="is-active"{{/if}} loading="{{#if @first}}eager{{else}}lazy{{/if}}" decoding="async">
+          {{/each}}
+          <div class="s-svc-acc__media-tag">
+            <span data-acc-tag>{{svcAccTagFirst}}</span>
+            <span>{{svcAccTagRight}}</span>
+          </div>
+        </div>
+        <div class="panel" data-reveal="up" data-reveal-delay="2" style="padding:var(--sp-5)">
+          <div class="eyebrow eyebrow--plain">{{svcAccAsideTitle}}</div>
+          <p class="small muted" style="margin-top:var(--sp-3)">{{svcAccAsideText}}</p>
+          <a class="btn btn--sm btn--solid" href="{{base}}{{svcAccAsideHref}}" style="margin-top:var(--sp-5);align-self:flex-start">
+            <span class="btn__label"><span>{{svcAccAsideCta}}</span><span>{{svcAccAsideCta}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="s-svc-acc__list" data-accordion="single" data-reveal="up">
+        {{#each services limit=@svcLimit}}
+        <article class="s-svc-acc__item{{#if @first}} is-open{{/if}}" data-media-index="{{@index}}">
+          <button class="s-svc-acc__btn" type="button" aria-expanded="{{#if @first}}true{{else}}false{{/if}}">
+            <span class="s-svc-acc__no">{{id}}</span>
+            <span class="s-svc-acc__title">{{title}}</span>
+            <span class="acc__icon" aria-hidden="true"></span>
+          </button>
+          <div class="s-svc-acc__panel">
+            <div class="s-svc-acc__inner">
+              <p>{{summary}}</p>
+              <div class="s-svc-acc__tags">
+                {{#each sectors}}<span class="badge badge--outline">{{this}}</span>{{/each}}
+              </div>
+              <ul class="tick-list">
+                {{#each deliverables limit=3}}<li><svg aria-hidden="true"><use href="#i-check"/></svg><span>{{this}}</span></li>{{/each}}
+              </ul>
+              <div class="s-svc-acc__actions">
+                <a class="btn btn--sm" href="{{../base}}services/{{slug}}.html">
+                  <span class="btn__label"><span>Explore service</span><span>Explore service</span></span>
+                  <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+                </a>
+                <span class="meta">{{priceFrom}} · {{duration}}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+
+    </div>
+  </div>
+</section>

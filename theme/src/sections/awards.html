@@ -1,0 +1,27 @@
+{{! ==========================================================================
+    SECTION · awards              id: sec-awards
+    --------------------------------------------------------------------------
+    Recognition list from data/awards.json.
+    ========================================================================== }}
+<section class="s-awards" id="awards" aria-label="Awards and recognition">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{awardsEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{awardsTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{awardsText}}</p></div>
+    </div>
+
+    <div data-reveal="up">
+      {{#each awards}}
+      <div class="award-row">
+        <span class="award-row__year">{{year}}</span>
+        <span class="award-row__name">{{name}}</span>
+        <span class="award-row__org">{{org}} · {{project}}</span>
+        <span class="badge {{resultClass}}">{{resultLabel}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

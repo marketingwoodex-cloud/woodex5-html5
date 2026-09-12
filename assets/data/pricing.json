@@ -1,0 +1,101 @@
+{
+  "note": "Indicative rates for Lahore, 2025-26. Every project is quoted as a line-item BOQ taken from drawings — these figures exist so you can sanity-check a proposal before you meet us.",
+  "currency": "PKR",
+  "toggle": { "labels": ["Design only", "Design + build"], "note": "Rates shown per square foot of built area" },
+  "tiers": [
+    {
+      "id": "essential",
+      "name": "Essential",
+      "tagline": "Design direction and drawings, built by your contractor.",
+      "designOnly": 65,
+      "designBuild": 1450,
+      "unit": "/ sq ft",
+      "unitNote": "build rate",
+      "best": "Renovations, single rooms, rental upgrades",
+      "features": [
+        { "t": "Measured survey and condition report", "on": true },
+        { "t": "Two space-plan options", "on": true },
+        { "t": "Finishes and material schedule", "on": true },
+        { "t": "Lighting layout with luminaire schedule", "on": true },
+        { "t": "Construction drawing set for tender", "on": true },
+        { "t": "3D visualisation — 2 views", "on": false },
+        { "t": "In-house joinery manufacture", "on": false },
+        { "t": "Site supervision and programme", "on": false },
+        { "t": "10-year workmanship warranty", "on": false }
+      ],
+      "includes": "Drawing pack you own outright, plus a tender-ready BOQ your contractor can price against.",
+      "cta": "Request a design-only proposal",
+      "featured": false
+    },
+    {
+      "id": "signature",
+      "name": "Signature",
+      "tagline": "Our most-requested package: designed, drawn, manufactured and built by one team.",
+      "designOnly": 120,
+      "designBuild": 2400,
+      "unit": "/ sq ft",
+      "unitNote": "build rate",
+      "best": "Homes, offices, retail units, cafés",
+      "features": [
+        { "t": "Everything in Essential", "on": true },
+        { "t": "Photoreal 3D visualisation — 6 views", "on": true },
+        { "t": "Bespoke joinery, manufactured in-house", "on": true },
+        { "t": "Full site execution with resident supervisor", "on": true },
+        { "t": "Approvals and building-management liaison", "on": true },
+        { "t": "Weekly Friday photo report", "on": true },
+        { "t": "Testing, commissioning and snag closure", "on": true },
+        { "t": "10-year workmanship warranty", "on": true },
+        { "t": "Loose furniture and styling", "on": false }
+      ],
+      "includes": "One contract, one accountable team, fixed-price line-item BOQ and a handover pack with O&M documentation.",
+      "cta": "Start a Signature project",
+      "featured": true,
+      "flag": "Most requested"
+    },
+    {
+      "id": "atelier",
+      "name": "Atelier",
+      "tagline": "Complete turnkey delivery including furniture, styling and post-occupancy care.",
+      "designOnly": 180,
+      "designBuild": 3400,
+      "unit": "/ sq ft",
+      "unitNote": "build rate",
+      "best": "Flagships, head offices, restaurants, large homes",
+      "features": [
+        { "t": "Everything in Signature", "on": true },
+        { "t": "Unlimited 3D views and a walkthrough animation", "on": true },
+        { "t": "FF&E specification, procurement and installation", "on": true },
+        { "t": "Branded environmental graphics and signage", "on": true },
+        { "t": "MEP redesign and services engineering", "on": true },
+        { "t": "Dedicated project manager plus night-shift capability", "on": true },
+        { "t": "Rollout or franchise documentation", "on": true },
+        { "t": "10-year warranty plus month-3 and month-12 checks", "on": true },
+        { "t": "Two years of priority maintenance response", "on": true }
+      ],
+      "includes": "Full turnkey delivery, furniture and styling, handover photographs, and a maintenance programme for the first two years.",
+      "cta": "Discuss an Atelier project",
+      "featured": false
+    }
+  ],
+  "rateTable": [
+    { "sector": "Residential — renovation", "range": "PKR 1,400 – 2,000 / sq ft", "typical": "9 – 14 weeks" },
+    { "sector": "Residential — full interior", "range": "PKR 1,900 – 2,800 / sq ft", "typical": "12 – 22 weeks" },
+    { "sector": "Commercial — office fit-out", "range": "PKR 2,200 – 3,200 / sq ft", "typical": "10 – 18 weeks" },
+    { "sector": "Retail — shop or boutique", "range": "PKR 2,600 – 3,800 / sq ft", "typical": "5 – 12 weeks" },
+    { "sector": "Hospitality — café", "range": "PKR 3,000 – 4,000 / sq ft", "typical": "5 – 12 weeks" },
+    { "sector": "Hospitality — restaurant", "range": "PKR 3,400 – 4,800 / sq ft", "typical": "10 – 20 weeks" },
+    { "sector": "Bespoke joinery (per unit)", "range": "PKR 145,000 – 640,000", "typical": "3 – 8 weeks" },
+    { "sector": "3D visualisation (per view)", "range": "PKR 28,000 – 45,000", "typical": "5 working days" }
+  ],
+  "exclusions": [
+    "Landlord or society fees, deposits and NOC charges",
+    "Structural works requiring a licensed structural engineer's sign-off",
+    "Air-conditioning plant, generators and UPS hardware (installation is included)",
+    "Import duty and freight on client-specified imported items",
+    "VAT / GST where applicable"
+  ],
+  "faqs": [
+    { "q": "Why is the design fee shown separately?", "a": "Because design is real work that happens before a single panel is cut, and it should not be buried inside a build rate where you cannot see it. On Signature and Atelier projects the design fee is credited against build cost when you proceed with us." },
+    { "q": "What causes a quote to move?", "a": "Almost always one of three things: a change in area, a change in material grade, or an unforeseen existing condition discovered once openings are made. The first two are your decisions; the third is covered by the contingency line we show you openly." }
+  ]
+}

@@ -1,0 +1,53 @@
+---
+title: Interior Design & Fit-Out Services — Woodex Interior
+description: Fifteen interior services from Woodex Interior: commercial and residential design, office and retail fit-out, turnkey delivery, restaurant and café interiors, bespoke joinery, furniture and 3D visualisation.
+page: service
+theme: canvas
+bodyClass: page--service
+api: site,navigation,services,projects,faqs,pricing
+ogImage: assets/images/space-lobby.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · DESIGN SERVICES (grid instance 1) ---------- }}
+  {{> sections/svc-grid with=svcDesign}}
+
+  {{! ---------- 03 · FIT-OUT & EXECUTION (grid instance 2) ---------- }}
+  {{> sections/svc-grid with=svcFitout}}
+
+  {{! ---------- 04 · HOSPITALITY & SPECIALIST (grid instance 3) ---------- }}
+  {{> sections/svc-grid with=svcSpecialist}}
+
+  {{! ---------- 05 · INCLUSION MATRIX ---------- }}
+  {{> sections/compare}}
+
+  {{! ---------- 06 · HOW AN ENGAGEMENT RUNS ---------- }}
+  {{> sections/feature}}
+
+  {{! ---------- 07 · RELATED PROJECTS ---------- }}
+  {{> sections/projects-grid}}
+
+  {{! ---------- 08 · FAQ ---------- }}
+  {{> sections/faq}}
+
+  {{! ---------- 09 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Woodex Interior services","itemListElement":[{{#each services}}{{#unless @first}},{{/unless}}{"@type":"ListItem","item":{"@type":"Service","name":"{{title}}","description":"{{summary}}","provider":{"@type":"Organization","name":"Woodex Interior"},"areaServed":"Pakistan"}}{{/each}}]}
+</script>

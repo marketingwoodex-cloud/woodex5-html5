@@ -1,0 +1,131 @@
+{{! ==========================================================================
+    SECTION · docs                id: sec-docs
+    --------------------------------------------------------------------------
+    Documentation blocks for builder-facing pages (instructions, guides).
+    One template, five variants, selected by which param arrays exist:
+
+      steps    → numbered how-to cards         (stepsTitle, stepsText, steps[{k,title,text}])
+      tree     → definition list of paths      (treeTitle, treeText, tree[{k,v}])
+      edits    → "change this → edit that"     (editTitle, editText, edits[{k,v}])
+      apiItems → endpoint reference            (apiTitle, apiText, apiItems[{k,v}], apiNote)
+      motion   → data-attribute reference      (motionTitle, motionText, motionItems[{k,v}], motionNote)
+
+    Each block only renders when its array is present, so a page may include
+    this section once and drive several blocks, or several times with an id
+    override via {{docsId}}.
+    ========================================================================== }}
+<section class="s-docs" id="{{#if docsId}}{{docsId}}{{else}}docs{{/if}}" aria-label="Documentation">
+  <div class="container">
+
+    {{! ---- numbered steps ---- }}
+    {{#if steps}}
+    <div class="s-docs__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">Getting started</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{stepsTitle}}}</h2>
+        </div>
+        {{#if stepsText}}<div class="section-head__aside"><p>{{{stepsText}}}</p></div>{{/if}}
+      </div>
+      <ol class="s-docs__steps">
+        {{#each steps}}
+        <li class="s-docs__step" data-reveal="up" data-reveal-delay="{{@index}}">
+          <span class="s-docs__no" aria-hidden="true">{{k}}</span>
+          <div>
+            <h3 class="s-docs__h">{{title}}</h3>
+            <p class="s-docs__p">{{{text}}}</p>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+    {{/if}}
+
+    {{! ---- file tree / paths ---- }}
+    {{#if tree}}
+    <div class="s-docs__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">Directory</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{treeTitle}}}</h2>
+        </div>
+        {{#if treeText}}<div class="section-head__aside"><p>{{{treeText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-docs__dl">
+        {{#each tree}}
+        <div class="s-docs__row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{{k}}}</code></dt>
+          <dd>{{{v}}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+    {{/if}}
+
+    {{! ---- edit map ---- }}
+    {{#if edits}}
+    <div class="s-docs__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">Editing</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{editTitle}}}</h2>
+        </div>
+        {{#if editText}}<div class="section-head__aside"><p>{{{editText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-docs__dl s-docs__dl--tight">
+        {{#each edits}}
+        <div class="s-docs__row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt>{{{k}}}</dt>
+          <dd><code>{{{v}}}</code></dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+    {{/if}}
+
+    {{! ---- api reference ---- }}
+    {{#if apiItems}}
+    <div class="s-docs__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">Endpoints</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{apiTitle}}}</h2>
+        </div>
+        {{#if apiText}}<div class="section-head__aside"><p>{{{apiText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-docs__dl s-docs__dl--tight">
+        {{#each apiItems}}
+        <div class="s-docs__row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{{k}}}</code></dt>
+          <dd>{{{v}}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      {{#if apiNote}}<p class="s-docs__note meta" data-reveal="up">{{{apiNote}}}</p>{{/if}}
+    </div>
+    {{/if}}
+
+    {{! ---- motion reference ---- }}
+    {{#if motionItems}}
+    <div class="s-docs__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">Motion</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{motionTitle}}}</h2>
+        </div>
+        {{#if motionText}}<div class="section-head__aside"><p>{{{motionText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-docs__dl s-docs__dl--tight">
+        {{#each motionItems}}
+        <div class="s-docs__row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{{k}}}</code></dt>
+          <dd>{{{v}}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      {{#if motionNote}}<p class="s-docs__note meta" data-reveal="up">{{{motionNote}}}</p>{{/if}}
+    </div>
+    {{/if}}
+
+  </div>
+</section>

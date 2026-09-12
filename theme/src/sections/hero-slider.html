@@ -1,0 +1,54 @@
+{{! ==========================================================================
+    SECTION · hero-slider         id: sec-hero-slider
+    --------------------------------------------------------------------------
+    Full-bleed project slider: Ken Burns image, index counter, side caption,
+    thumbnail rail and a bottom progress bar. Driven by featured projects in
+    data/projects.json — add "featured": true to any project to include it.
+    ========================================================================== }}
+<section class="s-hero-slider" id="top" data-deck data-deck-auto="7000" aria-label="Featured projects">
+  <div class="s-hero-slider__stage" aria-hidden="true">
+    {{#each projects where=featured:true}}
+    <div class="s-hero-slider__slide{{#if @first}} is-active{{/if}}">
+      <img src="{{../base}}{{heroImage}}" alt="" {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}} decoding="async">
+    </div>
+    {{/each}}
+    <div class="s-hero-slider__scrim"></div>
+  </div>
+
+  <div class="container s-hero-slider__inner">
+    <div class="s-hero-slider__content deck">
+      {{#each projects where=featured:true}}
+      <article class="deck__slide{{#if @first}} is-active{{/if}}" style="display:grid;gap:var(--sp-6)">
+        <div class="s-hero-slider__index">{{id}} / {{@count}} — {{categoryLabel}}</div>
+        {{#if @first}}<h1 class="s-hero-slider__title" data-split>{{title}}</h1>{{else}}<p class="s-hero-slider__title">{{title}}</p>{{/if}}
+        <p class="lead" style="max-width:44ch;color:rgba(248,243,234,.8)">{{excerpt}}</p>
+        <div class="s-hero-slider__meta">
+          <span>{{location}}</span><span>·</span><span>{{area}}</span><span>·</span><span>{{year}}</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center">
+          <a class="btn btn--ghost-light" href="{{../base}}project/{{slug}}.html" data-magnetic="0.2">
+            <span class="btn__label"><span>View project</span><span>View project</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="tlink" href="{{../base}}portfolio-one.html" style="color:rgba(248,243,234,.8)">All {{@count}} featured projects <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="s-hero-slider__side">
+    <div class="eyebrow" style="color:rgba(248,243,234,.62)">{{site.name}} · est. {{site.founded}}</div>
+    <p class="small" style="color:rgba(248,243,234,.7);max-width:26ch">{{site.tagline}}</p>
+  </div>
+
+  <div class="s-hero-slider__rail" aria-hidden="true">
+    {{#each projects where=featured:true}}
+    <button class="s-hero-slider__thumb{{#if @first}} is-active{{/if}}" type="button" data-deck-index="{{@index}}" aria-label="{{title}}">
+      <img src="{{../base}}{{cover}}" alt="" loading="lazy" decoding="async">
+    </button>
+    {{/each}}
+  </div>
+
+  <div class="s-hero-slider__progress"><i class="is-running"></i></div>
+</section>

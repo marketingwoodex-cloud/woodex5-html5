@@ -1,0 +1,24 @@
+{{! ==========================================================================
+    SECTION · project-next        id: sec-project-next
+    --------------------------------------------------------------------------
+    Prev / next project navigation for detail pages. Uses nextItem and
+    prevItem injected by build.mjs from the projects collection.
+    ========================================================================== }}
+<section class="s-proj-next" aria-label="More projects">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-6);justify-content:space-between;margin-bottom:var(--sp-8)">
+      <a class="tlink" href="{{base}}project/{{prevItem.slug}}.html"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg> {{prevItem.title}}</a>
+      <a class="tlink" href="{{base}}portfolio-one.html">All work</a>
+      <a class="tlink" href="{{base}}project/{{nextItem.slug}}.html">{{nextItem.title}} <svg aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+
+    <a class="s-proj-next__link" href="{{base}}project/{{nextItem.slug}}.html" data-cursor-label="Next">
+      <span class="s-proj-next__label">Next project — {{nextItem.categoryLabel}}</span>
+      <h2 class="s-proj-next__title" data-split>{{nextItem.title}}</h2>
+      <span class="meta">{{nextItem.location}} · {{nextItem.area}} · {{nextItem.year}}</span>
+      <div class="s-proj-next__media">
+        <img src="{{base}}{{nextItem.cover}}" alt="{{nextItem.title}}" loading="lazy" decoding="async">
+      </div>
+    </a>
+  </div>
+</section>

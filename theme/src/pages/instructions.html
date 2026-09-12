@@ -1,0 +1,33 @@
+---
+title: Instructions — How to Build, Edit and Extend This Theme | Woodex Interior
+description: Builder documentation for the Woodex master theme: how to build with the zero-dependency generator, where every file lives, how to edit content, the front-end JSON API and the motion system.
+page: instructions
+theme: canvas
+bodyClass: page--instructions
+api: site,navigation
+ogImage: assets/images/texture-wood.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · DOCUMENTATION BLOCKS ----------
+       One include drives every block: steps, tree, edits, apiItems, motionItems.
+       Each block renders only when its parameter array exists. }}
+  {{> sections/docs}}
+
+  {{! ---------- 03 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

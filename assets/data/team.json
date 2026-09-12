@@ -1,0 +1,90 @@
+[
+  {
+    "id": "01",
+    "name": "Ayesha Rehman",
+    "role": "Founder & Head of Design",
+    "initials": "AR",
+    "bio": "Trained at NCA Lahore and worked six years in Dubai hospitality design before founding Woodex in 2014. Leads concept, space planning and material direction on every project.",
+    "expertise": ["Concept design", "Space planning", "Materials"],
+    "image": "assets/images/studio-team.jpg",
+    "social": { "linkedin": "https://linkedin.com/", "instagram": "https://instagram.com/" },
+    "quote": "A plan that works at 8am on a Tuesday will still work at 8pm on a Saturday."
+  },
+  {
+    "id": "02",
+    "name": "Bilal Anwar",
+    "role": "Projects Director",
+    "initials": "BA",
+    "bio": "Twenty-two years on commercial sites across Pakistan and the Gulf. Owns programmes, procurement and the line-item BOQs that keep our variance under three percent.",
+    "expertise": ["Programme", "Procurement", "Fit-out delivery"],
+    "image": "assets/images/cta-workshop.jpg",
+    "social": { "linkedin": "https://linkedin.com/" },
+    "quote": "A budget is a promise. Write it in line items or do not write it at all."
+  },
+  {
+    "id": "03",
+    "name": "Hassan Qureshi",
+    "role": "Lighting Designer",
+    "initials": "HQ",
+    "bio": "Specialises in layered residential and hospitality lighting. Writes the colour-temperature discipline that stops a dining room feeling like a pharmacy after dark.",
+    "expertise": ["Lighting layers", "Scene control", "Colour temperature"],
+    "image": "assets/images/detail-lighting.jpg",
+    "social": { "linkedin": "https://linkedin.com/", "instagram": "https://instagram.com/" },
+    "quote": "If you can see the fitting, we have usually specified the wrong one."
+  },
+  {
+    "id": "04",
+    "name": "Imran Sheikh",
+    "role": "Site Operations Lead",
+    "initials": "IS",
+    "bio": "Runs supervision across all live sites and wrote the twenty-two-item Friday inspection routine that keeps programmes from slipping in week fourteen.",
+    "expertise": ["Site supervision", "Quality control", "Health & safety"],
+    "image": "assets/images/space-workspace.jpg",
+    "social": { "linkedin": "https://linkedin.com/" },
+    "quote": "The Friday report exists so nobody is surprised in week eighteen."
+  },
+  {
+    "id": "05",
+    "name": "Zoya Malik",
+    "role": "Senior Interior Designer",
+    "initials": "ZM",
+    "bio": "Leads residential commissions and the joinery detail library. Known for wardrobes that hold a tolerance of 1.5 mm across a four-metre run.",
+    "expertise": ["Residential", "Joinery detailing", "FF&E"],
+    "image": "assets/images/hero-bedroom.jpg",
+    "social": { "instagram": "https://instagram.com/" },
+    "quote": "Detail is not decoration. Detail is the reason a door closes quietly."
+  },
+  {
+    "id": "06",
+    "name": "Usman Tariq",
+    "role": "Retail & Brand Environments",
+    "initials": "UT",
+    "bio": "Designs flagship stores and franchise rollout packs. Has delivered thirty-eight outlets in nine cities from a single documented standard.",
+    "expertise": ["Retail concept", "Rollout manuals", "Fixtures"],
+    "image": "assets/images/space-retail.jpg",
+    "social": { "linkedin": "https://linkedin.com/" },
+    "quote": "Store two should be cheaper than store one. If it is not, the manual is wrong."
+  },
+  {
+    "id": "07",
+    "name": "Fatima Noor",
+    "role": "3D & Visualisation Lead",
+    "initials": "FN",
+    "bio": "Runs the visualisation studio. Keeps the render model and the workshop model identical so approvals mean something on site.",
+    "expertise": ["Photoreal stills", "Animation", "VR review"],
+    "image": "assets/images/hero-living.jpg",
+    "social": { "instagram": "https://instagram.com/" },
+    "quote": "One model, two outputs. That is the only way an approval is honest."
+  },
+  {
+    "id": "08",
+    "name": "Kashif Mehmood",
+    "role": "Workshop Manager",
+    "initials": "KM",
+    "bio": "Eighteen years in panel processing, veneer pressing and spray finishing. Manages forty-one craftsmen and the queue that decides every delivery date.",
+    "expertise": ["Joinery manufacture", "Finishing", "Production planning"],
+    "image": "assets/images/detail-joinery.jpg",
+    "social": {},
+    "quote": "The drawing is a request. The jig is a guarantee."
+  }
+]

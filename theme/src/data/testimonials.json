@@ -1,0 +1,90 @@
+[
+  {
+    "id": "01",
+    "quote": "They told us the truth about a structural wall in the very first meeting, which is why we trusted every decision after it. Nineteen weeks later the house is exactly the drawing we signed off.",
+    "name": "Family client",
+    "role": "Private residence · Gulberg III",
+    "initials": "GC",
+    "image": "assets/images/space-villa.jpg",
+    "rating": 5,
+    "project": "gulberg-townhouse",
+    "sector": "residential"
+  },
+  {
+    "id": "02",
+    "quote": "One contract, one number to call. Our facilities manager described it as the first fit-out in eleven years she did not have to manage herself.",
+    "name": "Director of Operations",
+    "role": "Systems Ltd · 24,600 sq ft HQ",
+    "initials": "DO",
+    "image": "assets/images/space-workspace.jpg",
+    "rating": 5,
+    "project": "systems-ltd-hq",
+    "sector": "workplace"
+  },
+  {
+    "id": "03",
+    "quote": "The rollout manual they wrote paid for the flagship. Our fourth store came in eighteen percent cheaper per square foot using the same fixtures.",
+    "name": "Head of Retail",
+    "role": "Apparel brand · MM Alam Road",
+    "initials": "HR",
+    "image": "assets/images/space-retail.jpg",
+    "rating": 5,
+    "project": "mm-alam-flagship",
+    "sector": "retail"
+  },
+  {
+    "id": "04",
+    "quote": "Our chef was in the room from week one. The pass works because they designed the dining floor around it instead of around a mood board.",
+    "name": "General Manager",
+    "role": "Serai Hospitality · 96 covers",
+    "initials": "GM",
+    "image": "assets/images/space-restaurant.jpg",
+    "rating": 5,
+    "project": "serai-dining-room",
+    "sector": "hospitality"
+  },
+  {
+    "id": "05",
+    "quote": "We stayed in the apartment for the whole nine weeks. Two children, one working kitchen, zero shouting. I still do not know how they managed that.",
+    "name": "Apartment owner",
+    "role": "DHA Phase 2 · Renovation",
+    "initials": "AO",
+    "image": "assets/images/space-apartment.jpg",
+    "rating": 5,
+    "project": "dha-apartment-refresh",
+    "sector": "residential"
+  },
+  {
+    "id": "06",
+    "quote": "They designed the queue before they designed the ceiling. That is why our morning peak never spills onto the pavement.",
+    "name": "Founder",
+    "role": "Qissa Group · DHA Phase 5",
+    "initials": "FG",
+    "image": "assets/images/space-cafe.jpg",
+    "rating": 5,
+    "project": "qissa-coffee-house",
+    "sector": "hospitality"
+  },
+  {
+    "id": "07",
+    "quote": "Patients stopped asking where the paediatric side is. That single planning decision was worth the whole fee.",
+    "name": "Clinical Director",
+    "role": "Indus Health · Johar Town",
+    "initials": "CD",
+    "image": "assets/images/space-lobby.jpg",
+    "rating": 5,
+    "project": "indus-clinic-suite",
+    "sector": "commercial"
+  },
+  {
+    "id": "08",
+    "quote": "Selling silence is our product. They zoned the floor so that promise still holds at four in the afternoon on a Tuesday.",
+    "name": "Community Director",
+    "role": "Karandaaz Spaces · Gulberg",
+    "initials": "KD",
+    "image": "assets/images/space-lobby.jpg",
+    "rating": 5,
+    "project": "karandaaz-workplace",
+    "sector": "workplace"
+  }
+]

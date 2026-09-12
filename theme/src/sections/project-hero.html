@@ -1,0 +1,41 @@
+{{! ==========================================================================
+    SECTION · project-hero        id: sec-project-hero
+    --------------------------------------------------------------------------
+    Project detail hero. Reads from the generated item scope (projects.json):
+    title, categoryLabel, location, year, area, excerpt, heroImage.
+    ========================================================================== }}
+<section class="s-proj-hero" id="top" aria-label="{{item.title}}">
+  <div class="s-proj-hero__bg" aria-hidden="true">
+    <img src="{{base}}{{item.heroImage}}" alt="" fetchpriority="high" decoding="async" data-parallax="0.12">
+  </div>
+
+  <div class="container s-proj-hero__inner">
+    <nav class="crumbs" aria-label="Breadcrumb" data-reveal="up">
+      <a href="{{base}}index.html">Home</a>
+      <span class="crumbs__sep" aria-hidden="true">/</span>
+      <a href="{{base}}portfolio-one.html">Work</a>
+      <span class="crumbs__sep" aria-hidden="true">/</span>
+      <span aria-current="page">{{item.title}}</span>
+    </nav>
+
+    <div class="eyebrow" style="color:var(--raw-clay-300)" data-reveal="up" data-reveal-delay="1">
+      {{item.categoryLabel}} · {{item.location}} · {{item.year}}
+    </div>
+
+    <h1 class="s-proj-hero__title" data-split>{{item.title}}</h1>
+
+    <p class="lead" style="max-width:52ch;color:rgba(248,243,234,.82)" data-reveal="up" data-reveal-delay="2">{{item.excerpt}}</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center" data-reveal="up" data-reveal-delay="3">
+      <a class="btn btn--ghost-light" href="#project-brief" data-scroll-to>
+        <span class="btn__label"><span>Read the brief</span><span>Read the brief</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow-down"/></svg></span>
+      </a>
+      <a class="btn btn--ghost-light" href="{{base}}contact.html">
+        <span class="btn__label"><span>Start a similar project</span><span>Start a similar project</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      <div class="scroll-cue" style="margin-left:auto;color:rgba(248,243,234,.6)"><span>{{item.id}} / {{itemCount}}</span><span class="scroll-cue__line"></span></div>
+    </div>
+  </div>
+</section>

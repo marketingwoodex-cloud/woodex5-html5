@@ -1,0 +1,38 @@
+---
+title: Journal — Materials, Budgets & Site Notes | Woodex Interior
+description: Practical writing from the Woodex workshop and site: choosing wood finishes for a Lahore summer, fit-out costs per square foot, kitchen zoning, lighting layers, acoustics and BOQs.
+page: blog
+theme: canvas
+bodyClass: page--blog
+api: site,navigation,posts
+ogImage: assets/images/detail-lighting.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · FEATURED GRID + FILTERS ---------- }}
+  {{> sections/blog-grid}}
+
+  {{! ---------- 03 · NEWSLETTER ---------- }}
+  {{> sections/newsletter}}
+
+  {{! ---------- 04 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","name":"Woodex Interior Journal","description":"Practical writing on materials, budgets, lighting and site discipline from the Woodex workshop.","publisher":{"@type":"Organization","name":"Woodex Interior"},"blogPost":[{{#each posts}}{{#unless @first}},{{/unless}}{"@type":"BlogPosting","headline":"{{title}}","datePublished":"{{date}}","author":{"@type":"Person","name":"{{author}}"},"image":"{{image}}","articleSection":"{{categoryLabel}}"}{{/each}}]}
+</script>

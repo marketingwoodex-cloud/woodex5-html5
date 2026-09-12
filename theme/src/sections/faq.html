@@ -1,0 +1,63 @@
+{{! ==========================================================================
+    SECTION · faq                 id: sec-faq
+    --------------------------------------------------------------------------
+    Sticky aside (category filters + contact prompt) + accessible accordion.
+    Data: faqs.json. Limit with faqLimit; filter by category with faqCat.
+    Emits FAQPage structured data when faqSchema is true.
+    ========================================================================== }}
+<section class="s-faq" id="faq" aria-label="Frequently asked questions">
+  <div class="container">
+    <div class="s-faq__grid">
+
+      <aside class="s-faq__aside" data-reveal="up">
+        <div class="eyebrow eyebrow--dot">{{faqEyebrow}}</div>
+        <h2 data-split style="margin-top:var(--sp-4)">{{{faqTitle}}}</h2>
+        <p class="muted" style="margin-top:var(--sp-4)">{{faqText}}</p>
+
+        <div class="s-faq__cat" data-filter-group data-filter-scope="#faq-list">
+          <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-filter="getting-started" aria-pressed="false">Getting started</button>
+          <button class="chip" type="button" data-filter="pricing" aria-pressed="false">Pricing</button>
+          <button class="chip" type="button" data-filter="process" aria-pressed="false">Process</button>
+          <button class="chip" type="button" data-filter="build" aria-pressed="false">Build</button>
+          <button class="chip" type="button" data-filter="scope" aria-pressed="false">Scope</button>
+        </div>
+
+        <div class="panel" style="margin-top:var(--sp-5);padding:var(--sp-6)">
+          <h3 style="font-size:var(--fs-h4)">Still unresolved?</h3>
+          <p class="small muted" style="margin-top:var(--sp-3)">Send the question with your floor plan. A designer answers, not a call centre.</p>
+          <a class="btn btn--solid btn--sm btn--block" href="{{base}}contact.html" style="margin-top:var(--sp-5)">
+            <span class="btn__label"><span>Ask us directly</span><span>Ask us directly</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="tlink" href="https://wa.me/{{site.whatsapp}}" target="_blank" rel="noopener" style="margin-top:var(--sp-4);justify-self:start">WhatsApp the studio <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </aside>
+
+      <div class="acc" id="faq-list" data-accordion="multi" data-reveal="up" data-reveal-delay="1">
+        {{#each faqs limit=@faqLimit}}
+        <div class="acc__item" data-filter-item="{{cat}}">
+          <button class="acc__head" type="button" id="faq-h-{{id}}" aria-expanded="false" aria-controls="faq-p-{{id}}">
+            <span class="acc__no">{{id}}</span>
+            <span>{{q}}</span>
+            <span class="acc__icon" aria-hidden="true"></span>
+          </button>
+          <div class="acc__panel" id="faq-p-{{id}}" role="region" aria-labelledby="faq-h-{{id}}">
+            <div class="acc__inner">
+              <p>{{a}}</p>
+              <span class="badge badge--outline">{{catLabel}}</span>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{#if faqSchema}}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{#each faqs limit=@faqLimit}}{{#unless @first}},{{/unless}}{"@type":"Question","name":"{{q}}","acceptedAnswer":{"@type":"Answer","text":"{{a}}"}}{{/each}}]}
+</script>
+{{/if}}

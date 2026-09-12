@@ -1,0 +1,34 @@
+---
+title: Project Index — Every Woodex Interior Handover (List View)
+description: The complete project index as dated rows: number, title, sector, location and year, with a hover thumbnail on every entry and a service index beneath.
+page: portfolio-two
+theme: canvas
+bodyClass: page--portfolio page--portfolio-list
+api: site,navigation,projects,services
+ogImage: assets/images/space-showroom.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · TALL PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · PROJECT INDEX ROWS ---------- }}
+  {{> sections/projects-list}}
+
+  {{! ---------- 03 · SERVICE INDEX ---------- }}
+  {{> sections/svc-list}}
+
+  {{! ---------- 04 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

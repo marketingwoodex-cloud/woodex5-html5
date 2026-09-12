@@ -1,0 +1,181 @@
+{{! ==========================================================================
+    SECTION · guide               id: sec-guide
+    --------------------------------------------------------------------------
+    Style-guide reference blocks. One template, six blocks, each rendered
+    only when its param array exists — so a page can include this once and
+    drive the whole guide, or set {{guideId}} to place several.
+
+      swatches  → palette chips      (paletteTitle, paletteText, swatches[{name,token,hex,use}])
+      types     → type specimens     (typeTitle, typeText, types[{class,label,size,family,use}])
+      spaces    → spacing scale      (spaceTitle, spaceText, spaces[{token,value,use}])
+      buttons   → live button set    (btnTitle, btnText, btnVariants[])
+      comps     → class contracts    (compTitle, compText, comps[{k,v}])
+      secList   → section library    (secTitle, secText, secList[{k,v}])
+    ========================================================================== }}
+<section class="s-guide" id="{{#if guideId}}{{guideId}}{{else}}guide{{/if}}" aria-label="Style guide reference">
+  <div class="container">
+
+    {{! ---- palette ---- }}
+    {{#if swatches}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">01 / Colour</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{paletteTitle}}}</h2>
+        </div>
+        {{#if paletteText}}<div class="section-head__aside"><p>{{{paletteText}}}</p></div>{{/if}}
+      </div>
+      <ul class="s-guide__swatches">
+        {{#each swatches}}
+        <li class="s-guide__swatch" data-reveal="up" data-reveal-delay="{{@index}}">
+          <span class="s-guide__chip" style="background:{{hex}}" aria-hidden="true"></span>
+          <span class="s-guide__name">{{name}}</span>
+          <code class="s-guide__token">{{token}}</code>
+          <code class="s-guide__hex">{{hex}}</code>
+          <span class="s-guide__use meta">{{use}}</span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/if}}
+
+    {{! ---- type scale ---- }}
+    {{#if types}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">02 / Typography</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{typeTitle}}}</h2>
+        </div>
+        {{#if typeText}}<div class="section-head__aside"><p>{{{typeText}}}</p></div>{{/if}}
+      </div>
+      <div class="s-guide__types">
+        {{#each types}}
+        <div class="s-guide__type" data-reveal="up" data-reveal-delay="{{@index}}">
+          <div class="s-guide__type-meta">
+            <span class="s-guide__name">{{label}}</span>
+            <code class="s-guide__token">{{family}}</code>
+            <code class="s-guide__hex">{{size}}</code>
+            <span class="s-guide__use meta">{{use}}</span>
+          </div>
+          <p class="s-guide__specimen {{class}}">Aa · Gulberg townhouse — 2,400 sq ft</p>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{! ---- spacing ---- }}
+    {{#if spaces}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">03 / Spacing</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{spaceTitle}}}</h2>
+        </div>
+        {{#if spaceText}}<div class="section-head__aside"><p>{{{spaceText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-guide__scale">
+        {{#each spaces}}
+        <div class="s-guide__scale-row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{token}}</code></dt>
+          <dd class="s-guide__scale-val">{{value}}</dd>
+          <dd class="s-guide__scale-bar" aria-hidden="true"><span style="width:{{value}}"></span></dd>
+          <dd class="s-guide__scale-use meta">{{use}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+    {{/if}}
+
+    {{! ---- buttons ---- }}
+    {{#if btnTitle}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">04 / Controls</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{btnTitle}}}</h2>
+        </div>
+        {{#if btnText}}<div class="section-head__aside"><p>{{{btnText}}}</p></div>{{/if}}
+      </div>
+      <div class="s-guide__buttons">
+        <a class="btn btn--solid" href="#buttons" data-magnetic="0.2">
+          <span class="btn__label"><span>Primary action</span><span>Primary action</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="btn btn--outline" href="#buttons">
+          <span class="btn__label"><span>Outline</span><span>Outline</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="btn btn--ghost" href="#buttons">
+          <span class="btn__label"><span>Ghost</span><span>Ghost</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="btn btn--quiet" href="#buttons">
+          <span class="btn__label"><span>Quiet</span><span>Quiet</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="link-arrow" href="#buttons"><span>Text link with arrow</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <button class="chip" type="button">Filter chip</button>
+        <span class="badge badge--solid">Badge</span>
+        <span class="badge badge--outline">Outline badge</span>
+        <div class="eyebrow eyebrow--dot">Eyebrow label</div>
+      </div>
+      <div class="s-guide__buttons s-guide__buttons--dark" data-theme="walnut">
+        <a class="btn btn--solid" href="#buttons">
+          <span class="btn__label"><span>On walnut</span><span>On walnut</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="btn btn--outline" href="#buttons">
+          <span class="btn__label"><span>Outline</span><span>Outline</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="link-arrow" href="#buttons"><span>Link</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    {{/if}}
+
+    {{! ---- component contracts ---- }}
+    {{#if comps}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">05 / Contracts</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{compTitle}}}</h2>
+        </div>
+        {{#if compText}}<div class="section-head__aside"><p>{{{compText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-docs__dl s-docs__dl--tight">
+        {{#each comps}}
+        <div class="s-docs__row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{{k}}}</code></dt>
+          <dd>{{{v}}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+    {{/if}}
+
+    {{! ---- section library ---- }}
+    {{#if secList}}
+    <div class="s-guide__block" data-reveal="up">
+      <div class="section-head section-head--split">
+        <div>
+          <div class="eyebrow eyebrow--dot">06 / Sections</div>
+          <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{secTitle}}}</h2>
+        </div>
+        {{#if secText}}<div class="section-head__aside"><p>{{{secText}}}</p></div>{{/if}}
+      </div>
+      <dl class="s-guide__lib">
+        {{#each secList}}
+        <div class="s-guide__lib-row" data-reveal="up" data-reveal-delay="{{@index}}">
+          <dt><code>{{k}}</code></dt>
+          <dd>{{v}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+    </div>
+    {{/if}}
+
+  </div>
+</section>

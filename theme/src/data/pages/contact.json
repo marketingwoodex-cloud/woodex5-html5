@@ -1,0 +1,378 @@
+{
+  "contact": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Contact",
+    "heroTitle": "Send the floor plan. <em>Get a budget range in 48 hours.</em>",
+    "heroLead": "No call centre and no sales script. A designer reads every enquiry personally and replies within one business day with a budget range, a realistic programme and an honest view of the brief.",
+    "crumbCurrent": "Contact",
+    "heroTag": "Split layout · 01 of 03",
+    "heroFacts": true,
+    "heroFactList": [
+      {
+        "k": "Studio line",
+        "v": "+92 300 0000000"
+      },
+      {
+        "k": "Email",
+        "v": "studio@woodexinterior.pk"
+      },
+      {
+        "k": "Reply window",
+        "v": "1 business day"
+      },
+      {
+        "k": "Consultation",
+        "v": "Free · 60 min"
+      },
+      {
+        "k": "Hours",
+        "v": "Mon – Sat, 10:00 – 19:00"
+      }
+    ],
+    "heroActions": true,
+    "heroCta": {
+      "label": "Call the studio",
+      "href": "tel:+923000000000"
+    },
+    "heroCta2": {
+      "label": "WhatsApp",
+      "href": "#whatsapp"
+    },
+    "contactId": "enquiry",
+    "contactLabel": "Project enquiry",
+    "contactEyebrow": "Project enquiry",
+    "contactTitle": "Tell us about <em>the space</em>",
+    "contactText": "The more of this you can fill in, the more useful our first reply will be. Floor plans and photographs help most.",
+    "contactFormKind": "project",
+    "contactFields": true,
+    "contactAsideTitle": "What happens next",
+    "contactAsideText": "Three things, in this order, within one business day.",
+    "contactAside": [
+      {
+        "k": "01",
+        "v": "A designer reads the enquiry and the floor plan."
+      },
+      {
+        "k": "02",
+        "v": "We reply with a budget range and a realistic programme."
+      },
+      {
+        "k": "03",
+        "v": "If it looks right, we book a free 60-minute consultation."
+      }
+    ],
+    "contactImage": "assets/images/contact-studio.jpg",
+    "contactImageAlt": "The Woodex design studio in Gulberg III, Lahore",
+    "contactMeta": [
+      {
+        "k": "Studio",
+        "v": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+      },
+      {
+        "k": "Workshop",
+        "v": "Sundar Industrial Estate, Lahore — visits by appointment"
+      },
+      {
+        "k": "Direct lines",
+        "v": "+92 300 0000000 · +92 42 0000 0000"
+      },
+      {
+        "k": "Email",
+        "v": "studio@woodexinterior.pk · projects@woodexinterior.pk"
+      }
+    ],
+    "contactNote": "We reply to every enquiry, including the ones we cannot help with. If we are not the right studio for your project we will say so and suggest who is.",
+    "locId": "offices",
+    "locLabel": "Our offices",
+    "locEyebrow": "Where we work",
+    "locTitle": "Three offices, <em>six cities served</em>",
+    "locText": "Lahore is the design studio and workshop. Islamabad and Karachi are project offices that support delivery and our specifier network.",
+    "locLimit": 3,
+    "splitLabel": "Before you write",
+    "splitEyebrow": "Before you write",
+    "splitTitle": "What makes a first enquiry <em>useful</em>",
+    "splitText": "Ten minutes of preparation on your side saves a fortnight on ours. These are the five things that let a designer give you a real number rather than a range so wide it means nothing.",
+    "splitText2": "You do not need all five. Send what you have — an annotated floor plan and a target date is usually enough for a first reply.",
+    "splitImage": "assets/images/detail-materials.jpg",
+    "splitImageAlt": "Material samples arranged on a studio table",
+    "splitSticky": true,
+    "splitList": true,
+    "splitListItems": [
+      {
+        "k": "Floor plan",
+        "v": "Dimensions in feet and metres, with door and window positions if you have them."
+      },
+      {
+        "k": "Target date",
+        "v": "When the space must be usable — a launch, a lease start, a wedding, a term."
+      },
+      {
+        "k": "Budget range",
+        "v": "Even a rough band helps. We will tell you honestly if the brief and the budget do not meet."
+      },
+      {
+        "k": "Photographs",
+        "v": "Existing conditions, ceiling height, services, access routes and anything that cannot be moved."
+      },
+      {
+        "k": "Decision maker",
+        "v": "Who signs off the design, and who signs off the spend — if they are different people."
+      }
+    ],
+    "splitCta": "Pricing guide",
+    "splitCtaHref": "pricing.html",
+    "splitQuote": "Send the floor plan. We will send a budget range within forty-eight hours.",
+    "faqEyebrow": "Before you write",
+    "faqTitle": "Six questions <em>about starting</em>",
+    "faqText": "How projects begin, what we need from you, and how quickly we reply.",
+    "faqLimit": 6,
+    "faqSchema": true,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaVariant": "image",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "One more step",
+    "ctaTitle": "Or book the <em>consultation</em> directly",
+    "ctaText": "Sixty minutes at the Gulberg studio, on your site, or on video. Free, no obligation, and you leave with a budget range.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "#enquiry",
+    "ctaSecondary": "Call the studio",
+    "ctaSecondaryHref": "tel:+923000000000",
+    "ctaImage": "assets/images/contact-studio.jpg",
+    "ctaAside": [
+      {
+        "k": "Studio",
+        "v": "Gulberg III, Lahore"
+      },
+      {
+        "k": "Hours",
+        "v": "Mon – Sat, 10:00 – 19:00"
+      }
+    ]
+  },
+  "contact-two": {
+    "heroVariant": "tall",
+    "heroEyebrow": "Contact",
+    "heroTitle": "Talk to a designer",
+    "heroLead": "Direct lines, email addresses and office hours for the studio, projects and workshop teams.",
+    "crumbCurrent": "Contact",
+    "heroTag": "Split layout · 02 of 03",
+    "heroDeco": "TALK",
+    "contactId": "enquiry",
+    "contactLabel": "Project enquiry",
+    "contactEyebrow": "Project enquiry",
+    "contactTitle": "Send the <em>floor plan</em>",
+    "contactText": "A designer reads every enquiry personally and replies within one business day.",
+    "contactFormKind": "project",
+    "contactFields": true,
+    "contactAsideTitle": "Direct lines",
+    "contactAsideText": "Prefer to speak to someone? These lines are answered during studio hours.",
+    "contactAside": [
+      {
+        "k": "Studio & new projects",
+        "v": "+92 300 0000000"
+      },
+      {
+        "k": "Projects & site queries",
+        "v": "+92 42 0000 0000"
+      },
+      {
+        "k": "Design enquiries",
+        "v": "studio@woodexinterior.pk"
+      },
+      {
+        "k": "Live projects",
+        "v": "projects@woodexinterior.pk"
+      }
+    ],
+    "contactImage": "assets/images/studio-team.jpg",
+    "contactImageAlt": "Designers reviewing drawings at the Woodex studio",
+    "contactMeta": [
+      {
+        "k": "Studio",
+        "v": "Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+      },
+      {
+        "k": "Workshop",
+        "v": "Sundar Industrial Estate, Lahore"
+      },
+      {
+        "k": "Hours",
+        "v": "Mon – Sat, 10:00 – 19:00 PKT"
+      }
+    ],
+    "locId": "offices",
+    "locLabel": "Our offices",
+    "locEyebrow": "Offices",
+    "locTitle": "Three offices, <em>six cities</em>",
+    "locText": "Lahore is design and manufacture. Islamabad and Karachi are project offices.",
+    "locLimit": 3,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "Start a project",
+    "ctaTitle": "Forty-eight hours to a <em>budget range</em>",
+    "ctaText": "No obligation and no sales script.",
+    "ctaPrimary": "Send an enquiry",
+    "ctaPrimaryHref": "#enquiry",
+    "ctaSecondary": "Pricing guide",
+    "ctaSecondaryHref": "pricing.html"
+  },
+  "contact-three": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Contact",
+    "heroTitle": "Visit the studio, <em>or the workshop</em>",
+    "heroLead": "The fastest way to understand how we work is an hour in Sundar Industrial Estate: machines running, panels numbered, a dry-assembly you can touch. Visits are by appointment.",
+    "crumbCurrent": "Contact",
+    "heroTag": "Map layout · 03 of 03",
+    "heroActions": true,
+    "heroCta": {
+      "label": "Book a studio visit",
+      "href": "#enquiry"
+    },
+    "heroCta2": {
+      "label": "Call the studio",
+      "href": "tel:+923000000000"
+    },
+    "locId": "offices",
+    "locLabel": "Where to find us",
+    "locEyebrow": "Where to find us",
+    "locTitle": "Three offices, <em>one workshop</em>",
+    "locText": "Pick the location closest to your project. Each office has its own direct line and opening hours.",
+    "locLimit": 3,
+    "contactId": "enquiry",
+    "contactLabel": "Book a visit",
+    "contactEyebrow": "Book a visit",
+    "contactTitle": "Studio or <em>workshop?</em>",
+    "contactText": "Tell us which you would like to see, and a date that suits. Studio visits are an hour; workshop visits run about ninety minutes including a dry-assembly walkthrough.",
+    "contactFormKind": "visit",
+    "contactFields": true,
+    "contactAsideTitle": "Visit notes",
+    "contactAsideText": "Practical details before you travel.",
+    "contactAside": [
+      {
+        "k": "Parking",
+        "v": "Gulberg Galleria basement, level B1"
+      },
+      {
+        "k": "Workshop PPE",
+        "v": "Provided on arrival — closed shoes required"
+      },
+      {
+        "k": "Duration",
+        "v": "60 min studio · 90 min workshop"
+      },
+      {
+        "k": "Children",
+        "v": "Welcome at the studio; not on the workshop floor"
+      }
+    ],
+    "contactImage": "assets/images/cta-workshop.jpg",
+    "contactImageAlt": "Panel processing bay inside the Woodex workshop",
+    "contactMeta": [
+      {
+        "k": "Studio",
+        "v": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+      },
+      {
+        "k": "Workshop",
+        "v": "Plot 27, Sundar Industrial Estate, Lahore"
+      },
+      {
+        "k": "Islamabad",
+        "v": "Blue Area project office, by appointment"
+      },
+      {
+        "k": "Karachi",
+        "v": "Clifton project office, by appointment"
+      }
+    ],
+    "faqEyebrow": "Visits and logistics",
+    "faqTitle": "Before you <em>travel</em>",
+    "faqText": "Appointment booking, parking, site access and working outside Lahore.",
+    "faqLimit": 5,
+    "faqSchema": true,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaVariant": "image",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Or start remotely",
+    "ctaTitle": "Cannot visit? <em>Send the floor plan.</em>",
+    "ctaText": "We work with clients across six cities and handle remote briefings, video walkthroughs and site visits as standard.",
+    "ctaPrimary": "Send an enquiry",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See our work",
+    "ctaSecondaryHref": "portfolio-one.html",
+    "ctaImage": "assets/images/space-apartment.jpg",
+    "ctaAside": [
+      {
+        "k": "Cities",
+        "v": "6 served nationwide"
+      },
+      {
+        "k": "Remote",
+        "v": "Video walkthroughs standard"
+      }
+    ]
+  },
+  "thank-you": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Enquiry received",
+    "heroTitle": "Thank you. <em>Your enquiry is with a designer.</em>",
+    "heroLead": "We reply to every enquiry within one business day — usually sooner. If your project has a hard deadline, call the studio line and quote your reference so we can prioritise it.",
+    "crumbCurrent": "Thank you",
+    "thanksTitle": "What happens <em>next</em>",
+    "thanksText": "Three things, in this order.",
+    "thanksItems": [
+      {
+        "k": "01",
+        "v": "A designer reads your enquiry and floor plan",
+        "t": "Within 4 working hours"
+      },
+      {
+        "k": "02",
+        "v": "We reply with a budget range and realistic programme",
+        "t": "Within 1 business day"
+      },
+      {
+        "k": "03",
+        "v": "If it looks right, we book a free 60-minute consultation",
+        "t": "Same week where possible"
+      }
+    ],
+    "thanksAside": [
+      {
+        "k": "Studio line",
+        "v": "+92 300 0000000"
+      },
+      {
+        "k": "Email",
+        "v": "studio@woodexinterior.pk"
+      },
+      {
+        "k": "Hours",
+        "v": "Mon – Sat, 10:00 – 19:00 PKT"
+      }
+    ],
+    "thanksCta": {
+      "label": "Back to the homepage",
+      "href": "index.html"
+    },
+    "thanksCta2": {
+      "label": "See selected work",
+      "href": "portfolio-one.html"
+    },
+    "thanksNote": "Did not receive a confirmation email? Check spam, or call the studio line — we will resend it.",
+    "blogId": "while-you-wait",
+    "blogLabel": "While you wait",
+    "blogEyebrow": "While you wait",
+    "blogTitle": "Three articles worth <em>reading first</em>",
+    "blogText": "They will help you prepare for the consultation — especially the one about budget.",
+    "blogFeatured": true,
+    "blogFilter": false,
+    "blogLimit": 3,
+    "blogOffset": 4,
+    "blogCta": "All articles",
+    "blogCtaHref": "blog.html"
+  }
+}

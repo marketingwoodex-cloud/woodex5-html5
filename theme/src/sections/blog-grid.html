@@ -1,0 +1,71 @@
+{{! ==========================================================================
+    SECTION · blog-grid           id: sec-blog-grid
+    --------------------------------------------------------------------------
+    Featured post + card grid, with a category filter bar.
+    Data: posts.json.  blogLimit, blogFilter (default true), blogFeatured.
+    ========================================================================== }}
+<section class="s-blog" id="{{blogId}}" aria-label="{{blogLabel}}">
+  <div class="container">
+
+    <div class="s-blog__head" data-reveal="up">
+      <div>
+        <div class="eyebrow eyebrow--dot">{{blogEyebrow}}</div>
+        <h2 data-split style="margin-top:var(--sp-4);max-width:20ch">{{{blogTitle}}}</h2>
+      </div>
+      <div style="display:grid;gap:var(--sp-4);justify-items:end">
+        <p class="muted small" style="max-width:38ch">{{blogText}}</p>
+        {{#if blogCta}}
+        <a class="btn btn--sm" href="{{base}}{{blogCtaHref}}">
+          <span class="btn__label"><span>{{blogCta}}</span><span>{{blogCta}}</span></span>
+          <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+        </a>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if blogFilter}}
+    <div class="s-proj-grid__bar" data-filter-group data-reveal="up" style="border-bottom:0;padding-bottom:var(--sp-4)">
+      <div class="s-proj-grid__filters" role="group" aria-label="Filter articles by topic">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All topics</button>
+        <button class="chip" type="button" data-filter="materials" aria-pressed="false">Materials &amp; finishes</button>
+        <button class="chip" type="button" data-filter="planning" aria-pressed="false">Planning &amp; layouts</button>
+        <button class="chip" type="button" data-filter="budget" aria-pressed="false">Budgeting</button>
+        <button class="chip" type="button" data-filter="site" aria-pressed="false">Site &amp; execution</button>
+      </div>
+      <span class="s-proj-grid__count" data-filter-count>08 articles</span>
+    </div>
+    {{/if}}
+
+    {{#if blogFeatured}}
+    <a class="post-feature" href="{{base}}blog/{{featuredPost.slug}}.html" data-reveal="up" data-filter-item="{{featuredPost.category}}">
+      <div class="post-feature__media media-hover">
+        <img src="{{base}}{{featuredPost.image}}" alt="{{featuredPost.title}}" loading="lazy" decoding="async">
+      </div>
+      <div class="post-feature__body">
+        <span class="badge badge--accent">Featured · {{featuredPost.categoryLabel}}</span>
+        <h3 class="post-feature__title">{{featuredPost.title}}</h3>
+        <p class="muted">{{featuredPost.excerpt}}</p>
+        <div class="post__meta">
+          <span>{{featuredPost.dateLabel}}</span><i>·</i><span>{{featuredPost.readTime}} min read</span><i>·</i><span>{{featuredPost.author}}</span>
+        </div>
+        <span class="tlink" style="justify-self:start">Read the article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </div>
+    </a>
+    {{/if}}
+
+    <div class="post-grid">
+      {{#each posts limit=@blogLimit offset=@blogOffset where=@blogWhere}}
+      <article class="post" data-reveal="up" data-reveal-delay="{{@index}}" data-filter-item="{{category}} {{tags}}">
+        <a class="post__media media-hover" href="{{../base}}blog/{{slug}}.html" tabindex="-1" aria-hidden="true">
+          <img src="{{../base}}{{image}}" alt="" loading="lazy" decoding="async">
+          <span class="post__cat">{{categoryLabel}}</span>
+        </a>
+        <div class="post__meta"><span>{{dateLabel}}</span><i>·</i><span>{{readTime}} min read</span></div>
+        <h3 class="post__title"><a href="{{../base}}blog/{{slug}}.html">{{title}}</a></h3>
+        <p class="post__excerpt">{{excerpt}}</p>
+        <a class="post__more" href="{{../base}}blog/{{slug}}.html">Read story <svg aria-hidden="true" width="12" height="12"><use href="#i-arrow"/></svg></a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

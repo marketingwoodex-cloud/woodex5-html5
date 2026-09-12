@@ -1,0 +1,57 @@
+{{! PARTIAL · drawer.html — full-screen mobile menu with accordion groups.
+    Built from the same navigation.json as the desktop mega menu. }}
+<div class="drawer" id="drawer" aria-hidden="true" aria-label="Menu">
+  <div class="drawer__top">
+    <a class="brand" href="{{base}}index.html" aria-label="{{site.name}} — home">
+      <span class="brand__mark" aria-hidden="true">W</span>
+      <span class="brand__type"><span class="brand__name">Woodex</span><span class="brand__sub">Interior Studio</span></span>
+    </a>
+    <button class="drawer__close" type="button" aria-label="Close menu">
+      <svg aria-hidden="true" width="16" height="16"><use href="#i-close"/></svg>
+    </button>
+  </div>
+
+  <nav class="drawer__nav" aria-label="Mobile">
+    {{#each navigation.main}}
+    <div class="drawer__item">
+      {{#if children}}
+      <button type="button" class="drawer__toggle" aria-expanded="false">
+        <span>{{label}}</span>
+        <svg aria-hidden="true" width="12" height="12"><use href="#i-chevron"/></svg>
+      </button>
+      <div class="drawer__sub"><div>
+        {{#each children}}
+        {{#each links}}
+        <a href="{{../../base}}{{href}}">{{label}}</a>
+        {{/each}}
+        {{/each}}
+      </div></div>
+      {{else}}
+      <a class="drawer__link" href="{{../base}}{{href}}" style="--d:.06s"><span>{{label}}</span><i aria-hidden="true">{{#if id}}{{id}}{{else}}{{@index}}{{/if}}</i></a>
+      {{/if}}
+    </div>
+    {{/each}}
+
+    <div class="drawer__item" style="margin-top:var(--sp-5)">
+      <a class="btn btn--solid btn--block" href="{{base}}contact.html">
+        <span class="btn__label"><span>{{site.cta.primary}}</span><span>{{site.cta.primary}}</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="drawer__foot">
+    <div class="drawer__contact">
+      <a href="tel:{{site.phoneRaw}}">{{site.phone}}</a>
+      <a href="mailto:{{site.email}}">{{site.email}}</a>
+      <span class="meta">{{site.address.city}} · {{site.address.region}} · {{site.address.country}}</span>
+    </div>
+    <div class="drawer__social">
+      <a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+      <a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
+      <a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+      <a href="https://wa.me/{{site.whatsapp}}" aria-label="WhatsApp" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+    </div>
+    <div class="meta">© <span data-year>{{year}}</span> {{site.legalName}}</div>
+  </div>
+</div>

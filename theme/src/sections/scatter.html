@@ -1,0 +1,40 @@
+{{! ==========================================================================
+    SECTION · scatter             id: sec-scatter
+    --------------------------------------------------------------------------
+    Scattered / rotated image collage with per-item parallax and hover
+    captions. Items come from front matter: scatterItems [{src,alt,cap,rot}]
+    or fall back to the five project covers below.
+    ========================================================================== }}
+<section class="s-scatter" aria-label="{{scatterLabel}}">
+  <div class="container">
+    {{#if scatterTitle}}
+    <div class="s-scatter__head">
+      <div class="eyebrow eyebrow--dot" data-reveal="up">{{scatterEyebrow}}</div>
+      <h2 data-split data-reveal="up" data-reveal-delay="1">{{{scatterTitle}}}</h2>
+      {{#if scatterText}}<p class="muted" style="max-width:52ch" data-reveal="up" data-reveal-delay="2">{{scatterText}}</p>{{/if}}
+    </div>
+    {{/if}}
+
+    <div class="s-scatter__stage">
+      {{#each scatterItems}}
+      <figure class="s-scatter__item s-scatter__item--{{@index}}" data-reveal="scale" data-reveal-delay="{{@index}}" data-parallax="{{parallax}}">
+        <img src="{{../base}}{{src}}" alt="{{alt}}" loading="lazy" decoding="async">
+        {{#if cap}}<figcaption class="s-scatter__caption">{{cap}}</figcaption>{{/if}}
+      </figure>
+      {{/each}}
+
+      {{#if scatterSticker}}
+      <div class="s-scatter__sticker" aria-hidden="true">
+        <div class="seal float float--slow">
+          <svg class="seal__ring" viewBox="0 0 140 140">
+            <defs><path id="sealpath2" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+            <circle cx="70" cy="70" r="68" fill="var(--c-bg-inverse)"/>
+            <text><textPath href="#sealpath2">{{scatterSticker}}</textPath></text>
+          </svg>
+          <span class="seal__core"><svg aria-hidden="true" width="18" height="18"><use href="#i-star4"/></svg></span>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>

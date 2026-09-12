@@ -1,0 +1,31 @@
+---
+title: Page Not Found (404) | Woodex Interior
+description: The page you were looking for has moved, been renamed or never existed. Jump to services, portfolio, journal or contact.
+page: 404
+theme: canvas
+bodyClass: page--404
+robots: noindex, follow
+api: site,navigation,projects
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · 404 PANEL ---------- }}
+  {{> sections/notfound}}
+
+  {{! ---------- 02 · RECENT WORK ---------- }}
+  {{> sections/projects-grid}}
+
+  {{! ---------- 03 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

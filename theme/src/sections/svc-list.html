@@ -1,0 +1,38 @@
+{{! ==========================================================================
+    SECTION · svc-list            id: sec-svc-list
+    --------------------------------------------------------------------------
+    Index-style service list with a cursor-following image preview.
+    Front matter: svcListLimit, svcListEyebrow, svcListTitle, svcListText.
+    ========================================================================== }}
+<section class="s-svc-list" id="{{svcListId}}" aria-label="{{svcListLabel}}" data-hover-list>
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{svcListEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{svcListTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{svcListText}}</p>
+        <a class="tlink" href="{{base}}{{svcListCtaHref}}" style="margin-top:var(--sp-5)">{{svcListCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+
+    <div class="s-svc-list__rows">
+      {{#each services limit=@svcListLimit where=@svcListWhere}}
+      <a class="svc-row" href="{{../base}}services/{{slug}}.html" data-reveal="up" data-reveal-delay="{{@index}}" data-cursor-label="View">
+        <span class="svc-row__no">{{id}}</span>
+        <span class="svc-row__title">{{title}}</span>
+        <span class="svc-row__tag">{{group}}</span>
+        <span class="svc-row__arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {{/each}}
+    </div>
+
+    <div class="s-svc-list__float" aria-hidden="true">
+      {{#each services limit=@svcListLimit where=@svcListWhere}}
+      <img src="{{../base}}{{image}}" alt="" loading="lazy" decoding="async"{{#if @first}} class="is-active"{{/if}}>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+{{! ==========================================================================
+    SECTION · stats               id: sec-stats
+    --------------------------------------------------------------------------
+    Animated counters from data/stats.json.
+      statsGroup: primary (4) | secondary (6)   — default primary
+      statsVariant: default | inline
+    Counters run once on enter; reduced-motion prints the final value.
+    ========================================================================== }}
+<section class="s-stats section{{#if statsVariant}} s-stats--{{statsVariant}}{{/if}}" aria-label="{{statsLabel}}">
+  <div class="container">
+    {{#if statsHead}}
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{statsEyebrow}}</div>
+        <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{statsHead}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{statsNote}}</p></div>
+    </div>
+    {{/if}}
+
+    <div class="s-stats__grid" {{#unless statsVariant}}data-reveal="up"{{/unless}}>
+      {{#each stats.primary limit=@statsLimit where=@statsWhere}}
+      <div class="s-stats__item" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="s-stats__no">{{id}}</span>
+        <span class="s-stats__value">
+          <span data-count="{{value}}">0</span>
+          {{#if suffix}}<span class="s-stats__suffix">{{suffix}}</span>{{/if}}
+        </span>
+        <strong class="s-stats__label">{{label}}</strong>
+        {{#if note}}<span class="meta">{{note}}</span>{{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
