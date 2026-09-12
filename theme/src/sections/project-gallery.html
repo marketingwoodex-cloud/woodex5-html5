@@ -16,7 +16,11 @@
       {{#each item.gallery}}
       <figure class="{{#if @first}}s-proj-gallery--full{{else}}{{#if @last}}s-proj-gallery--single{{else}}s-proj-gallery--pair{{/if}}{{/if}}"
               data-reveal="clip" data-reveal-delay="{{@index}}">
-        <a class="media media-hover" href="#" data-lightbox="{{../base}}{{src}}"
+        {{! href points at the full-size image, not "#". With JS the Lightbox
+            module intercepts the click and opens the viewer; without JS the
+            link still does something useful instead of jumping to the top of
+            the page and leaving the image unreachable. }}
+        <a class="media media-hover" href="{{../base}}{{src}}" data-lightbox="{{../base}}{{src}}"
            data-lightbox-caption="{{caption}}" data-cursor-label="Expand">
           <img src="{{../base}}{{src}}" alt="{{caption}}"
                {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}} decoding="async">
