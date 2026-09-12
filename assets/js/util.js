@@ -63,7 +63,11 @@
     /* ---------- Viewport / motion ---------- */
     vw: function () { return win.innerWidth; },
     vh: function () { return win.innerHeight; },
+    /* True when the visitor asked for reduced motion, or when the document
+       explicitly opts out via data-motion="off" on <html>. Every motion module
+       routes through this, so that one attribute is a global kill switch. */
     reduced: function () {
+      if (doc.documentElement.getAttribute('data-motion') === 'off') return true;
       return win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
     },
     coarse: function () {

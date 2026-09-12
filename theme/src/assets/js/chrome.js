@@ -225,6 +225,21 @@
         e.preventDefault();
         win.scrollTo({ top: 0, behavior: util.reduced() ? 'auto' : 'smooth' });
       });
+
+      /* In-page anchors with a sticky header above them: scroll to the target
+         minus the header height so the heading is not hidden underneath it.
+         Without JS these are ordinary fragment links and still work. */
+      util.onAll(util.qa('[data-scroll-to]'), 'click', function (e) {
+        var id = this.getAttribute('href') || '';
+        if (id.charAt(0) !== '#' || id.length < 2) return;
+        var target = doc.getElementById(id.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        var header = util.q('.header, [data-header]');
+        var offset = (header ? header.offsetHeight : 0) + 20;
+        util.scrollTo(target, offset);
+        if (history.replaceState) history.replaceState(null, '', id);
+      });
     }
   };
 

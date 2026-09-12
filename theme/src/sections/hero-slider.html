@@ -42,9 +42,9 @@
     <p class="small" style="color:rgba(248,243,234,.7);max-width:26ch">{{site.tagline}}</p>
   </div>
 
-  <div class="s-hero-slider__rail" aria-hidden="true">
+  <div class="s-hero-slider__rail" role="tablist" aria-label="Featured projects">
     {{#each projects where=featured:true}}
-    <button class="s-hero-slider__thumb{{#if @first}} is-active{{/if}}" type="button" data-deck-index="{{@index}}" aria-label="{{title}}">
+    <button class="s-hero-slider__thumb{{#if @first}} is-active{{/if}}" type="button" role="tab" data-deck-index="{{@index}}" aria-current="{{#if @first}}true{{else}}false{{/if}}" aria-label="Show {{title}}">
       <img src="{{../base}}{{cover}}" alt="" loading="lazy" decoding="async">
     </button>
     {{/each}}

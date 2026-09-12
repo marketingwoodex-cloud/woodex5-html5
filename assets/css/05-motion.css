@@ -264,3 +264,33 @@ a:hover .media-hover img, .media-hover:hover img { transform: scale(1.055); }
   .media-hover img, .hover-colour img, .swap-media img { transition: none !important; transform: none !important; }
   .hover-colour img { filter: none !important; }
 }
+
+/* ---------- MANUAL OPT-OUT ------------------------------------------------
+   html[data-motion="off"] reproduces the reduced-motion rules exactly, so a
+   visitor (or a preview tool) can disable all motion without changing an OS
+   setting. js/util.js reads the same attribute, so behaviour and styling
+   always agree. */
+html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; transition: none !important; }
+html[data-motion="off"] .split-line > span,
+html[data-motion="off"] .split-word > span,
+html[data-motion="off"] .split-char,
+html[data-motion="off"] .loader__word span { transform: none !important; opacity: 1 !important; transition: none !important; animation: none !important; }
+html[data-motion="off"] .marquee__track,
+html[data-motion="off"] .marquee-y__track,
+html[data-motion="off"] [data-kenburns] img,
+html[data-motion="off"] .kb img,
+html[data-motion="off"] .float,
+html[data-motion="off"] .seal__ring,
+html[data-motion="off"] .scroll-cue__line::after,
+html[data-motion="off"] .pulse::after { animation: none !important; }
+html[data-motion="off"] [data-parallax],
+html[data-motion="off"] [data-magnetic],
+html[data-motion="off"] [data-tilt] { transform: none !important; }
+html[data-motion="off"] .scrub { height: auto; }
+html[data-motion="off"] .scrub__pin { position: static; height: auto; overflow-x: auto; }
+html[data-motion="off"] .scrub__track { transform: none !important; }
+html[data-motion="off"] .curtain { display: none; }
+html[data-motion="off"] .media-hover img,
+html[data-motion="off"] .hover-colour img,
+html[data-motion="off"] .swap-media img { transition: none !important; transform: none !important; }
+html[data-motion="off"] .hover-colour img { filter: none !important; }

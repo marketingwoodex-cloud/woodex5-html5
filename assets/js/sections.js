@@ -51,6 +51,14 @@
           if (open && mediaHost && item.hasAttribute('data-media-index')) {
             W.Swap.set(mediaHost, parseInt(item.getAttribute('data-media-index'), 10));
           }
+          /* Sync the optional caption beside the sticky media */
+          if (open) {
+            var tag = util.q('[data-acc-tag]', doc);
+            if (tag) {
+              var label = util.q('.s-svc-acc__title, .acc__head', item);
+              if (label) tag.textContent = label.textContent.trim();
+            }
+          }
           util.bus.emit('accordion:change', { group: group, item: item, open: open });
         }
 
@@ -111,6 +119,16 @@
         function select(i) {
           btns.forEach(function (b, n) { b.setAttribute('aria-selected', String(n === i)); b.tabIndex = n === i ? 0 : -1; });
           panels.forEach(function (p, n) { p.hidden = n !== i; });
+          /* Pricing toggle: buttons carry data-price-mode and the figures they
+             control carry a matching data-price. They are not tabpanels, so
+             they are swapped here, scoped to the enclosing section. */
+          var mode = btns[i] && btns[i].getAttribute('data-price-mode');
+          if (mode) {
+            var scope = (host.closest && host.closest('section')) || doc;
+            util.qa('[data-price]', scope).forEach(function (el) {
+              el.hidden = el.getAttribute('data-price') !== mode;
+            });
+          }
           util.bus.emit('tabs:change', { host: host, index: i });
         }
         btns.forEach(function (b, i) {
@@ -143,6 +161,10 @@
         var dotsHost = util.q(util.attr(host, 'data-deck-dots', '[data-deck-dots]'), host) ||
                        util.q(util.attr(host, 'data-deck-dots', '.dots'));
         var mediaHost = util.q('[data-deck-media]', host);
+        /* Optional thumbnail rail. The hero slider keeps its rail in a sibling
+           column rather than inside the deck host, so search the section. */
+        var thumbScope = (host.closest && host.closest('section')) || host.parentElement || doc;
+        var thumbs = util.qa('[data-deck-index]', thumbScope);
 
         /* Build dots if a container exists but is empty */
         if (dotsHost && !dotsHost.children.length) {
@@ -169,6 +191,11 @@
             d.setAttribute('aria-selected', String(k === i));
           });
           if (mediaHost) W.Swap.set(mediaHost, i);
+          thumbs.forEach(function (t) {
+            var on = parseInt(t.getAttribute('data-deck-index'), 10) === i;
+            t.classList.toggle('is-active', on);
+            t.setAttribute('aria-current', String(on));
+          });
           host.style.setProperty('--slide-index', i);
           restart();
           util.bus.emit('deck:change', { host: host, index: i });
@@ -184,6 +211,12 @@
 
         util.onAll(util.qa('[data-deck-next]', host), 'click', next);
         util.onAll(util.qa('[data-deck-prev]', host), 'click', prev);
+        thumbs.forEach(function (t) {
+          util.on(t, 'click', function () {
+            var n = parseInt(t.getAttribute('data-deck-index'), 10);
+            if (!isNaN(n)) go(n);
+          });
+        });
         util.on(host, 'mouseenter', function () { paused = true; });
         util.on(host, 'mouseleave', function () { paused = false; });
         util.on(doc, 'visibilitychange', function () { paused = doc.hidden; });
@@ -491,9 +524,11 @@
      ===================================================================== */
   var TOC = {
     init: function (root) {
+      /* Two supported markups: a legacy .toc container, and the current
+         [data-toc-link] anchors emitted by sections/legal and sections/post. */
       var toc = util.q('.toc', root || doc);
-      if (!toc) return;
-      var links = util.qa('a[href^="#"]', toc);
+      var links = toc ? util.qa('a[href^="#"]', toc) : util.qa('[data-toc-link]', root || doc);
+      if (!links.length) return;
       var targets = links.map(function (a) { return util.q(a.getAttribute('href')); }).filter(Boolean);
       if (!targets.length) return;
       util.onScroll(util.rafThrottle(function () {

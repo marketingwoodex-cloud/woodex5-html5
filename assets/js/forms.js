@@ -231,6 +231,26 @@
     }
   };
 
+  /* ---------- ENQUIRY REFERENCE ----------
+     /thank-you prints a reference the caller can quote. It is stored for the
+     session so a reload keeps the same number instead of issuing a new one.
+     The template ships a placeholder that is replaced here. */
+  var Ref = {
+    init: function (root) {
+      util.qa('[data-ref]', root || doc).forEach(function (el) {
+        var kind = el.getAttribute('data-ref') || 'enquiry';
+        var key = 'woodex.ref.' + kind, value = null;
+        try { value = win.sessionStorage.getItem(key); } catch (e) { /* private mode */ }
+        if (!value) {
+          var stamp = String(Date.now()).slice(-6);
+          value = 'WOODEX-' + stamp;
+          try { win.sessionStorage.setItem(key, value); } catch (e) { /* private mode */ }
+        }
+        el.textContent = value;
+      });
+    }
+  };
+
   W.Toast = Toast; W.Forms = Forms; W.Newsletter = Newsletter;
-  W.Hours = Hours; W.Copy = Copy; W.Year = Year; W.RX = RX;
+  W.Hours = Hours; W.Copy = Copy; W.Year = Year; W.Ref = Ref; W.RX = RX;
 })(window.Woodex = window.Woodex || {});

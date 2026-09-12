@@ -61,6 +61,7 @@
       W.Hours.init(root);
       W.Copy.init(root);
       W.Year.init(root);
+      W.Ref.init(root);
 
       /* --- Page-type hooks --- */
       Theme.pageHooks();
