@@ -1,0 +1,84 @@
+---
+/** PAGE TEMPLATE · Materials Library           [ materials ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import GalleryGrid from '../sections/GalleryGrid.astro';
+import RichText from '../sections/RichText.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import CtaBand from '../sections/CtaBand.astro';
+
+const swatches = [
+  { src: '/images/materials/oak-veneer.jpg', alt: 'Oak veneer sample', caption: 'European oak veneer — sealed satin', span: 'wide' },
+  { src: '/images/materials/travertine.jpg', alt: 'Travertine stone sample', caption: 'Travertine, honed — flooring and cladding' },
+  { src: '/images/materials/marble.jpg', alt: 'Marble sample', caption: 'Book-matched marble — feature surfaces' },
+  { src: '/images/materials/limewash.jpg', alt: 'Limewash plaster sample', caption: 'Limewash plaster — breathable wall finish' },
+  { src: '/images/materials/microcement.jpg', alt: 'Microcement sample', caption: 'Microcement — seamless wet areas' },
+  { src: '/images/materials/hardware.jpg', alt: 'Joinery hardware samples', caption: 'Concealed hardware — push latch and soft-close' },
+  { src: '/images/materials/upholstery.jpg', alt: 'Upholstery fabric samples', caption: 'Performance upholstery — 40,000 Martindale rubs' },
+  { src: '/images/materials/sintered.jpg', alt: 'Sintered stone sample', caption: 'Sintered stone — heat and scratch resistant' },
+];
+---
+
+<BaseLayout
+  title="Materials & Finishes Library | Woodex Interior"
+  description="The material palette Woodex Interior specifies in Pakistan — timber veneers, stone, microcement, limewash, hardware and performance upholstery, all tested for local climate."
+  overlayHeader
+  current="about"
+>
+  <PageHeader
+    eyebrow="Specification"
+    title="A material library chosen for this climate"
+    lede="European specification sheets assume a European climate. Every material in our studio library has been chosen and tested for Pakistani humidity, dust and a forty-degree summer."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Materials' }]}
+    image="/images/features/feature-sustainability.jpg"
+    meta={[
+      { label: 'Swatch library', value: '420 samples' },
+      { label: 'Timber species', value: '11' },
+      { label: 'Stone types', value: '18' },
+      { label: 'All studios', value: 'Full library' },
+    ]}
+  />
+
+  <RichText
+    showToc={false}
+    narrow
+    blocks={[
+      { type: 'h2', text: 'Why the local climate changes the specification' },
+      { type: 'p', text: 'A specification that works in Berlin will fail in Lahore for three reasons: humidity cycling, dust ingress, and UV intensity. Each of those has a specific answer, and none of them is optional.' },
+      { type: 'list', items: [
+        'Humidity — moisture-resistant cores in every wet area, and every board edge banded or lipped, including on the parts nobody sees.',
+        'Dust — closed cabinetry over open shelving, and finishes that can be wiped rather than only dusted.',
+        'UV — UV-stable lacquers and pigment-stable stones near glazing, because a north-facing European room is not a west-facing Lahore one.',
+      ] },
+      { type: 'quote', text: 'An unsealed board edge swells within a single monsoon. That is not a small detail, it is the whole job.' },
+      { type: 'h2', text: 'How we specify' },
+      { type: 'p', text: 'Every finish in a project is named with a manufacturer and a product code. No "similar" allowances, no substitutions on site. If a product is discontinued between drawing and order, you are told before the swap happens.' },
+      { type: 'callout', title: 'Visit the library', text: 'All three studios hold the full 420-sample library. Bring your drawings and we will lay out a palette on the table — it is far faster than choosing from images.' },
+    ]}
+  />
+
+  <GalleryGrid
+    eyebrow="Swatch library"
+    title="Selected materials"
+    lede="A cross-section of what we specify most often. Click any sample to view full size."
+    items={swatches}
+    variant="mosaic"
+    theme="gray"
+  />
+
+  <FaqBlock eyebrow="Questions" title="Material and specification questions" items={[
+    { q: 'Do you specify imported materials?', a: 'Where they earn their cost. Imported hardware and engineered timber genuinely outperform on wear and dimensional stability. Imported decorative finishes usually do not.', category: 'Specification' },
+    { q: 'Can I supply my own materials?', a: 'Yes, and we will price around client-supplied items while noting the risk transfer clearly in the contract.', category: 'Specification' },
+    { q: 'How do you handle discontinued products?', a: 'We notify you before any substitution and provide the alternative with a sample. Nothing is swapped silently on site.', category: 'Specification' },
+    { q: 'What about sustainable options?', a: 'Local stone, reclaimed hardwood, lime plasters and low-VOC water-based finishes all perform well here. We will flag where a sustainable choice carries a maintenance trade-off.', category: 'Sustainability' },
+    { q: 'Can I see samples before committing?', a: 'Always. Larger runs get a physical sample panel signed off before production begins.', category: 'Specification' },
+  ]} />
+
+  <CtaBand
+    eyebrow="See for yourself"
+    title="Come and handle the materials"
+    primary={{ label: 'Visit a studio', href: '/contact-three' }}
+    secondary={{ label: 'Start a project', href: '/contact-one' }}
+    variant="split"
+  />
+</BaseLayout>

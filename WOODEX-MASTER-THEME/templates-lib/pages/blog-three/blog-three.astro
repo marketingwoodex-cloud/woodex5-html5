@@ -1,0 +1,43 @@
+---
+/** Blog Three — editorial list layout with a date rail. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import NewsletterBand from '../sections/NewsletterBand.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Journal Three — List Layout | Woodex Interior"
+  description="The Woodex Journal as a chronological list with a date rail — the most compact way to scan the archive."
+  overlayHeader
+  current="journal"
+>
+  <PageHeader
+    eyebrow="Journal · Layout three"
+    title="The journal, chronologically"
+    lede="Every article in publication order with date, topic, author and reading time. Nothing hidden behind a click."
+    crumbs={[{ label: 'Journal', href: '/journal' }, { label: 'List' }]}
+    variant="soft"
+    meta={[
+      { label: 'Layout', value: 'List' },
+      { label: 'Articles', value: '9' },
+      { label: 'Since', value: '2026' },
+    ]}
+  />
+
+  <JournalGrid eyebrow="Archive" title="All articles" variant="list" limit={12} showFilter={false} />
+
+  <NewsletterBand variant="band" theme="gray" />
+
+  <StatsStrip variant="numbers" eyebrow="The practice behind the writing" theme="dark" />
+
+  <CtaBand
+    eyebrow="Layouts"
+    title="Other ways to browse"
+    primary={{ label: 'Magazine layout', href: '/blog-one' }}
+    secondary={{ label: 'Grid layout', href: '/blog-two' }}
+    variant="split"
+  />
+</BaseLayout>

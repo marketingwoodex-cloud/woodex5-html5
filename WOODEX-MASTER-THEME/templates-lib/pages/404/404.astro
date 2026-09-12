@@ -1,0 +1,168 @@
+---
+/** PAGE TEMPLATE · 404                         [ /404 ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import { primaryNav } from '../data/navigation.js';
+import { featuredServices } from '../data/services.js';
+---
+
+<BaseLayout
+  title="Page not found — 404 | Woodex Interior"
+  description="The page you were looking for does not exist. Here are the routes we do have."
+  overlayHeader
+  noindex
+  footerCta={false}
+>
+  <section class="nf" data-theme="dark">
+    <div class="container nf__inner">
+      <span class="nf__code" data-reveal="fade">404</span>
+
+      <h1 class="nf__title" data-heading-reveal="words" data-heading-stagger="60">
+        This page has been moved, or never existed
+      </h1>
+
+      <p class="nf__lede" data-reveal="fade-up" style="--reveal-delay:260ms">
+        Interior projects change, and so do websites. Try one of the routes below, or search the
+        studio site.
+      </p>
+
+      <form class="nf__search" action="/search" method="get" data-reveal="fade-up" style="--reveal-delay:340ms">
+        <label class="field nf__field" data-field>
+          <span class="field__label">Search</span>
+          <input type="search" name="q" placeholder="Try &ldquo;kitchen&rdquo;, &ldquo;pricing&rdquo; or &ldquo;joinery&rdquo;" aria-label="Search the site" />
+        </label>
+        <button type="submit" class="btn btn--beige">
+          <span class="btn__label"><span>Search</span></span>
+          <Icon name="arrow-right" size={14} class="arrow" />
+        </button>
+      </form>
+
+      <div class="nf__links" data-stagger="70">
+        {primaryNav.map((item) => {
+          const href = item.mega?.columns?.[0]?.links?.[0]?.href ?? '/';
+          return (
+            <a href={href} class="nf__link" data-reveal="fade-up">
+              <span>{item.label}</span>
+              <Icon name="arrow-up-right" size={14} class="arrow-up-right" />
+            </a>
+          );
+        })}
+      </div>
+
+      <div class="nf__services" data-reveal="fade-up" style="--reveal-delay:200ms">
+        <span class="nf__services-label">Popular services</span>
+        <div class="nf__pills">
+          {featuredServices().map((s) => (
+            <a href={`/services/${s.slug}`} class="pill">{s.title}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href="/home-one" class="btn btn--beige btn--lg nf__home" data-reveal="fade-up">
+        <span class="btn__label"><span>Back to homepage</span></span>
+        <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding-block: calc(var(--header-h) + 4rem) 5rem;
+    background: var(--c-jet);
+    color: var(--c-beige);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .nf__inner { position: relative; z-index: 2; max-width: 56rem; display: flex; flex-direction: column; align-items: center; }
+
+  .nf__code {
+    font-family: var(--ff-display);
+    font-size: clamp(6rem, 22vw, 17rem);
+    line-height: 0.8;
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(252, 242, 232, 0.22);
+    user-select: none;
+  }
+
+  .nf__title {
+    margin-top: 1.5rem;
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+
+  .nf__lede { margin-top: 1.25rem; max-width: 46ch; color: rgba(252, 242, 232, 0.66); font-size: 1.0625rem; }
+
+  .nf__search {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    width: min(32rem, 100%);
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nf__field { flex: 1; min-width: 12rem; text-align: left; border-color: rgba(252, 242, 232, 0.28); }
+  .nf__field :global(.field__label) { color: rgba(252, 242, 232, 0.5); }
+  .nf__field input { color: var(--c-beige); }
+
+  .nf__links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    width: 100%;
+    margin-top: 3rem;
+    background: rgba(252, 242, 232, 0.14);
+    border: 1px solid rgba(252, 242, 232, 0.14);
+  }
+
+  .nf__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.35rem;
+    background: var(--c-jet);
+    font-size: 0.9375rem;
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .nf__link:hover { background: rgba(252, 242, 232, 0.06); }
+
+  .nf__services { margin-top: 2.5rem; width: 100%; }
+
+  .nf__services-label {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.45);
+    margin-bottom: 1rem;
+  }
+
+  .nf__pills { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+
+  .nf__pills :global(.pill) { border-color: rgba(252, 242, 232, 0.2); color: rgba(252, 242, 232, 0.78); }
+  .nf__pills :global(.pill:hover) { border-color: var(--c-beige); color: var(--c-beige); }
+
+  .nf__home { margin-top: 3rem; }
+
+  @media (max-width: 700px) {
+    .nf__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nf__search { flex-direction: column; align-items: stretch; }
+    .nf__search :global(.btn) { justify-content: center; }
+  }
+
+  @media (max-width: 420px) {
+    .nf__links { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

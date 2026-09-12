@@ -1,0 +1,222 @@
+---
+/**
+ * SECTION · Article Hero                      [ article-hero ]
+ * ---------------------------------------------------------------------------
+ * Blog-post header: breadcrumb, topic tag, masked title, author row with
+ * reading time, share buttons, and a wide cover image with a clip reveal.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { topics, formatDate } from '../data/articles.js';
+import { avatarImage } from '../data/images.js';
+import { site } from '../data/site.js';
+
+interface Props {
+  title: string;
+  excerpt?: string;
+  topic: string;
+  date: string;
+  readingTime: number;
+  author: string;
+  authorRole?: string;
+  cover?: string;
+  tags?: string[];
+}
+
+const {
+  title,
+  excerpt,
+  topic,
+  date,
+  readingTime,
+  author,
+  authorRole,
+  cover,
+  tags = [],
+} = Astro.props;
+
+const topicLabel = topics.find((t) => t.id === topic)?.label ?? topic;
+const shareUrl = Astro.url.href;
+
+const shares = [
+  { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, icon: 'linkedin' },
+  { label: 'X', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`, icon: 'x' },
+  { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, icon: 'facebook' },
+  { label: 'Email', href: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(shareUrl)}`, icon: 'mail' },
+];
+---
+
+<article class="article-hero">
+  <div class="container">
+    <nav class="ah__crumb" aria-label="Breadcrumb" data-reveal="fade">
+      <a href="/home-one">Home</a>
+      <Icon name="chevron-right" size={11} stroke={2} />
+      <a href="/journal">Journal</a>
+      <Icon name="chevron-right" size={11} stroke={2} />
+      <span class="ah__crumb-topic">{topicLabel}</span>
+    </nav>
+
+    <header class="ah__head">
+      <span class="tag" data-reveal="fade" style="--reveal-delay:80ms">{topicLabel}</span>
+
+      <h1 class="ah__title" data-heading-reveal="words" data-heading-stagger="52">{title}</h1>
+
+      {excerpt && (
+        <p class="ah__excerpt" data-reveal="fade-up" style="--reveal-delay:280ms">{excerpt}</p>
+      )}
+
+      <div class="ah__meta" data-reveal="fade-up" style="--reveal-delay:380ms">
+        <div class="ah__author">
+          <Img src={avatarImage(0)} alt="" width={48} height={48} loading="eager" />
+          <span class="ah__author-text">
+            <strong>{author}</strong>
+            {authorRole && <em>{authorRole}</em>}
+          </span>
+        </div>
+
+        <span class="ah__sep" aria-hidden="true"></span>
+
+        <time datetime={date}>{formatDate(date)}</time>
+
+        <span class="ah__sep" aria-hidden="true"></span>
+
+        <span class="ah__read"><Icon name="clock" size={13} /> {readingTime} min read</span>
+
+        <div class="ah__share">
+          <span class="ah__share-label">Share</span>
+          {shares.map((s) => (
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Share on ${s.label}`}
+            >
+              <Icon name={s.icon} size={14} stroke={1.7} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </header>
+  </div>
+
+  {cover && (
+    <div class="container">
+      <figure class="ah__cover" data-reveal="clip">
+        <Img src={cover} alt="" width={1920} height={1000} loading="eager" fetchpriority="high" />
+      </figure>
+    </div>
+  )}
+</article>
+
+<style>
+  .article-hero {
+    padding-block: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)) clamp(2rem, 4vw, 3.5rem);
+    background: var(--bg);
+  }
+
+  .ah__crumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--fs-sub);
+    color: var(--text-mute);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .ah__crumb a:hover { color: var(--text); }
+  .ah__crumb-topic { color: var(--text-soft); }
+
+  .ah__head { max-width: 52rem; }
+
+  .ah__title {
+    margin-top: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.036em;
+    max-width: 20ch;
+  }
+
+  .ah__excerpt {
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 1.4vw, 1.1875rem);
+    line-height: 1.7;
+    color: var(--text-soft);
+    max-width: 56ch;
+  }
+
+  /* ── Meta row ──────────────────────────────────────────────────────── */
+  .ah__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8125rem;
+    color: var(--text-mute);
+  }
+
+  .ah__author { display: flex; align-items: center; gap: 0.7rem; }
+
+  .ah__author :global(img) {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg-soft);
+  }
+
+  .ah__author-text { display: flex; flex-direction: column; }
+  .ah__author-text strong { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+  .ah__author-text em { font-style: normal; font-size: 0.75rem; }
+
+  .ah__sep { width: 1px; height: 1rem; background: var(--line-strong); }
+
+  .ah__read { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+  .ah__share { display: flex; align-items: center; gap: 0.45rem; margin-inline-start: auto; }
+
+  .ah__share-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-inline-end: 0.35rem;
+  }
+
+  .ah__share a {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    color: var(--text-soft);
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .ah__share a:hover {
+    background: var(--c-jet);
+    border-color: var(--c-jet);
+    color: var(--c-beige);
+    transform: translateY(-2px);
+  }
+
+  /* ── Cover ─────────────────────────────────────────────────────────── */
+  .ah__cover {
+    margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 16 / 8;
+    background: var(--bg-soft);
+  }
+
+  .ah__cover :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 780px) {
+    .ah__share { margin-inline-start: 0; width: 100%; }
+    .ah__sep { display: none; }
+    .ah__cover { aspect-ratio: 4 / 3; }
+  }
+</style>

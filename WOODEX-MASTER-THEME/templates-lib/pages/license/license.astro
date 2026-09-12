@@ -1,0 +1,48 @@
+---
+/** PAGE TEMPLATE · Theme Licence               [ license ] */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../data/site.js';
+
+const blocks = [
+  { type: 'h2', text: 'About this theme' },
+  { type: 'p', text: 'The Woodex Master Theme is a bespoke, in-house front-end system built for interior design and fit-out businesses. It is supplied to the commissioning client with full source. This page explains what you may do with it.' },
+  { type: 'h2', text: 'What you may do' },
+  { type: 'list', items: [
+    'Deploy this theme on any number of domains owned by the commissioning client.',
+    'Modify the source freely — markup, styles, scripts and content data.',
+    'Remove, replace or rebrand the design tokens in src/styles/tokens.css.',
+    'Use the section library as the basis of client projects delivered by the commissioning practice.',
+    'Self-host the built output anywhere, including shared hosting, without further licence.',
+  ] },
+  { type: 'h2', text: 'What you may not do' },
+  { type: 'list', items: [
+    'Resell or redistribute the theme as a standalone product, template marketplace item or starter kit.',
+    'Sub-license the source to third parties outside the commissioning organisation.',
+    'Present the theme as your own original work in a commercial template context.',
+    'Remove or obscure this licence file from the source distribution.',
+  ] },
+  { type: 'h2', text: 'Third-party components' },
+  { type: 'table', head: ['Component', 'Licence', 'Notes'], rows: [
+    ['Astro', 'MIT', 'Static site framework. Attribution not required.'],
+    ['Vite', 'MIT', 'Bundler, bundled with Astro.'],
+    ['Icons', 'In-house', 'Drawn for this theme on a 24×24 grid. No icon-font dependency.'],
+    ['Fonts', 'System stack', 'No remote font CDN is used by default. Self-host any purchased webfont.'],
+    ['Photography', 'Placeholder', 'Replace with licensed client photography before launch.'],
+  ] },
+  { type: 'callout', tone: 'warn', title: 'Photography is not licensed for production', text: 'Interior images shipped with this theme are placeholders. Obtain properly licensed or original client photography before the site goes live.' },
+  { type: 'h2', text: 'Warranty and support' },
+  { type: 'p', text: 'The theme is supplied as-is. We support our own implementation of it, and we will fix defects in the code we wrote. We do not warrant that third-party services, hosting environments or plugins will behave as expected.' },
+  { type: 'h2', text: 'Attribution' },
+  { type: 'p', text: 'No public attribution is required. The theme footer credit is optional and can be removed in src/components/global/Footer.astro.' },
+  { type: 'callout', title: 'Licence enquiries', text: `Write to ${site.email} with the subject line "Theme licence".` },
+];
+---
+
+<LegalLayout
+  title="Theme Licence"
+  lede="What you may do with the Woodex Master Theme source, what you may not, and which third-party components are included."
+  eyebrow="Licence"
+  blocks={blocks}
+  updated="February 2026"
+  crumb="Legal"
+/>

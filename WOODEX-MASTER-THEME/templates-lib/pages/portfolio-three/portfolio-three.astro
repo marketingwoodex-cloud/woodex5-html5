@@ -1,0 +1,55 @@
+---
+/**
+ * PAGE TEMPLATE · Portfolio Three              [ portfolio-three ]
+ * ---------------------------------------------------------------------------
+ * List layout — one row per project with a date-style index column.
+ * The most scannable of the three portfolio layouts.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import Timeline from '../sections/Timeline.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Portfolio Three — List Layout | Woodex Interior"
+  description="Every Woodex Interior project as a scannable list, with location, area, year and sector."
+  overlayHeader
+  current="portfolio"
+>
+  <PageHeader
+    eyebrow="Portfolio · Index"
+    title="The complete project index"
+    lede="Every delivered project, listed with location, area, year and scope. Click any row for the full case study."
+    crumbs={[{ label: 'Portfolio', href: '/portfolio-one' }, { label: 'List' }]}
+    variant="soft"
+    meta={[
+      { label: 'Projects', value: '9' },
+      { label: 'Total area', value: '1.4M sq ft' },
+      { label: 'Since', value: '2014' },
+    ]}
+  />
+
+  <ProjectGrid
+    eyebrow="Index"
+    title="All projects"
+    lede="Sorted by most recent. Filter by sector using the pills above the list."
+    variant="list"
+    limit={24}
+    showFilter
+  />
+
+  <StatsStrip variant="numbers" eyebrow="Delivery record" theme="dark" />
+
+  <Timeline variant="horizontal" theme="gray" />
+
+  <CtaBand
+    eyebrow="Next"
+    title="See the work at full size"
+    primary={{ label: 'Grid view', href: '/portfolio-one' }}
+    secondary={{ label: 'Masonry view', href: '/portfolio-two' }}
+    variant="split"
+  />
+</BaseLayout>

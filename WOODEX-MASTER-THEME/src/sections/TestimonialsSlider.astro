@@ -1,0 +1,375 @@
+---
+/**
+ * SECTION · Testimonials                      [ testimonials ]
+ * ---------------------------------------------------------------------------
+ * Two variants:
+ *   variant="slider"   → one quote at a time with arrows, dots and autoplay
+ *   variant="grid"     → masonry-ish card grid with an aggregate rating block
+ *   variant="marquee"  → continuous horizontal scroll of quote cards
+ *
+ * MOTION: slider transform · marquee · clip reveal · counters
+ */
+import Icon from '../components/ui/Icon.astro';
+import { testimonials } from '../data/content.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'slider' | 'grid' | 'marquee';
+  limit?: number;
+  theme?: 'dark' | 'beige' | 'gray';
+}
+
+const {
+  eyebrow = 'Client words',
+  title = 'Trusted in 240+ design projects',
+  lede = 'What clients say after we hand the keys back.',
+  variant = 'slider',
+  limit = 6,
+  theme = 'dark',
+} = Astro.props;
+
+const list = testimonials.slice(0, limit);
+const aggregate = {
+  count: 240,
+  rating: 4.9,
+};
+---
+
+<section class:list={['testimonials', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="50">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+  </div>
+
+  {variant === 'marquee' && (
+    <div class="testimonials__marquee">
+      <div data-marquee data-marquee-speed="42" style="--marquee-gap:1.25rem">
+        <div class="marquee-track">
+          {[...list, ...list].map((t) => (
+            <figure class="t-card t-card--sm">
+              <Icon name="quote" size={20} stroke={1.2} class="t-card__mark" />
+              <blockquote>{t.quote}</blockquote>
+              <figcaption>
+                <Img src={t.avatar} alt="" loading="lazy" width="72" height="72" />
+                <span>
+                  <strong>{t.author}</strong>
+                  <em>{t.role} · {t.location}</em>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'slider' && (
+    <div class="container">
+      <div
+        class="t-slider"
+        data-slider
+        data-slider-autoplay="7500"
+        tabindex="0"
+        role="region"
+        aria-label="Client testimonials"
+      >
+        <div class="t-slider__viewport">
+          <div class="t-slider__track" data-slider-track>
+            {list.map((t, i) => (
+              <figure class="t-slide" data-slide aria-hidden={i === 0 ? 'false' : 'true'}>
+                <Icon name="quote" size={34} stroke={1} class="t-card__mark" />
+
+                <blockquote class="t-slide__quote">{t.quote}</blockquote>
+
+                <figcaption class="t-slide__foot">
+                  <Img src={t.avatar} alt="" loading="lazy" width="96" height="96" />
+                  <span class="t-slide__who">
+                    <strong>{t.author}</strong>
+                    <em>{t.role}</em>
+                    <span>{t.project} · {t.location}</span>
+                  </span>
+                  <span class="t-slide__stars" aria-label={`${t.rating} out of 5`}>
+                    {Array.from({ length: t.rating }).map(() => <Icon name="star" size={13} stroke={1.4} />)}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div class="t-slider__controls">
+          <div class="t-slider__dots" role="tablist" aria-label="Choose testimonial">
+            {list.map((_, i) => (
+              <button
+                type="button"
+                class:list={['t-dot', i === 0 && 'is-active']}
+                data-slider-dot
+                aria-label={`Testimonial ${i + 1}`}
+              ></button>
+            ))}
+          </div>
+
+          <div class="t-slider__arrows">
+            <button type="button" class="t-arrow" data-slider-prev aria-label="Previous testimonial">
+              <Icon name="arrow-left" size={16} stroke={1.8} />
+            </button>
+            <button type="button" class="t-arrow" data-slider-next aria-label="Next testimonial">
+              <Icon name="arrow-right" size={16} stroke={1.8} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'grid' && (
+    <div class="container">
+      <div class="t-grid" data-stagger="100">
+        <!-- Aggregate rating card -->
+        <article class="t-rating" data-reveal="fade-up">
+          <div class="t-rating__value">
+            <span
+              data-counter={aggregate.rating}
+              data-counter-decimals="1"
+              data-counter-duration="1500"
+            >0</span>
+            <Icon name="star" size={24} stroke={1.2} />
+          </div>
+          <p class="t-rating__label">Average client rating</p>
+          <p class="t-rating__sub">
+            From <strong>{aggregate.count}+</strong> completed projects across six cities.
+          </p>
+          <div class="t-rating__bars">
+            {[5, 4, 3, 2, 1].map((n) => (
+              <div class="t-bar">
+                <span>{n}</span>
+                <i><b style={`width:${n === 5 ? 92 : n === 4 ? 7 : n === 3 ? 1 : 0}%`}></b></i>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        {list.map((t) => (
+          <figure class="t-card" data-reveal="fade-up">
+            <Icon name="quote" size={22} stroke={1.2} class="t-card__mark" />
+            <blockquote>{t.quote}</blockquote>
+            <figcaption>
+              <Img src={t.avatar} alt="" loading="lazy" width="72" height="72" />
+              <span>
+                <strong>{t.author}</strong>
+                <em>{t.role} · {t.project}</em>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .sec-head__aside { max-width: 32ch; }
+
+  /* ══ Shared card ═══════════════════════════════════════════════════ */
+  .t-card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .t-card:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .t-card :global(.t-card__mark) { opacity: 0.28; }
+
+  .t-card blockquote {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .t-card figcaption {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .t-card figcaption img,
+  .t-slide__foot img {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    background: var(--bg-soft);
+  }
+
+  .t-card figcaption span { display: flex; flex-direction: column; }
+  .t-card figcaption strong { font-size: 0.9375rem; font-weight: 500; }
+  .t-card figcaption em { font-style: normal; font-size: 0.75rem; color: var(--text-mute); }
+
+  /* ══ Grid ══════════════════════════════════════════════════════════ */
+  .t-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  /* ══ Rating card ═══════════════════════════════════════════════════ */
+  .t-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border-radius: var(--r-lg);
+    background: var(--c-jet);
+    color: var(--c-beige);
+    grid-row: span 2;
+  }
+
+  .t-rating__value {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--ff-display);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  .t-rating__value :global(svg) { color: var(--c-beige); opacity: 0.8; }
+
+  .t-rating__label { font-size: 0.9375rem; color: rgba(252, 242, 232, 0.75); }
+  .t-rating__sub { font-size: var(--fs-sub); color: rgba(252, 242, 232, 0.5); }
+  .t-rating__sub strong { color: var(--c-beige); }
+
+  .t-rating__bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .t-bar { display: flex; align-items: center; gap: 0.65rem; font-size: 0.6875rem; color: rgba(252, 242, 232, 0.45); }
+  .t-bar i { flex: 1; height: 3px; background: rgba(252, 242, 232, 0.16); border-radius: 2px; overflow: hidden; }
+  .t-bar b { display: block; height: 100%; background: var(--c-beige); border-radius: 2px; }
+
+  /* ══ Slider ════════════════════════════════════════════════════════ */
+  .t-slider { border-radius: var(--r-lg); border: 1px solid var(--line); overflow: hidden; background: var(--bg-card); }
+  .t-slider:focus-visible { outline-offset: 4px; }
+
+  .t-slider__viewport { overflow: hidden; }
+
+  .t-slider__track { display: flex; transition: transform 800ms var(--ease-expo); }
+
+  .t-slide {
+    margin: 0;
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .t-slide :global(.t-card__mark) { opacity: 0.22; margin-bottom: 1.75rem; }
+
+  .t-slide__quote {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+    line-height: 1.34;
+    letter-spacing: -0.022em;
+    max-width: 40ch;
+  }
+
+  .t-slide__foot {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .t-slide__foot img { width: 3.25rem; height: 3.25rem; }
+
+  .t-slide__who { display: flex; flex-direction: column; gap: 0.15rem; }
+  .t-slide__who strong { font-size: 1rem; font-weight: 500; }
+  .t-slide__who em { font-style: normal; font-size: var(--fs-sub); color: var(--text-soft); }
+  .t-slide__who span { font-size: 0.75rem; color: var(--text-mute); }
+
+  .t-slide__stars { display: flex; gap: 0.15rem; margin-inline-start: auto; color: var(--text); }
+
+  .t-slider__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.25rem clamp(2rem, 5vw, 4.5rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .t-slider__dots { display: flex; gap: 0.5rem; }
+
+  .t-dot {
+    width: 2rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line-strong);
+    transition: background var(--dur) var(--ease-out), width var(--dur-slow) var(--ease-expo);
+  }
+
+  .t-dot.is-active { background: var(--text); width: 3.5rem; }
+
+  .t-slider__arrows { display: flex; gap: 0.5rem; }
+
+  .t-arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .t-arrow:hover { background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+
+  /* ══ Marquee ═══════════════════════════════════════════════════════ */
+  .testimonials__marquee { overflow: hidden; padding-block: 0.5rem; }
+  .testimonials__marquee :global(.t-card--sm) { width: clamp(18rem, 26vw, 24rem); flex: none; }
+  .testimonials__marquee :global(.t-card--sm blockquote) { font-size: 0.9375rem; }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .t-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .t-rating { grid-row: auto; grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 640px) {
+    .t-grid { grid-template-columns: minmax(0, 1fr); }
+    .t-slide__stars { margin-inline-start: 0; width: 100%; }
+    .t-slider__controls { flex-direction: column; align-items: stretch; gap: 1rem; }
+    .t-slider__arrows { justify-content: flex-end; }
+  }
+</style>

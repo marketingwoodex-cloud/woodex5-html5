@@ -1,0 +1,65 @@
+{
+  "name": "Woodex Interior — Interior Design & Fit-Out",
+  "short_name": "Woodex",
+  "description": "Design-and-build interior practice in Pakistan. Residential, commercial, hospitality and retail interiors, delivered turnkey from Lahore, Karachi and Islamabad.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fcf2e8",
+  "theme_color": "#111111",
+  "lang": "en-PK",
+  "dir": "ltr",
+  "categories": ["business", "design", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start a project",
+      "short_name": "Enquire",
+      "url": "/contact-one",
+      "description": "Send us the brief for your space."
+    },
+    {
+      "name": "Book a consultation",
+      "short_name": "Book",
+      "url": "/contact-two",
+      "description": "Free 30-minute consultation with a senior designer."
+    },
+    {
+      "name": "Pricing",
+      "short_name": "Pricing",
+      "url": "/pricing-one",
+      "description": "Packages, rate bands and budget calculator."
+    },
+    {
+      "name": "Journal",
+      "short_name": "Journal",
+      "url": "/journal",
+      "description": "Practical writing on building interiors in Pakistan."
+    }
+  ]
+}

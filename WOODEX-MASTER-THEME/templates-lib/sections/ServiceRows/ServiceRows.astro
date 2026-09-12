@@ -1,0 +1,195 @@
+---
+/**
+ * SECTION · Service Rows                      [ service-rows ]
+ * ---------------------------------------------------------------------------
+ * The signature numbered service list: hover a row and a full-bleed dark
+ * panel sweeps up from the bottom while the arrow rotates.
+ *
+ * MOTION: scaleY sweep on hover · staggered row entrance
+ * USED ON: /home-one, /service, /home-three
+ */
+import Icon from '../components/ui/Icon.astro';
+import { services, servicesByGroup } from '../data/services.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  /** Filter to one service group, or omit for all. */
+  group?: string;
+  limit?: number;
+  ctaLabel?: string;
+  ctaHref?: string;
+  variant?: 'dark' | 'beige';
+}
+
+const {
+  eyebrow = 'What we do',
+  title = 'Comprehensive interior design and delivery',
+  lede = 'Building, consultation, 3D modelling and build — one practice, one contract.',
+  group,
+  limit = 6,
+  ctaLabel = 'Explore all services',
+  ctaHref = '/service',
+  variant = 'dark',
+} = Astro.props;
+
+const list = (group ? servicesByGroup(group) : services).slice(0, limit);
+---
+
+<section class:list={['service-rows', 'section']} data-theme={variant}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="52">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:200ms">{lede}</p>
+    </div>
+
+    <div class="svc-list" data-stagger="80">
+      {list.map((s, i) => (
+        <a href={`/services/${s.slug}`} class="svc-row" data-reveal="fade-up">
+          <span class="svc-row__no">{String(i + 1).padStart(2, '0')}</span>
+
+          <span class="svc-row__main">
+            <span class="svc-row__title">{s.title}</span>
+            <span class="svc-row__sum">{s.summary}</span>
+          </span>
+
+          <span class="svc-row__meta">
+            <span class="svc-row__dur">{s.duration}</span>
+            <span class="svc-row__arrow" aria-hidden="true">
+              <Icon name="arrow-up-right" size={15} stroke={1.8} />
+            </span>
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <div class="service-rows__foot" data-reveal="fade-up">
+      <a href={ctaHref} class="btn btn--ghost btn--lg">
+        <span class="btn__label"><span>{ctaLabel}</span></span>
+        <Icon name="arrow-right" size={15} class="arrow" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc-list {
+    border-top: 1px solid var(--line);
+  }
+
+  .svc-list :global(.svc-row) {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.15rem, 2.2vw, 1.85rem) 0;
+    border-block-end: 1px solid var(--line);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color var(--dur-slow) var(--ease-soft), padding var(--dur-slow) var(--ease-expo);
+  }
+
+  /* The sweep panel */
+  .svc-list :global(.svc-row::before) {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--c-jet);
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .svc-list :global(.svc-row:hover) {
+    color: var(--c-beige);
+    padding-inline: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .svc-list :global(.svc-row:hover::before) { transform: scaleY(1); }
+
+  .svc-row__no {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    color: var(--text-mute);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .svc-list :global(.svc-row:hover .svc-row__no) { color: rgba(252, 242, 232, 0.5); }
+
+  .svc-row__main { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+
+  .svc-row__title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.024em;
+  }
+
+  .svc-row__sum {
+    font-size: var(--fs-sub);
+    color: var(--text-soft);
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .svc-list :global(.svc-row:hover .svc-row__sum) { color: rgba(252, 242, 232, 0.66); }
+
+  .svc-row__meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: none;
+  }
+
+  .svc-row__dur {
+    font-size: 0.8125rem;
+    color: var(--text-mute);
+    white-space: nowrap;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .svc-list :global(.svc-row:hover .svc-row__dur) { color: rgba(252, 242, 232, 0.55); }
+
+  .svc-row__arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    flex: none;
+    transition:
+      transform var(--dur-slow) var(--ease-expo),
+      background var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+
+  .svc-list :global(.svc-row:hover .svc-row__arrow) {
+    transform: rotate(45deg);
+    background: var(--c-beige);
+    border-color: var(--c-beige);
+    color: var(--c-jet);
+  }
+
+  .service-rows__foot {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .svc-list :global(.svc-row) { grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; }
+    .svc-row__meta { display: none; }
+    .svc-list :global(.svc-row:hover) { padding-inline: 0.75rem; }
+    .service-rows__foot :global(.btn) { width: 100%; justify-content: center; }
+  }
+</style>

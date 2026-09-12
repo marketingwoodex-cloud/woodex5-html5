@@ -1,0 +1,155 @@
+---
+/**
+ * PAGE TEMPLATE · Services Index              [ service ]
+ * ---------------------------------------------------------------------------
+ * Full service catalogue grouped by sector. Each group renders as an
+ * anchored block so the mega-menu "By sector" links can deep-link into it.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ServiceRows from '../sections/ServiceRows.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { serviceGroups, services, servicesByGroup } from '../data/services.js';
+---
+
+<BaseLayout
+  title="Services — Interior Design & Fit-Out | Woodex Interior"
+  description="Seventeen interior services across residential, commercial, fit-out and specialist work: design, joinery, 3D visualisation, lighting and turnkey delivery across Pakistan."
+  overlayHeader
+  current="service"
+  footerCtaTitle="Not sure which service you need?"
+  schema={{
+    '@type': 'ItemList',
+    name: 'Woodex Interior services',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: s.title,
+      url: `/services/${s.slug}`,
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow="Built for sustainable spaces"
+    title="Focused on meaningful spaces"
+    lede="Seventeen services, four sectors, one accountable team. Whether it is a single room or a 24,000 sq ft workplace, the same documentation standard applies."
+    crumbs={[{ label: 'Services' }]}
+    image="/images/services/commercial-fit-out.jpg"
+    meta={[
+      { label: 'Services', value: '17' },
+      { label: 'Sectors', value: '4' },
+      { label: 'Coverage', value: 'Pakistan nationwide' },
+      { label: 'Typical lead time', value: '10–24 weeks' },
+    ]}
+  />
+
+  <!-- Sector navigation -->
+  <nav class="sec-nav" aria-label="Service sectors">
+    <div class="container">
+      <div class="sec-nav__inner">
+        <span class="sec-nav__label">Jump to</span>
+        {serviceGroups.map((g) => (
+          <a href={`#${g.id}`} class="pill">{g.label} <em>({servicesByGroup(g.id).length})</em></a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  {serviceGroups.map((group, i) => (
+    <div id={group.id} class="svc-group">
+      <ServiceRows
+        eyebrow={`${String(i + 1).padStart(2, '0')} — ${group.label}`}
+        title={group.label}
+        lede={group.blurb}
+        group={group.id}
+        limit={20}
+        ctaLabel={`All ${group.label.toLowerCase()} services`}
+        ctaHref={`#${group.id}`}
+      />
+    </div>
+  ))}
+
+  <StatsStrip variant="numbers" eyebrow="Delivery record" theme="dark" />
+
+  <FeatureSplit
+    eyebrow="Cross-cutting capability"
+    title="Capabilities that apply to every sector"
+    lede="Some work sits across all four sectors. These are the disciplines we bring to every project regardless of type."
+    features={[
+      {
+        eyebrow: 'Joinery',
+        title: 'Custom furniture and joinery',
+        body: 'Produced in our own shop from our own shop drawings — wardrobes, kitchens, wall units, staircases and reception desks. Five-year warranty on manufacturing defects.',
+        list: ['Shop drawings at 1:1 where required', 'Moisture-resistant substrate specification', 'Factory production and site fitting'],
+        image: '/images/services/custom-furniture-joinery.jpg',
+        cta: { label: 'Custom joinery', href: '/services/custom-furniture-joinery' },
+      },
+      {
+        eyebrow: 'Visualisation',
+        title: '3D visualisation and walkthrough',
+        body: 'Photorealistic stills, 360° panoramas and walkthrough animation, modelled to the actual specification so what you approve is what gets built.',
+        list: ['Day and evening lighting studies', 'Two revision rounds included', 'Three to five working days typical'],
+        image: '/images/services/3d-visualisation.jpg',
+        cta: { label: '3D studio', href: '/services/3d-visualisation' },
+      },
+      {
+        eyebrow: 'Lighting',
+        title: 'Lighting design and commissioning',
+        body: 'Photometric calculations, fixture schedules, scene design and on-site focusing. We can specify only, or supply and commission as a turnkey package.',
+        list: ['Lux-level and photometric study', 'Scene design and programming', 'Site focusing at handover'],
+        image: '/images/services/lighting-design.jpg',
+        cta: { label: 'Lighting design', href: '/services/lighting-design' },
+      },
+    ]}
+    theme="gray"
+  />
+
+  <ProcessAccordion />
+
+  <FaqBlock
+    eyebrow="Common questions"
+    title="Questions we are asked before every project"
+    items={[
+      { q: 'How do you price a project?', a: 'We produce a costed specification, not a square-foot rate. Each line item is priced against a schedule of rates, so you can see exactly where the money sits and adjust the scope deliberately.', category: 'Cost' },
+      { q: 'Can we appoint you for design only?', a: 'Yes. Our Design Only package covers survey through to a full drawing set, finish schedule and tender support. Many clients then run their own procurement.', category: 'Scope' },
+      { q: 'Do you subcontract the joinery?', a: 'No. Bespoke cabinetry is produced in our own millwork shop and fitted by the same team that produced it.', category: 'Delivery' },
+      { q: 'How do you handle projects outside Lahore?', a: 'We deliver nationwide with a site-management allowance covering travel and supervision. We currently have live projects in Karachi, Islamabad, Faisalabad, Multan and Rawalpindi.', category: 'Coverage' },
+      { q: 'What happens if the budget changes?', a: 'Variations are priced and approved in writing before any work proceeds. You always know the cost implication before committing.', category: 'Cost' },
+      { q: 'What warranty comes with the work?', a: 'A 12-month defects liability period on all works, five years on manufacturing defects in our joinery, and manufacturer warranties passed through in full.', category: 'Aftercare' },
+    ]}
+  />
+
+  <CtaBand
+    eyebrow="Ready to start"
+    title="Tell us the space — we will tell you what it takes"
+    lede="Bring a floor plan, or just a description. We will meet you, survey if needed, and give you an honest view of scope, cost and programme."
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'See our work', href: '/portfolio-one' }}
+    marqueeText="Services"
+  />
+</BaseLayout>
+
+<style>
+  .sec-nav { padding-block: 1.5rem; border-block: 1px solid var(--line); background: var(--bg); position: sticky; top: var(--header-h-compact); z-index: 50; }
+
+  .sec-nav__inner { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+
+  .sec-nav__label {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-inline-end: 0.5rem;
+  }
+
+  .sec-nav :global(.pill em) { font-style: normal; opacity: 0.5; margin-inline-start: 0.2rem; }
+
+  .svc-group { scroll-margin-top: calc(var(--header-h) + 4rem); }
+
+  /* Sections inside the grouped blocks should not double their padding. */
+  .svc-group + .svc-group :global(.service-rows) { border-block-start: 1px solid var(--line); }
+</style>

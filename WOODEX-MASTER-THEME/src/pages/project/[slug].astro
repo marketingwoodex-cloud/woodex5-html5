@@ -1,0 +1,180 @@
+---
+/**
+ * PAGE TEMPLATE · Project Case Study          [ project/:slug ]
+ * ---------------------------------------------------------------------------
+ * Full case study: header, fact rail, brief/approach/outcome, metrics,
+ * gallery, testimonial, next/previous project nav, related work, CTA.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/global/PageHeader.astro';
+import CaseStudy from '../../sections/CaseStudy.astro';
+import ProjectSpecSheet from '../../sections/ProjectSpecSheet.astro';
+import ProjectGrid from '../../sections/ProjectGrid.astro';
+import GalleryGrid from '../../sections/GalleryGrid.astro';
+import CtaBand from '../../sections/CtaBand.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Img from '../../components/ui/Img.astro';
+import { projects, getProject, projectNeighbours, sectors } from '../../data/projects.js';
+import { projectImage, images } from '../../data/images.js';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(slug);
+
+if (!project) {
+  return Astro.redirect('/portfolio-one');
+}
+
+const { prev, next } = projectNeighbours(slug);
+const sectorLabel = sectors.find((s) => s.id === project.sector)?.label ?? project.sector;
+
+const galleryItems = project.gallery.map((_, i) => ({
+  src: projectImage(slug, i),
+  alt: `${project.title} — view ${i + 1}`,
+  span: i === 0 ? 'wide' : 'normal',
+}));
+
+const related = projects.filter((p) => p.slug !== slug && p.sector === project.sector).slice(0, 3);
+const relatedFinal = related.length ? related : projects.filter((p) => p.slug !== slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${project.title} — ${sectorLabel} Project | Woodex Interior`}
+  description={`${project.excerpt} ${project.area} in ${project.location}, delivered in ${project.duration}.`}
+  image={images.og.default.path}
+  overlayHeader
+  current="portfolio"
+  footerCtaTitle="Have a similar project in mind?"
+  schema={{
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.excerpt,
+    dateCreated: String(project.year),
+    locationCreated: { '@type': 'Place', name: project.location },
+    creator: { '@type': 'Organization', name: 'Woodex Interior' },
+    image: projectImage(slug),
+  }}
+>
+  <PageHeader
+    eyebrow={`${sectorLabel} · ${project.year}`}
+    title={project.title}
+    lede={project.excerpt}
+    crumbs={[{ label: 'Portfolio', href: '/portfolio-one' }, { label: project.title }]}
+    image={projectImage(slug)}
+    meta={[
+      { label: 'Location', value: project.location },
+      { label: 'Area', value: project.area },
+      { label: 'Duration', value: project.duration },
+      { label: 'Year', value: String(project.year) },
+    ]}
+  />
+
+  <!-- Scope rail -->
+  <section class="pjs__scope" data-theme="default">
+    <div class="container">
+      <div class="pjs__scope-inner">
+        <div class="pjs__scope-block">
+          <span class="pjs__scope-label">Scope of works</span>
+          <ul class="pjs__tags">
+            {project.services.map((s) => <li class="tag">{s}</li>)}
+          </ul>
+        </div>
+
+        <div class="pjs__scope-block pjs__scope-block--nav">
+          <a href={`/project/${prev.slug}`} class="pjs__nav">
+            <span class="pjs__nav-dir"><Icon name="arrow-left" size={14} /> Previous</span>
+            <span class="pjs__nav-title">{prev.title}</span>
+          </a>
+
+          <a href={`/project/${next.slug}`} class="pjs__nav pjs__nav--next">
+            <span class="pjs__nav-dir">Next <Icon name="arrow-right" size={14} /></span>
+            <span class="pjs__nav-title">{next.title}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CaseStudy project={project} />
+
+  <ProjectSpecSheet project={project} variant="table" theme="gray" />
+
+  <GalleryGrid
+    eyebrow="Gallery"
+    title="The finished spaces"
+    lede="Photography from handover. Click any image to open the full-size viewer."
+    items={galleryItems}
+    variant="mosaic"
+    theme="default"
+  />
+
+  <ProjectGrid
+    eyebrow="More work"
+    title={`Other ${sectorLabel.toLowerCase()} projects`}
+    variant="grid"
+    showFilter={false}
+    limit={3}
+    theme="gray"
+  />
+
+  <CtaBand
+    eyebrow="Start yours"
+    title="Every project starts with a measured survey"
+    lede="Send us the address and the outline brief. We will tell you what the space can hold, what it will cost and how long it will take."
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'See all projects', href: '/portfolio-one' }}
+    marqueeText={project.title}
+  />
+</BaseLayout>
+
+<style>
+  .pjs__scope { padding-block: 1.5rem; border-block: 1px solid var(--line); }
+
+  .pjs__scope-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .pjs__scope-block { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+  .pjs__scope-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .pjs__tags { list-style: none; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .pjs__scope-block--nav { gap: 2rem; }
+
+  .pjs__nav { display: flex; flex-direction: column; gap: 0.2rem; }
+
+  .pjs__nav--next { text-align: right; }
+
+  .pjs__nav-dir {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .pjs__nav:hover .pjs__nav-dir { color: var(--text); }
+
+  .pjs__nav-title { font-size: 0.9375rem; font-weight: 500; }
+
+  @media (max-width: 720px) {
+    .pjs__scope-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .pjs__scope-block--nav { width: 100%; justify-content: space-between; }
+  }
+</style>

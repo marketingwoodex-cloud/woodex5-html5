@@ -1,0 +1,187 @@
+---
+/**
+ * PAGE TEMPLATE · Home One                    [ home-one ]
+ * ---------------------------------------------------------------------------
+ * The flagship editorial homepage. Section order:
+ *   1. Hero Classic        — masked headline + feature reel + vertical marquee
+ *   2. Marquee Text        — "Shaping smarter outcomes" band
+ *   3. Intro Split         — studio statement + counters
+ *   4. Service Showcase    — sticky media + accordion
+ *   5. Feature Split       — design-led blocks with image reveals
+ *   6. Projects Rail       — scroll-driven horizontal gallery
+ *   7. Stats Strip         — guarantee metrics
+ *   8. Process Accordion   — seven delivery stages
+ *   9. Testimonials        — slider
+ *  10. Clients Marquee     — logo strip
+ *  11. Journal Grid        — feature layout
+ *  12. FAQ                 — split accordion
+ *  13. Video block         — studio film with custom controls
+ *  14. Tabs showcase       — Building / Consultation / 3D modelling
+ *  15. Bullet features     — facility planning statement
+ *  16. Thumbnail grid      — six-up project preview
+ *  17. Image marquee       — cross-scrolling filmstrip
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroClassic from '../sections/HeroClassic.astro';
+import MarqueeText from '../sections/MarqueeText.astro';
+import IntroSplit from '../sections/IntroSplit.astro';
+import ServiceShowcase from '../sections/ServiceShowcase.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import ProjectsRail from '../sections/ProjectsRail.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import ClientsMarquee from '../sections/ClientsMarquee.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import VideoBlock from '../sections/VideoBlock.astro';
+import TabsShowcase from '../sections/TabsShowcase.astro';
+import BulletFeatures from '../sections/BulletFeatures.astro';
+import ThumbnailGrid from '../sections/ThumbnailGrid.astro';
+import ImageMarquee from '../sections/ImageMarquee.astro';
+import { images } from '../data/images.js';
+import { projects } from '../data/projects.js';
+import { projectImage } from '../data/images.js';
+---
+
+<BaseLayout
+  title="Woodex Interior — Premium Interior Design & Turnkey Fit-Out in Pakistan"
+  description="Woodex Interior designs and builds premium residential, commercial and hospitality interiors across Pakistan — from concept and 3D visualisation through to turnkey fit-out and custom joinery."
+  overlayHeader
+  current="home"
+>
+  <HeroClassic />
+
+  <MarqueeText
+    items={['Shaping smarter business outcomes']}
+    size="lg"
+    speed="72"
+    separator="star"
+    variant="dark"
+  />
+
+  <IntroSplit
+    eyebrow="Shaping better spaces"
+    title="We design innovative spaces blending creativity, function and sustainability"
+    body="We design interiors that balance functionality, aesthetics and innovation — creating environments that inspire, endure and improve how people live and work. Every material, joint and light fitting is specified and costed before it reaches site."
+    stats={[
+      { value: 240, suffix: '+', label: 'Projects delivered' },
+      { value: 12, suffix: '', label: 'Years in practice' },
+      { value: 98, suffix: '%', label: 'Client retention' },
+    ]}
+    link={{ label: 'More about the studio', href: '/about' }}
+  />
+
+  <ServiceShowcase />
+
+  <FeatureSplit />
+
+  <VideoBlock
+    eyebrow="Inside the studio"
+    title="Two minutes inside the workshop and on site"
+    poster={images.features.joinery.path}
+    caption="Shot across three live projects in Lahore and Islamabad."
+    stats={[
+      { value: '4,200 sq ft', label: 'Millwork shop floor' },
+      { value: '11', label: 'Machinists and fitters' },
+      { value: '5 yr', label: 'Joinery warranty' },
+    ]}
+    theme="dark"
+  />
+
+  <TabsShowcase
+    eyebrow="Designed for lasting impact"
+    title="How a Woodex project is actually assembled"
+    lede="Three disciplines, one accountable team. Switch tabs to see what each stage produces."
+    tabs={[
+      {
+        id: 'building',
+        label: 'Building',
+        title: 'Site delivery, run to a published programme',
+        body: 'A site manager per live project, daily coordination and quality-control inspections at every trade handover. Progress is reported weekly in writing, with photographs and percentage complete per trade.',
+        bullets: [
+          'Weekly written progress reports with photographs',
+          'Snagging closed before handover, not after',
+          '12-month defects liability period on all works',
+        ],
+        image: images.features.siteAnalysis.path,
+        stat: { value: '98%', label: 'On-programme delivery' },
+        cta: { label: 'See our process', href: '/process' },
+      },
+      {
+        id: 'consultation',
+        label: 'Consultation',
+        title: 'The brief, established properly before anything is drawn',
+        body: 'We survey, measure and interrogate the brief before a single layout is issued. Budget envelope, programme and decision-makers are all fixed at this stage — because every design argument later is really a brief argument.',
+        bullets: [
+          'Measured survey and condition report',
+          'Written brief signed off by both parties',
+          'Costed specification before appointment',
+        ],
+        image: images.features.spacePlanning.path,
+        stat: { value: '2 hrs', label: 'Typical briefing session' },
+        cta: { label: 'Book a consultation', href: '/contact-two' },
+      },
+      {
+        id: 'modelling',
+        label: '3D modelling',
+        title: 'Renders modelled to the real specification',
+        body: 'Every visualisation is built from the same materials schedule we will build from. Nothing is shown that has not been priced and settled — so what you approve is what arrives on site.',
+        bullets: [
+          'Photorealistic stills and 360° panoramas',
+          'Day and evening lighting studies',
+          'Walkthrough animation on request',
+        ],
+        image: images.features.visualisation.path,
+        stat: { value: '3–5 days', label: 'Typical turnaround' },
+        cta: { label: 'See the 3D studio', href: '/services/3d-visualisation' },
+      },
+    ]}
+  />
+
+  <BulletFeatures
+    eyebrow="Facility planning"
+    title="Industrial and commercial interiors designed for optimal space utilisation"
+    lede="Where the brief is operational rather than domestic, the design question is throughput: how many people, how many movements, how much storage — resolved before a finish is chosen."
+    bullets={[
+      { title: 'Interior architecture planning', text: 'Workplace and facility layouts built from headcount, adjacencies and circulation — stress-tested against the actual operating brief.', icon: 'blueprint' },
+      { title: 'Space utilisation studies', text: 'Test-fits before commitment: we model two or three planning options and cost them, so the decision is made on evidence.', icon: 'layers' },
+      { title: 'Master planning services', text: 'Multi-floor and phased fit-out planning, including landlord interfaces, services capacity and expansion strategy.', icon: 'compass' },
+    ]}
+    image={images.features.lighting.path}
+    imageAlt="Layered lighting in a completed commercial interior"
+    quote={{ text: 'You cannot fix a plan with a product. Resolve it on paper, and site becomes execution rather than problem-solving.', author: 'Usman Tariq, Principal' }}
+    cta={{ label: 'Explore commercial services', href: '/services/commercial-fit-out' }}
+  />
+
+  <ProjectsRail />
+
+  <ThumbnailGrid
+    eyebrow="Selected projects"
+    title="We transform ideas into refined spaces"
+    lede="Six recent projects, each with a full case study including the brief, the approach and what it cost."
+    columns={3}
+    ctaLabel="View all projects"
+    theme="gray"
+  />
+
+  <StatsStrip />
+
+  <ProcessAccordion />
+
+  <TestimonialsSlider variant="slider" />
+
+  <ImageMarquee
+    eyebrow="In progress"
+    title="On site, in the workshop, at handover"
+    rows={2}
+    speed={30}
+    items={projects.slice(0, 8).map((p) => ({ src: projectImage(p.slug), alt: p.title, caption: p.title }))}
+  />
+
+  <ClientsMarquee />
+
+  <JournalGrid variant="feature" />
+
+  <FaqBlock />
+</BaseLayout>

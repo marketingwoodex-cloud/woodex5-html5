@@ -1,0 +1,14 @@
+---
+/**
+ * Minimal standalone example for: GalleryGrid
+ * Copy this into src/pages/ to see the section in isolation.
+ */
+import BaseLayout from '../../src/layouts/BaseLayout.astro';
+import GalleryGrid from '../../src/sections/GalleryGrid.astro';
+---
+
+<BaseLayout title="GalleryGrid — component preview" description="Isolated preview of the GalleryGrid section." overlayHeader>
+  {/* Supply from your own data: items (GalleryItem[]) */}
+  <GalleryGrid
+  />
+</BaseLayout>

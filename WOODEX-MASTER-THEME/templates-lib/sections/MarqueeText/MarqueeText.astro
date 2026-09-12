@@ -1,0 +1,139 @@
+---
+/**
+ * SECTION · Marquee Text                      [ marquee-text ]
+ * ---------------------------------------------------------------------------
+ * Infinite scrolling headline strip — the reference template's signature
+ * "Shaping smarter business outcomes" band.
+ *
+ * MOTION: CSS marquee, duplicated track, pauses on hover
+ * USAGE:  <MarqueeText items={['Shaping smarter outcomes']} size="lg" />
+ */
+import Icon from '../components/ui/Icon.astro';
+
+interface Props {
+  items?: string[];
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  speed?: number;
+  direction?: 'normal' | 'reverse';
+  separator?: 'dot' | 'star' | 'dash' | 'none';
+  variant?: 'dark' | 'beige' | 'outline';
+  rotate?: number;
+  style?: string;
+}
+
+const {
+  items = ['Shaping smarter business outcomes'],
+  size = 'lg',
+  speed = 70,
+  direction = 'normal',
+  separator = 'star',
+  variant = 'dark',
+  rotate = 0,
+  style = '',
+} = Astro.props;
+
+/* Repeat enough times that even short strings fill wide viewports. */
+const track = [...items, ...items, ...items, ...items];
+---
+
+<section
+  class:list={['marquee-text', `marquee-text--${variant}`]}
+  style:list={rotate ? `--rotate:${rotate}deg` : undefined, style}
+  aria-hidden="true"
+>
+  <div data-marquee data-marquee-speed={speed} data-marquee-dir={direction} style="--marquee-gap:2.5rem">
+    <div class="marquee-track">
+      {track.map((item) => (
+        <span class="marquee-text__item">
+          <span class:list={['marquee-text__label', `is-${size}`]}>{item}</span>
+
+          {separator !== 'none' && (
+            <span class="marquee-text__sep">
+              {separator === 'star' && <Icon name="sparkle" size={size === 'xl' ? 34 : 22} stroke={1.4} />}
+              {separator === 'dot' && <i class="dot" />}
+              {separator === 'dash' && <i class="dash" />}
+            </span>
+          )}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-text {
+    position: relative;
+    padding-block: clamp(1.5rem, 3vw, 3rem);
+    overflow: hidden;
+    transform: rotate(var(--rotate, 0deg));
+    scale: var(--rotate-scale, 1);
+  }
+
+  /* Rotated marquees need extra bleed so the corners never show */
+  .marquee-text[style*='--rotate'] {
+    --rotate-scale: 1.14;
+    width: 108%;
+    margin-inline: -4%;
+  }
+
+  /* ── Variants ──────────────────────────────────────────────────────── */
+  .marquee-text--dark {
+    background: var(--c-jet);
+    color: var(--c-beige);
+  }
+
+  .marquee-text--beige {
+    background: var(--c-beige);
+    color: var(--c-jet);
+  }
+
+  .marquee-text--outline {
+    background: transparent;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--line-strong);
+  }
+
+  /* ── Items ─────────────────────────────────────────────────────────── */
+  .marquee-text__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--marquee-gap, 2.5rem);
+  }
+
+  .marquee-text__label {
+    font-family: var(--ff-display);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    line-height: 1.1;
+  }
+
+  .marquee-text__label.is-sm { font-size: 1.35rem; }
+  .marquee-text__label.is-md { font-size: clamp(1.75rem, 3.4vw, 2.75rem); }
+  .marquee-text__label.is-lg { font-size: clamp(2.25rem, 5.6vw, 4.75rem); }
+  .marquee-text__label.is-xl { font-size: clamp(3rem, 9vw, 8rem); letter-spacing: -0.05em; }
+
+  /* ── Separators ────────────────────────────────────────────────────── */
+  .marquee-text__sep { display: inline-flex; align-items: center; opacity: 0.5; flex: none; }
+
+  .marquee-text__sep .dot {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .marquee-text__sep .dash {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* Outline variant needs the separator to inherit the stroke, not fill */
+  .marquee-text--outline .marquee-text__sep .dot,
+  .marquee-text--outline .marquee-text__sep .dash { background: var(--line-strong); }
+
+  .marquee-text--outline :global(svg) { stroke: var(--line-strong); }
+</style>

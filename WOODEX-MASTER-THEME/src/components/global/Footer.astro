@@ -1,0 +1,159 @@
+---
+/**
+ * FOOTER — CTA band, four link columns, oversized brand wordmark, legal bar.
+ * Every variant prop lets a page swap the CTA copy without forking the file.
+ */
+import { footerNav, legalNav } from '../../data/navigation.js';
+import { site } from '../../data/site.js';
+import { servicesByGroup } from '../../data/services.js';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  /** Set false to omit the pre-footer CTA band entirely. */
+  cta?: boolean;
+  ctaTitle?: string;
+  ctaText?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  variant?: 'default' | 'minimal' | 'compact';
+}
+
+const {
+  cta = true,
+  ctaTitle = 'Stay connected with us',
+  ctaText = 'Reach out to explore how our design and delivery team can shape your next space.',
+  ctaLabel = 'Get in touch',
+  ctaHref = '/contact-three',
+  variant = 'default',
+} = Astro.props;
+
+const year = new Date().getFullYear();
+const featuredServices = [...servicesByGroup('fitout'), ...servicesByGroup('specialist')].slice(0, 5);
+---
+
+<footer class="footer" itemscope itemtype="https://schema.org/Organization">
+  <meta itemprop="name" content={site.name} />
+
+  {cta && variant !== 'compact' && (
+    <div class="footer__cta">
+      <div class="container" style="display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:end">
+        <div>
+          <span class="eyebrow" style="color:rgba(252,242,232,.6)">Let's build it</span>
+          <h2
+            data-heading-reveal="words"
+            data-heading-stagger="70"
+            class="mt-6"
+            style="color:var(--c-beige)"
+          >
+            {ctaTitle}
+          </h2>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start">
+          <p style="color:rgba(252,242,232,.66);max-width:36ch">{ctaText}</p>
+          <a href={ctaHref} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.2">
+            <span class="btn__label">
+              <span>{ctaLabel}</span>
+              <span>{ctaLabel}</span>
+            </span>
+            <span class="btn__chip" aria-hidden="true">
+              <Icon name="arrow-up-right" size={12} stroke={2.4} />
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class="container">
+    <div class="footer__grid">
+      <!-- Brand column -->
+      <div class="footer__col footer__brand-col" style="gap:1.25rem">
+        <a href="/home-one" class="brand" style="color:var(--c-beige)">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M4 20V7l5 5 3-6 3 6 5-5v13" />
+            </svg>
+          </span>
+          <span class="brand__text">
+            {site.shortName}
+            <small>Interior</small>
+          </span>
+        </a>
+
+        <p class="footer__about">
+          We design and build purposeful interiors across Pakistan — blending vision with
+          precision, and drawings with delivery.
+        </p>
+
+        <div class="footer__social">
+          {site.social.map((s) => (
+            <a href={s.href} aria-label={s.label} target="_blank" rel="noopener noreferrer">
+              <Icon name={s.icon} size={15} />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      {footerNav.map((col) => (
+        <nav class="footer__col" aria-label={col.title}>
+          <span class="footer__col-title">{col.title}</span>
+          {col.links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+      ))}
+
+      <!-- Contact column -->
+      <div class="footer__col">
+        <span class="footer__col-title">Contact</span>
+
+        <address style="font-style:normal;font-size:.9375rem;color:rgba(252,242,232,.78);line-height:1.75" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+          <span itemprop="streetAddress">{site.address.line1}, {site.address.line2}</span><br />
+          <span itemprop="addressLocality">{site.address.city}</span>{' '}
+          <span itemprop="postalCode">{site.address.postal}</span><br />
+          <span itemprop="addressCountry">Pakistan</span>
+        </address>
+
+        <a href={`mailto:${site.email}`} itemprop="email" style="display:flex;gap:.5rem;align-items:center">
+          <Icon name="mail" size={14} /> {site.email}
+        </a>
+        <a href={`tel:${site.phoneHref}`} itemprop="telephone" style="display:flex;gap:.5rem;align-items:center">
+          <Icon name="phone" size={14} /> {site.phone}
+        </a>
+        <span style="font-size:.875rem;color:rgba(252,242,232,.5);display:flex;gap:.5rem;align-items:center">
+          <Icon name="clock" size={14} /> {site.hours}
+        </span>
+
+        <span class="footer__col-title" style="margin-top:1.5rem">Featured services</span>
+        {featuredServices.map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
+      </div>
+    </div>
+  </div>
+
+  <!-- Oversized outlined wordmark -->
+  <div class="container">
+    <span class="footer__wordmark" aria-hidden="true">{site.shortName}</span>
+  </div>
+
+  <div class="container">
+    <div class="footer__bottom">
+      <span>© <span data-year>{year}</span> {site.legalName}. All rights reserved.</span>
+
+      <nav class="footer__legal" aria-label="Legal">
+        {legalNav.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <span style="display:flex;align-items:center;gap:.5rem">
+        <Icon name="map-pin" size={13} /> {site.market}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @media (max-width: 1024px) {
+    .footer__cta :global(div[style*='grid-template-columns']) {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+    }
+  }
+</style>

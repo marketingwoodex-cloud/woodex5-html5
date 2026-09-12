@@ -1,0 +1,219 @@
+---
+/**
+ * PAGE TEMPLATE · Contact Two                 [ contact-two ]
+ * ---------------------------------------------------------------------------
+ * Booking-led route: calendar-style slot picker (client-side), quick-qualify
+ * form, what-to-expect timeline, direct contact cards.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ContactInfo from '../sections/ContactInfo.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import RichText from '../sections/RichText.astro';
+import ContactFormSection from '../sections/ContactFormSection.astro';
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+---
+
+<BaseLayout
+  title="Book a Consultation | Woodex Interior"
+  description="Book a free 30-minute consultation with a senior Woodex designer. Choose a slot, then tell us about your space. Available across Pakistan."
+  overlayHeader
+  current="contact"
+  footerCta={false}
+>
+  <PageHeader
+    eyebrow="Book a call"
+    title="Thirty minutes, no obligation, no sales script"
+    lede="A senior designer will review your space with you and give you a straight answer on scope, budget and the realistic programme. If we are not the right practice for the job, we will say so."
+    crumbs={[{ label: 'Contact', href: '/contact-one' }, { label: 'Book a call' }]}
+    image="/images/cta/cta-consult.jpg"
+    meta={[
+      { label: 'Duration', value: '30 minutes' },
+      { label: 'Cost', value: 'Free' },
+      { label: 'By', value: 'Senior designer' },
+      { label: 'Format', value: 'Call, studio or video' },
+    ]}
+  />
+
+  <!-- ══ Slot picker ═══════════════════════════════════════════════════ -->
+  <section class="section bk__picker">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">Step 1 — choose a time</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="46">Pick a slot that suits you</h2>
+        </div>
+        <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">
+          Times shown in Pakistan Standard Time (PKT, UTC+5). We will confirm by email within one business day.
+        </p>
+      </div>
+
+      <div class="bk__grid" data-stagger="80">
+        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day, di) => (
+          <div class="bk__day" data-reveal="fade-up">
+            <span class="bk__day-name">{day}</span>
+            <div class="bk__slots">
+              {['10:00', '11:30', '14:00', '15:30', '17:00'].map((t, ti) => (
+                <button
+                  type="button"
+                  class="bk__slot"
+                  data-slot
+                  aria-pressed="false"
+                  data-day={day}
+                  data-time={t}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="bk__selected" data-reveal="fade-up">
+        <Icon name="calendar" size={16} />
+        <span>Selected slot: <strong data-slot-out>none yet</strong></span>
+        <span class="bk__selected-hint">Choose a time above, then complete the form below.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Qualify form ══════════════════════════════════════════════════ -->
+  <ContactFormSection
+    eyebrow="Step 2 — your details"
+    title="So we can prepare properly"
+    lede="We read every enquiry before the call so the thirty minutes are spent on your project, not on introductions."
+    submitLabel="Request this slot"
+    showInfoRail={false}
+    variant="stacked"
+  />
+
+  <!-- ══ What to expect ════════════════════════════════════════════════ -->
+  <RichText
+    showToc={false}
+    narrow={false}
+    blocks={[
+      { type: 'h2', text: 'What to expect on the call' },
+      { type: 'p', text: 'We keep the agenda deliberately simple. It is a working session, not a pitch.' },
+      { type: 'list', ordered: true, items: [
+        'You describe the space, how you want to use it, and the constraints you already know about.',
+        'We ask about budget envelope and target dates — honestly, because they shape everything else.',
+        'We give you an initial view: what is achievable, what the likely cost band is, and how long it would take.',
+        'We explain how we would run it, and what appointment type fits your situation best.',
+        'If we are not the right practice for the job, we say so and point you somewhere better.',
+      ] },
+      { type: 'callout', title: 'Bring these if you have them', text: 'A floor plan or any drawing, photographs of the existing space, and a rough sense of your budget range. If you have none of these, that is completely fine — we can survey.' },
+      { type: 'quote', text: 'The most useful thing you can bring is an honest budget. It is the difference between a wish list and a plan.' },
+    ]}
+  />
+
+  <TestimonialsSlider variant="slider" eyebrow="Client words" title="What happens after the first call" />
+
+  <ContactInfo variant="cards" eyebrow="Prefer to meet in person" title="Walk into any of our studios" lede="The material library is worth the trip — bring your plans and we will lay samples out on the table." />
+
+  <FaqBlock eyebrow="Questions" title="Booking, fees and what comes next" items={[
+    { q: 'Is the consultation really free?', a: 'Yes. Thirty minutes with a senior designer, no charge and no obligation. We only invoice once you appoint us for a defined stage.', category: 'Booking' },
+    { q: 'Can I reschedule?', a: 'Of course. Reply to the confirmation email and we will move it. There is no cancellation fee.', category: 'Booking' },
+    { q: 'Do you charge for the first site visit?', a: 'Studio visits are free. Site visits outside Lahore carry a modest travel charge which is credited against the design fee if you appoint us.', category: 'Fees' },
+    { q: 'What if my budget is small?', a: 'Tell us the number. We would rather design a well-executed single room than over-promise on a whole house. We will tell you what your budget realistically buys.', category: 'Fees' },
+    { q: 'Will I speak to a designer or a salesperson?', a: 'A designer. We do not employ a sales team — the person who takes your call is the person who would run your project.', category: 'Booking' },
+  ]} />
+</BaseLayout>
+
+<script>
+  /* Slot picker: single-select, writes the value into a hidden summary. */
+  const slots = [...document.querySelectorAll('[data-slot]')];
+  const out = document.querySelector('[data-slot-out]');
+
+  slots.forEach((slot) => {
+    slot.addEventListener('click', () => {
+      slots.forEach((s) => { s.classList.remove('is-selected'); s.setAttribute('aria-pressed', 'false'); });
+      slot.classList.add('is-selected');
+      slot.setAttribute('aria-pressed', 'true');
+      if (out) out.textContent = `${slot.dataset.day} at ${slot.dataset.time} PKT`;
+
+      // Mirror the choice into the real form so it is submitted.
+      const form = document.querySelector('.cf__form');
+      if (form) {
+        let hidden = form.querySelector('input[name="preferredSlot"]');
+        if (!hidden) {
+          hidden = document.createElement('input');
+          hidden.type = 'hidden';
+          hidden.name = 'preferredSlot';
+          form.prepend(hidden);
+        }
+        hidden.value = `${slot.dataset.day} ${slot.dataset.time} PKT`;
+      }
+    });
+  });
+</script>
+
+<style>
+  .bk__picker { border-block-end: 1px solid var(--line); }
+
+  .bk__grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .bk__day {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem 1rem;
+    background: var(--bg);
+  }
+
+  .bk__day-name {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bk__slots { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .bk__slot {
+    padding: 0.55rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-soft);
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  }
+
+  .bk__slot:hover { border-color: var(--text); color: var(--text); transform: translateY(-1px); }
+
+  .bk__slot.is-selected {
+    background: var(--c-jet);
+    border-color: var(--c-jet);
+    color: var(--c-beige);
+  }
+
+  .bk__selected {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--r-md);
+    background: var(--bg-soft);
+    font-size: 0.9375rem;
+  }
+
+  .bk__selected strong { font-weight: 500; }
+  .bk__selected-hint { color: var(--text-mute); font-size: 0.8125rem; }
+
+  @media (max-width: 1000px) { .bk__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .bk__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 400px) { .bk__grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

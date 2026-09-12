@@ -1,0 +1,206 @@
+---
+/**
+ * SECTION · Case Study                        [ case-study ]
+ * ---------------------------------------------------------------------------
+ * The project-detail body: brief → challenge → solution → result, a metrics
+ * strip, a scrolling gallery and the client testimonial.
+ * Composed of several sub-blocks that can each be used standalone.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { projectImage } from '../data/images.js';
+import type { projects } from '../data/projects.js';
+
+type Project = (typeof projects)[number];
+
+interface Props {
+  project: Project;
+  theme?: 'default' | 'dark';
+}
+
+const { project, theme = 'default' } = Astro.props;
+
+const blocks = [
+  { no: '01', label: 'The brief', text: project.challenge, icon: 'clipboard' },
+  { no: '02', label: 'Our approach', text: project.solution, icon: 'blueprint' },
+  { no: '03', label: 'The outcome', text: project.result, icon: 'target' },
+];
+---
+
+<!-- ══ Brief / approach / outcome ═════════════════════════════════════ -->
+<section class="section cs__story" data-theme={theme}>
+  <div class="container">
+    <div class="cs__story-grid" data-stagger="110">
+      {blocks.map((b) => (
+        <article class="cs__block" data-reveal="fade-up">
+          <span class="cs__block-no">{b.no}</span>
+          <span class="cs__block-icon" aria-hidden="true">
+            <Icon name={b.icon} size={20} stroke={1.5} />
+          </span>
+          <h2 class="cs__block-title">{b.label}</h2>
+          <p class="cs__block-text">{b.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══ Metrics ════════════════════════════════════════════════════════ -->
+<section class="section section--sm cs__metrics" data-theme="dark">
+  <div class="container">
+    <div class="cs__metrics-grid" data-stagger="110">
+      {project.metrics.map((m) => (
+        <div class="cs__metric" data-reveal="fade-up">
+          <strong>
+            <span data-counter={Number(String(m.value).replace(/[^0-9.]/g, '')) || 0} data-counter-duration="1700">0</span>
+            {m.unit && <em>{m.unit}</em>}
+          </strong>
+          <span class="cs__metric-label">{m.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══ Gallery ════════════════════════════════════════════════════════ -->
+{project.gallery.length > 0 && (
+  <section class="section cs__gallery">
+    <div class="container">
+      <div class="cs__gallery-grid">
+        {project.gallery.map((_, i) => (
+          <figure
+            class:list={['cs__figure', i === 0 && 'is-hero', project.gallery.length === 3 && i === 2 && 'is-wide']}
+            data-reveal="clip"
+            style={`--reveal-delay:${i * 90}ms`}
+          >
+            <Img
+              src={projectImage(project.slug, i)}
+              alt={`${project.title} — view ${i + 1}`}
+              width={1400}
+              height={1000}
+              loading="lazy"
+            />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- ══ Client testimonial ═════════════════════════════════════════════ -->
+{project.testimonial && (
+  <section class="section cs__quote-sec" data-theme="gray">
+    <div class="container">
+      <figure class="cs__quote" data-reveal="fade-up">
+        <Icon name="quote" size={30} stroke={1.1} class="cs__quote-mark" />
+        <blockquote data-heading-reveal="words" data-heading-stagger="44">
+          {project.testimonial.quote}
+        </blockquote>
+        <figcaption>
+          <strong>{project.testimonial.author}</strong>
+          <span>{project.testimonial.role}</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+)}
+
+<style>
+  /* ══ Story ═════════════════════════════════════════════════════════ */
+  .cs__story-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+
+  .cs__block { display: flex; flex-direction: column; gap: 0.85rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+  .cs__block-no { font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--text-mute); font-variant-numeric: tabular-nums; }
+
+  .cs__block-icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    margin-block: 0.25rem;
+  }
+
+  .cs__block-title { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -0.024em; }
+  .cs__block-text { font-size: 0.9375rem; line-height: 1.7; color: var(--text-soft); max-width: 46ch; }
+
+  /* ══ Metrics ═══════════════════════════════════════════════════════ */
+  .cs__metrics { border-block: 1px solid var(--line-invert); }
+
+  .cs__metrics-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+
+  .cs__metric { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .cs__metric strong {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-family: var(--ff-display);
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cs__metric strong em { font-style: normal; font-size: 0.34em; letter-spacing: 0.02em; opacity: 0.6; }
+
+  .cs__metric-label { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252, 242, 232, 0.5); }
+
+  /* ══ Gallery ═══════════════════════════════════════════════════════ */
+  .cs__gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.75rem, 1.6vw, 1.25rem); }
+
+  .cs__figure {
+    margin: 0;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-soft);
+    aspect-ratio: 4 / 3;
+  }
+
+  .cs__figure.is-hero { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+  .cs__figure.is-wide { grid-column: 1 / -1; aspect-ratio: 16 / 7; }
+
+  .cs__figure :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.3s var(--ease-expo); }
+  .cs__figure:hover :global(img) { transform: scale(1.04); }
+
+  /* ══ Quote ═════════════════════════════════════════════════════════ */
+  .cs__quote {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+
+  .cs__quote :global(.cs__quote-mark) { opacity: 0.22; }
+
+  .cs__quote blockquote {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: clamp(1.35rem, 3vw, 2.25rem);
+    line-height: 1.34;
+    letter-spacing: -0.028em;
+  }
+
+  .cs__quote figcaption { display: flex; flex-direction: column; gap: 0.2rem; }
+  .cs__quote figcaption strong { font-size: 0.9375rem; font-weight: 500; }
+  .cs__quote figcaption span { font-size: var(--fs-sub); color: var(--text-mute); }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .cs__story-grid { grid-template-columns: minmax(0, 1fr); gap: 2.25rem; }
+    .cs__metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cs__gallery-grid { grid-template-columns: minmax(0, 1fr); }
+    .cs__figure, .cs__figure.is-hero, .cs__figure.is-wide { grid-column: auto; aspect-ratio: 4 / 3; }
+  }
+
+  @media (max-width: 480px) {
+    .cs__metrics-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

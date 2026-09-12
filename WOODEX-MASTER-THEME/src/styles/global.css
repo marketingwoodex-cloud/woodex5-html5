@@ -1,0 +1,18 @@
+/* ============================================================================
+   WOODEX MASTER THEME — GLOBAL STYLESHEET ENTRY
+   ----------------------------------------------------------------------------
+   Import order matters:
+     1. tokens      → CSS custom properties (the single source of truth)
+     2. base        → reset + typographic scale + layout primitives
+     3. components  → buttons, header, footer, cards, forms
+     4. motion      → animation system
+     5. responsive  → breakpoints (must come last so it can override)
+   Section-specific rules live in scoped <style> blocks inside each
+   src/sections/*.astro component — that's what makes sections portable.
+   ========================================================================= */
+
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './motion.css';
+@import './responsive.css';

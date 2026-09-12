@@ -1,0 +1,150 @@
+---
+/** PAGE TEMPLATE · Thank You                   [ thank-you ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import { site } from '../data/site.js';
+
+const next = [
+  { no: '01', title: 'We read it properly', text: 'A senior designer reads your enquiry in full before anyone responds. No automated replies, no ticket numbers.', icon: 'clipboard' },
+  { no: '02', title: 'We come back with questions', text: 'Usually we need two or three clarifications — area, existing condition, budget envelope. We will ask them together, not drip-feed them.', icon: 'info' },
+  { no: '03', title: 'We propose a next step', text: 'Either a call, a site visit or a fee proposal for the design stage. You will know which within one business day.', icon: 'arrow-right' },
+];
+---
+
+<BaseLayout
+  title="Thank you — we have your enquiry | Woodex Interior"
+  description="Your enquiry has reached the Woodex studio. Here is exactly what happens next."
+  overlayHeader
+  noindex
+  footerCtaTitle="While you wait"
+  footerCtaLabel="Read the journal"
+  footerCtaHref="/journal"
+>
+  <section class="ty" data-theme="dark">
+    <div class="container ty__inner">
+      <span class="ty__icon" data-reveal="fade" aria-hidden="true">
+        <Icon name="check" size={30} stroke={2} />
+      </span>
+
+      <span class="eyebrow" data-reveal="fade" style="--reveal-delay:80ms">Enquiry received</span>
+
+      <h1 class="ty__title" data-heading-reveal="words" data-heading-stagger="58">
+        Thank you — your enquiry is with us
+      </h1>
+
+      <p class="ty__lede" data-reveal="fade-up" style="--reveal-delay:300ms">
+        {site.responseTime}. If your enquiry is urgent, call the studio directly and mention that you
+        have already submitted the form.
+      </p>
+
+      <div class="ty__actions" data-reveal="fade-up" style="--reveal-delay:400ms">
+        <a href={`tel:${site.phoneHref}`} class="btn btn--beige btn--lg">
+          <span class="btn__label"><span>Call {site.phone}</span></span>
+          <Icon name="phone" size={14} />
+        </a>
+        <a href="/portfolio-one" class="btn btn--outline-invert btn--lg">
+          <span class="btn__label"><span>Browse our work</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ty__next">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">What happens next</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="46">Three things, in this order</h2>
+        </div>
+      </div>
+
+      <div class="ty__steps" data-stagger="110">
+        {next.map((n) => (
+          <article class="ty__step" data-reveal="fade-up">
+            <span class="ty__step-no">{n.no}</span>
+            <span class="ty__step-icon" aria-hidden="true"><Icon name={n.icon} size={20} stroke={1.5} /></span>
+            <h3 class="ty__step-title">{n.title}</h3>
+            <p class="ty__step-text">{n.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessAccordion variant="cards" theme="gray" eyebrow="The full picture" title="How a project runs, stage by stage" />
+
+  <TestimonialsSlider variant="slider" eyebrow="Meanwhile" title="What clients say after handover" />
+
+  <JournalGrid variant="grid" eyebrow="While you wait" title="Useful things to read" limit={3} showFilter={false} theme="gray" />
+</BaseLayout>
+
+<style>
+  .ty {
+    position: relative;
+    padding-block: calc(var(--header-h) + clamp(3rem, 7vw, 6rem)) clamp(3.5rem, 7vw, 6rem);
+    background: var(--c-jet);
+    color: var(--c-beige);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .ty::before {
+    content: '';
+    position: absolute;
+    inset-block-start: -30%;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(252, 242, 232, 0.08), transparent 65%);
+    pointer-events: none;
+  }
+
+  .ty__inner { position: relative; display: flex; flex-direction: column; align-items: center; }
+
+  .ty__icon {
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: 1px solid rgba(252, 242, 232, 0.28);
+    margin-bottom: 2rem;
+    animation: ty-pop 900ms var(--ease-expo) both;
+  }
+
+  @keyframes ty-pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .ty__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 5vw, 3.75rem);
+    line-height: 1.06;
+    letter-spacing: -0.036em;
+    max-width: 18ch;
+  }
+
+  .ty__lede { margin-top: 1.5rem; max-width: 48ch; color: rgba(252, 242, 232, 0.7); font-size: 1.0625rem; }
+
+  .ty__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2.5rem; }
+
+  /* ── Steps ─────────────────────────────────────────────────────────── */
+  .ty__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+
+  .ty__step { display: flex; flex-direction: column; gap: 0.8rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .ty__step-no { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--text-mute); }
+  .ty__step-icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--line-strong); border-radius: 50%; margin-block: 0.25rem; }
+  .ty__step-title { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -0.024em; }
+  .ty__step-text { font-size: 0.9375rem; color: var(--text-soft); max-width: 40ch; }
+
+  @media (max-width: 820px) {
+    .ty__steps { grid-template-columns: minmax(0, 1fr); }
+    .ty__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 22rem; }
+    .ty__actions :global(.btn) { justify-content: center; }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+/** PAGE TEMPLATE · FAQ                          [ faq ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import RichText from '../sections/RichText.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { faqs } from '../data/content.js';
+---
+
+<BaseLayout
+  title="Frequently Asked Questions | Woodex Interior"
+  description="Scope, cost, programme, warranty and coverage — the questions we are asked before every interior project in Pakistan."
+  overlayHeader
+  current="about"
+  schema={{ '@type': 'WebPage', name: 'FAQ' }}
+>
+  <PageHeader
+    eyebrow="Questions"
+    title="Everything we get asked, answered properly"
+    lede="Scope, money, time, warranty and coverage. If your question is not here, send it to us — we answer every one."
+    crumbs={[{ label: 'FAQ' }]}
+    variant="soft"
+    meta={[
+      { label: 'Questions', value: `${faqs.length}` },
+      { label: 'Categories', value: '6' },
+      { label: 'Response', value: '1 business day' },
+    ]}
+  />
+
+  <FaqBlock
+    eyebrow="All questions"
+    title="Scope, cost, programme and aftercare"
+    lede="Grouped by category. Click any question to open the answer."
+    items={faqs}
+    showSchema
+  />
+
+  <RichText
+    showToc={false}
+    narrow
+    blocks={[
+      { type: 'h2', text: 'Not found your question?' },
+      { type: 'p', text: 'The fastest route is to send it to us directly — practical questions about a specific space usually get a more useful answer than a general one.' },
+      { type: 'callout', title: 'Useful things to include', text: 'The city, the approximate area, whether the space is bare shell or already finished, and your rough budget range. With those four things we can usually answer in a single reply.' },
+    ]}
+  />
+
+  <ProcessAccordion variant="cards" eyebrow="Related" title="How a project actually runs" theme="gray" />
+
+  <CtaBand
+    eyebrow="Still deciding?"
+    title="Thirty minutes with a designer beats an hour of reading"
+    primary={{ label: 'Book a consultation', href: '/contact-two' }}
+    secondary={{ label: 'Start a project', href: '/contact-one' }}
+    variant="split"
+  />
+</BaseLayout>

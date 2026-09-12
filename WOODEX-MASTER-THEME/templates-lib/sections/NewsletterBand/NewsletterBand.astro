@@ -1,0 +1,119 @@
+---
+/**
+ * SECTION · Newsletter Band                   [ newsletter ]
+ * ---------------------------------------------------------------------------
+ * Compact subscribe strip. Works inline (between sections) or full-bleed.
+ */
+import Icon from '../components/ui/Icon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  note?: string;
+  endpoint?: string;
+  variant?: 'inline' | 'band';
+  theme?: 'dark' | 'beige' | 'gray';
+}
+
+const {
+  eyebrow = 'The Journal',
+  title = 'One considered email a month',
+  text = 'Practical guidance on designing, costing and building interiors in Pakistan. No sales emails, ever.',
+  note = 'Unsubscribe in one click. We never share your address.',
+  endpoint = '',
+  variant = 'band',
+  theme = 'gray',
+} = Astro.props;
+---
+
+<section class:list={['newsletter', `newsletter--${variant}`, 'section', variant === 'inline' && 'section--sm']} data-theme={theme}>
+  <div class="container">
+    <div class="nl__inner" data-reveal="fade-up">
+      <div class="nl__copy">
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 class="nl__title">{title}</h2>
+        <p class="nl__text">{text}</p>
+      </div>
+
+      <form
+        class="nl__form"
+        action={endpoint || undefined}
+        method={endpoint ? 'POST' : undefined}
+        data-form={endpoint ? 'live' : 'demo'}
+        novalidate
+      >
+        <label class="field nl__field" data-field>
+          <span class="field__label">Email address</span>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@company.com"
+            aria-label="Email address"
+          />
+        </label>
+
+        <button
+          type="submit"
+          class="btn btn--primary"
+          data-label="Subscribe"
+          data-success-label="You're on the list"
+        >
+          <span class="btn__label"><span>Subscribe</span></span>
+          <Icon name="arrow-right" size={14} class="arrow" />
+        </button>
+
+        <p class="nl__note">
+          <Icon name="shield" size={12} /> {note}
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter { border-block: 1px solid var(--line); }
+
+  .nl__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .nl__title {
+    margin-top: 1rem;
+    font-size: clamp(1.6rem, 3vw, 2.35rem);
+    line-height: 1.14;
+    letter-spacing: -0.028em;
+  }
+
+  .nl__text { margin-top: 1rem; font-size: 0.9375rem; color: var(--text-soft); max-width: 44ch; }
+
+  .nl__form {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .nl__field { flex: 1; min-width: 14rem; }
+
+  .nl__note {
+    flex-basis: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-mute);
+  }
+
+  @media (max-width: 860px) {
+    .nl__inner { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .nl__form { flex-direction: column; align-items: stretch; }
+    .nl__form :global(.btn) { justify-content: center; }
+  }
+</style>

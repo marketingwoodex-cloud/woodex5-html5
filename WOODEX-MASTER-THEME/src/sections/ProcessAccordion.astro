@@ -1,0 +1,322 @@
+---
+/**
+ * SECTION · Process Accordion                 [ process-accordion ]
+ * ---------------------------------------------------------------------------
+ * The seven-stage delivery process. Accordion rows with a live progress rail
+ * down the left and a numbered index that highlights the open stage.
+ *
+ * MOTION: accordion · rail progress · staggered rows
+ * USED ON: /home-one, /process, /about
+ */
+import Icon from '../components/ui/Icon.astro';
+import { processSteps } from '../data/content.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  steps?: typeof processSteps;
+  theme?: 'default' | 'dark' | 'gray';
+  variant?: 'accordion' | 'cards';
+}
+
+const {
+  eyebrow = 'How we work',
+  title = 'A process that removes the guesswork',
+  lede = 'Seven stages, each with defined deliverables. You always know what happens next, what it costs, and when it lands.',
+  steps = processSteps,
+  theme = 'default',
+  variant = 'accordion',
+} = Astro.props;
+---
+
+<section class:list={['process-accordion', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="48">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    {variant === 'accordion' ? (
+      <div class="pa__split">
+        <!-- Progress rail -->
+        <aside class="pa__rail" data-pin>
+          <div data-pin-sticky class="pa__rail-inner">
+            <span class="pa__rail-label">Stages</span>
+            <ol class="pa__index">
+              {steps.map((s, i) => (
+                <li class:list={['pa__index-item', i === 0 && 'is-active']} data-pa-index={i}>
+                  <span class="pa__index-no">{s.no}</span>
+                  <span class="pa__index-title">{s.title}</span>
+                </li>
+              ))}
+            </ol>
+            <div class="pa__rail-bar" aria-hidden="true">
+              <i style="--pa-progress:0"></i>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Accordion -->
+        <div class="pa__list" data-accordion id="process-accordion" data-stagger="60">
+          {steps.map((s, i) => (
+            <div class:list={['acc-item', 'pa__item', i === 0 && 'is-open']} data-accordion-item data-pa-step={i}>
+              <h3 style="margin:0">
+                <button
+                  type="button"
+                  class="acc-head"
+                  data-accordion-head
+                  aria-expanded={i === 0 ? 'true' : 'false'}
+                  aria-controls={`pa-body-${i}`}
+                >
+                  <span class="pa__head">
+                    <span class="pa__no">{s.no}</span>
+                    <span class="pa__head-text">
+                      <span class="pa__step-title">{s.title}</span>
+                      <span class="pa__step-sum">{s.summary}</span>
+                    </span>
+                    <span class="pa__duration">{s.duration}</span>
+                  </span>
+                  <span class="acc-icon" aria-hidden="true"></span>
+                </button>
+              </h3>
+
+              <div class="acc-body" id={`pa-body-${i}`} data-accordion-body role="region">
+                <div class="acc-body__inner pa__body">
+                  <p class="pa__detail">{s.detail}</p>
+
+                  <div class="pa__deliverables">
+                    <span class="pa__deliverables-label">Deliverables</span>
+                    <ul>
+                      {s.deliverables.map((d) => (
+                        <li><Icon name="check" size={13} stroke={2.2} /> {d}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <span class="pa__icon" aria-hidden="true">
+                    <Icon name={s.icon} size={30} stroke={1.2} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="pa__cards" data-stagger="90">
+        {steps.map((s) => (
+          <article class="pa__card" data-reveal="fade-up">
+            <span class="pa__card-no">{s.no}</span>
+            <span class="pa__card-icon" aria-hidden="true">
+              <Icon name={s.icon} size={22} stroke={1.5} />
+            </span>
+            <span class="pa__card-duration">{s.duration}</span>
+            <h3 class="pa__card-title">{s.title}</h3>
+            <p class="pa__card-sum">{s.summary}</p>
+            <ul class="pa__card-list">
+              {s.deliverables.map((d) => <li>{d}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  /* Keep the rail index and progress bar in sync with the open stage. */
+  const list = document.getElementById('process-accordion');
+  const index = [...document.querySelectorAll('[data-pa-index]')];
+  const bar = document.querySelector('.pa__rail-bar i');
+  const total = index.length;
+
+  const sync = (n) => {
+    index.forEach((el, i) => el.classList.toggle('is-active', i <= n));
+    if (bar) bar.style.setProperty('--pa-progress', total ? `${((n + 1) / total) * 100}%` : '0%');
+  };
+
+  list?.querySelectorAll('[data-pa-step]').forEach((item) => {
+    const n = Number(item.dataset.paStep);
+    item.querySelector('[data-accordion-head]')?.addEventListener('click', () => sync(n));
+    item.addEventListener('mouseenter', () => sync(n));
+  });
+
+  sync(0);
+</script>
+
+<style>
+  .sec-head__aside { max-width: 36ch; }
+
+  .pa__split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  /* ══ Rail ══════════════════════════════════════════════════════════ */
+  .pa__rail-inner { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .pa__rail-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .pa__index { list-style: none; display: flex; flex-direction: column; }
+
+  .pa__index-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    font-size: 0.9375rem;
+    color: var(--text-mute);
+    transition: color var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .pa__index-item.is-active { color: var(--text); transform: translateX(0.35rem); }
+
+  .pa__index-no {
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+
+  .pa__rail-bar { height: 2px; background: var(--line); overflow: hidden; border-radius: 2px; }
+
+  .pa__rail-bar i {
+    display: block;
+    height: 100%;
+    width: var(--pa-progress, 0%);
+    background: currentColor;
+    transform-origin: left center;
+    transition: width 700ms var(--ease-expo);
+  }
+
+  /* ══ Accordion ═════════════════════════════════════════════════════ */
+  .pa__list { border-top: 1px solid var(--line); }
+
+  .pa__head { display: flex; align-items: center; gap: clamp(0.9rem, 2vw, 1.75rem); flex: 1; min-width: 0; }
+
+  .pa__no {
+    font-family: var(--ff-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    color: var(--text-mute);
+    flex: none;
+  }
+
+  .pa__head-text { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+  .pa__step-title { font-family: var(--ff-display); font-size: clamp(1.05rem, 1.8vw, 1.4rem); font-weight: 500; letter-spacing: -0.018em; }
+  .pa__step-sum { font-family: var(--ff-body); font-size: var(--fs-sub); font-weight: 400; color: var(--text-soft); }
+
+  .pa__duration {
+    margin-inline-start: auto;
+    font-family: var(--ff-body);
+    font-size: 0.75rem;
+    color: var(--text-mute);
+    white-space: nowrap;
+    flex: none;
+  }
+
+  .pa__body { position: relative; padding-inline-start: clamp(0, 4vw, 3.25rem); }
+  .pa__detail { max-width: 62ch; color: var(--text-soft); }
+
+  .pa__deliverables {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .pa__deliverables-label {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 0.85rem;
+  }
+
+  .pa__deliverables ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem 1.5rem;
+  }
+
+  .pa__deliverables li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: var(--fs-sub); color: var(--text-soft); }
+  .pa__deliverables li :global(svg) { flex: none; margin-top: 0.28rem; }
+
+  .pa__icon {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  /* ══ Cards variant ═════════════════════════════════════════════════ */
+  .pa__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+  }
+
+  .pa__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-card);
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .pa__card:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .pa__card-no { font-size: 0.625rem; letter-spacing: 0.16em; color: var(--text-mute); }
+  .pa__card-icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--line-strong); margin-block: 0.25rem; }
+  .pa__card-duration { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+  .pa__card-title { font-size: 1.2rem; letter-spacing: -0.02em; }
+  .pa__card-sum { font-size: var(--fs-sub); color: var(--text-soft); }
+
+  .pa__card-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8125rem;
+    color: var(--text-mute);
+  }
+
+  .pa__card-list li::before { content: '— '; opacity: 0.5; }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .pa__split { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .pa__rail-inner { position: static !important; }
+    .pa__index { flex-direction: row; flex-wrap: wrap; gap: 0.75rem; }
+    .pa__index-item { padding: 0; font-size: 0.8125rem; }
+    .pa__index-title { display: none; }
+    .pa__rail-bar { display: none; }
+    .pa__deliverables ul { grid-template-columns: minmax(0, 1fr); }
+    .pa__icon { display: none; }
+  }
+
+  @media (max-width: 620px) {
+    .pa__duration { display: none; }
+    .pa__head { gap: 1rem; }
+  }
+</style>

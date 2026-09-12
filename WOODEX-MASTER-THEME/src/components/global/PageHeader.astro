@@ -1,0 +1,122 @@
+---
+/**
+ * PAGE HEADER — the inner-page banner used by every non-home page.
+ * Supports: breadcrumb, eyebrow, masked H1, lede, meta strip, optional image.
+ */
+import Icon from '../ui/Icon.astro';
+import Img from '../ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  crumbs?: { label: string; href?: string }[];
+  image?: string;
+  meta?: { label: string; value: string }[];
+  variant?: 'dark' | 'soft';
+  align?: 'left' | 'center';
+}
+
+const {
+  eyebrow,
+  title = 'Page title',
+  lede,
+  crumbs = [],
+  image,
+  meta = [],
+  variant = 'dark',
+  align = 'left',
+} = Astro.props;
+---
+
+<section class:list={['page-head', variant === 'soft' && 'page-head--soft', align === 'center' && 'is-center']}>
+  {image && (
+    <>
+      <Img class="page-head__bg" src={image} alt="" loading="eager" width="1920" height="800" />
+      <span class="page-head__scrim" aria-hidden="true"></span>
+    </>
+  )}
+
+  <div class="container page-head__inner">
+    {crumbs.length > 0 && (
+      <nav class="page-head__crumb" aria-label="Breadcrumb" data-reveal="fade">
+        <a href="/home-one">Home</a>
+        {crumbs.map((c) => (
+          <>
+            <Icon name="chevron-right" size={11} stroke={2} />
+            {c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}
+          </>
+        ))}
+      </nav>
+    )}
+
+    {eyebrow && (
+      <span class="eyebrow" data-reveal="fade" style="--reveal-delay:80ms">{eyebrow}</span>
+    )}
+
+    <h1 data-heading-reveal="words" data-heading-stagger="62">{title}</h1>
+
+    {lede && (
+      <p class="page-head__lede" data-reveal="fade-up" style="--reveal-delay:320ms">{lede}</p>
+    )}
+
+    {meta.length > 0 && (
+      <dl class="page-head__meta" data-stagger="90">
+        {meta.map((m) => (
+          <div>
+            <dt>{m.label}</dt>
+            <dd>{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-head { position: relative; overflow: hidden; isolation: isolate; }
+
+  .page-head.is-center { text-align: center; }
+  .page-head.is-center :global(.eyebrow) { justify-content: center; }
+  .page-head.is-center h1 { margin-inline: auto; }
+  .page-head.is-center .page-head__lede { margin-inline: auto; }
+  .page-head.is-center .page-head__crumb { justify-content: center; }
+  .page-head.is-center .page-head__meta { justify-content: center; }
+
+  .page-head__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+  }
+
+  .page-head__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.88));
+  }
+
+  .page-head__meta dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.5);
+    margin-bottom: 0.35rem;
+  }
+
+  .page-head--soft .page-head__meta dt { color: var(--text-mute); }
+
+  .page-head__meta dd {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+</style>

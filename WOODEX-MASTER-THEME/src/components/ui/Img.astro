@@ -1,0 +1,65 @@
+---
+/**
+ * IMG — the theme's single image primitive.
+ * ---------------------------------------------------------------------------
+ * Resolves every `src` through src/generated/image-map.json, which is written
+ * by scripts/ensure-images.mjs before each build. Missing photography falls
+ * back to a branded SVG placeholder instead of a broken image.
+ *
+ * Accepts every native <img> attribute via rest-spread, so it is a drop-in
+ * replacement:  <img src="…" alt="…" width="…" />  →  <Img src="…" alt="…" />
+ */
+import imageMap from '../../generated/image-map.json';
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  src: string;
+  alt?: string;
+  width?: number | string;
+  height?: number | string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
+  sizes?: string;
+  class?: string;
+  /** Inline style passthrough (used for aspect-ratio / object-position). */
+  style?: string;
+  [key: string]: unknown;
+}
+
+const { src, alt = '', width, height, loading = 'lazy', fetchpriority, ...rest } = Astro.props;
+
+/* ── Resolve through the generated map ─────────────────────────────────── */
+const map = imageMap as Record<string, string>;
+let resolved = map[src];
+
+/* Fallback chain if the map is stale (e.g. a file added mid-session):
+   canonical → .svg → .jpg → .webp → .png → the original path.            */
+if (!resolved) {
+  const candidates = [
+    src,
+    src.replace(/\.(jpe?g|png|webp|avif)$/i, '.svg'),
+    src.replace(/\.(jpe?g|webp|png)$/i, '.jpg'),
+    src.replace(/\.(jpe?g|webp|png)$/i, '.webp'),
+    src.replace(/\.(jpe?g|webp|png)$/i, '.png'),
+  ];
+  resolved =
+    candidates.find((c) => fs.existsSync(path.join(process.cwd(), 'public', c.replace(/^\//, '')))) ??
+    src;
+}
+
+const isPlaceholder = resolved.endsWith('.svg') && resolved !== src;
+---
+
+<img
+  src={resolved}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+  data-placeholder={isPlaceholder ? 'true' : undefined}
+  {...rest}
+/>

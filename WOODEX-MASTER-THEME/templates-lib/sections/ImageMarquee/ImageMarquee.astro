@@ -1,0 +1,162 @@
+---
+/**
+ * IMAGE MARQUEE — an infinite horizontal filmstrip of images.
+ * Two directions on stacked rows gives the reference's cross-scrolling look.
+ *
+ * MOTION: data-marquee (motion.js duplicates the track so the loop is
+ * seamless), hover-pause, edge fade masks.
+ */
+import Img from '../components/ui/Img.astro';
+import { images } from '../data/images.js';
+
+interface Item { src: string; alt?: string; caption?: string }
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  items?: Item[];
+  rows?: 1 | 2;
+  speed?: number;
+  ratio?: string;
+  pauseOnHover?: boolean;
+  theme?: 'default' | 'dark' | 'beige' | 'gray';
+}
+
+const {
+  eyebrow,
+  title,
+  items,
+  rows = 1,
+  speed = 34,
+  ratio = '4/3',
+  pauseOnHover = true,
+  theme = 'default',
+} = Astro.props;
+
+/* Default filmstrip: project covers + feature stills + hero cards. */
+const fallback: Item[] = [
+  { src: images.projects['contemporary-retreat'].cover.path, alt: 'Contemporary Retreat', caption: 'Contemporary Retreat' },
+  { src: images.features.lighting.path, alt: 'Layered lighting study', caption: 'Lighting study' },
+  { src: images.projects['concrete-harmony'].cover.path, alt: 'Concrete Harmony', caption: 'Concrete Harmony' },
+  { src: images.features.joinery.path, alt: 'Joinery workshop', caption: 'In-house joinery' },
+  { src: images.projects['urban-living-concept'].cover.path, alt: 'Urban Living Concept', caption: 'Urban Living' },
+  { src: images.features.spacePlanning.path, alt: 'Space planning', caption: 'Space planning' },
+  { src: images.projects['retail-flagship'].cover.path, alt: 'Retail flagship', caption: 'Retail flagship' },
+  { src: images.hero.card02.path, alt: 'Sculptural staircase', caption: 'Detail work' },
+];
+
+const strip = items?.length ? items : fallback;
+const half = Math.ceil(strip.length / 2);
+const rowA = strip.slice(0, half);
+const rowB = strip.slice(half);
+---
+
+<section class:list={['section', 'im', `im--${theme}`]} data-theme={theme}>
+  {(eyebrow || title) && (
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-head__text">
+          {eyebrow && <span class="eyebrow" data-reveal="fade">{eyebrow}</span>}
+          {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class:list={['im__wrap', pauseOnHover && 'im__wrap--pause']}>
+    <div class="im__row" data-marquee data-marquee-speed={speed} style={`--marquee-gap:1rem;--im-ratio:${ratio}`}>
+      <div class="marquee-track" style="align-items:stretch">
+        {rowA.map((it) => (
+          <figure class="im__item">
+            <Img src={it.src} alt={it.alt ?? it.caption ?? ''} width={900} height={700} loading="lazy" />
+            {it.caption && <figcaption>{it.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    {rows === 2 && rowB.length > 0 && (
+      <div
+        class="im__row im__row--reverse"
+        data-marquee
+        data-marquee-dir="reverse"
+        data-marquee-speed={Math.round(speed * 0.82)}
+        style="--marquee-gap:1rem;--im-ratio:4/5"
+      >
+        <div class="marquee-track" style="align-items:stretch">
+          {rowB.map((it) => (
+            <figure class="im__item">
+              <Img src={it.src} alt={it.alt ?? it.caption ?? ''} width={800} height={1000} loading="lazy" />
+              {it.caption && <figcaption>{it.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .im { overflow: hidden; }
+  .im--dark { background: var(--c-jet); color: var(--c-beige); }
+  .im--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
+  .im--dark :global(h2) { color: var(--c-beige); }
+  .im--beige { background: var(--c-beige); }
+
+  .im__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-block-start: clamp(2rem, 4vw, 3.5rem);
+    /* Edge fade so the loop reads as infinite rather than cropped. */
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .im__row { display: flex; }
+
+  .im__row :global(.marquee-track) { padding-block: 0; }
+
+  .im__item {
+    position: relative;
+    margin: 0;
+    flex: none;
+    width: clamp(13rem, 24vw, 22rem);
+    aspect-ratio: var(--im-ratio, 4 / 3);
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--bg-soft);
+  }
+
+  .im__item :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.1s var(--ease-expo);
+  }
+
+  .im__item:hover :global(img) { transform: scale(1.06); }
+
+  .im__item figcaption {
+    position: absolute;
+    inset-block-end: 0.75rem;
+    inset-inline-start: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--r-pill);
+    background: rgba(252, 242, 232, 0.92);
+    color: var(--c-jet);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    transform: translateY(0.4rem);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  }
+
+  .im__item:hover figcaption { opacity: 1; transform: none; }
+
+  .im__wrap--pause:hover [data-marquee] { animation-play-state: paused; }
+
+  @media (max-width: 700px) {
+    .im__item { width: 62vw; }
+    .im__wrap { mask-image: none; }
+  }
+</style>

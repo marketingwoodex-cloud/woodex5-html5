@@ -1,0 +1,200 @@
+---
+/**
+ * SECTION · Service Grid                      [ service-grid ]
+ * ---------------------------------------------------------------------------
+ * Card grid of services with an optional sector filter bar. Every card links
+ * to its generated detail page.
+ *
+ * MOTION: staggered card reveal · hover zoom · filter pills
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { services, serviceGroups, servicesByGroup } from '../data/services.js';
+import { serviceImage } from '../data/images.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  showFilter?: boolean;
+  group?: string;
+  limit?: number;
+  columns?: 2 | 3 | 4;
+  variant?: 'card' | 'minimal';
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Our services',
+  title = 'Focused on meaningful spaces',
+  lede = 'Seventeen services across residential, commercial, hospitality and specialist work — delivered by one team.',
+  showFilter = true,
+  group,
+  limit = 12,
+  columns = 3,
+  variant = 'card',
+  theme = 'default',
+} = Astro.props;
+
+const list = (group ? servicesByGroup(group) : services).slice(0, limit);
+---
+
+<section class:list={['service-grid', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="48">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    {showFilter && (
+      <div class="pill-group sg__filter" data-reveal="fade-up" style="--reveal-delay:120ms">
+        <a class="pill is-active" href="/service">All services</a>
+        {serviceGroups.map((g) => (
+          <a class="pill" href={`/service#${g.id}`}>{g.label}</a>
+        ))}
+      </div>
+    )}
+
+    <div class:list={['sg__grid', `sg__grid--${columns}`]} data-stagger="80">
+      {list.map((s) => (
+        <article class:list={['sg__card', variant === 'minimal' && 'is-minimal']} data-reveal="fade-up">
+          <a href={`/services/${s.slug}`}>
+            {variant === 'card' && (
+              <div class="sg__media">
+                <Img src={serviceImage(s.slug)} alt={s.title} width={800} height={600} loading="lazy" />
+                <span class="sg__media-arrow" aria-hidden="true">
+                  <Icon name="arrow-up-right" size={15} stroke={1.8} />
+                </span>
+              </div>
+            )}
+
+            <div class="sg__body">
+              <div class="sg__top">
+                <h3 class="sg__title">{s.title}</h3>
+                {variant === 'minimal' && (
+                  <Icon name="arrow-up-right" size={15} class="arrow-up-right" />
+                )}
+              </div>
+
+              <p class="sg__summary">{s.summary}</p>
+
+              <div class="sg__meta">
+                <span><Icon name="clock" size={12} /> {s.duration}</span>
+                <span>{s.startingAt}</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sg__filter { margin-bottom: 2.5rem; }
+
+  .sg__grid { display: grid; gap: 1.25rem; }
+  .sg__grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sg__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sg__grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+
+  .sg__card {
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-card);
+    overflow: hidden;
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .sg__card:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .sg__card.is-minimal { background: transparent; border-inline: 0; border-block-start: 0; border-block-end: 1px solid var(--line); border-radius: 0; }
+  .sg__card.is-minimal:hover { transform: none; background: var(--bg-soft); }
+
+  .sg__card a { display: flex; flex-direction: column; height: 100%; }
+
+  /* ── Card media ────────────────────────────────────────────────────── */
+  .sg__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+
+  .sg__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease-expo);
+  }
+
+  .sg__card:hover .sg__media :global(img) { transform: scale(1.06); }
+
+  .sg__media-arrow {
+    position: absolute;
+    inset-block-end: 0.9rem;
+    inset-inline-end: 0.9rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--c-beige);
+    color: var(--c-jet);
+    opacity: 0;
+    transform: scale(0.7) rotate(-25deg);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .sg__card:hover .sg__media-arrow { opacity: 1; transform: scale(1) rotate(0); }
+
+  /* ── Card body ─────────────────────────────────────────────────────── */
+  .sg__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1.35rem 1.4rem 1.5rem;
+    flex: 1;
+  }
+
+  .sg__card.is-minimal .sg__body { padding: 1.35rem 0.25rem; }
+
+  .sg__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+
+  .sg__title { font-size: 1.2rem; line-height: 1.22; letter-spacing: -0.022em; }
+
+  .sg__summary { font-size: var(--fs-sub); color: var(--text-soft); }
+
+  .sg__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.75rem;
+    color: var(--text-mute);
+  }
+
+  .sg__meta span { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .sg__grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 900px) {
+    .sg__grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 620px) {
+    .sg__grid--2,
+    .sg__grid--3,
+    .sg__grid--4 { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

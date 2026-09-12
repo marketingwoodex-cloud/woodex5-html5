@@ -1,0 +1,162 @@
+/* ============================================================================
+   WOODEX MASTER THEME — RESPONSIVE
+   Mobile-first corrections. Breakpoints:
+     ≤ 1200px  small desktop / large tablet
+     ≤ 1024px  tablet landscape  → nav collapses to drawer
+     ≤  768px  tablet portrait   → grids stack
+     ≤  560px  phone
+     ≤  380px  small phone
+   ========================================================================= */
+
+/* ── ≤ 1280px : tighten the mega menu ─────────────────────────────────── */
+@media (max-width: 1280px) {
+  .mega-panel__inner {
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: var(--sp-8);
+  }
+  .mega-panel__inner > .mega-col--optional { display: none; }
+  .nav { gap: 0.9rem; }
+}
+
+/* ── ≤ 1024px : nav → drawer ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root {
+    --space-section: clamp(3.5rem, 7vw, 5.5rem);
+    --gutter: 1.25rem;
+  }
+
+  .nav,
+  .header__actions .btn--ghost,
+  .mega-panel { display: none; }
+
+  .burger { display: flex; }
+
+  .grid-3,
+  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: var(--sp-10);
+  }
+
+  .footer__brand-col { grid-column: 1 / -1; }
+
+  .mega-strip { grid-template-columns: repeat(2, 1fr); }
+
+  .page-head { padding-block: calc(var(--header-h) + 2.5rem) 3rem; }
+}
+
+/* ── ≤  768px : stack everything ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --header-h: 4.5rem;
+    --header-h-compact: 4rem;
+    --space-section: clamp(3rem, 9vw, 4.5rem);
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 { grid-template-columns: minmax(0, 1fr); }
+
+  .grid-12 > * { grid-column: 1 / -1 !important; }
+
+  .sec-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer__grid { grid-template-columns: 1fr; }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-4);
+  }
+
+  .svc-row {
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-4);
+  }
+
+  .svc-row__arrow { display: none; }
+  .svc-row:hover { padding-inline: var(--sp-4); }
+
+  .drawer__panel { width: 100%; }
+
+  .container { padding-inline: 1.25rem; }
+
+  .inline-form { flex-direction: column; align-items: stretch; }
+  .inline-form .field { min-width: 0; }
+
+  /* Prevent hover-only affordances from sticking on touch */
+  .hover-lift:hover { transform: none; box-shadow: none; }
+}
+
+/* ── ≤  560px : phone ─────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  :root {
+    --gutter: 1.1rem;
+    --sp-10: 2rem;
+    --sp-12: 2.25rem;
+    --sp-16: 3rem;
+    --sp-20: 3.5rem;
+  }
+
+  .btn { padding: 0.85rem 1.3rem; font-size: 0.875rem; }
+  .btn--lg { padding: 1rem 1.5rem; font-size: 0.9375rem; }
+
+  .brand { font-size: 1.15rem; }
+  .brand__mark { width: 1.75rem; height: 1.75rem; }
+
+  .footer__wordmark { -webkit-text-stroke-width: 1px; }
+
+  .mega-strip { grid-template-columns: 1fr; }
+
+  .drawer__sub { grid-template-columns: 1fr; }
+
+  .eyebrow { font-size: 0.6875rem; }
+
+  .to-top { inset-block-end: 1rem; inset-inline-end: 1rem; width: 2.6rem; height: 2.6rem; }
+}
+
+/* ── ≤  380px : very small ────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .container { padding-inline: 1rem; }
+  .header__inner { gap: var(--sp-3); }
+}
+
+/* ── LANDSCAPE PHONE: reduce hero heights ─────────────────────────────── */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero--full { min-height: 34rem; }
+}
+
+/* ── PRINT ────────────────────────────────────────────────────────────── */
+@media print {
+  .header,
+  .footer,
+  .to-top,
+  .drawer,
+  .mega-panel,
+  [data-cursor],
+  .preloader,
+  .scroll-progress { display: none !important; }
+
+  body { background: #fff; color: #000; }
+
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  .section { padding-block: 1.5rem; break-inside: avoid; }
+}
+
+/* ── CONTAINER QUERY SUPPORT (progressive enhancement) ────────────────── */
+@supports (container-type: inline-size) {
+  .cq { container-type: inline-size; }
+
+  @container (max-width: 34rem) {
+    .cq-stack { grid-template-columns: minmax(0, 1fr) !important; }
+  }
+}

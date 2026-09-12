@@ -1,0 +1,222 @@
+---
+/**
+ * SECTION · Split Compare                     [ split-compare ]
+ * ---------------------------------------------------------------------------
+ * Draggable before/after slider — ideal for renovation case studies.
+ * Pointer, touch and keyboard (arrow keys) all drive the handle.
+ *
+ * MOTION: clip-path driven by a CSS custom property, no JS per frame.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  beforeImage: string;
+  afterImage: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  caption?: string;
+  startAt?: number;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Before & after',
+  title = 'The same space, re-planned',
+  lede = 'Drag the handle to compare the original condition with the finished result.',
+  beforeImage,
+  afterImage,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  caption,
+  startAt = 50,
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['split-compare', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    <div
+      class="sc__stage"
+      data-compare
+      data-start={startAt}
+      style={`--pos:${startAt}%`}
+      data-reveal="clip"
+    >
+      <!-- After (base layer) -->
+      <div class="sc__layer sc__layer--after">
+        <Img src={afterImage} alt={afterLabel} width={1600} height={1000} loading="lazy" />
+        <span class="sc__tag sc__tag--after">{afterLabel}</span>
+      </div>
+
+      <!-- Before (clipped overlay) -->
+      <div class="sc__layer sc__layer--before">
+        <Img src={beforeImage} alt={beforeLabel} width={1600} height={1000} loading="lazy" />
+        <span class="sc__tag sc__tag--before">{beforeLabel}</span>
+      </div>
+
+      <!-- Handle -->
+      <div
+        class="sc__handle"
+        data-compare-handle
+        role="slider"
+        tabindex="0"
+        aria-label="Compare before and after"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={startAt}
+      >
+        <span class="sc__line" aria-hidden="true"></span>
+        <span class="sc__grip" aria-hidden="true">
+          <Icon name="chevron-left" size={13} stroke={2} />
+          <Icon name="chevron-right" size={13} stroke={2} />
+        </span>
+      </div>
+    </div>
+
+    {caption && <p class="sc__caption" data-reveal="fade-up">{caption}</p>}
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-compare]').forEach((stage) => {
+    const handle = stage.querySelector('[data-compare-handle]');
+    if (!handle) return;
+
+    let dragging = false;
+    const min = 3;
+    const max = 97;
+
+    const setPos = (pct) => {
+      const clamped = Math.max(min, Math.min(max, pct));
+      stage.style.setProperty('--pos', `${clamped}%`);
+      handle.setAttribute('aria-valuenow', String(Math.round(clamped)));
+    };
+
+    const fromEvent = (clientX) => {
+      const rect = stage.getBoundingClientRect();
+      setPos(((clientX - rect.left) / rect.width) * 100);
+    };
+
+    const start = (e) => {
+      dragging = true;
+      stage.classList.add('is-dragging');
+      fromEvent(e.clientX ?? e.touches?.[0]?.clientX ?? 0);
+    };
+
+    const move = (e) => {
+      if (!dragging) return;
+      const x = e.clientX ?? e.touches?.[0]?.clientX;
+      if (x == null) return;
+      fromEvent(x);
+    };
+
+    const end = () => {
+      dragging = false;
+      stage.classList.remove('is-dragging');
+    };
+
+    stage.addEventListener('pointerdown', start);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', end);
+
+    handle.addEventListener('keydown', (e) => {
+      const current = Number(handle.getAttribute('aria-valuenow')) || 50;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); setPos(current - 4); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); setPos(current + 4); }
+      if (e.key === 'Home') { e.preventDefault(); setPos(min); }
+      if (e.key === 'End') { e.preventDefault(); setPos(max); }
+    });
+  });
+</script>
+
+<style>
+  .sc__stage {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-soft);
+    cursor: ew-resize;
+    user-select: none;
+    touch-action: pan-y;
+  }
+
+  .sc__layer { position: absolute; inset: 0; }
+  .sc__layer :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  /* The "before" layer is clipped to the handle position. */
+  .sc__layer--before {
+    clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+    transition: clip-path 60ms linear;
+  }
+
+  .sc__stage.is-dragging .sc__layer--before { transition: none; }
+
+  .sc__tag {
+    position: absolute;
+    inset-block-start: 1rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--r-pill);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .sc__tag--before { inset-inline-start: 1rem; background: rgba(17, 17, 17, 0.72); color: var(--c-beige); }
+  .sc__tag--after { inset-inline-end: 1rem; background: rgba(252, 242, 232, 0.92); color: var(--c-jet); }
+
+  /* ── Handle ────────────────────────────────────────────────────────── */
+  .sc__handle {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: var(--pos, 50%);
+    width: 2px;
+    transform: translateX(-1px);
+    background: rgba(252, 242, 232, 0.9);
+    cursor: ew-resize;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+  }
+
+  .sc__handle:focus-visible { outline: 2px solid var(--c-beige); outline-offset: 3px; }
+
+  .sc__line { position: absolute; inset-block: 0; width: 1px; background: rgba(0, 0, 0, 0.15); }
+
+  .sc__grip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--c-beige);
+    color: var(--c-jet);
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .sc__stage:hover .sc__grip,
+  .sc__stage.is-dragging .sc__grip { transform: scale(1.1); }
+
+  .sc__caption { margin-top: 1rem; font-size: var(--fs-sub); color: var(--text-mute); }
+
+  @media (max-width: 640px) {
+    .sc__stage { aspect-ratio: 4 / 3; }
+    .sc__grip { width: 2.5rem; height: 2.5rem; }
+  }
+</style>

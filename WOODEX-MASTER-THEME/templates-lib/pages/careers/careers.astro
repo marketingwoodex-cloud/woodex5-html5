@@ -1,0 +1,190 @@
+---
+/** PAGE TEMPLATE · Careers                     [ careers ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import RichText from '../sections/RichText.astro';
+import TeamGrid from '../sections/TeamGrid.astro';
+import ContactFormSection from '../sections/ContactFormSection.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import CtaBand from '../sections/CtaBand.astro';
+
+const roles = [
+  { title: 'Interior Designer', type: 'Full time', location: 'Lahore', level: '2–5 years', team: 'Design' },
+  { title: 'Joinery Detailer', type: 'Full time', location: 'Lahore', level: '3+ years', team: 'Documentation' },
+  { title: 'Site Manager — Fit-Out', type: 'Full time', location: 'Karachi', level: '5+ years', team: 'Delivery' },
+  { title: '3D Visualiser', type: 'Full time', location: 'Lahore', level: '2+ years', team: 'Visualisation' },
+  { title: 'Quantity Surveyor', type: 'Full time', location: 'Lahore', level: '3+ years', team: 'Commercial' },
+  { title: 'Cabinet Maker', type: 'Full time', location: 'Lahore', level: 'Skilled trade', team: 'Millwork' },
+  { title: 'Interior Design Intern', type: 'Internship', location: 'Lahore', level: 'Student', team: 'Design' },
+  { title: 'Site Supervisor', type: 'Contract', location: 'Islamabad', level: '3+ years', team: 'Delivery' },
+];
+---
+
+<BaseLayout
+  title="Careers | Woodex Interior"
+  description="Open roles at Woodex Interior: interior designers, joinery detailers, site managers, quantity surveyors, visualisers and cabinet makers in Lahore, Karachi and Islamabad."
+  overlayHeader
+  current="about"
+  schema={{
+    '@type': 'ItemList',
+    name: 'Open roles at Woodex Interior',
+    itemListElement: roles.map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': 'JobPosting', title: r.title, employmentType: r.type, jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: r.location, addressCountry: 'PK' } } },
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow="Careers"
+    title="Care about tolerance? Come and work here."
+    lede="We are a small practice that punches above its size because everyone here documents properly. If that sounds like you, we would like to talk."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Careers' }]}
+    variant="soft"
+    meta={[
+      { label: 'Open roles', value: `${roles.length}` },
+      { label: 'Studios', value: 'Lahore · Karachi · Islamabad' },
+      { label: 'Core team', value: '24 people' },
+      { label: 'Founded', value: '2014' },
+    ]}
+  />
+
+  <section class="section careers">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">Open positions</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="46">Current openings</h2>
+        </div>
+        <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">
+          Do not see your role? Send a speculative application — we keep good CVs on file.
+        </p>
+      </div>
+
+      <div class="cr__list" data-stagger="70">
+        {roles.map((r) => (
+          <a href="#apply" class="cr__row" data-reveal="fade-up">
+            <span class="cr__title">{r.title}</span>
+            <span class="cr__team">{r.team}</span>
+            <span class="cr__meta">
+              <span class="tag">{r.type}</span>
+              <span class="tag">{r.location}</span>
+              <span class="cr__level">{r.level}</span>
+            </span>
+            <span class="cr__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <RichText
+    showToc={false}
+    narrow
+    blocks={[
+      { type: 'h2', text: 'What it is like here' },
+      { type: 'p', text: 'We are a documentation-led practice, which means the drawings matter more than the mood board. Designers here are expected to resolve details, not just select finishes. In return you get to see your drawings built by the same team, on site, within months.' },
+      { type: 'h3', text: 'How we work' },
+      { type: 'list', items: [
+        'Five-day week, studio hours, no expectation of unpaid overtime.',
+        'Every project reviewed at three fixed checkpoints by design and site together.',
+        'Annual training budget covering software, materials and site certifications.',
+        'Direct exposure to clients from the first month.',
+      ] },
+      { type: 'h3', text: 'What we look for' },
+      { type: 'list', items: [
+        'Evidence you can draw — send a portfolio, not a CV alone.',
+        'Attention to tolerance and setting-out, not just visual style.',
+        'Willingness to go to site and stand in the dust.',
+        'Clear written communication. Half of this job is documentation.',
+      ] },
+      { type: 'callout', tone: 'warn', title: 'Portfolios matter more than CVs', text: 'Send drawings, details and site photographs. We would rather see how you solved a services clash than where you studied.' },
+    ]}
+  />
+
+  <TeamGrid showCareers={false} theme="gray" limit={4} />
+
+  <StatsStrip variant="promises" eyebrow="Working here" title="What we offer" theme="dark" />
+
+  <div id="apply" style="scroll-margin-top:calc(var(--header-h) + 2rem)">
+    <ContactFormSection
+      eyebrow="Apply"
+      title="Send us your portfolio"
+      lede="Include a link to your work and tell us which role you are applying for. We reply to every application, successful or not."
+      submitLabel="Send application"
+      variant="stacked"
+      showInfoRail={false}
+    />
+  </div>
+
+  <CtaBand
+    eyebrow="Not for you?"
+    title="Know someone who would fit?"
+    primary={{ label: 'Share the roles', href: '/careers' }}
+    secondary={{ label: 'About the studio', href: '/about' }}
+    variant="split"
+  />
+</BaseLayout>
+
+<style>
+  .cr__list { border-top: 1px solid var(--line); }
+
+  .cr__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.6fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    padding: clamp(1.15rem, 2.2vw, 1.6rem) 0;
+    border-block-end: 1px solid var(--line);
+    position: relative;
+    isolation: isolate;
+    transition: padding var(--dur-slow) var(--ease-expo), color var(--dur-slow) var(--ease-soft);
+  }
+
+  .cr__row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--c-jet);
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .cr__row:hover { color: var(--c-beige); padding-inline: clamp(1rem, 2vw, 1.75rem); }
+  .cr__row:hover::before { transform: scaleY(1); }
+
+  .cr__title { font-family: var(--ff-display); font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.022em; }
+  .cr__team { font-size: var(--fs-sub); color: var(--text-mute); transition: color var(--dur) var(--ease-out); }
+  .cr__row:hover .cr__team { color: rgba(252, 242, 232, 0.55); }
+
+  .cr__meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .cr__row:hover .cr__meta :global(.tag) { background: rgba(252, 242, 232, 0.14); color: var(--c-beige); }
+  .cr__level { font-size: 0.75rem; color: var(--text-mute); }
+
+  .cr__arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    flex: none;
+    transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .cr__row:hover .cr__arrow { transform: rotate(45deg); background: var(--c-beige); color: var(--c-jet); border-color: var(--c-beige); }
+
+  @media (max-width: 860px) {
+    .cr__row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.75rem; }
+    .cr__team { grid-column: 1 / 2; }
+    .cr__meta { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 560px) {
+    .cr__arrow { display: none; }
+  }
+</style>

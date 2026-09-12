@@ -1,0 +1,65 @@
+---
+/** Journal (default blog index) — renders the magazine/feature layout. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import NewsletterBand from '../sections/NewsletterBand.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { articles, topics } from '../data/articles.js';
+
+const topicParam = Astro.url.searchParams.get('topic') ?? undefined;
+const activeTopic = topics.find((t) => t.id === topicParam);
+---
+
+<BaseLayout
+  title={`Journal${activeTopic ? ` — ${activeTopic.label}` : ''} | Woodex Interior`}
+  description="Practical guidance on designing, costing and building interiors in Pakistan — written by the team that delivers the work."
+  overlayHeader
+  current="journal"
+  schema={{
+    '@type': 'Blog',
+    name: 'Woodex Journal',
+    blogPost: articles.map((a) => ({
+      '@type': 'BlogPosting',
+      headline: a.title,
+      datePublished: a.date,
+      author: { '@type': 'Person', name: a.author },
+      url: `/blog/${a.slug}`,
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow={activeTopic ? `Journal · ${activeTopic.label}` : 'The Woodex Journal'}
+    title={activeTopic ? activeTopic.label : 'Practical knowledge, not content marketing'}
+    lede="What interior projects actually cost, what fails in a Pakistani climate, and how to read a fit-out contract. Written by the people doing the work."
+    crumbs={[{ label: 'Journal' }]}
+    variant="soft"
+    meta={[
+      { label: 'Articles', value: `${articles.length}` },
+      { label: 'Topics', value: `${topics.length}` },
+      { label: 'Updated', value: 'Monthly' },
+    ]}
+  />
+
+  <JournalGrid
+    eyebrow="Latest"
+    title="Recent articles"
+    variant="feature"
+    limit={7}
+    ctaLabel="All articles"
+    ctaHref="/journal"
+  />
+
+  <NewsletterBand variant="band" theme="gray" />
+
+  <StatsStrip variant="numbers" eyebrow="The practice behind the writing" theme="dark" />
+
+  <CtaBand
+    eyebrow="Work with us"
+    title="Reading is useful. Building is better."
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Book a consultation', href: '/contact-two' }}
+    variant="split"
+  />
+</BaseLayout>

@@ -1,0 +1,165 @@
+---
+/**
+ * SECTION · Awards & Press                    [ awards-list ]
+ * ---------------------------------------------------------------------------
+ * Hover-to-zoom row list of awards, with an optional press quote column.
+ */
+import Icon from '../components/ui/Icon.astro';
+import { awards } from '../data/content.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  items?: typeof awards;
+  showPress?: boolean;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Recognition',
+  title = 'Awards and press',
+  lede = 'We do not design for awards, but the work has been recognised by the people who judge it.',
+  items = awards,
+  showPress = true,
+  theme = 'default',
+} = Astro.props;
+
+const press = [
+  { quote: 'One of the few practices in the market that draws before it builds.', source: 'South Asia Fit-Out Review', year: '2025' },
+  { quote: 'Acoustic strategy in their hospitality work is in a different league.', source: 'Hospitality Pakistan', year: '2024' },
+];
+---
+
+<section class:list={['awards-list', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class:list={['al__grid', showPress && 'has-press']}>
+      <div class="al__main">
+        <div class="sec-head">
+          <div class="sec-head__text">
+            <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+            <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+          </div>
+          <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+        </div>
+
+        <ul class="al__list" data-stagger="70">
+          {items.map((a) => (
+            <li class="al__item" data-reveal="fade-up">
+              <span class="al__year">{a.year}</span>
+              <span class="al__title">{a.title}</span>
+              <span class="al__org">{a.org}</span>
+              <span class="al__icon" aria-hidden="true">
+                <Icon name="award" size={15} stroke={1.6} />
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {showPress && (
+        <aside class="al__press" data-stagger="120">
+          {press.map((p) => (
+            <figure class="al__quote" data-reveal="fade-up">
+              <Icon name="quote" size={20} stroke={1.2} class="al__quote-mark" />
+              <blockquote>{p.quote}</blockquote>
+              <figcaption>
+                <strong>{p.source}</strong>
+                <span>{p.year}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </aside>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .al__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 4vw, 3.5rem); }
+  .al__grid.has-press { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; }
+
+  /* ══ List ══════════════════════════════════════════════════════════ */
+  .al__list { list-style: none; border-top: 1px solid var(--line); }
+
+  .al__item {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 0.7fr) auto;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    padding: clamp(1.1rem, 2vw, 1.6rem) 0;
+    border-block-end: 1px solid var(--line);
+    position: relative;
+    isolation: isolate;
+    transition: padding var(--dur-slow) var(--ease-expo), color var(--dur-slow) var(--ease-soft);
+  }
+
+  .al__item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg-soft);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .al__item:hover { padding-inline: 1.25rem; }
+  .al__item:hover::before { transform: scaleX(1); }
+
+  .al__year { font-size: 0.75rem; letter-spacing: 0.14em; color: var(--text-mute); font-variant-numeric: tabular-nums; }
+  .al__title { font-family: var(--ff-display); font-size: clamp(1rem, 1.7vw, 1.3rem); font-weight: 500; letter-spacing: -0.018em; }
+  .al__org { font-size: var(--fs-sub); color: var(--text-soft); }
+
+  .al__icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    opacity: 0.4;
+    transition: opacity var(--dur) var(--ease-out), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .al__item:hover .al__icon { opacity: 1; background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+
+  /* ══ Press ═════════════════════════════════════════════════════════ */
+  .al__press { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .al__quote {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-card);
+  }
+
+  .al__quote :global(.al__quote-mark) { opacity: 0.24; }
+
+  .al__quote blockquote {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    line-height: 1.42;
+    letter-spacing: -0.016em;
+  }
+
+  .al__quote figcaption { display: flex; flex-direction: column; gap: 0.15rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .al__quote figcaption strong { font-size: 0.875rem; font-weight: 500; }
+  .al__quote figcaption span { font-size: 0.75rem; color: var(--text-mute); }
+
+  @media (max-width: 900px) {
+    .al__grid.has-press { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .al__item { grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; row-gap: 0.4rem; }
+    .al__org { grid-column: 2 / -1; }
+    .al__icon { display: none; }
+  }
+</style>

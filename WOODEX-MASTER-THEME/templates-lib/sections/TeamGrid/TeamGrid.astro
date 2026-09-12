@@ -1,0 +1,174 @@
+---
+/**
+ * SECTION · Team Grid                         [ team-grid ]
+ * ---------------------------------------------------------------------------
+ * Portrait cards with a hover reveal that slides the bio up over the image.
+ * Optional CTA card promoting open roles.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { team } from '../data/content.js';
+import { teamImage } from '../data/images.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  limit?: number;
+  showCareers?: boolean;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'The people',
+  title = 'A studio built on documentation and craft',
+  lede = 'Designers, detailers, a contracts lead and a joinery shop — all under one roof, which is why our drawings survive contact with site.',
+  limit = 6,
+  showCareers = true,
+  theme = 'default',
+} = Astro.props;
+
+const list = team.slice(0, limit);
+---
+
+<section class:list={['team-grid', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    <div class="tg__grid" data-stagger="85">
+      {list.map((m, i) => (
+        <article class="tg__card" data-reveal="fade-up">
+          <div class="tg__media">
+            <Img src={teamImage(i)} alt={m.name} width={600} height={800} loading="lazy" />
+            <span class="tg__overlay" aria-hidden="true"></span>
+
+            <div class="tg__hover">
+              <p class="tg__bio">{m.bio}</p>
+              <div class="tg__social">
+                {Object.entries(m.social).map(([key, href]) => (
+                  <a href={href} aria-label={`${m.name} on ${key}`}>
+                    <Icon name={key} size={14} stroke={1.7} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="tg__body">
+            <h3 class="tg__name">{m.name}</h3>
+            <span class="tg__role">{m.role}</span>
+          </div>
+        </article>
+      ))}
+
+      {showCareers && (
+        <article class="tg__careers" data-reveal="fade-up">
+          <span class="tg__careers-icon" aria-hidden="true">
+            <Icon name="users" size={22} stroke={1.5} />
+          </span>
+          <h3 class="tg__careers-title">We are hiring</h3>
+          <p class="tg__careers-text">
+            Interior designers, detailers and site managers — if you document properly and care about tolerance, we want to talk.
+          </p>
+          <a href="/careers" class="text-link mt-6" style="border-color:currentColor">
+            View open roles <Icon name="arrow-right" size={14} class="arrow" />
+          </a>
+        </article>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tg__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+
+  .tg__card { display: flex; flex-direction: column; }
+
+  .tg__media {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+
+  .tg__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-expo); }
+  .tg__card:hover .tg__media :global(img) { transform: scale(1.06); }
+
+  .tg__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(17, 17, 17, 0.9));
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-soft);
+  }
+
+  .tg__card:hover .tg__overlay { opacity: 1; }
+
+  .tg__hover {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: 1.35rem;
+    color: var(--c-beige);
+    transform: translateY(0.75rem);
+    opacity: 0;
+    transition: transform var(--dur-slow) var(--ease-expo), opacity var(--dur-slow) var(--ease-soft);
+  }
+
+  .tg__card:hover .tg__hover { transform: translateY(0); opacity: 1; }
+
+  .tg__bio { font-size: 0.8125rem; line-height: 1.55; color: rgba(252, 242, 232, 0.85); }
+
+  .tg__social { display: flex; gap: 0.5rem; margin-top: 1rem; }
+
+  .tg__social a {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(252, 242, 232, 0.34);
+    border-radius: 50%;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .tg__social a:hover { background: var(--c-beige); color: var(--c-jet); }
+
+  .tg__body { padding: 1.1rem 0.25rem 0; display: flex; flex-direction: column; gap: 0.2rem; }
+  .tg__name { font-size: 1.1rem; letter-spacing: -0.018em; }
+  .tg__role { font-size: var(--fs-sub); color: var(--text-mute); }
+
+  /* ── Careers card ──────────────────────────────────────────────────── */
+  .tg__careers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: clamp(1.5rem, 2.4vw, 2rem);
+    border-radius: var(--r-lg);
+    background: var(--c-jet);
+    color: var(--c-beige);
+  }
+
+  .tg__careers-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid rgba(252, 242, 232, 0.28);
+    margin-bottom: 0.25rem;
+  }
+
+  .tg__careers-title { font-size: 1.25rem; }
+  .tg__careers-text { font-size: var(--fs-sub); color: rgba(252, 242, 232, 0.68); }
+
+  @media (max-width: 1000px) { .tg__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .tg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .tg__grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

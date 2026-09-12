@@ -1,0 +1,70 @@
+---
+/**
+ * PAGE TEMPLATE · Portfolio One               [ portfolio-one ]
+ * ---------------------------------------------------------------------------
+ * Uniform grid layout — the default portfolio index.
+ * Accepts ?sector=… to pre-filter (used by the mega menu).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { projects, sectors } from '../data/projects.js';
+
+const sectorParam = Astro.url.searchParams.get('sector') ?? undefined;
+const activeSector = sectors.find((s) => s.id === sectorParam);
+---
+
+<BaseLayout
+  title={`Portfolio${activeSector ? ` — ${activeSector.label}` : ''} | Woodex Interior`}
+  description="Interior design and fit-out projects delivered across Pakistan — residential villas, workplaces, restaurants, retail and healthcare."
+  overlayHeader
+  current="portfolio"
+  schema={{
+    '@type': 'CollectionPage',
+    name: 'Woodex Interior portfolio',
+    hasPart: projects.map((p) => ({
+      '@type': 'CreativeWork',
+      name: p.title,
+      url: `/project/${p.slug}`,
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow={`Portfolio${activeSector ? ` · ${activeSector.label}` : ''}`}
+    title={activeSector ? `${activeSector.label} projects` : 'Work we are happy to be judged on'}
+    lede="Nine sectors and fourteen disciplines, but the same standard on every job: drawn properly, priced openly, delivered on programme."
+    crumbs={[{ label: 'Portfolio' }]}
+    image="/images/projects/contemporary-retreat-cover.jpg"
+    meta={[
+      { label: 'Projects', value: `${projects.length}` },
+      { label: 'Sectors', value: `${sectors.length}` },
+      { label: 'Delivered area', value: '1.4M sq ft' },
+      { label: 'Avg. client rating', value: '4.9 / 5' },
+    ]}
+  />
+
+  <ProjectGrid
+    eyebrow="All work"
+    title="Selected projects"
+    lede="Filter by sector, or scroll the whole archive."
+    variant="grid"
+    sector={sectorParam}
+    limit={24}
+  />
+
+  <StatsStrip variant="numbers" eyebrow="Delivery record" theme="dark" />
+
+  <TestimonialsSlider variant="grid" theme="default" />
+
+  <CtaBand
+    eyebrow="Your project"
+    title="Let&rsquo;s add yours to the archive"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Browse layouts', href: '/portfolio-two' }}
+    variant="banner"
+    image="/images/cta/cta-banner.jpg"
+  />
+</BaseLayout>

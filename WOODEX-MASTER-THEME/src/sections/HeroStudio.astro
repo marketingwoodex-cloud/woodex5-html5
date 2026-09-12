@@ -1,0 +1,248 @@
+---
+/**
+ * SECTION · Hero Studio                       [ hero-studio ]
+ * ---------------------------------------------------------------------------
+ * Full-bleed cinematic hero: huge display headline with a scroll-scrubbed
+ * opacity reveal, a floating play button, and a statistics strip pinned to the
+ * bottom edge.
+ *
+ * MOTION: masked headline · scroll-scrubbed lede · counter strip · ken-burns bg
+ * USED ON: /home-three
+ */
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  image?: string;
+  videoLabel?: string;
+  stats?: { value: number; suffix?: string; decimals?: number; label: string }[];
+}
+
+const {
+  eyebrow = 'Design · Build · Deliver',
+  title = 'A studio that draws, details and delivers',
+  lede = 'We are a design-and-build practice working across residential, commercial and hospitality interiors in Pakistan. One team, one contract, one programme — from measured survey to snag-free handover.',
+  primary = { label: 'Start a project', href: '/contact-one' },
+  secondary = { label: 'View portfolio', href: '/portfolio-one' },
+  image = '/images/hero/hero-three-main.jpg',
+  videoLabel = 'Watch the studio film',
+  stats = [
+    { value: 240, suffix: '+', label: 'Projects delivered' },
+    { value: 12, suffix: '', label: 'Years in practice' },
+    { value: 1.4, suffix: 'M', decimals: 1, label: 'Sq ft completed' },
+    { value: 98, suffix: '%', label: 'Client retention' },
+  ],
+} = Astro.props;
+---
+
+<section class="hero-studio" data-theme="dark">
+  <div class="hero-studio__media">
+    <Img src={image} alt="" fetchpriority="high" width="1920" height="1080" />
+    <span class="hero-studio__scrim" aria-hidden="true"></span>
+  </div>
+
+  <div class="container hero-studio__inner">
+    <span class="eyebrow-chip" data-reveal="fade">
+      <i class="eyebrow-chip__dot" aria-hidden="true"></i>
+      {eyebrow}
+    </span>
+
+    <h1 class="hero-studio__title" data-heading-reveal="words" data-heading-stagger="82">
+      {title}
+    </h1>
+
+    <!-- Scroll-scrubbed paragraph: fades from 8% to full as you scroll -->
+    <p class="hero-studio__lede" data-scroll-opacity data-scroll-opacity-from="0.14">
+      {lede}
+    </p>
+
+    <div class="hero-studio__actions" data-reveal="fade-up" style="--reveal-delay:300ms">
+      <a href={primary.href} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.18">
+        <span class="btn__label">
+          <span>{primary.label}</span>
+          <span>{primary.label}</span>
+        </span>
+        <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+      </a>
+      <button type="button" class="hero-studio__play" data-cursor="Play" aria-label={videoLabel}>
+        <Icon name="play" size={16} stroke={1.6} />
+        <span>{videoLabel}</span>
+      </button>
+      <a href={secondary.href} class="text-link" style="color:var(--c-beige);border-color:rgba(252,242,232,.4)">
+        {secondary.label} <Icon name="arrow-up-right" size={14} class="arrow-up-right" />
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="hero-studio__stats">
+    <div class="container">
+      <div class="hero-studio__stats-grid" data-stagger="110">
+        {stats.map((s) => (
+          <div class="hero-stat">
+            <strong
+              data-counter={s.value}
+              data-counter-suffix={s.suffix ?? ''}
+              data-counter-decimals={s.decimals ?? 0}
+              data-counter-duration="1900"
+            >0</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-studio {
+    position: relative;
+    min-height: min(54rem, 100vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--c-jet);
+    color: var(--c-beige);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero-studio__media { position: absolute; inset: 0; z-index: -1; }
+
+  .hero-studio__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: studio-zoom 30s var(--ease-soft) infinite alternate;
+  }
+
+  @keyframes studio-zoom {
+    from { transform: scale(1.04); }
+    to   { transform: scale(1.15); }
+  }
+
+  .hero-studio__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.3) 34%, rgba(0, 0, 0, 0.92) 100%);
+  }
+
+  .hero-studio__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: calc(var(--header-h) + 4rem) clamp(3rem, 6vw, 5rem);
+    position: relative;
+  }
+
+  .hero-studio__title {
+    margin-top: 2rem;
+    font-size: clamp(2.6rem, 7.4vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    max-width: 16ch;
+  }
+
+  .hero-studio__lede {
+    margin-top: 2rem;
+    max-width: 52ch;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--c-beige);
+  }
+
+  .hero-studio__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .hero-studio__play {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.875rem;
+    color: var(--c-beige);
+    padding: 0.5rem 0.5rem 0.5rem 0;
+  }
+
+  .hero-studio__play :global(svg) {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.95rem;
+    border: 1px solid rgba(252, 242, 232, 0.4);
+    border-radius: 50%;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .hero-studio__play:hover :global(svg) {
+    background: var(--c-beige);
+    color: var(--c-jet);
+    transform: scale(1.08);
+  }
+
+  /* ── Stats ─────────────────────────────────────────────────────────── */
+  .hero-studio__stats {
+    position: relative;
+    border-block-start: 1px solid rgba(252, 242, 232, 0.18);
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(12px);
+  }
+
+  .hero-studio__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding-block: 1.75rem;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-inline-end: 1rem;
+    border-inline-end: 1px solid rgba(252, 242, 232, 0.12);
+  }
+
+  .hero-stat:last-child { border-inline-end: 0; }
+
+  .hero-stat strong {
+    font-family: var(--ff-display);
+    font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-stat span {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.5);
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .hero-studio__stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 1.75rem; }
+    .hero-stat:nth-child(2) { border-inline-end: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .hero-studio { min-height: auto; }
+    .hero-studio__actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>

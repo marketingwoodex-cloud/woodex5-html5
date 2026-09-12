@@ -1,0 +1,63 @@
+---
+/** PAGE TEMPLATE · Team                        [ team ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import TeamGrid from '../sections/TeamGrid.astro';
+import RichText from '../sections/RichText.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="The Team | Woodex Interior"
+  description="Designers, detailers, a contracts lead and a joinery shop — the people behind Woodex Interior projects across Pakistan."
+  overlayHeader
+  current="about"
+>
+  <PageHeader
+    eyebrow="The people"
+    title="A studio built on documentation and craft"
+    lede="Designers, detailers, a contracts lead and a millwork shop — all under one roof. That is why our drawings survive contact with site."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Team' }]}
+    image="/images/features/feature-joinery.jpg"
+    meta={[
+      { label: 'Core team', value: '24 people' },
+      { label: 'Disciplines', value: '6' },
+      { label: 'Studio millwork', value: 'In-house' },
+      { label: 'Founded', value: '2014' },
+    ]}
+  />
+
+  <TeamGrid showCareers />
+
+  <RichText
+    showToc={false}
+    narrow
+    blocks={[
+      { type: 'h2', text: 'How we are organised' },
+      { type: 'p', text: 'We deliberately keep design and delivery in the same room. A designer who has never run a site makes drawings that do not survive one; a site manager who has never drawn cannot see a problem coming. Ours sit together and review every project at three fixed points.' },
+      { type: 'h3', text: 'Design and documentation' },
+      { type: 'p', text: 'Concept, space planning, material specification, joinery detailing and the full drawing set. Led by Hira, supported by two detailers and our 3D lead, Zainab.' },
+      { type: 'h3', text: 'Commercial and procurement' },
+      { type: 'p', text: 'Cost planning, trade appointment, contract administration and variation control. Led by Fatima, who has never been persuaded to approve a variation that had not been priced.' },
+      { type: 'h3', text: 'Millwork' },
+      { type: 'p', text: 'Our own shop, running five days a week. Every bespoke unit in every project we deliver passes through it — which is how we hold tolerance and lead time directly rather than hoping a subcontractor will.' },
+      { type: 'h3', text: 'Site delivery' },
+      { type: 'p', text: 'A site manager per live project, daily coordination, quality-control inspections at each trade handover, and the weekly written report you receive.' },
+      { type: 'callout', title: 'We are hiring', text: 'Interior designers, joinery detailers and site managers. If you document properly and care about tolerance, we would like to hear from you.' },
+    ]}
+  />
+
+  <StatsStrip variant="numbers" eyebrow="The team, in numbers" theme="dark" />
+
+  <TestimonialsSlider variant="grid" />
+
+  <CtaBand
+    eyebrow="Join us"
+    title="Care about tolerance? Let&rsquo;s talk."
+    primary={{ label: 'View open roles', href: '/careers' }}
+    secondary={{ label: 'Start a project', href: '/contact-one' }}
+    variant="split"
+  />
+</BaseLayout>

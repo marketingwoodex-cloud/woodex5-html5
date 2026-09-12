@@ -1,0 +1,271 @@
+---
+/**
+ * SECTION · Hero Showcase                     [ hero-showcase ]
+ * ---------------------------------------------------------------------------
+ * Split hero: rotating headline words on the left, tall portrait media on the
+ * right, with a partner-logo marquee along the bottom.
+ *
+ * MOTION: rotating words · masked headline · clip-path image reveal ·
+ *         logo marquee
+ * USED ON: /home-two
+ */
+import Icon from '../components/ui/Icon.astro';
+import { clients } from '../data/content.js';
+import { site } from '../data/site.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  rotatingWords?: string[];
+  title?: string;
+  lede?: string;
+  primary?: { label: string; href: string };
+  image?: string;
+  imageAlt?: string;
+  badgeNumber?: string;
+  badgeLabel?: string;
+  showLogos?: boolean;
+}
+
+const {
+  rotatingWords = ['Inspired spaces', 'Lasting design', 'Life enhanced'],
+  title = 'Interiors shaped by purpose and identity',
+  lede = 'Interior design is more than finishes — it is about creating meaningful environments. We craft spaces that reflect identity, elevate everyday living, and stand as lasting expressions of design excellence.',
+  primary = site.cta.primary,
+  image = '/images/hero/hero-two-main.jpg',
+  imageAlt = 'Designed interior with layered natural light',
+  badgeNumber = '12',
+  badgeLabel = 'Years shaping interiors',
+  showLogos = true,
+} = Astro.props;
+---
+
+<section class="hero-showcase" data-theme="dark">
+  <div class="container hero-showcase__inner">
+    <!-- ── Copy ───────────────────────────────────────────────────────── -->
+    <div class="hero-showcase__copy">
+      <!-- Rotating words -->
+      <div class="hero-showcase__rotate" data-reveal="fade">
+        <Icon name="sparkle" size={14} stroke={1.8} />
+        <span class="rotate-words" data-rotate-words data-rotate-hold="2800">
+          {rotatingWords.map((w) => <span>{w}</span>)}
+        </span>
+      </div>
+
+      <h1 class="hero-showcase__title" data-heading-reveal="words" data-heading-stagger="72">
+        {title}
+      </h1>
+
+      <p class="hero-showcase__lede" data-reveal="fade-up" style="--reveal-delay:400ms">{lede}</p>
+
+      <div class="hero-showcase__actions" data-reveal="fade-up" style="--reveal-delay:520ms">
+        <a href={primary.href} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.18">
+          <span class="btn__label">
+            <span>{primary.label}</span>
+            <span>{primary.label}</span>
+          </span>
+          <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+        </a>
+        <a href={site.cta.secondary.href} class="btn btn--outline-invert btn--lg">
+          <span class="btn__label"><span>{site.cta.secondary.label}</span></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Media ──────────────────────────────────────────────────────── -->
+    <div class="hero-showcase__media" data-reveal="clip-x" style="--reveal-delay:200ms">
+      <Img src={image} alt={imageAlt} fetchpriority="high" width="900" height="1200" />
+
+      <div class="hero-showcase__badge">
+        <strong data-counter={badgeNumber} data-counter-duration="1600">0</strong>
+        <span>{badgeLabel}</span>
+      </div>
+
+      <a href="/about" class="hero-showcase__badge hero-showcase__badge--ghost" aria-label="Read our story">
+        <Icon name="arrow-up-right" size={18} stroke={1.8} />
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Logo marquee ─────────────────────────────────────────────────── -->
+  {showLogos && (
+    <div class="hero-showcase__logos">
+      <div class="container">
+        <div data-marquee data-marquee-speed="48" style="--marquee-gap:4rem" aria-label="Selected clients">
+          <div class="marquee-track">
+            {[...clients, ...clients].map((c) => (
+              <span class="hero-logo">{c.name}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero-showcase {
+    position: relative;
+    padding-block: calc(var(--header-h) + clamp(3rem, 6vw, 5.5rem)) 0;
+    background: var(--c-jet);
+    color: var(--c-beige);
+    overflow: hidden;
+  }
+
+  /* Soft radial glow behind the copy for depth */
+  .hero-showcase::before {
+    content: '';
+    position: absolute;
+    inset-block-start: -20%;
+    inset-inline-start: -10%;
+    width: 60%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(252, 242, 232, 0.07), transparent 68%);
+    pointer-events: none;
+  }
+
+  .hero-showcase__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* ── Rotating words ────────────────────────────────────────────────── */
+  .hero-showcase__rotate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.62);
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(252, 242, 232, 0.16);
+  }
+
+  /* ── Title ─────────────────────────────────────────────────────────── */
+  .hero-showcase__title {
+    font-size: clamp(2.5rem, 5.6vw, 4.75rem);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+    max-width: 15ch;
+  }
+
+  .hero-showcase__lede {
+    margin-top: 1.75rem;
+    max-width: 46ch;
+    font-size: 1.0625rem;
+    color: rgba(252, 242, 232, 0.72);
+  }
+
+  .hero-showcase__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  /* ── Media ─────────────────────────────────────────────────────────── */
+  .hero-showcase__media {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    max-height: 40rem;
+    justify-self: end;
+    width: 100%;
+  }
+
+  .hero-showcase__media > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-showcase__badge {
+    position: absolute;
+    inset-block-end: 1.25rem;
+    inset-inline-start: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 1rem 1.35rem;
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--c-beige) 94%, transparent);
+    color: var(--c-jet);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero-showcase__badge strong {
+    font-family: var(--ff-display);
+    font-size: 2.1rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .hero-showcase__badge span {
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.62;
+    max-width: 9ch;
+    line-height: 1.4;
+  }
+
+  .hero-showcase__badge--ghost {
+    inset-block-end: 1.25rem;
+    inset-inline-start: auto;
+    inset-inline-end: 1.25rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: rgba(252, 242, 232, 0.14);
+    border: 1px solid rgba(252, 242, 232, 0.3);
+    color: var(--c-beige);
+    border-radius: 50%;
+    transition: background var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .hero-showcase__badge--ghost:hover {
+    background: var(--c-beige);
+    color: var(--c-jet);
+    transform: rotate(45deg);
+  }
+
+  /* ── Logos ─────────────────────────────────────────────────────────── */
+  .hero-showcase__logos {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding-block: 1.75rem;
+    border-block-start: 1px solid rgba(252, 242, 232, 0.12);
+  }
+
+  .hero-logo {
+    font-family: var(--ff-display);
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(252, 242, 232, 0.34);
+    white-space: nowrap;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .hero-logo:hover { color: rgba(252, 242, 232, 0.85); }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .hero-showcase__inner { grid-template-columns: minmax(0, 1fr); }
+    .hero-showcase__media { justify-self: start; max-height: 28rem; aspect-ratio: 4 / 3; margin-top: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-showcase__actions { flex-direction: column; align-items: stretch; }
+    .hero-showcase__actions :global(.btn) { justify-content: center; }
+  }
+</style>

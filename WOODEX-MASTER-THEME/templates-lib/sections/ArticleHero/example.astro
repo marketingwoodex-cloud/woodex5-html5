@@ -1,0 +1,14 @@
+---
+/**
+ * Minimal standalone example for: ArticleHero
+ * Copy this into src/pages/ to see the section in isolation.
+ */
+import BaseLayout from '../../src/layouts/BaseLayout.astro';
+import ArticleHero from '../../src/sections/ArticleHero.astro';
+---
+
+<BaseLayout title="ArticleHero — component preview" description="Isolated preview of the ArticleHero section." overlayHeader>
+  {/* Supply from your own data: title (string), topic (string), date (string), readingTime (number), author (string) */}
+  <ArticleHero
+  />
+</BaseLayout>

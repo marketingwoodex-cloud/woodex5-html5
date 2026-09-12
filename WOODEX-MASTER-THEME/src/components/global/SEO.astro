@@ -1,0 +1,138 @@
+---
+/**
+ * SEO — canonical, Open Graph, Twitter card, and JSON-LD structured data.
+ * Everything is derived from frontmatter props with site.js as the fallback.
+ */
+import { site } from '../../data/site.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  /** Extra JSON-LD blocks to merge into the graph. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title = site.seo.defaultTitle,
+  description = site.description,
+  image = site.seo.ogImage,
+  type = 'website',
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  author,
+  schema,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site ?? 'https://woodexinterior.com');
+const ogImage = new URL(image, Astro.site ?? 'https://woodexinterior.com');
+
+/* ── Organisation + LocalBusiness graph, present on every page ─────────── */
+const orgSchema = {
+  '@type': ['Organization', 'LocalBusiness', 'HomeAndConstructionBusiness'],
+  '@id': `${Astro.site}#organization`,
+  name: site.name,
+  legalName: site.legalName,
+  url: Astro.site?.toString(),
+  email: site.email,
+  telephone: site.phone,
+  description: site.description,
+  slogan: site.tagline,
+  areaServed: site.cities.map((c) => ({ '@type': 'City', name: c })),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${site.address.line1}, ${site.address.line2}`,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postal,
+    addressCountry: 'PK',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '10:00',
+    closes: '19:00',
+  },
+  sameAs: site.social.map((s) => s.href),
+};
+
+const webSiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${Astro.site}#website`,
+  url: Astro.site?.toString(),
+  name: site.name,
+  publisher: { '@id': `${Astro.site}#organization` },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${Astro.site}search?q={query}`,
+    'query-input': 'required name=query',
+  },
+};
+
+const pageSchema = {
+  '@type': type === 'article' ? 'Article' : 'WebPage',
+  '@id': canonical.toString(),
+  url: canonical.toString(),
+  name: title,
+  description,
+  isPartOf: { '@id': `${Astro.site}#website` },
+  ...(type === 'article'
+    ? {
+        headline: title,
+        image: [ogImage.toString()],
+        datePublished: publishedTime,
+        dateModified: modifiedTime ?? publishedTime,
+        author: { '@type': 'Person', name: author ?? site.name },
+        publisher: { '@id': `${Astro.site}#organization` },
+      }
+    : {}),
+};
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const graph = [orgSchema, webSiteSchema, pageSchema, ...extra];
+---
+
+<!-- ── Primary meta ─────────────────────────────────────────────────────── -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+<meta name="theme-color" content="#111111" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content={author ?? site.name} />
+
+<!-- ── Geo / local ──────────────────────────────────────────────────────── -->
+<meta name="geo.region" content="PK-PB" />
+<meta name="geo.placename" content={site.address.city} />
+
+<!-- ── Open Graph ───────────────────────────────────────────────────────── -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={site.seo.locale} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+{author && <meta property="article:author" content={author} />}
+
+<!-- ── Twitter / X ──────────────────────────────────────────────────────── -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={site.seo.twitter} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- ── Structured data ──────────────────────────────────────────────────── -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />

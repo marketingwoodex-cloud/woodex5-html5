@@ -1,0 +1,43 @@
+---
+/** PAGE TEMPLATE · Awards & Press              [ awards ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import AwardsList from '../sections/AwardsList.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Awards & Press | Woodex Interior"
+  description="Recognition for Woodex Interior projects — Pakistan Design Council, Interior Excellence Awards, Hospitality Pakistan and South Asia Fit-Out Review."
+  overlayHeader
+  current="about"
+>
+  <PageHeader
+    eyebrow="Recognition"
+    title="Awards and press"
+    lede="We do not design for awards. But it is good to be recognised by the people whose job is to judge the work."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Awards' }]}
+    image="/images/projects/concrete-harmony-cover.jpg"
+    meta={[
+      { label: 'Awards', value: '5' },
+      { label: 'Since', value: '2023' },
+      { label: 'Bodies', value: '4' },
+    ]}
+  />
+
+  <AwardsList />
+
+  <StatsStrip variant="numbers" eyebrow="The numbers" theme="dark" />
+
+  <TestimonialsSlider variant="grid" theme="gray" />
+
+  <CtaBand
+    eyebrow="Work with us"
+    title="The next one could be yours"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'See the portfolio', href: '/portfolio-one' }}
+    variant="split"
+  />
+</BaseLayout>

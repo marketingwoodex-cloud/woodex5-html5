@@ -1,0 +1,193 @@
+---
+/** PAGE TEMPLATE · Search                      [ search ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import RichText from '../sections/RichText.astro';
+import Icon from '../components/ui/Icon.astro';
+import { services } from '../data/services.js';
+import { projects } from '../data/projects.js';
+import { articles, formatDate } from '../data/articles.js';
+
+/* Build a flat search index at build time — no runtime request needed. */
+const index = [
+  ...services.map((s) => ({ type: 'Service', title: s.title, text: `${s.summary} ${s.lede}`, href: `/services/${s.slug}`, group: s.title })),
+  ...projects.map((p) => ({ type: 'Project', title: p.title, text: `${p.excerpt} ${p.location} ${p.sector}`, href: `/project/${p.slug}`, group: p.title })),
+  ...articles.map((a) => ({ type: 'Article', title: a.title, text: `${a.excerpt} ${a.tags.join(' ')}`, href: `/blog/${a.slug}`, group: a.title })),
+];
+
+const q = (Astro.url.searchParams.get('q') ?? '').trim().toLowerCase();
+
+const results = q
+  ? index.filter((e) => `${e.title} ${e.text} ${e.type}`.toLowerCase().includes(q))
+  : [];
+---
+
+<BaseLayout
+  title="Search | Woodex Interior"
+  description="Search services, projects and journal articles from the Woodex studio."
+  overlayHeader
+  noindex
+  footerCta={false}
+>
+  <PageHeader
+    eyebrow="Search"
+    title={q ? `Results for &ldquo;${q}&rdquo;` : 'Search the studio site'}
+    lede={q ? `${results.length} result${results.length === 1 ? '' : 's'} found.` : 'Services, projects and journal articles — all indexed locally, no third-party search service.'}
+    crumbs={[{ label: 'Search' }]}
+    variant="soft"
+  />
+
+  <section class="section">
+    <div class="container">
+      <form class="sr__form" action="/search" method="get" data-reveal="fade-up">
+        <label class="field sr__field" data-field>
+          <span class="field__label">Search query</span>
+          <input
+            type="search"
+            name="q"
+            value={q}
+            placeholder="Try &ldquo;kitchen&rdquo;, &ldquo;pricing&rdquo;, &ldquo;acoustics&rdquo; or &ldquo;joinery&rdquo;"
+            aria-label="Search query"
+            autofocus
+          />
+        </label>
+        <button type="submit" class="btn btn--primary">
+          <span class="btn__label"><span>Search</span></span>
+          <Icon name="search" size={14} />
+        </button>
+      </form>
+
+      {q && results.length > 0 && (
+        <div class="sr__results" data-stagger="60">
+          {results.map((r) => (
+            <a href={r.href} class="sr__result" data-reveal="fade-up">
+              <span class="tag">{r.type}</span>
+              <h3 class="sr__title">{r.title}</h3>
+              <p class="sr__text">{r.text.slice(0, 180)}{r.text.length > 180 ? '…' : ''}</p>
+              <span class="sr__arrow" aria-hidden="true"><Icon name="arrow-up-right" size={15} stroke={1.8} /></span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {q && results.length === 0 && (
+        <div class="sr__empty" data-reveal="fade-up">
+          <Icon name="search" size={26} stroke={1.4} />
+          <h2 class="sr__empty-title">Nothing matched &ldquo;{q}&rdquo;</h2>
+          <p class="sr__empty-text">Try a broader term, or browse the sections below.</p>
+          <div class="pill-group" style="justify-content:center;margin-top:1.5rem">
+            <a class="pill" href="/service">All services</a>
+            <a class="pill" href="/portfolio-one">Portfolio</a>
+            <a class="pill" href="/journal">Journal</a>
+            <a class="pill" href="/pricing-one">Pricing</a>
+            <a class="pill" href="/faq">FAQ</a>
+          </div>
+        </div>
+      )}
+
+      {!q && (
+        <div class="sr__suggest" data-reveal="fade-up">
+          <span class="sr__suggest-label">Popular searches</span>
+          <div class="pill-group">
+            {['Turnkey fit-out', 'Kitchen', 'Office fit-out', 'Joinery', 'Cost', 'Acoustics', 'Lighting', 'Pricing'].map((t) => (
+              <a class="pill" href={`/search?q=${encodeURIComponent(t.toLowerCase())}`}>{t}</a>
+            ))}
+          </div>
+
+          <div class="sr__counts" data-stagger="60">
+            <div class="sr__count" data-reveal="fade-up"><strong>{services.length}</strong><span>Services indexed</span></div>
+            <div class="sr__count" data-reveal="fade-up"><strong>{projects.length}</strong><span>Projects indexed</span></div>
+            <div class="sr__count" data-reveal="fade-up"><strong>{articles.length}</strong><span>Articles indexed</span></div>
+          </div>
+
+          <div class="sr__recent">
+            <span class="sr__suggest-label">Recently published</span>
+            <div class="sr__recent-list" data-stagger="60">
+              {articles.slice(0, 4).map((a) => (
+                <a href={`/blog/${a.slug}`} class="sr__recent-item" data-reveal="fade-up">
+                  <span class="sr__recent-date">{formatDate(a.date)}</span>
+                  <span class="sr__recent-title">{a.title}</span>
+                  <span class="sr__recent-time">{a.readingTime}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sr__form { display: flex; align-items: flex-end; gap: 0.75rem; flex-wrap: wrap; max-width: 46rem; margin-bottom: 3rem; }
+  .sr__field { flex: 1; min-width: 16rem; }
+
+  .sr__results { border-top: 1px solid var(--line); }
+
+  .sr__result {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.5rem 1.5rem;
+    padding: clamp(1.25rem, 2.4vw, 1.85rem) 0;
+    border-block-end: 1px solid var(--line);
+    transition: padding var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out);
+  }
+
+  .sr__result:hover { padding-inline: 1rem; background: var(--bg-soft); }
+
+  .sr__result :global(.tag) { grid-row: 1 / 3; }
+
+  .sr__title { font-size: clamp(1.05rem, 1.8vw, 1.35rem); letter-spacing: -0.022em; }
+  .sr__text { font-size: var(--fs-sub); color: var(--text-soft); grid-column: 2 / 3; }
+
+  .sr__arrow {
+    grid-row: 1 / 3;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .sr__result:hover .sr__arrow { transform: rotate(45deg); background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+
+  /* ── Empty / suggest ───────────────────────────────────────────────── */
+  .sr__empty { text-align: center; padding-block: 3rem; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+  .sr__empty :global(svg) { opacity: 0.35; }
+  .sr__empty-title { font-size: clamp(1.35rem, 2.4vw, 1.85rem); letter-spacing: -0.024em; margin-top: 0.5rem; }
+  .sr__empty-text { color: var(--text-soft); }
+
+  .sr__suggest-label { display: block; font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 1rem; }
+
+  .sr__counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 3rem; background: var(--line); border: 1px solid var(--line); }
+  .sr__count { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.5rem; background: var(--bg); }
+  .sr__count strong { font-family: var(--ff-display); font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1; font-weight: 500; letter-spacing: -0.034em; }
+  .sr__count span { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+
+  .sr__recent { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .sr__recent-list { border-top: 1px solid var(--line); }
+  .sr__recent-item {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr) auto;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-block-end: 1px solid var(--line);
+    transition: padding var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .sr__recent-item:hover { padding-inline-start: 0.75rem; background: var(--bg-soft); }
+  .sr__recent-date, .sr__recent-time { font-size: var(--fs-sub); color: var(--text-mute); }
+  .sr__recent-title { font-size: 1rem; letter-spacing: -0.018em; }
+
+  @media (max-width: 640px) {
+    .sr__result { grid-template-columns: minmax(0, 1fr); }
+    .sr__result :global(.tag) { grid-row: auto; justify-self: start; }
+    .sr__text { grid-column: 1 / -1; }
+    .sr__arrow { display: none; }
+    .sr__counts { grid-template-columns: minmax(0, 1fr); }
+    .sr__recent-item { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  }
+</style>

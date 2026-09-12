@@ -1,0 +1,40 @@
+---
+/** Blog One — magazine / feature layout. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import NewsletterBand from '../sections/NewsletterBand.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Journal One — Magazine Layout | Woodex Interior"
+  description="A magazine-style index of the Woodex Journal: one lead article, four supporting reads, then the full archive."
+  overlayHeader
+  current="journal"
+>
+  <PageHeader
+    eyebrow="Journal · Layout one"
+    title="Long reads on building better interiors"
+    lede="One lead piece, four supporting articles, then the whole archive. The layout we use for our default journal index."
+    crumbs={[{ label: 'Journal', href: '/journal' }, { label: 'Magazine' }]}
+    variant="soft"
+    meta={[
+      { label: 'Layout', value: 'Magazine' },
+      { label: 'Lead article', value: '1' },
+      { label: 'Supporting', value: '4' },
+    ]}
+  />
+
+  <JournalGrid eyebrow="This month" title="Featured writing" variant="feature" limit={6} />
+
+  <NewsletterBand variant="band" theme="gray" />
+
+  <CtaBand
+    eyebrow="Layouts"
+    title="Prefer a different index?"
+    primary={{ label: 'Grid layout', href: '/blog-two' }}
+    secondary={{ label: 'List layout', href: '/blog-three' }}
+    variant="split"
+  />
+</BaseLayout>

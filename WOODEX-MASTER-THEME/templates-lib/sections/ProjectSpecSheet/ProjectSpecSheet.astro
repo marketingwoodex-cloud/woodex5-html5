@@ -1,0 +1,178 @@
+---
+/**
+ * PROJECT SPEC SHEET — the technical summary a builder, buyer or client
+ * actually checks: areas, systems, materials, compliance.
+ *
+ * Data comes from the typed project record; sections with no data are
+ * dropped, so it works on any project in src/data/projects.js.
+ */
+import Icon from '../components/ui/Icon.astro';
+import { sectorLabel } from '../data/projects.js';
+import type { projects } from '../data/projects.js';
+
+interface Props {
+  project: (typeof projects)[number];
+  variant?: 'table' | 'cards' | 'split';
+  theme?: 'default' | 'gray' | 'dark';
+  showNotes?: boolean;
+}
+
+const { project, variant = 'table', theme = 'default', showNotes = true } = Astro.props;
+
+const spec = project.spec ?? {};
+
+const rows = [
+  { label: 'Location', value: project.location },
+  { label: 'Sector', value: sectorLabel(project.sector) },
+  { label: 'Delivered area', value: project.area },
+  { label: 'Programme', value: project.duration },
+  { label: 'Completed', value: String(project.year) },
+  ...(spec.structure ? [{ label: 'Structure', value: spec.structure }] : []),
+  ...(spec.rooms ? [{ label: 'Rooms', value: spec.rooms }] : []),
+  ...(spec.systems ? [{ label: 'Services', value: spec.systems }] : []),
+  ...(spec.compliance ? [{ label: 'Compliance', value: spec.compliance }] : []),
+  ...(spec.tolerance ? [{ label: 'Tolerance', value: spec.tolerance }] : []),
+].filter((r) => Boolean(r.value));
+
+const materials: { name: string; note?: string }[] = spec.materials ?? [];
+const scope: string[] = project.services ?? [];
+---
+
+<section class:list={['section', 'pss', `pss--${variant}`]} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">Specification</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">What was built, in numbers</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">
+        The technical record for {project.title} — the figures a builder or buyer checks first.
+      </p>
+    </div>
+
+    <div class="pss__grid">
+      <!-- ══ Facts ══ -->
+      <div class="pss__facts" data-stagger="70">
+        {rows.map((r) => (
+          <div class="pss__fact" data-reveal="fade-up">
+            <dt>{r.label}</dt>
+            <dd>{r.value}</dd>
+          </div>
+        ))}
+      </div>
+
+      <!-- ══ Scope + materials ══ -->
+      <div class="pss__side">
+        {scope.length > 0 && (
+          <div class="pss__block" data-reveal="fade-up">
+            <h3 class="pss__block-title">Scope of works</h3>
+            <ul class="pss__tags">
+              {scope.map((s) => (
+                <li class="tag">{s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {materials.length > 0 && (
+          <div class="pss__block" data-reveal="fade-up">
+            <h3 class="pss__block-title">Principal materials</h3>
+            <ul class="pss__materials">
+              {materials.map((m) => (
+                <li>
+                  <span class="pss__mat-name">{m.name}</span>
+                  {m.note && <span class="pss__mat-note">{m.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+
+    {showNotes && spec.notes && (
+      <div class="pss__note" data-reveal="fade-up">
+        <Icon name="info" size={16} stroke={1.5} />
+        <p>{spec.notes}</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .pss--gray { background: var(--bg-soft); }
+  .pss--dark { background: var(--c-jet); color: var(--c-beige); }
+  .pss--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
+  .pss--dark :global(h2) { color: var(--c-beige); }
+  .pss--dark dt { color: rgba(252, 242, 232, 0.5) !important; }
+  .pss--dark .pss__facts { background: rgba(252, 242, 232, 0.16); border-color: rgba(252, 242, 232, 0.16); }
+  .pss--dark .pss__fact { background: var(--c-jet); }
+  .pss--dark .pss__note { color: rgba(252, 242, 232, 0.68); }
+
+  .pss__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 4.5vw, 4rem);
+    align-items: start;
+  }
+
+  .pss__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .pss__fact { padding: clamp(1.1rem, 2.2vw, 1.6rem); background: inherit; }
+  .pss__facts { background-color: var(--line); }
+  .pss__fact { background-color: var(--bg); }
+  .pss--gray .pss__fact { background-color: var(--bg-soft); }
+
+  .pss__fact dt { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 0.5rem; }
+  .pss__fact dd { margin: 0; font-family: var(--ff-display); font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 500; letter-spacing: -0.022em; }
+
+  .pss__side { display: flex; flex-direction: column; gap: clamp(1.75rem, 3vw, 2.5rem); }
+
+  .pss__block-title {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .pss__tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .pss__materials { list-style: none; display: flex; flex-direction: column; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+  .pss__materials li { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.9rem 0; background: inherit; }
+  .pss__materials { background-color: var(--line); }
+  .pss__materials li { background-color: var(--bg); }
+  .pss--gray .pss__materials li { background-color: var(--bg-soft); }
+  .pss__mat-name { font-size: 0.9375rem; }
+  .pss__mat-note { font-size: 0.8125rem; color: var(--text-mute); }
+
+  .pss__note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    font-size: 0.9375rem;
+    color: var(--text-soft);
+    max-width: 78ch;
+  }
+
+  .pss__note :global(svg) { flex: none; margin-top: 0.15rem; opacity: 0.55; }
+
+  @media (max-width: 900px) {
+    .pss__grid { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .pss__facts { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

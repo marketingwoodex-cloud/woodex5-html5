@@ -1,0 +1,124 @@
+---
+/**
+ * BASE LAYOUT — every page in the theme renders through this.
+ *
+ * Provides: <head> + SEO, theme tokens, header, drawer, footer, back-to-top,
+ * scroll progress, motion engine, and a `<slot />` for page content.
+ *
+ * Props let each page choose its header treatment and footer variant without
+ * duplicating any markup.
+ */
+import '../styles/global.css';
+import SEO from '../components/global/SEO.astro';
+import Header from '../components/global/Header.astro';
+import Footer from '../components/global/Footer.astro';
+import Drawer from '../components/global/Drawer.astro';
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  /** Header starts transparent over a dark hero. */
+  overlayHeader?: boolean;
+  /** Active nav key for aria-current. */
+  current?: string;
+  noindex?: boolean;
+  /** Hide footer CTA band (used on contact pages that already have a form). */
+  footerCta?: boolean;
+  footerCtaTitle?: string;
+  footerCtaLabel?: string;
+  footerCtaHref?: string;
+  footerVariant?: 'default' | 'minimal' | 'compact';
+  bodyClass?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Adds the bottom padding the fixed header would otherwise overlap. */
+  padForHeader?: boolean;
+}
+
+const {
+  title = site.seo.defaultTitle,
+  description = site.description,
+  image,
+  overlayHeader = true,
+  current = '',
+  noindex = false,
+  footerCta = true,
+  footerCtaTitle,
+  footerCtaLabel,
+  footerCtaHref,
+  footerVariant = 'default',
+  bodyClass = '',
+  schema,
+  padForHeader = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Set the JS flag before first paint so entrance animations can start
+         hidden without risking a blank page if the script never loads. -->
+    <script is:inline>
+      document.documentElement.classList.add('js-enabled');
+    </script>
+
+    <SEO {title} {description} {image} {noindex} {schema} />
+
+    <!-- ── Favicons (inline SVG data-URI — zero extra requests) ─────────── -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M7 24V10l5 5 4-7 4 7 5-5v14' fill='none' stroke='%23fcf2e8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#111111" />
+    <meta name="apple-mobile-web-app-title" content={site.shortName} />
+
+    <!-- ── Performance hints ───────────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+
+  <body class:list={[bodyClass, padForHeader && 'has-pad-header']}>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Scroll progress indicator (driven by --progress from motion.js) -->
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <Header overlay={overlayHeader} current={current} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer
+      variant={footerVariant}
+      ctaTitle={footerCtaTitle}
+      ctaLabel={footerCtaLabel}
+      ctaHref={footerCtaHref}
+      cta={footerCta}
+    />
+
+    <Drawer />
+
+    <button class="to-top" type="button" data-to-top aria-label="Back to top">
+      <Icon name="arrow-up" size={16} stroke={2} />
+    </button>
+
+    <!-- Motion engine: bundled + minified by Vite -->
+    <script>
+      import '../scripts/motion.js';
+    </script>
+
+    <style is:global>
+      .has-pad-header main { padding-top: var(--header-h); }
+    </style>
+  </body>
+</html>

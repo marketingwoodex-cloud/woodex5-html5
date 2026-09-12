@@ -1,0 +1,172 @@
+---
+/**
+ * SECTION · Clients Marquee                   [ clients-marquee ]
+ * ---------------------------------------------------------------------------
+ * Trust strip. Two variants:
+ *   variant="text"   → wordmark marquee (default, no image assets required)
+ *   variant="logos"  → SVG logo marquee
+ *   variant="grid"   → static 4 × 2 logo grid with counters
+ */
+import Icon from '../components/ui/Icon.astro';
+import { clients } from '../data/content.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'text' | 'logos' | 'grid';
+  speed?: number;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Trusted partners',
+  title = 'Driving success through strong partnerships',
+  lede = 'We work with developers, operators, brands and families who value documentation and delivery in equal measure.',
+  variant = 'text',
+  speed = 46,
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['clients-marquee', 'section', 'section--sm']} data-theme={theme}>
+  {(variant === 'grid' || title) && (
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="44">{title}</h2>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'text' && (
+    <div class="cm__marquee">
+      <div data-marquee data-marquee-speed={speed} style="--marquee-gap:3.5rem">
+        <div class="marquee-track">
+          {[...clients, ...clients].map((c) => (
+            <span class="cm__word">
+              {c.name}
+              <Icon name="sparkle" size={14} stroke={1.4} class="cm__sep" />
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'logos' && (
+    <div class="container">
+      <div data-marquee data-marquee-speed={speed} style="--marquee-gap:3rem">
+        <div class="marquee-track">
+          {[...clients, ...clients].map((c) => (
+            <span class="cm__logo">
+              <Img src={c.logo} alt={c.name} loading="lazy" width="160" height="48" />
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+
+  {variant === 'grid' && (
+    <div class="container">
+      <div class="cm__grid" data-stagger="70">
+        {clients.map((c) => (
+          <div class="cm__grid-item" data-reveal="fade-up">
+            <span>{c.name}</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="cm__lede" data-reveal="fade-up">{lede}</p>
+    </div>
+  )}
+</section>
+
+<style>
+  .clients-marquee { border-block: 1px solid var(--line); }
+  .clients-marquee[data-theme='dark'] { border-color: var(--line-invert); }
+
+  .cm__marquee { overflow: hidden; }
+
+  .cm__word {
+    display: inline-flex;
+    align-items: center;
+    gap: 3.5rem;
+    font-family: var(--ff-display);
+    font-size: clamp(1.35rem, 2.6vw, 2.15rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-mute);
+    white-space: nowrap;
+    transition: color var(--dur-slow) var(--ease-out);
+  }
+
+  .cm__word:hover { color: var(--text); }
+
+  .cm__word :global(.cm__sep) { opacity: 0.4; flex: none; }
+
+  .cm__logo {
+    display: grid;
+    place-items: center;
+    flex: none;
+    height: 3.5rem;
+    opacity: 0.55;
+    filter: grayscale(1);
+    transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
+  }
+
+  .cm__logo:hover { opacity: 1; filter: grayscale(0); }
+  .cm__logo img { height: 2rem; width: auto; object-fit: contain; }
+
+  /* ── Grid variant ──────────────────────────────────────────────────── */
+  .cm__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .clients-marquee[data-theme='dark'] .cm__grid { background: var(--line-invert); border-color: var(--line-invert); }
+
+  .cm__grid-item {
+    display: grid;
+    place-items: center;
+    min-height: 7rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .cm__grid-item:hover { background: var(--bg-soft); }
+
+  .cm__grid-item span {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-mute);
+    text-align: center;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .cm__grid-item:hover span { color: var(--text); }
+
+  .cm__lede {
+    margin-top: 2rem;
+    max-width: 54ch;
+    color: var(--text-soft);
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 780px) {
+    .cm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

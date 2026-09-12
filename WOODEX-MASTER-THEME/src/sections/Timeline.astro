@@ -1,0 +1,170 @@
+---
+/**
+ * SECTION · Timeline                          [ timeline ]
+ * ---------------------------------------------------------------------------
+ * Studio history with a scroll-drawn progress spine.
+ * variant="vertical" (default) or "horizontal" (snap-scrolling rail).
+ */
+import Icon from '../components/ui/Icon.astro';
+import { milestones } from '../data/content.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'vertical' | 'horizontal';
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Our story',
+  title = 'Twelve years, built one project at a time',
+  lede = 'From a two-person drafting and joinery practice to a national design-and-build studio.',
+  variant = 'vertical',
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['timeline', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    {variant === 'vertical' ? (
+      <ol class="tl__list">
+        {milestones.map((m, i) => (
+          <li class="tl__item" data-reveal="fade-up" style={`--reveal-delay:${i * 70}ms`}>
+            <span class="tl__node" aria-hidden="true">
+              <i></i>
+            </span>
+
+            <div class="tl__body">
+              <div class="tl__head">
+                <span class="tl__year">{m.year}</span>
+                <h3 class="tl__title">{m.title}</h3>
+              </div>
+              <p class="tl__text">{m.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : (
+      <div class="tl__rail">
+        <ol class="tl__rail-track">
+          {milestones.map((m) => (
+            <li class="tl__rail-item" data-reveal="fade-up">
+              <span class="tl__rail-year">{m.year}</span>
+              <span class="tl__rail-dot" aria-hidden="true"></span>
+              <h3 class="tl__rail-title">{m.title}</h3>
+              <p class="tl__rail-text">{m.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  /* ══ Vertical ══════════════════════════════════════════════════════ */
+  .tl__list { list-style: none; position: relative; padding-inline-start: 0; }
+
+  /* The spine */
+  .tl__list::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.6rem 1.5rem;
+    inset-inline-start: 0.4rem;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .tl__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 3rem);
+    padding-block: clamp(1.35rem, 2.6vw, 2rem);
+  }
+
+  .tl__node {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-top: 0.45rem;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    z-index: 1;
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .tl__item:hover .tl__node { background: var(--c-jet); border-color: var(--c-jet); transform: scale(1.25); }
+
+  .tl__body { display: flex; flex-direction: column; gap: 0.6rem; max-width: 66ch; }
+
+  .tl__head { display: flex; align-items: baseline; gap: clamp(0.75rem, 2vw, 1.75rem); flex-wrap: wrap; }
+
+  .tl__year {
+    font-family: var(--ff-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    color: var(--text-mute);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+
+  .tl__title { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -0.024em; }
+  .tl__text { font-size: 0.9375rem; color: var(--text-soft); }
+
+  /* ══ Horizontal ════════════════════════════════════════════════════ */
+  .tl__rail { overflow-x: auto; padding-block: 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .tl__rail::-webkit-scrollbar { display: none; }
+
+  .tl__rail-track {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    padding-block-end: 0.5rem;
+  }
+
+  .tl__rail-item {
+    position: relative;
+    width: clamp(16rem, 24vw, 20rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-card);
+    scroll-snap-align: start;
+  }
+
+  .tl__rail-year { font-size: 0.75rem; letter-spacing: 0.16em; color: var(--text-mute); }
+
+  .tl__rail-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.3;
+    margin-block: 0.35rem;
+  }
+
+  .tl__rail-title { font-size: 1.1rem; letter-spacing: -0.02em; }
+  .tl__rail-text { font-size: var(--fs-sub); color: var(--text-soft); }
+
+  @media (max-width: 700px) {
+    .tl__item { grid-template-columns: 1.75rem minmax(0, 1fr); gap: 1rem; }
+    .tl__list::before { inset-inline-start: 0.3rem; }
+  }
+</style>

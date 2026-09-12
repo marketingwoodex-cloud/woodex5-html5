@@ -1,0 +1,75 @@
+---
+/**
+ * PAGE TEMPLATE · Contact Three               [ contact-three ]
+ * ---------------------------------------------------------------------------
+ * Studio-led contact page: office cards with maps, direct lines per city,
+ * opening hours, and a short form.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ContactInfo from '../sections/ContactInfo.astro';
+import ContactFormSection from '../sections/ContactFormSection.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import NewsletterBand from '../sections/NewsletterBand.astro';
+import { offices } from '../data/content.js';
+import { site } from '../data/site.js';
+---
+
+<BaseLayout
+  title="Contact & Studios | Woodex Interior"
+  description="Visit Woodex Interior studios in Lahore, Karachi and Islamabad, or send us a message. Open Monday to Saturday, 10:00 to 19:00 PKT."
+  overlayHeader
+  current="contact"
+  footerCta={false}
+  schema={{
+    '@type': 'ItemList',
+    name: 'Woodex Interior studios',
+    itemListElement: offices.map((o, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'LocalBusiness',
+        name: `Woodex Interior — ${o.city}`,
+        address: { '@type': 'PostalAddress', streetAddress: o.address.join(', '), addressLocality: o.city, addressCountry: 'PK' },
+        telephone: o.phone,
+        email: o.email,
+        openingHours: o.hours,
+      },
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow="Stay connected with us"
+    title="Three studios. Walk in, or book a table."
+    lede="Every studio holds our full material library — timber veneers, stone samples, hardware and lighting. Bring your drawings and we will lay them out."
+    crumbs={[{ label: 'Contact', href: '/contact-one' }, { label: 'Studios' }]}
+    image="/images/offices/office-lahore.jpg"
+    meta={[
+      { label: 'Studios', value: '3 cities' },
+      { label: 'Hours', value: site.hours },
+      { label: 'Response', value: '1 business day' },
+      { label: 'Coverage', value: 'Pakistan nationwide' },
+    ]}
+  />
+
+  <ContactInfo variant="cards" eyebrow="Find us" title="Our studios" lede="Click 'View on map' on any card to load the location. Maps are click-to-load so no third-party tracker runs unless you ask for it." showMap />
+
+  <ContactFormSection
+    eyebrow="Or send a message"
+    title="Write to us instead"
+    lede="Prefer email? Use this form and it reaches the studio directly. We reply to every enquiry personally."
+    submitLabel="Send message"
+    variant="stacked"
+    showInfoRail={false}
+  />
+
+  <NewsletterBand variant="band" theme="gray" />
+
+  <FaqBlock eyebrow="Visiting" title="Practical questions before you come" items={[
+    { q: 'Do I need an appointment?', a: 'Not for a general visit — walk in Monday to Saturday, 10:00 to 19:00. If you want a designer to walk you through the material library, book a slot so we can have it laid out.', category: 'Visiting' },
+    { q: 'Is there parking?', a: 'Yes, on-site parking is available at all three studios. Karim Block and Gulberg both have dedicated bays.', category: 'Visiting' },
+    { q: 'Can I bring my contractor?', a: 'Please do. Projects run smoothest when the builder and the designer have met before the drawings are issued.', category: 'Visiting' },
+    { q: 'Do you visit sites outside these cities?', a: 'Yes. We deliver nationwide with a site-management allowance covering travel and supervision.', category: 'Coverage' },
+    { q: 'Which studio should I contact?', a: 'Whichever is closest to the project. Our studios share one drawing register and one programme, so nothing is lost between offices.', category: 'Visiting' },
+  ]} />
+</BaseLayout>

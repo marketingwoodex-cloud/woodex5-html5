@@ -1,0 +1,59 @@
+---
+/**
+ * PAGE TEMPLATE · Portfolio Two               [ portfolio-two ]
+ * ---------------------------------------------------------------------------
+ * Masonry layout — mixed spans for an editorial, magazine feel.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import MarqueeText from '../sections/MarqueeText.astro';
+import ClientsMarquee from '../sections/ClientsMarquee.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Portfolio Two — Masonry Layout | Woodex Interior"
+  description="An editorial, masonry view of the Woodex Interior archive — residential, commercial, hospitality and retail projects across Pakistan."
+  overlayHeader
+  current="portfolio"
+>
+  <PageHeader
+    eyebrow="Portfolio · Editorial"
+    title="Spaces that reward a second look"
+    lede="A magazine-style cross-section of the archive. Hover any tile for the project, click through for the full case study."
+    crumbs={[{ label: 'Portfolio', href: '/portfolio-one' }, { label: 'Masonry' }]}
+    image="/images/projects/concrete-harmony-cover.jpg"
+    meta={[
+      { label: 'Layout', value: 'Masonry' },
+      { label: 'Projects shown', value: '9' },
+      { label: 'Sectors', value: '5' },
+    ]}
+  />
+
+  <ProjectGrid
+    eyebrow="Archive"
+    title="Selected projects"
+    variant="masonry"
+    limit={9}
+    showFilter
+  />
+
+  <MarqueeText
+    items={['Residential', 'Commercial', 'Hospitality', 'Retail', 'Healthcare']}
+    size="md"
+    separator="dot"
+    variant="beige"
+  />
+
+  <ClientsMarquee variant="grid" eyebrow="Who we build for" title="Clients and operators" theme="gray" />
+
+  <CtaBand
+    eyebrow="Next"
+    title="Browse the archive as a list"
+    lede="Prefer a straightforward index? Portfolio Three lays every project out as a scannable row."
+    primary={{ label: 'Open list view', href: '/portfolio-three' }}
+    secondary={{ label: 'Grid view', href: '/portfolio-one' }}
+    variant="split"
+  />
+</BaseLayout>

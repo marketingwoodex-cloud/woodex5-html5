@@ -1,0 +1,290 @@
+---
+/**
+ * SECTION · Rich Text                         [ rich-text ]
+ * ---------------------------------------------------------------------------
+ * Long-form article / policy renderer. Consumes the structured block arrays
+ * used in src/data/articles.js plus plain HTML strings.
+ *
+ * Block types: h2 · h3 · p · list (ordered/unordered) · quote · image ·
+ *              gallery · table · callout · divider · video
+ *
+ * This is THE component to point a CMS at — the block shape is deliberately
+ * close to Portable Text / Editor.js so a headless source can map 1:1.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+
+type Block =
+  | { type: 'h2'; text: string; id?: string }
+  | { type: 'h3'; text: string; id?: string }
+  | { type: 'p'; text: string }
+  | { type: 'list'; items: string[]; ordered?: boolean }
+  | { type: 'quote'; text: string; cite?: string }
+  | { type: 'image'; src: string; alt?: string; caption?: string }
+  | { type: 'gallery'; images: { src: string; alt?: string }[] }
+  | { type: 'table'; head: string[]; rows: string[][] }
+  | { type: 'callout'; title?: string; text: string; tone?: 'info' | 'warn' }
+  | { type: 'divider' }
+  | { type: 'html'; html: string };
+
+interface Props {
+  blocks: Block[];
+  /** Show a table of contents built from h2 blocks. */
+  showToc?: boolean;
+  /** Constrain to a comfortable reading measure. */
+  narrow?: boolean;
+  /** Extra class for the wrapper. */
+  class?: string;
+}
+
+const { blocks = [], showToc = false, narrow = true, class: className = '' } = Astro.props;
+
+const slug = (s: string) =>
+  s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const headings = blocks
+  .filter((b): b is Extract<Block, { type: 'h2' }> => b.type === 'h2')
+  .map((b) => ({ id: b.id ?? slug(b.text), text: b.text }));
+---
+
+<section class:list={['rich-text', 'section', className]} data-theme="default">
+  <div class="container">
+    <div class:list={['rt__grid', showToc && headings.length > 1 && 'has-toc']}>
+      {showToc && headings.length > 1 && (
+        <aside class="rt__toc" data-pin>
+          <nav data-pin-sticky aria-label="On this page">
+            <span class="rt__toc-title">On this page</span>
+            <ol>
+              {headings.map((h) => (
+                <li><a href={`#${h.id}`} class="link-underline">{h.text}</a></li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )}
+
+      <div class:list={['rt', narrow && 'rt--narrow']}>
+        {blocks.map((b) => {
+          switch (b.type) {
+            case 'h2':
+              return (
+                <h2 id={b.id ?? slug(b.text)} class="rt__h2" data-heading-reveal="words" data-heading-stagger="38">
+                  {b.text}
+                </h2>
+              );
+
+            case 'h3':
+              return <h3 id={b.id ?? slug(b.text)} class="rt__h3">{b.text}</h3>;
+
+            case 'p':
+              return <p class="rt__p">{b.text}</p>;
+
+            case 'list':
+              return b.ordered ? (
+                <ol class="rt__ol">{b.items.map((i) => <li>{i}</li>)}</ol>
+              ) : (
+                <ul class="rt__ul">{b.items.map((i) => <li>{i}</li>)}</ul>
+              );
+
+            case 'quote':
+              return (
+                <blockquote class="rt__quote">
+                  <Icon name="quote" size={22} stroke={1.1} class="rt__quote-mark" />
+                  <p>{b.text}</p>
+                  {b.cite && <cite>{b.cite}</cite>}
+                </blockquote>
+              );
+
+            case 'image':
+              return (
+                <figure class="rt__figure">
+                  <div class="media" data-reveal="clip">
+                    <Img src={b.src} alt={b.alt ?? ''} width={1400} height={900} loading="lazy" />
+                  </div>
+                  {b.caption && <figcaption>{b.caption}</figcaption>}
+                </figure>
+              );
+
+            case 'gallery':
+              return (
+                <div class="rt__gallery">
+                  {b.images.map((im) => (
+                    <div class="media" data-reveal="clip" style="aspect-ratio:4/3">
+                      <Img src={im.src} alt={im.alt ?? ''} width={900} height={675} loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              );
+
+            case 'table':
+              return (
+                <div class="rt__table-wrap">
+                  <table class="rt__table">
+                    <thead>
+                      <tr>{b.head.map((h) => <th>{h}</th>)}</tr>
+                    </thead>
+                    <tbody>
+                      {b.rows.map((r) => <tr>{r.map((c) => <td>{c}</td>)}</tr>)}
+                    </tbody>
+                  </table>
+                </div>
+              );
+
+            case 'callout':
+              return (
+                <aside class:list={['rt__callout', b.tone === 'warn' && 'is-warn']}>
+                  <Icon name={b.tone === 'warn' ? 'alert' : 'info'} size={16} stroke={1.8} />
+                  <div>
+                    {b.title && <strong>{b.title}</strong>}
+                    <p>{b.text}</p>
+                  </div>
+                </aside>
+              );
+
+            case 'divider':
+              return <hr class="rt__divider" />;
+
+            case 'html':
+              return <div class="rt__html" set:html={b.html} />;
+
+            default:
+              return null;
+          }
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rt__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); }
+  .rt__grid.has-toc { grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); align-items: start; }
+
+  /* ══ TOC ═══════════════════════════════════════════════════════════ */
+  .rt__toc-title {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .rt__toc ol { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .rt__toc a { font-size: 0.875rem; color: var(--text-soft); }
+  .rt__toc a:hover { color: var(--text); }
+
+  /* ══ Measure ═══════════════════════════════════════════════════════ */
+  .rt { display: flex; flex-direction: column; }
+  .rt--narrow { max-width: 44rem; }
+
+  /* ══ Elements ══════════════════════════════════════════════════════ */
+  .rt__h2 { margin-top: clamp(2.5rem, 5vw, 3.75rem); margin-bottom: 1.15rem; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.18; letter-spacing: -0.026em; scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+  .rt__h2:first-child { margin-top: 0; }
+
+  .rt__h3 { margin-top: 2.25rem; margin-bottom: 0.9rem; font-size: clamp(1.15rem, 1.8vw, 1.4rem); letter-spacing: -0.02em; }
+
+  .rt__p { margin-bottom: 1.35rem; font-size: 1.0625rem; line-height: 1.75; color: var(--text-soft); }
+  .rt__p:last-child { margin-bottom: 0; }
+
+  .rt__ul, .rt__ol { margin-bottom: 1.6rem; padding-inline-start: 1.35rem; display: flex; flex-direction: column; gap: 0.65rem; color: var(--text-soft); }
+  .rt__ul { list-style: none; padding-inline-start: 0; }
+  .rt__ul li { position: relative; padding-inline-start: 1.6rem; font-size: 1.0625rem; line-height: 1.65; }
+  .rt__ul li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.62em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--text);
+    opacity: 0.35;
+  }
+  .rt__ol li { font-size: 1.0625rem; line-height: 1.65; padding-inline-start: 0.35rem; }
+
+  /* ══ Quote ═════════════════════════════════════════════════════════ */
+  .rt__quote {
+    position: relative;
+    margin: clamp(2rem, 4vw, 3rem) 0;
+    padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) clamp(2.5rem, 4vw, 3.5rem);
+    background: var(--bg-soft);
+    border-radius: var(--r-lg);
+  }
+
+  .rt__quote :global(.rt__quote-mark) {
+    position: absolute;
+    inset-block-start: clamp(1.5rem, 3vw, 2.25rem);
+    inset-inline-start: clamp(0.85rem, 1.5vw, 1.25rem);
+    opacity: 0.2;
+  }
+
+  .rt__quote p {
+    font-family: var(--ff-display);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    line-height: 1.42;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .rt__quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-style: normal;
+    font-size: 0.8125rem;
+    color: var(--text-mute);
+  }
+
+  /* ══ Media ═════════════════════════════════════════════════════════ */
+  .rt__figure { margin: clamp(2rem, 4vw, 3rem) 0; }
+  .rt__figure :global(.media) { aspect-ratio: 16 / 10; }
+  .rt__figure figcaption { margin-top: 0.85rem; font-size: var(--fs-sub); color: var(--text-mute); }
+
+  .rt__gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: clamp(2rem, 4vw, 3rem) 0; }
+
+  /* ══ Table ═════════════════════════════════════════════════════════ */
+  .rt__table-wrap { overflow-x: auto; margin: clamp(1.75rem, 3vw, 2.5rem) 0; }
+
+  .rt__table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; min-width: 32rem; }
+  .rt__table th {
+    text-align: left;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--line-strong);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+  }
+  .rt__table td { padding: 0.95rem 1rem; border-bottom: 1px solid var(--line); color: var(--text-soft); vertical-align: top; }
+  .rt__table tr:hover td { background: var(--bg-soft); }
+
+  /* ══ Callout ═══════════════════════════════════════════════════════ */
+  .rt__callout {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1.35rem 1.5rem;
+    margin: clamp(1.75rem, 3vw, 2.5rem) 0;
+    border-radius: var(--r-md);
+    border-left: 2px solid var(--text);
+    background: var(--bg-soft);
+  }
+
+  .rt__callout.is-warn { border-left-color: #a23b1e; background: rgba(162, 59, 30, 0.06); }
+
+  .rt__callout :global(svg) { flex: none; margin-top: 0.2rem; opacity: 0.6; }
+  .rt__callout strong { display: block; font-size: 0.9375rem; margin-bottom: 0.3rem; }
+  .rt__callout p { font-size: 0.9375rem; color: var(--text-soft); }
+
+  .rt__divider { border: 0; border-top: 1px solid var(--line); margin: clamp(2.5rem, 5vw, 4rem) 0; }
+
+  .rt__html > * + * { margin-top: 1.35rem; }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .rt__grid.has-toc { grid-template-columns: minmax(0, 1fr); }
+    .rt__toc :global([data-pin-sticky]) { position: static; }
+    .rt__gallery { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

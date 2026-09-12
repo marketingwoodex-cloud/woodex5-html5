@@ -1,0 +1,492 @@
+---
+/**
+ * PAGE TEMPLATE · Style Guide                 [ style-guide ]
+ * ---------------------------------------------------------------------------
+ * The living design system. Every token, type step, button, form control,
+ * card, tag and utility class the theme ships, rendered in place so this page
+ * doubles as visual QA after any change to src/styles/tokens.css.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+import { site } from '../data/site.js';
+import { images } from '../data/images.js';
+
+const colours = [
+  { name: 'Black', hex: '#000000', token: '--c-black', note: 'Body text on light' },
+  { name: 'Jet Black', hex: '#111111', token: '--c-jet', note: 'Dark sections, buttons' },
+  { name: 'Charcoal Gray', hex: '#525252', token: '--c-charcoal', note: 'Muted body copy' },
+  { name: 'Silver', hex: '#c0c0c0', token: '--c-silver', note: 'Disabled, dividers' },
+  { name: 'Light Gray', hex: '#e3e1e1', token: '--c-light-gray', note: 'Soft backgrounds' },
+  { name: 'Deep Gray', hex: '#d9d9d9', token: '--c-deep-gray', note: 'Borders, panels' },
+  { name: 'Light Beige', hex: '#fcf2e8', token: '--c-beige', note: 'Page background, inverted text' },
+  { name: 'Deep Navy', hex: '#0f1e36', token: '--c-navy', note: 'Accent, data states' },
+];
+
+const type = [
+  { label: 'H1', size: '5rem', lh: '112.5%', weight: '500', css: 'h1 / .h1' },
+  { label: 'H2', size: '2.812rem', lh: '122%', weight: '500', css: 'h2 / .h2' },
+  { label: 'H3', size: '1.875rem', lh: '133%', weight: '500', css: 'h3 / .h3' },
+  { label: 'H4', size: '1.562rem', lh: '128%', weight: '500', css: 'h4 / .h4' },
+  { label: 'H5', size: '1.25rem', lh: '150%', weight: '500', css: 'h5 / .h5' },
+  { label: 'H6', size: '1.125rem', lh: '155%', weight: '400', css: 'h6 / .h6' },
+  { label: 'Body', size: '1rem', lh: '162%', weight: '400', css: 'body / .body' },
+  { label: 'Sub', size: '0.875rem', lh: '185%', weight: '400', css: '.sub' },
+  { label: 'Button', size: '0.9375rem', lh: '162%', weight: '500', css: '.btn' },
+];
+
+const radii = ['--r-xs', '--r-sm', '--r-md', '--r-lg', '--r-xl', '--r-pill'];
+const shadows = ['--shadow-sm', '--shadow-md', '--shadow-lg', '--shadow-xl'];
+const easings = ['--ease-out', '--ease-in-out', '--ease-expo', '--ease-soft'];
+const space = ['--sp-1', '--sp-2', '--sp-3', '--sp-4', '--sp-6', '--sp-8', '--sp-12', '--sp-16', '--sp-24'];
+
+const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'cube', 'saw', 'bulb', 'compass', 'layers', 'calculator', 'target', 'shield', 'award', 'quote', 'clock', 'map-pin', 'phone', 'mail', 'arrow-right', 'arrow-up-right', 'check', 'plus'];
+---
+
+<BaseLayout
+  title="Style Guide — Design System | Woodex Master Theme"
+  description="The complete Woodex design system: colour tokens, type scale, radius, shadow, spacing, buttons, forms, cards, tags and icons."
+  overlayHeader
+  current="style-guide"
+  noindex
+>
+  <PageHeader
+    eyebrow="Design system"
+    title="Style guide"
+    lede="Every value below lives in src/styles/tokens.css. Change it there and the whole theme follows — this page exists so you can see the effect immediately."
+    crumbs={[{ label: 'Style guide' }]}
+    variant="soft"
+    meta={[
+      { label: 'Colour tokens', value: `${colours.length}` },
+      { label: 'Type steps', value: `${type.length}` },
+      { label: 'Sections', value: '37' },
+      { label: 'Dependencies', value: 'None' },
+    ]}
+  />
+
+  <!-- ══ Colour ════════════════════════════════════════════════════════ -->
+  <section class="section sg" id="colour">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">01 — Colour</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Palette</h2>
+        <p class="sg__lede">Eight reference colours, all exposed as tokens. Semantic aliases (<code>--bg</code>, <code>--text</code>, <code>--line</code>) map onto them, so dark sections invert by flipping one attribute.</p>
+      </div>
+
+      <div class="sg__swatches" data-stagger="70">
+        {colours.map((c) => (
+          <article class="sg__swatch" data-reveal="fade-up">
+            <span class="sg__chip" style={`background:${c.hex}`} aria-hidden="true"></span>
+            <div class="sg__swatch-body">
+              <strong>{c.name}</strong>
+              <code>{c.hex}</code>
+              <span class="sg__note">{c.note}</span>
+              <code class="sg__token">var({c.token})</code>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="sg__semantic">
+        <span class="eyebrow">Semantic aliases</span>
+        <div class="sg__aliases">
+          {['--bg', '--text', '--text-soft', '--text-mute', '--bg-soft', '--bg-card', '--line', '--line-strong', '--line-invert'].map((t) => (
+            <code>{t}</code>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Type ══════════════════════════════════════════════════════════ -->
+  <section class="section sg sg--gray" id="type">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">02 — Typography</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Type scale</h2>
+        <p class="sg__lede">Nine steps, fluidised with <code>clamp()</code> so the reference's desktop sizes hold at the top of the range and scale down gracefully. Display face for headings, system stack for body — zero font requests.</p>
+      </div>
+
+      <div class="sg__specimen">
+        <p class="sg__specimen-h1">Designing spaces for modern living</p>
+        <p class="sg__specimen-h2">We design innovative spaces</p>
+        <p class="sg__specimen-h3">Resolve it on paper, not on site</p>
+        <p class="sg__specimen-body">Body copy sets the rhythm for everything else. At 162% line-height on a 1rem base it holds around 62–72 characters per line at our maximum container width, which is where long-form reading is most comfortable.</p>
+        <p class="sg__specimen-sub">Sub copy is used for captions, meta rows and figure notes — smaller, looser, and always in the muted text colour.</p>
+      </div>
+
+      <div class="sg__table">
+        <div class="sg__table-head">
+          <span>Step</span><span>Size</span><span>Line height</span><span>Weight</span><span>Selector</span>
+        </div>
+        {type.map((t) => (
+          <div class="sg__table-row">
+            <span class="sg__table-step">{t.label}</span>
+            <span>{t.size}</span>
+            <span>{t.lh}</span>
+            <span>{t.weight}</span>
+            <code>{t.css}</code>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Buttons ═══════════════════════════════════════════════════════ -->
+  <section class="section sg" id="buttons">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">03 — Controls</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Buttons &amp; links</h2>
+        <p class="sg__lede">Two button families — filled and outlined — each in a light and an inverted context. The swap label animation is CSS-only and works without JavaScript.</p>
+      </div>
+
+      <div class="sg__row">
+        <a href="#buttons" class="btn btn--primary btn--lg"><span class="btn__label"><span>Primary large</span><span>Primary large</span></span><span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={11} stroke={2.4} /></span></a>
+        <a href="#buttons" class="btn btn--primary"><span class="btn__label"><span>Primary</span><span>Primary</span></span><span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={11} stroke={2.4} /></span></a>
+        <a href="#buttons" class="btn btn--outline"><span class="btn__label"><span>Outline</span><span>Outline</span></span></a>
+        <a href="#buttons" class="btn btn--ghost"><span class="btn__label"><span>Ghost</span><span>Ghost</span></span></a>
+      </div>
+
+      <div class="sg__row sg__row--dark">
+        <a href="#buttons" class="btn btn--beige btn--lg"><span class="btn__label"><span>Beige on dark</span><span>Beige on dark</span></span><span class="btn__chip" aria-hidden="true"><Icon name="arrow-up-right" size={11} stroke={2.4} /></span></a>
+        <a href="#buttons" class="btn btn--outline-invert"><span class="btn__label"><span>Outline inverted</span><span>Outline inverted</span></span></a>
+      </div>
+
+      <div class="sg__row">
+        <a href="#buttons" class="text-link">Text link with arrow <Icon name="arrow-right" size={13} class="arrow" /></a>
+        <a href="#buttons" class="link-underline">Underlined inline link</a>
+        <span class="tag">Tag</span>
+        <span class="pill">Filter pill</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Radius / elevation / motion ═══════════════════════════════════ -->
+  <section class="section sg sg--gray" id="tokens">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">04 — Tokens</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Radius, elevation &amp; motion</h2>
+      </div>
+
+      <div class="sg__triple">
+        <div>
+          <span class="eyebrow">Radius</span>
+          <div class="sg__radii">
+            {radii.map((r) => (
+              <div class="sg__radius"><span style={`border-radius: var(${r})`}></span><code>{r}</code></div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <span class="eyebrow">Shadow</span>
+          <div class="sg__shadows">
+            {shadows.map((s) => (
+              <div class="sg__shadow" style={`box-shadow: var(${s})`}><code>{s}</code></div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <span class="eyebrow">Easing</span>
+          <div class="sg__easings">
+            {easings.map((e) => (
+              <div class="sg__easing"><span style={`animation-timing-function: var(${e})`}></span><code>{e}</code></div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="sg__space">
+        <span class="eyebrow">Spacing scale</span>
+        <div class="sg__space-row">
+          {space.map((s) => (
+            <div class="sg__space-item"><span style={`width: var(${s})`}></span><code>{s}</code></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Forms ═════════════════════════════════════════════════════════ -->
+  <section class="section sg" id="forms">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">05 — Forms</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Inputs &amp; states</h2>
+        <p class="sg__lede">Labels are always visible above the control — placeholders are not labels. Error states carry an icon and text as well as colour.</p>
+      </div>
+
+      <div class="sg__forms">
+        <label class="field" data-field>
+          <span class="field__label">Default input</span>
+          <input type="text" placeholder="e.g. DHA Phase VI, Lahore" />
+        </label>
+
+        <label class="field" data-field>
+          <span class="field__label">Focused input</span>
+          <input type="text" value="Fit-out, 6,400 sq ft" class="is-focus-demo" />
+        </label>
+
+        <label class="field" data-field data-invalid>
+          <span class="field__label">Error state</span>
+          <input type="email" value="not-an-email" aria-invalid="true" />
+          <span class="field__error"><Icon name="alert" size={13} stroke={1.8} /> Enter a valid email address</span>
+        </label>
+
+        <label class="field" data-field>
+          <span class="field__label">Textarea</span>
+          <textarea rows="3" placeholder="Tell us about the space…"></textarea>
+        </label>
+
+        <label class="field" data-field>
+          <span class="field__label">Select</span>
+          <select>
+            <option>Residential</option>
+            <option>Commercial</option>
+            <option>Hospitality</option>
+            <option>Retail</option>
+          </select>
+        </label>
+
+        <div class="field">
+          <span class="field__label">Checkboxes &amp; radios</span>
+          <div class="sg__checks">
+            <label class="check"><input type="checkbox" checked /> <span>Design only</span></label>
+            <label class="check"><input type="checkbox" /> <span>Design &amp; build</span></label>
+            <label class="check"><input type="radio" name="sg-radio" checked /> <span>Residential</span></label>
+            <label class="check"><input type="radio" name="sg-radio" /> <span>Commercial</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Cards ═════════════════════════════════════════════════════════ -->
+  <section class="section sg sg--gray" id="cards">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">06 — Surfaces</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Cards &amp; blocks</h2>
+      </div>
+
+      <div class="sg__cards">
+        <article class="card" data-reveal="fade-up">
+          <div class="card__media"><Img src={images.features.joinery.path} alt="Joinery workshop" width={800} height={600} loading="lazy" /></div>
+          <div class="card__body">
+            <span class="card__eyebrow">Media card</span>
+            <h3 class="card__title">Custom furniture &amp; joinery</h3>
+            <p class="card__text">Produced in our own shop from our own shop drawings, with a five-year warranty on manufacturing defects.</p>
+            <a href="#cards" class="text-link">Read more <Icon name="arrow-right" size={13} class="arrow" /></a>
+          </div>
+        </article>
+
+        <article class="sg__callout card" data-reveal="fade-up">
+          <div class="card__body">
+            <span class="card__eyebrow">Callout</span>
+            <h3 class="card__title">Announcement block</h3>
+            <p class="card__text">Used inside rich text for notices, warnings and asides. Three tones ship: neutral, warn and success.</p>
+          </div>
+        </article>
+
+        <article class="sg__quote" data-reveal="fade-up">
+          <Icon name="quote" size={26} stroke={1.2} />
+          <blockquote>
+            <p>You cannot fix a plan with a product. Resolve it on paper, and site becomes execution rather than problem-solving.</p>
+            <cite>Usman Tariq · Principal</cite>
+          </blockquote>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Icons ═════════════════════════════════════════════════════════ -->
+  <section class="section sg" id="icons">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">07 — Iconography</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">The icon set</h2>
+        <p class="sg__lede">75 icons drawn on a 24×24 grid at 1.6 stroke so they optically match. Inline SVG, no icon font, no request — and unknown names fall back to <code>info</code> rather than rendering nothing.</p>
+      </div>
+
+      <div class="sg__icons" data-stagger="28">
+        {iconSample.map((n) => (
+          <div class="sg__icon" data-reveal="fade">
+            <Icon name={n} size={20} stroke={1.5} />
+            <code>{n}</code>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Grid ══════════════════════════════════════════════════════════ -->
+  <section class="section sg sg--gray" id="grid">
+    <div class="container">
+      <div class="sg__head">
+        <span class="eyebrow" data-reveal="fade">08 — Layout</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Container &amp; grid</h2>
+        <p class="sg__lede">One container width, one gutter, and section rhythm driven by <code>--section-y</code>. Everything else is a CSS grid set per section.</p>
+      </div>
+
+      <div class="sg__grid-demo" aria-hidden="true">
+        {Array.from({ length: 12 }).map(() => <span></span>)}
+      </div>
+
+      <div class="sg__grid-meta">
+        <div><code>--container</code><span>max content width</span></div>
+        <div><code>--gutter</code><span>fluid side padding</span></div>
+        <div><code>--section-y</code><span>vertical section rhythm</span></div>
+        <div><code>--header-h</code><span>sticky offset for anchors</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sm sg-foot">
+    <div class="container">
+      <div class="sg-foot__inner">
+        <div>
+          <span class="eyebrow">Motion</span>
+          <h3 style="margin-top:1rem">Every animation is attribute-driven</h3>
+          <p style="margin-top:0.75rem;color:var(--text-soft);max-width:52ch">
+            Reveals, marquees, counters and scroll effects are switched on by adding a data attribute — no JavaScript required to author a page.
+          </p>
+        </div>
+        <a href="/instructions" class="btn btn--primary btn--lg">
+          <span class="btn__label"><span>Open the animation guide</span><span>Open the animation guide</span></span>
+          <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={11} stroke={2.4} /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sg__head { max-width: 62rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .sg__head h2 { margin-top: 1rem; }
+  .sg__lede { margin-top: 1.25rem; color: var(--text-soft); max-width: 68ch; }
+  .sg__lede code, .sg__head code { font-size: 0.875em; padding: 0.1em 0.4em; background: var(--bg-soft); border-radius: var(--r-xs); }
+  .sg--gray .sg__lede code { background: var(--bg); }
+
+  .sg code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--text-soft); }
+
+  /* ── Swatches ─────────────────────────────────────────────────────── */
+  .sg__swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .sg__swatch { display: flex; flex-direction: column; background: var(--bg); }
+  .sg--gray .sg__swatch { background: var(--bg-soft); }
+  .sg__chip { display: block; height: clamp(5rem, 9vw, 8rem); border-block-end: 1px solid var(--line); }
+  .sg__swatch-body { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.15rem 1.25rem 1.35rem; }
+  .sg__swatch-body strong { font-size: 1rem; font-weight: 500; }
+  .sg__note { font-size: 0.8125rem; color: var(--text-mute); }
+  .sg__token { margin-top: 0.4rem; }
+
+  .sg__semantic { margin-top: 2.5rem; }
+  .sg__aliases { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .sg__aliases code { padding: 0.4rem 0.7rem; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--bg); }
+  .sg--gray .sg__aliases code { background: var(--bg-soft); }
+
+  /* ── Type ─────────────────────────────────────────────────────────── */
+  .sg__specimen { display: flex; flex-direction: column; gap: 1.5rem; padding-block: clamp(1rem, 3vw, 2rem); border-block: 1px solid var(--line); }
+  .sg__specimen > p { margin: 0; }
+  .sg__specimen-h1 { font-family: var(--ff-display); font-size: clamp(2.25rem, 5vw, 5rem); line-height: 1.125; font-weight: 500; letter-spacing: -0.04em; }
+  .sg__specimen-h2 { font-family: var(--ff-display); font-size: clamp(1.75rem, 3.6vw, 2.812rem); line-height: 1.22; font-weight: 500; letter-spacing: -0.03em; }
+  .sg__specimen-h3 { font-family: var(--ff-display); font-size: clamp(1.35rem, 2.4vw, 1.875rem); line-height: 1.33; font-weight: 500; letter-spacing: -0.024em; }
+  .sg__specimen-body { max-width: 68ch; line-height: 1.62; }
+  .sg__specimen-sub { max-width: 68ch; font-size: 0.875rem; line-height: 1.85; color: var(--text-mute); }
+
+  .sg__table { margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line-strong); }
+  .sg__table-head, .sg__table-row { display: grid; grid-template-columns: 0.6fr 0.7fr 0.9fr 0.6fr 1.2fr; gap: 1rem; padding: 0.95rem 0; border-block-end: 1px solid var(--line); align-items: center; }
+  .sg__table-head { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); }
+  .sg__table-row { font-size: 0.9375rem; }
+  .sg__table-step { font-weight: 500; }
+
+  /* ── Buttons row ──────────────────────────────────────────────────── */
+  .sg__row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1.25rem; }
+  .sg__row--dark { padding: 2rem; border-radius: var(--r-lg); background: var(--c-jet); }
+
+  /* ── Tokens ───────────────────────────────────────────────────────── */
+  .sg__triple { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.75rem, 4vw, 3rem); }
+  .sg__radii, .sg__shadows, .sg__easings { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; }
+  .sg__radius, .sg__shadow, .sg__easing { display: flex; align-items: center; gap: 1rem; }
+  .sg__radius span { width: 3.5rem; height: 3.5rem; background: var(--bg-card); border: 1px solid var(--line-strong); flex: none; }
+  .sg--gray .sg__radius span { background: var(--bg); }
+  .sg__shadow { padding: 1.1rem 1.25rem; border-radius: var(--r-md); background: var(--bg); }
+  .sg--gray .sg__shadow { background: var(--bg-soft); }
+  .sg__easing span { width: 3.5rem; height: 2px; background: var(--text); flex: none; animation: sg-slide 1.6s infinite alternate; }
+  .sg__easing:nth-child(2) span { animation-delay: 0.1s; }
+  .sg__easing:nth-child(3) span { animation-delay: 0.2s; }
+  .sg__easing:nth-child(4) span { animation-delay: 0.3s; }
+  @keyframes sg-slide { from { transform: translateX(0); } to { transform: translateX(2rem); } }
+
+  .sg__space { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .sg__space-row { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
+  .sg__space-item { display: flex; align-items: center; gap: 1rem; }
+  .sg__space-item span { height: 0.75rem; background: var(--c-jet); border-radius: 2px; }
+  .sg--gray .sg__space-item span { background: var(--text); }
+
+  /* ── Forms ────────────────────────────────────────────────────────── */
+  .sg__forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: clamp(1.5rem, 3vw, 2.25rem); max-width: 62rem; }
+  .sg__checks { display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; margin-top: 0.9rem; }
+  .sg__checks :global(.check) { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.9375rem; color: var(--text-soft); }
+  .sg__checks :global(input) { width: 1.05rem; height: 1.05rem; accent-color: var(--c-jet); }
+  .sg :global(.field) { display: flex; flex-direction: column; gap: 0.5rem; }
+  .sg :global(.field__label) { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+  .sg :global(.field input), .sg :global(.field textarea), .sg :global(.field select) {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    background: var(--bg);
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--text);
+  }
+  .sg--gray :global(.field input), .sg--gray :global(.field textarea), .sg--gray :global(.field select) { background: var(--bg); }
+  .sg :global(.field__error) { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8125rem; color: #b3261e; }
+  .sg :global([data-invalid] input) { border-color: #b3261e; }
+  .sg :global(.is-focus-demo) { outline: 2px solid var(--c-jet); outline-offset: 1px; }
+
+  /* ── Cards ────────────────────────────────────────────────────────── */
+  .sg__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.25rem; }
+  .sg__cards :global(.card__media) { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-md); margin-bottom: 1.25rem; }
+  .sg__cards :global(.card__media img) { width: 100%; height: 100%; object-fit: cover; }
+  .sg__cards :global(.card__eyebrow) { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); }
+  .sg__cards :global(.card__title) { margin-top: 0.6rem; font-size: 1.25rem; letter-spacing: -0.022em; }
+  .sg__cards :global(.card__text) { margin-top: 0.65rem; font-size: 0.9375rem; color: var(--text-soft); }
+  .sg__cards :global(.card__body) { padding: 1.5rem; }
+  .sg__callout { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg); }
+  .sg__quote { display: flex; flex-direction: column; gap: 1rem; padding: 1.75rem; border-radius: var(--r-lg); background: var(--c-jet); color: var(--c-beige); }
+  .sg__quote :global(svg) { opacity: 0.4; }
+  .sg__quote :global(blockquote) { margin: 0; }
+  .sg__quote :global(p) { font-family: var(--ff-display); font-size: 1.15rem; line-height: 1.45; letter-spacing: -0.02em; }
+  .sg__quote :global(cite) { display: block; margin-top: 0.85rem; font-style: normal; font-size: 0.8125rem; color: rgba(252, 242, 232, 0.6); }
+
+  /* ── Icons ────────────────────────────────────────────────────────── */
+  .sg__icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .sg__icon { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem; padding: 1.5rem 0.75rem; background: var(--bg); transition: background var(--dur) var(--ease-out); }
+  .sg__icon:hover { background: var(--bg-soft); }
+  .sg__icon code { font-size: 0.6875rem; text-align: center; word-break: break-word; }
+  .sg--gray .sg__icon { background: var(--bg-soft); }
+
+  /* ── Grid demo ────────────────────────────────────────────────────── */
+  .sg__grid-demo { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter-xs, 1rem); }
+  .sg__grid-demo span { height: 6rem; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-xs); }
+  .sg--gray .sg__grid-demo span { background: var(--bg); }
+  .sg__grid-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .sg__grid-meta div { display: flex; flex-direction: column; gap: 0.35rem; }
+  .sg__grid-meta span { font-size: 0.8125rem; color: var(--text-mute); }
+
+  /* ── Foot ─────────────────────────────────────────────────────────── */
+  .sg-foot { border-block-start: 1px solid var(--line); }
+  .sg-foot__inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .sg__triple { grid-template-columns: minmax(0, 1fr); }
+    .sg__table-head { display: none; }
+    .sg__table-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sg__grid-demo { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+</style>

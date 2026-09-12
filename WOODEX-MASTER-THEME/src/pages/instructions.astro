@@ -1,0 +1,494 @@
+---
+/**
+ * PAGE TEMPLATE · Animation Guide            [ instructions ]
+ * ---------------------------------------------------------------------------
+ * Documents the attribute-driven motion API with live, working demos.
+ * Every demo on this page is produced by the same public API a client page
+ * would use — no special-casing.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+import { images } from '../data/images.js';
+
+const reveals = [
+  { name: 'fade-up', note: 'Default. Rises 1.5rem into place.' },
+  { name: 'fade-down', note: 'Drops in from above.' },
+  { name: 'fade-left', note: 'Slides in from the left.' },
+  { name: 'fade-right', note: 'Slides in from the right.' },
+  { name: 'fade', note: 'Opacity only — safest for text blocks.' },
+  { name: 'zoom', note: 'Scales up from 94%.' },
+  { name: 'blur', note: 'Blurs and sharpens into focus.' },
+  { name: 'rotate', note: 'Rotates in from −6°. Use sparingly.' },
+  { name: 'clip', note: 'Wipes upward with a clip-path.' },
+  { name: 'clip-x', note: 'Wipes left-to-right — good for images.' },
+];
+
+const attributes = [
+  { attr: 'data-heading-reveal', value: '"words" | "chars"', note: 'Splits an H1–H6 and staggers each word or character up from a mask.' },
+  { attr: 'data-heading-stagger', value: 'milliseconds', note: 'Gap between words. 40–70ms reads as one gesture.' },
+  { attr: 'data-text-reveal', value: '—', note: 'Same mask treatment for paragraphs and long copy.' },
+  { attr: 'data-reveal', value: 'variant name', note: 'Entrance animation for any element. Fires once at 12% visibility.' },
+  { attr: '--reveal-delay', value: 'CSS value', note: 'Per-element delay, set inline: style="--reveal-delay:200ms".' },
+  { attr: 'data-stagger', value: 'milliseconds', note: 'On a parent: auto-applies data-reveal to children with incremental delays.' },
+  { attr: 'data-scroll-opacity', value: 'from / to', note: 'Scrubs opacity against scroll position.' },
+  { attr: 'data-scroll-fill', value: '—', note: 'Fills a progress bar or underline as the element passes.' },
+  { attr: 'data-parallax', value: '0.02 – 0.2', note: 'Vertical offset multiplier. Above 0.2 it becomes distracting.' },
+  { attr: 'data-scroll-rail', value: '+ -track', note: 'Turns vertical scroll into horizontal travel for a rail.' },
+  { attr: 'data-marquee', value: '+ speed / dir', note: 'Infinite loop; the track is duplicated at runtime so it never jumps.' },
+  { attr: 'data-marquee-vertical', value: '+ speed / dir', note: 'Same engine, vertical axis. Used in the reference for copy columns.' },
+  { attr: 'data-counter', value: 'number', note: 'Counts up on entry. Optional prefix, suffix, decimals, duration.' },
+  { attr: 'data-accordion', value: '+ -item / -head / -body', note: 'Height-animated disclosure with correct ARIA wiring.' },
+  { attr: 'data-tabs', value: '+ data-tab / data-tab-panel', note: 'Roving-focus tab set with arrow-key support.' },
+  { attr: 'data-slider', value: '+ data-slide / -prev / -next', note: 'Draggable, loopable carousel with keyboard control.' },
+  { attr: 'data-pin', value: '+ data-pin-sticky', note: 'Sticky side panel; JS adds .is-pinned and disables itself if too tall.' },
+  { attr: 'data-magnetic', value: '0 – 0.35', note: 'Element follows the cursor slightly. 0.15–0.25 is the tasteful range.' },
+  { attr: 'data-cursor', value: 'label text', note: 'Replaces the cursor with a labelled dot on hover.' },
+  { attr: 'data-rotate-words', value: '—', note: 'Cycles headline words with a mask swap.' },
+  { attr: 'data-magnetic', value: '0 – 0.35', note: 'Button magnetism — see above.' },
+  { attr: 'data-copy', value: 'text', note: 'Copies to clipboard, swaps the label, then restores it.' },
+  { attr: 'data-countdown', value: 'ISO date', note: 'Ticks down to a date. Used for launch and registration pages.' },
+  { attr: 'data-to-top', value: '—', note: 'Back-to-top control; appears after two viewports.' },
+];
+
+const principles = [
+  { title: 'Animate once, then get out of the way', text: 'Entrance animations fire a single time. Nothing on the page re-animates as you scroll back up, because repetition is what makes motion feel cheap.' },
+  { title: 'Never animate what you are reading', text: 'Headlines and hero statements reveal; body paragraphs, tables and form labels do not. If motion would delay comprehension, it is left out.' },
+  { title: 'Degrade to visible, always', text: 'Pre-hidden states are applied only when JavaScript has flagged the document, and prefers-reduced-motion switches every effect off. The page is complete without motion.' },
+  { title: 'One easing curve, four durations', text: 'A single exponenti al curve (--ease-expo) with 160ms, 320ms, 620ms and 1000ms durations. Variety comes from timing, not from curves.' },
+];
+---
+
+<BaseLayout
+  title="Animation Guide — Motion API | Woodex Master Theme"
+  description="The complete motion API for the Woodex theme: scroll reveals, masked headline splits, parallax, marquees, counters, accordions, sliders and sticky pins."
+  overlayHeader
+  current="instructions"
+  noindex
+>
+  <PageHeader
+    eyebrow="Motion system"
+    title="Animation guide"
+    lede="Every effect in this theme is switched on with a data attribute. There is no animation library, no configuration file and no build step — the whole engine is 4.4 kB gzipped and driven by one scroll loop."
+    crumbs={[{ label: 'Animation guide' }]}
+    image={images.features.visualisation.path}
+    meta={[
+      { label: 'Engine size', value: '4.4 kB gzip' },
+      { label: 'Attributes', value: `${attributes.length}+` },
+      { label: 'Reveal variants', value: `${reveals.length}` },
+      { label: 'Dependencies', value: 'None' },
+    ]}
+  />
+
+  <!-- ══ How it works ══════════════════════════════════════════════════ -->
+  <section class="section mi">
+    <div class="container">
+      <div class="mi__lead">
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Add an attribute. That is the whole API.</h2>
+        <p data-text-reveal>
+          Motion is authored where it belongs — on the element, in the markup. Nothing is registered in
+          a JavaScript file, so a developer (or an AI agent) can add a scroll reveal by writing one
+          attribute and nothing else.
+        </p>
+      </div>
+
+      <div class="mi__code" data-reveal="fade-up">
+        <div class="mi__code-head">
+          <span>AnimatedSection.astro</span>
+          <span class="mi__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+<pre><code>&lt;h2 <b>data-heading-reveal</b>="words" <b>data-heading-stagger</b>="46"&gt;
+  Designing spaces for modern living
+&lt;/h2&gt;
+
+&lt;p <b>data-text-reveal</b>&gt;Body copy masks in after the headline.&lt;/p&gt;
+
+&lt;div <b>data-stagger</b>="90"&gt;
+  &lt;article <b>data-reveal</b>="fade-up"&gt;…&lt;/article&gt;
+  &lt;article <b>data-reveal</b>="fade-up"&gt;…&lt;/article&gt;
+&lt;/div&gt;
+
+&lt;div <b>data-parallax</b>="0.08" style="<b>--reveal-delay</b>:200ms"&gt;…&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="mi__principles" data-stagger="90">
+        {principles.map((p) => (
+          <article class="mi__principle" data-reveal="fade-up">
+            <h3 class="mi__principle-title">{p.title}</h3>
+            <p class="mi__principle-text">{p.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Reveal variants (live) ════════════════════════════════════════ -->
+  <section class="section mi mi--gray" id="reveals">
+    <div class="container">
+      <div class="mi__head">
+        <span class="eyebrow" data-reveal="fade">01 — Entrances</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Reveal variants</h2>
+        <p class="mi__lede">Scroll this grid slowly — each tile below is running the variant named on it, live. Reload to replay.</p>
+      </div>
+
+      <div class="mi__variants">
+        {reveals.map((r) => (
+          <div class="mi__variant" data-reveal={r.name}>
+            <span class="mi__variant-name">{r.name}</span>
+            <span class="mi__variant-note">{r.note}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Headline + counters (live) ════════════════════════════════════ -->
+  <section class="section mi" id="text">
+    <div class="container">
+      <div class="mi__head">
+        <span class="eyebrow" data-reveal="fade">02 — Text</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Masked headlines &amp; counters</h2>
+        <p class="mi__lede">
+          Word splitting rewrites the heading into masked spans and preserves the original string as an
+          <code>aria-label</code>, so screen readers hear the sentence rather than the fragments.
+        </p>
+      </div>
+
+      <div class="mi__demo-block">
+        <p class="mi__demo-h2" data-heading-reveal="words" data-heading-stagger="60">
+          Precision in every model, structure meets aesthetics
+        </p>
+        <p class="mi__demo-h3" data-heading-reveal="chars" data-heading-stagger="18">
+          Character by character
+        </p>
+      </div>
+
+      <div class="mi__counters" data-stagger="90">
+        <div class="mi__counter" data-reveal="fade-up">
+          <strong data-counter="240" data-counter-suffix="+">0</strong>
+          <span>Projects delivered</span>
+        </div>
+        <div class="mi__counter" data-reveal="fade-up">
+          <strong data-counter="1.4" data-counter-suffix="M" data-counter-decimals="1">0</strong>
+          <span>Square feet completed</span>
+        </div>
+        <div class="mi__counter" data-reveal="fade-up">
+          <strong data-counter="98" data-counter-suffix="%">0</strong>
+          <span>Client retention</span>
+        </div>
+        <div class="mi__counter" data-reveal="fade-up">
+          <strong data-counter="12" data-counter-suffix=" yrs">0</strong>
+          <span>In practice</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Scroll effects (live) ═════════════════════════════════════════ -->
+  <section class="section mi mi--dark" id="scroll">
+    <div class="container">
+      <div class="mi__head">
+        <span class="eyebrow" data-reveal="fade">03 — Scroll</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Scroll-linked effects</h2>
+        <p class="mi__lede">These read scroll position directly and are driven by a single rAF loop, so dozens can run on one page without extra listeners.</p>
+      </div>
+
+      <div class="mi__scroll-grid">
+        <div class="mi__scroll-item">
+          <span class="mi__label">data-parallax="0.08"</span>
+          <div class="mi__parallax-frame">
+            <Img src={images.features.spacePlanning.path} alt="Parallax demonstration" width={900} height={700} loading="lazy" data-parallax="0.08" />
+          </div>
+        </div>
+
+        <div class="mi__scroll-item">
+          <span class="mi__label">data-scroll-opacity=".25 → 1"</span>
+          <p class="mi__scrub" data-scroll-opacity data-scroll-opacity-from="0.25" data-scroll-opacity-to="1">
+            This paragraph fades up as it enters the viewport and reaches full opacity roughly a third of
+            the way in. It is the reference template's favourite text trick, and it is the reason long
+            editorial pages feel alive without anything moving.
+          </p>
+        </div>
+
+        <div class="mi__scroll-item mi__scroll-item--wide">
+          <span class="mi__label">data-scroll-fill</span>
+          <div class="mi__fill">
+            <span class="mi__fill-bar" data-scroll-fill></span>
+            <span class="mi__fill-text">Underline fills as the block passes through the viewport</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mi__marquee-note">
+        <span class="mi__label">data-marquee · data-marquee-dir="reverse" · --marquee-gap</span>
+      </div>
+    </div>
+
+    <div class="mi__marquee" data-marquee data-marquee-speed="40" style="--marquee-gap:2.5rem">
+      <div class="marquee-track">
+        {['Scroll', 'Reveal', 'Parallax', 'Marquee', 'Pin', 'Counter'].map((w) => (
+          <span class="mi__marquee-word">{w}<i aria-hidden="true">·</i></span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Interaction components ════════════════════════════════════════ -->
+  <section class="section mi" id="components">
+    <div class="container">
+      <div class="mi__head">
+        <span class="eyebrow" data-reveal="fade">04 — Components</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Interactive building blocks</h2>
+      </div>
+
+      <div class="mi__two">
+        <div class="mi__block">
+          <span class="mi__label">data-accordion</span>
+          <div data-accordion>
+            <div class="mi__acc" data-accordion-item>
+              <button type="button" class="mi__acc-head" data-accordion-head aria-expanded="true">
+                <span>Height-animated disclosure</span>
+                <Icon name="plus" size={15} stroke={1.8} />
+              </button>
+              <div class="mi__acc-body" data-accordion-body>
+                <p>Opens to its natural height, then locks to <code>auto</code> so the content can reflow. Correct <code>aria-expanded</code> and <code>aria-controls</code> wiring is included.</p>
+              </div>
+            </div>
+            <div class="mi__acc" data-accordion-item>
+              <button type="button" class="mi__acc-head" data-accordion-head aria-expanded="false">
+                <span>Keyboard and touch ready</span>
+                <Icon name="plus" size={15} stroke={1.8} />
+              </button>
+              <div class="mi__acc-body" data-accordion-body hidden>
+                <p>Enter and Space toggle, Tab order is preserved, and the wrapper never traps focus.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mi__block">
+          <span class="mi__label">data-tabs</span>
+          <div class="mi__tabs" data-tabs>
+            <div class="mi__tab-rail" role="tablist" aria-label="Motion demo tabs">
+              <button type="button" role="tab" class="mi__tab" data-tab aria-selected="true" aria-controls="mi-p1" id="mi-t1">Reveal</button>
+              <button type="button" role="tab" class="mi__tab" data-tab aria-selected="false" aria-controls="mi-p2" id="mi-t2" tabindex="-1">Scroll</button>
+              <button type="button" role="tab" class="mi__tab" data-tab aria-selected="false" aria-controls="mi-p3" id="mi-t3" tabindex="-1">Pin</button>
+            </div>
+            <div class="mi__tab-panels">
+              <div class="mi__tab-panel" id="mi-p1" role="tabpanel" aria-labelledby="mi-t1" data-tab-panel>
+                <p>Entrance animations fire once, at 12% visibility, with an 8% bottom margin so nothing animates before it is genuinely on screen.</p>
+              </div>
+              <div class="mi__tab-panel" id="mi-p2" role="tabpanel" aria-labelledby="mi-t2" data-tab-panel hidden>
+                <p>One rAF-throttled loop handles parallax, scrubs, rails, header state and the progress bar. Individual modules only subscribe.</p>
+              </div>
+              <div class="mi__tab-panel" id="mi-p3" role="tabpanel" aria-labelledby="mi-t3" data-tab-panel hidden>
+                <p>Sticky panels use CSS positioning; JS only adds the pinned class and disables pinning when a panel is taller than the viewport.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mi__block">
+          <span class="mi__label">data-magnetic · data-copy</span>
+          <div class="mi__row">
+            <button type="button" class="btn btn--primary" data-magnetic="0.22">
+              <span class="btn__label"><span>Magnetic button</span><span>Magnetic button</span></span>
+              <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={11} stroke={2.4} /></span>
+            </button>
+            <button type="button" class="btn btn--outline" data-copy="npm run build" data-copy-label="Copy build command" data-copy-done="Copied">
+              <span class="btn__label"><span>Copy “npm run build”</span><span>Copy “npm run build”</span></span>
+              <span class="btn__chip" aria-hidden="true"><Icon name="check" size={11} stroke={2.4} /></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mi__block">
+          <span class="mi__label">data-pin · data-pin-sticky</span>
+          <div class="mi__pin-wrap" data-pin data-pin-offset="1.5rem">
+            <div class="mi__pin" data-pin-sticky>
+              <Icon name="target" size={18} stroke={1.5} />
+              <p>I stick to the top of my column and gain an <code>.is-pinned</code> class once engaged.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Reference table ═══════════════════════════════════════════════ -->
+  <section class="section mi mi--gray" id="reference">
+    <div class="container">
+      <div class="mi__head">
+        <span class="eyebrow" data-reveal="fade">05 — Reference</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">Full attribute reference</h2>
+      </div>
+
+      <div class="mi__table">
+        <div class="mi__table-head">
+          <span>Attribute</span><span>Value</span><span>Behaviour</span>
+        </div>
+        {attributes.map((a) => (
+          <div class="mi__table-row">
+            <code>{a.attr}</code>
+            <span class="mi__table-value">{a.value}</span>
+            <span class="mi__table-note">{a.note}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Reduced motion ════════════════════════════════════════════════ -->
+  <section class="section mi">
+    <div class="container mi__a11y">
+      <div>
+        <span class="eyebrow">Accessibility</span>
+        <h2 style="margin-top:1rem">Reduced motion is not an afterthought</h2>
+        <p style="margin-top:1rem;color:var(--text-soft);max-width:58ch">
+          When the operating system requests reduced motion, every entrance animation, marquee,
+          parallax and scroll scrub is disabled, and all pre-hidden states resolve to visible. The page
+          is fully readable with motion switched off — nothing depends on an animation to be understood.
+        </p>
+        <a href="/accessibility" class="text-link" style="margin-top:1.5rem">
+          Read the accessibility statement <Icon name="arrow-right" size={13} class="arrow" />
+        </a>
+      </div>
+
+      <div class="mi__a11y-card">
+        <span class="mi__label">motion.css</span>
+<pre><code>{`@media (prefers-reduced-motion: reduce) {
+  .js-enabled [data-reveal],
+  .word-inner, .char-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}`}</code></pre>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Shared ───────────────────────────────────────────────────────── */
+  .mi__head { max-width: 62rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .mi__head h2 { margin-top: 1rem; }
+  .mi__lede { margin-top: 1.25rem; color: var(--text-soft); max-width: 68ch; }
+  .mi__lede code, .mi__demo-block code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; padding: 0.1em 0.4em; background: var(--bg-soft); border-radius: var(--r-xs); }
+
+  .mi--gray { background: var(--bg-soft); }
+  .mi--gray .mi__lede code, .mi--gray code { background: var(--bg); }
+  .mi--dark { background: var(--c-jet); color: var(--c-beige); overflow: hidden; }
+  .mi--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
+  .mi--dark h2, .mi--dark h3 { color: var(--c-beige); }
+  .mi--dark .mi__lede { color: rgba(252, 242, 232, 0.68); }
+
+  .mi__label {
+    display: inline-block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-pill);
+    color: var(--text-mute);
+    margin-bottom: 1rem;
+  }
+
+  .mi--dark .mi__label { border-color: rgba(252, 242, 232, 0.28); color: rgba(252, 242, 232, 0.6); }
+
+  /* ── Lead + code ──────────────────────────────────────────────────── */
+  .mi__lead { max-width: 66rem; display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .mi__lead p { color: var(--text-soft); max-width: 68ch; }
+
+  .mi__code { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-jet); }
+  .mi__code-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.15rem; border-block-end: 1px solid rgba(252, 242, 232, 0.14); font-size: 0.75rem; color: rgba(252, 242, 232, 0.55); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .mi__dots { display: inline-flex; gap: 0.35rem; }
+  .mi__dots i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: rgba(252, 242, 232, 0.25); }
+  .mi__code pre { margin: 0; padding: clamp(1.25rem, 2.5vw, 2rem); overflow-x: auto; }
+  .mi__code code, .mi__a11y-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; line-height: 1.75; color: rgba(252, 242, 232, 0.82); background: none; padding: 0; }
+  .mi__code b { color: var(--c-beige); font-weight: 600; }
+
+  .mi__principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .mi__principle { padding-top: 1.35rem; border-top: 1px solid var(--line-strong); }
+  .mi__principle-title { font-size: 1.15rem; letter-spacing: -0.022em; }
+  .mi__principle-text { margin-top: 0.6rem; font-size: 0.9375rem; color: var(--text-soft); }
+
+  /* ── Variants ─────────────────────────────────────────────────────── */
+  .mi__variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .mi__variant { display: flex; flex-direction: column; gap: 0.45rem; padding: 1.5rem 1.35rem; background: var(--bg); }
+  .mi__variant-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--text); }
+  .mi__variant-note { font-size: 0.8125rem; color: var(--text-mute); line-height: 1.5; }
+
+  /* ── Text demos ───────────────────────────────────────────────────── */
+  .mi__demo-block { display: flex; flex-direction: column; gap: 1.5rem; padding-block: clamp(1rem, 3vw, 2rem); border-block: 1px solid var(--line); }
+  .mi__demo-h2 { font-family: var(--ff-display); font-size: clamp(1.65rem, 3.4vw, 2.812rem); line-height: 1.22; font-weight: 500; letter-spacing: -0.03em; margin: 0; max-width: 26ch; }
+  .mi__demo-h3 { font-family: var(--ff-display); font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 500; letter-spacing: -0.024em; margin: 0; }
+
+  .mi__counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1px; margin-top: clamp(2rem, 4vw, 3rem); background: var(--line); border: 1px solid var(--line); }
+  .mi__counter { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.75rem 1.5rem; background: var(--bg); }
+  .mi__counter strong { font-family: var(--ff-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1; font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .mi__counter span { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+
+  /* ── Scroll demos ─────────────────────────────────────────────────── */
+  .mi__scroll-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+  .mi__scroll-item--wide { grid-column: 1 / -1; }
+  .mi__parallax-frame { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-lg); background: var(--c-charcoal); }
+  .mi__parallax-frame :global(img) { width: 100%; height: 118%; object-fit: cover; inset-block-start: -9%; position: relative; }
+  .mi__scrub { font-family: var(--ff-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem); line-height: 1.42; letter-spacing: -0.022em; color: var(--c-beige); max-width: 46ch; }
+  .mi__fill { position: relative; padding-top: 1.5rem; border-top: 1px solid rgba(252, 242, 232, 0.24); }
+  .mi__fill-bar { position: absolute; inset-block-start: -1px; inset-inline-start: 0; width: 100%; height: 1px; background: var(--c-beige); transform: scaleX(var(--fill, 0)); transform-origin: left center; }
+  .mi__fill-text { font-size: 0.9375rem; color: rgba(252, 242, 232, 0.7); }
+
+  .mi__marquee-note { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .mi__marquee { margin-top: 1.5rem; }
+  .mi__marquee :global(.marquee-track) { gap: var(--marquee-gap, 2.5rem); }
+  .mi__marquee-word { display: inline-flex; align-items: center; gap: 2.5rem; font-family: var(--ff-display); font-size: clamp(2rem, 6vw, 5rem); font-weight: 500; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px rgba(252, 242, 232, 0.45); }
+  .mi__marquee-word i { font-style: normal; color: rgba(252, 242, 232, 0.5); -webkit-text-stroke: 0; font-size: 0.4em; }
+
+  /* ── Components ───────────────────────────────────────────────────── */
+  .mi__two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+  .mi__block { display: flex; flex-direction: column; }
+  .mi__row { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+
+  .mi__acc { border-block-end: 1px solid var(--line); }
+  .mi__acc-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; padding: 1.15rem 0; font-size: 1rem; font-weight: 500; text-align: start; }
+  .mi__acc-head :global(svg) { transition: transform var(--dur) var(--ease-out); flex: none; }
+  .mi__acc-head[aria-expanded='true'] :global(svg) { transform: rotate(45deg); }
+  .mi__acc-body { overflow: hidden; }
+  .mi__acc-body p { padding-bottom: 1.15rem; font-size: 0.9375rem; color: var(--text-soft); }
+  .mi__acc-body code { background: var(--bg-soft); padding: 0.1em 0.4em; border-radius: var(--r-xs); }
+
+  .mi__tab-rail { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .mi__tab { padding: 0.55rem 1rem; border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: 0.875rem; color: var(--text-mute); transition: all var(--dur) var(--ease-out); }
+  .mi__tab[aria-selected='true'] { background: var(--c-jet); border-color: var(--c-jet); color: var(--c-beige); }
+  .mi__tab-panel { font-size: 0.9375rem; color: var(--text-soft); animation: mi-fade 460ms var(--ease-out) both; }
+  @keyframes mi-fade { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: none; } }
+
+  .mi__pin-wrap { position: relative; min-height: 22rem; border: 1px dashed var(--line-strong); border-radius: var(--r-lg); padding: 1.5rem; }
+  .mi__pin { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.25rem; border-radius: var(--r-md); background: var(--c-jet); color: var(--c-beige); transition: box-shadow var(--dur) var(--ease-out); }
+  .mi__pin.is-pinned { box-shadow: var(--shadow-lg); }
+  .mi__pin p { font-size: 0.875rem; color: rgba(252, 242, 232, 0.75); }
+  .mi__pin code { color: var(--c-beige); }
+
+  /* ── Reference table ──────────────────────────────────────────────── */
+  .mi__table { border-top: 1px solid var(--line-strong); }
+  .mi__table-head, .mi__table-row { display: grid; grid-template-columns: minmax(10rem, 0.9fr) minmax(7rem, 0.6fr) minmax(0, 1.6fr); gap: 1.25rem; padding: 1rem 0; border-block-end: 1px solid var(--line); }
+  .mi__table-head { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); }
+  .mi__table-row code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--text); background: none; padding: 0; }
+  .mi__table-value { font-size: 0.875rem; color: var(--text-mute); }
+  .mi__table-note { font-size: 0.9375rem; color: var(--text-soft); }
+
+  /* ── A11y ─────────────────────────────────────────────────────────── */
+  .mi__a11y { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .mi__a11y-card { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-jet); padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .mi__a11y-card .mi__label { border-color: rgba(252, 242, 232, 0.28); color: rgba(252, 242, 232, 0.6); }
+  .mi__a11y-card pre { margin: 0; overflow-x: auto; }
+
+  @media (max-width: 900px) {
+    .mi__two, .mi__scroll-grid, .mi__a11y { grid-template-columns: minmax(0, 1fr); }
+    .mi__table-head { display: none; }
+    .mi__table-row { grid-template-columns: minmax(0, 1fr); gap: 0.4rem; }
+  }
+</style>

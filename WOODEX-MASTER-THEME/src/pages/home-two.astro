@@ -1,0 +1,110 @@
+---
+/**
+ * PAGE TEMPLATE · Home Two                    [ home-two ]
+ * ---------------------------------------------------------------------------
+ * Showcase-led homepage: split hero with rotating words, partner strip,
+ * feature-split propositions, service grid, project masonry, pricing teaser,
+ * testimonials grid, journal grid, CTA.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroShowcase from '../sections/HeroShowcase.astro';
+import ClientsMarquee from '../sections/ClientsMarquee.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import ServiceGrid from '../sections/ServiceGrid.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import PricingGrid from '../sections/PricingGrid.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+---
+
+<BaseLayout
+  title="Home Two — Showcase Layout | Woodex Interior"
+  description="A showcase-led view of Woodex Interior: rotating headlines, partner trust strip, service grid, project masonry and transparent pricing."
+  overlayHeader
+  current="home-two"
+  footerCtaTitle="Let&rsquo;s shape your next space"
+>
+  <HeroShowcase
+    rotatingWords={['Inspired spaces', 'Lasting design', 'Life enhanced']}
+    title="Interiors shaped by purpose and identity"
+    image="/images/hero/hero-two-main.jpg"
+  />
+
+  <ClientsMarquee
+    eyebrow="Trusted partners"
+    title="Driving success through strong partnerships"
+    variant="text"
+    theme="default"
+  />
+
+  <FeatureSplit
+    eyebrow="Why Woodex"
+    title="Two commitments that change how a project runs"
+    lede="Documentation before construction, and one team from first sketch to snag list. Those two things remove most of the risk from an interior project."
+    features={[
+      {
+        eyebrow: '01 — Documentation',
+        title: 'Everything drawn before anything is built',
+        body: 'Most interior disputes come from ambiguity, not from bad workmanship. We resolve the details on paper — joinery internals, service routes, tolerances — so site is execution, not problem-solving.',
+        list: [
+          'Revision-controlled drawing register',
+          'Joinery internals detailed to the millimetre',
+          'Every appliance and fitting specified with a model number',
+        ],
+        image: '/images/features/feature-site-analysis.jpg',
+        stat: { value: '0', label: 'Programme variations typical' },
+        cta: { label: 'See the process', href: '/process' },
+      },
+      {
+        eyebrow: '02 — One team',
+        title: 'Design and build under a single contract',
+        body: 'When the designer and the contractor are separate companies, every gap between them becomes your problem. We hold both roles, which means we cannot blame the drawings and we cannot blame the site.',
+        list: [
+          'Fixed cost plan with an open-book build-up',
+          'Weekly written progress reports with photographs',
+          'Variations priced before they are executed',
+        ],
+        image: '/images/features/feature-space-planning.jpg',
+        stat: { value: '98%', label: 'Client retention' },
+        cta: { label: 'Talk to us', href: '/contact-one' },
+      },
+    ]}
+  />
+
+  <ServiceGrid
+    eyebrow="Our services"
+    title="Seventeen services, one accountable team"
+    lede="From a single room to a 24,000 sq ft workplace fit-out — the same documentation standard applies."
+    limit={6}
+    columns={3}
+  />
+
+  <StatsStrip variant="numbers" eyebrow="Delivered to date" theme="dark" />
+
+  <ProjectGrid
+    eyebrow="Selected work"
+    title="Spaces designed to be lived in, not just photographed"
+    variant="masonry"
+    limit={7}
+  />
+
+  <ProcessAccordion variant="cards" theme="gray" />
+
+  <PricingGrid />
+
+  <TestimonialsSlider variant="grid" theme="default" />
+
+  <JournalGrid variant="grid" limit={3} theme="gray" />
+
+  <CtaBand
+    eyebrow="Start a conversation"
+    title="Tell us about the space and we will tell you what is possible"
+    lede="No obligation, no sales script. A senior designer will review your brief and respond within one business day."
+    primary={{ label: 'Book a free consultation', href: '/contact-two' }}
+    secondary={{ label: 'Browse pricing', href: '/pricing-one' }}
+    variant="split"
+  />
+</BaseLayout>

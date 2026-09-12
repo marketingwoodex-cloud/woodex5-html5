@@ -1,0 +1,350 @@
+---
+/**
+ * SECTION · Pricing                           [ pricing-grid ]
+ * ---------------------------------------------------------------------------
+ * Three-tier package comparison with a highlighted "most popular" plan, plus
+ * an add-on rate table and an optional budget-slider calculator.
+ *
+ * MOTION: staggered cards · hover lift · interactive budget estimate
+ */
+import Icon from '../components/ui/Icon.astro';
+import { pricingPackages, addOns } from '../data/content.js';
+import { site } from '../data/site.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  showAddOns?: boolean;
+  showCalculator?: boolean;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Pricing',
+  title = 'Transparent packages, costed line by line',
+  lede = 'We publish the structure of our fees. The final number depends on scope, but you will always see the build-up before you commit.',
+  showAddOns = true,
+  showCalculator = true,
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['pricing-grid', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head sec-head--center">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      </div>
+      <p class="sec-head__aside" style="max-width:52ch" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    <div class="pr__grid" data-stagger="110">
+      {pricingPackages.map((p) => (
+        <article class:list={['pr__card', p.popular && 'is-popular']} data-reveal="fade-up">
+          {p.popular && <span class="pr__badge">Most popular</span>}
+
+          <header class="pr__head">
+            <h3 class="pr__name">{p.name}</h3>
+            <p class="pr__tagline">{p.tagline}</p>
+          </header>
+
+          <div class="pr__price">
+            <strong>{p.price}</strong>
+            <span>{p.unit}</span>
+          </div>
+
+          <ul class="pr__features">
+            {p.features.map((f) => (
+              <li><Icon name="check" size={14} stroke={2.2} /> {f}</li>
+            ))}
+            {p.excludes.map((f) => (
+              <li class="is-excluded"><Icon name="close" size={13} stroke={2} /> {f}</li>
+            ))}
+          </ul>
+
+          <a
+            href="/contact-one"
+            class:list={['btn', 'btn--lg', 'btn--block', p.popular ? 'btn--beige' : 'btn--ghost']}
+          >
+            <span class="btn__label"><span>{p.cta}</span></span>
+            <Icon name="arrow-right" size={14} class="arrow" />
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <!-- ══ Budget calculator ═══════════════════════════════════════════ -->
+    {showCalculator && (
+      <div class="pr__calc" data-reveal="fade-up" id="budget-calculator">
+        <div class="pr__calc-copy">
+          <span class="eyebrow">Quick estimate</span>
+          <h3 class="pr__calc-title">Rough budget calculator</h3>
+          <p class="pr__calc-note">
+            An indicative planning figure only. The real number comes from a costed
+            specification — but this tells you whether your brief and budget are in
+            the same postcode.
+          </p>
+        </div>
+
+        <div class="pr__calc-form">
+          <label class="calc-field">
+            <span>Area (sq ft)</span>
+            <input type="range" min="400" max="20000" step="100" value="3000" data-calc-area />
+            <output data-calc-area-out>3,000 sq ft</output>
+          </label>
+
+          <label class="calc-field">
+            <span>Finish level</span>
+            <select data-calc-tier>
+              <option value="3800">Basic — rental standard</option>
+              <option value="5200" selected>Mid-market — our most common</option>
+              <option value="7200">Premium — stone, engineered timber</option>
+              <option value="10500">Bespoke — one-off joinery & imported finishes</option>
+            </select>
+          </label>
+
+          <div class="pr__calc-result">
+            <span>Indicative delivery budget</span>
+            <strong data-calc-out>PKR 15,600,000</strong>
+            <em data-calc-per>PKR 5,200 / sq ft</em>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- ══ Add-ons ═════════════════════════════════════════════════════ -->
+    {showAddOns && (
+      <div class="pr__addons" data-reveal="fade-up">
+        <h3 class="pr__addons-title">Add-on services</h3>
+        <div class="pr__addons-grid">
+          {addOns.map((a) => (
+            <div class="pr__addon">
+              <span class="pr__addon-name">{a.name}</span>
+              <span class="pr__addon-price">
+                <strong>{a.price}</strong>
+                <em>{a.unit}</em>
+              </span>
+            </div>
+          ))}
+        </div>
+        <p class="pr__addons-note">
+          <Icon name="info" size={13} />
+          All prices exclude government taxes. Figures are indicative and confirmed after survey.
+        </p>
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  /* ── Budget calculator ─────────────────────────────────────────────── */
+  const area = document.querySelector('[data-calc-area]');
+  const tier = document.querySelector('[data-calc-tier]');
+  const out = document.querySelector('[data-calc-out]');
+  const per = document.querySelector('[data-calc-per]');
+  const areaOut = document.querySelector('[data-calc-area-out]');
+
+  if (area && tier && out) {
+    const fmt = new Intl.NumberFormat('en-PK', { maximumFractionDigits: 0 });
+
+    const update = () => {
+      const sqft = Number(area.value);
+      const rate = Number(tier.value);
+      const total = sqft * rate;
+
+      if (areaOut) areaOut.textContent = `${fmt.format(sqft)} sq ft`;
+      out.textContent = `PKR ${fmt.format(total)}`;
+      if (per) per.textContent = `PKR ${fmt.format(rate)} / sq ft`;
+    };
+
+    area.addEventListener('input', update);
+    tier.addEventListener('change', update);
+    update();
+  }
+</script>
+
+<style>
+  .pr__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+
+  .pr__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-card);
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out), box-shadow var(--dur-slow) var(--ease-out);
+  }
+
+  .pr__card:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .pr__card.is-popular {
+    background: var(--c-jet);
+    color: var(--c-beige);
+    border-color: var(--c-jet);
+    box-shadow: var(--shadow-xl);
+    margin-top: -1rem;
+    padding-block: clamp(2.25rem, 3.6vw, 3rem);
+  }
+
+  .pr__badge {
+    position: absolute;
+    inset-block-start: -0.75rem;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    padding: 0.4rem 1rem;
+    border-radius: var(--r-pill);
+    background: var(--c-beige);
+    color: var(--c-jet);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pr__head { display: flex; flex-direction: column; gap: 0.5rem; }
+  .pr__name { font-size: 1.35rem; letter-spacing: -0.022em; }
+  .pr__tagline { font-size: var(--fs-sub); opacity: 0.7; }
+
+  .pr__price { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; padding-block: 0.25rem; }
+  .pr__price strong { font-family: var(--ff-display); font-size: clamp(1.6rem, 2.6vw, 2.15rem); line-height: 1; font-weight: 500; letter-spacing: -0.03em; }
+  .pr__price span { font-size: var(--fs-sub); opacity: 0.6; }
+
+  .pr__features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .pr__features li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.875rem; }
+  .pr__features li :global(svg) { flex: none; margin-top: 0.25rem; }
+  .pr__features li.is-excluded { opacity: 0.45; text-decoration: line-through; text-decoration-thickness: 1px; }
+
+  .pr__card.is-popular :global(.btn--beige) {
+    --btn-bg: var(--c-beige);
+    --btn-fg: var(--c-jet);
+    --btn-bg-hover: transparent;
+    --btn-fg-hover: var(--c-beige);
+    --btn-border: var(--c-beige);
+    --btn-border-hover: var(--c-beige);
+  }
+
+  .pr__card.is-popular :global(.btn--ghost) {
+    --btn-fg: var(--c-beige);
+    --btn-bg-hover: var(--c-beige);
+    --btn-fg-hover: var(--c-jet);
+    --btn-border: rgba(252, 242, 232, 0.36);
+    --btn-border-hover: var(--c-beige);
+  }
+
+  /* ══ Calculator ════════════════════════════════════════════════════ */
+  .pr__calc {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--bg-soft);
+  }
+
+  .pr__calc-title { margin-top: 1rem; font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -0.026em; }
+  .pr__calc-note { margin-top: 1rem; font-size: var(--fs-sub); color: var(--text-soft); max-width: 40ch; }
+
+  .pr__calc-form { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .calc-field { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+  .calc-field output { font-size: 0.8125rem; letter-spacing: 0; text-transform: none; color: var(--text); }
+
+  .calc-field input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: var(--line-strong);
+    border-radius: 2px;
+    outline: none;
+  }
+
+  .calc-field input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--c-jet);
+    cursor: pointer;
+    border: 3px solid var(--bg-soft);
+    box-shadow: var(--shadow-md);
+  }
+
+  .calc-field input[type='range']::-moz-range-thumb {
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--c-jet);
+    cursor: pointer;
+    border: 3px solid var(--bg-soft);
+  }
+
+  .calc-field select {
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    font-size: 0.9375rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .pr__calc-result {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .pr__calc-result span { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
+  .pr__calc-result strong { font-family: var(--ff-display); font-size: clamp(1.75rem, 3.4vw, 2.6rem); line-height: 1.05; font-weight: 500; letter-spacing: -0.034em; font-variant-numeric: tabular-nums; }
+  .pr__calc-result em { font-style: normal; font-size: 0.875rem; color: var(--text-soft); }
+
+  /* ══ Add-ons ═══════════════════════════════════════════════════════ */
+  .pr__addons { margin-top: clamp(3rem, 6vw, 5rem); }
+
+  .pr__addons-title { font-size: 1.35rem; letter-spacing: -0.022em; margin-bottom: 1.5rem; }
+
+  .pr__addons-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+
+  .pr__addon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.35rem 1.4rem;
+    background: var(--bg);
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .pr__addon:hover { background: var(--bg-soft); }
+
+  .pr__addon-name { font-size: 0.9375rem; }
+  .pr__addon-price { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+  .pr__addon-price strong { font-size: 1.05rem; font-weight: 500; }
+  .pr__addon-price em { font-style: normal; font-size: 0.75rem; color: var(--text-mute); }
+
+  .pr__addons-note { display: flex; align-items: flex-start; gap: 0.5rem; margin-top: 1.25rem; font-size: 0.8125rem; color: var(--text-mute); }
+  .pr__addons-note :global(svg) { flex: none; margin-top: 0.15rem; }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .pr__grid { grid-template-columns: minmax(0, 1fr); }
+    .pr__card.is-popular { margin-top: 0; }
+    .pr__calc { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .pr__addons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .pr__addons-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

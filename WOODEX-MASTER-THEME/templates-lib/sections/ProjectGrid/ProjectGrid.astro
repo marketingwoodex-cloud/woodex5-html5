@@ -1,0 +1,310 @@
+---
+/**
+ * SECTION · Project Grid                      [ project-grid ]
+ * ---------------------------------------------------------------------------
+ * Portfolio index. Three layouts matching the reference's portfolio-one/two/
+ * three pages, plus a sector filter bar.
+ *
+ * MOTION: clip-path reveal · staggered entrance · hover zoom + cursor label
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { projects, sectors, featuredProjects } from '../data/projects.js';
+import { projectImage } from '../data/images.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'grid' | 'masonry' | 'list';
+  showFilter?: boolean;
+  limit?: number;
+  sector?: string;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Selected work',
+  title = 'Designing spaces that inspire and elevate living',
+  lede = 'A cross-section of recent projects across Pakistan — residential, commercial, hospitality and retail.',
+  variant = 'grid',
+  showFilter = true,
+  limit = 12,
+  sector,
+  theme = 'default',
+} = Astro.props;
+
+const list = (sector ? projects.filter((p) => p.sector === sector) : projects).slice(0, limit);
+---
+
+<section class:list={['project-grid', 'section']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+
+    {showFilter && (
+      <div class="pill-group pg__filter" data-reveal="fade-up" style="--reveal-delay:120ms">
+        <a class="pill is-active" href="/portfolio-one">All</a>
+        {sectors.map((s) => (
+          <a class="pill" href={`/portfolio-one?sector=${s.id}`}>{s.label}</a>
+        ))}
+      </div>
+    )}
+
+    <!-- ══ GRID ════════════════════════════════════════════════════════ -->
+    {variant === 'grid' && (
+      <div class="pg__grid" data-stagger="90">
+        {list.map((p) => (
+          <article class="pg__card" data-reveal="fade-up">
+            <a href={`/project/${p.slug}`} data-cursor="View project">
+              <div class="pg__media">
+                <Img src={projectImage(p.slug)} alt={p.title} width={900} height={1125} loading="lazy" />
+                <span class="pg__scrim" aria-hidden="true"></span>
+                <span class="pg__tags">
+                  <span class="tag">{p.sector}</span>
+                  <span class="tag">{p.year}</span>
+                </span>
+                <span class="pg__arrow" aria-hidden="true">
+                  <Icon name="arrow-up-right" size={16} stroke={1.8} />
+                </span>
+              </div>
+              <div class="pg__body">
+                <h3 class="pg__title">{p.title}</h3>
+                <p class="pg__meta">
+                  <span><Icon name="map-pin" size={12} /> {p.location}</span>
+                  <span>{p.area}</span>
+                </p>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- ══ MASONRY ═════════════════════════════════════════════════════ -->
+    {variant === 'masonry' && (
+      <div class="pg__masonry" data-stagger="80">
+        {list.map((p) => (
+          <article class:list={['pg__mason', p.span === 'wide' && 'is-wide', p.span === 'tall' && 'is-tall']} data-reveal="clip">
+            <a href={`/project/${p.slug}`} data-cursor="View">
+              <Img src={projectImage(p.slug)} alt={p.title} width={1200} height={900} loading="lazy" />
+              <span class="pg__scrim" aria-hidden="true"></span>
+              <div class="pg__mason-body">
+                <span class="pg__mason-cat">{p.sector} · {p.year}</span>
+                <h3 class="pg__mason-title">{p.title}</h3>
+                <span class="pg__mason-loc">{p.location}</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- ══ LIST ════════════════════════════════════════════════════════ -->
+    {variant === 'list' && (
+      <div class="pg__list" data-stagger="70">
+        {list.map((p, i) => (
+          <article class="pg__row" data-reveal="fade-up">
+            <a href={`/project/${p.slug}`}>
+              <span class="pg__row-no">{String(i + 1).padStart(2, '0')}</span>
+
+              <div class="pg__row-media">
+                <Img src={projectImage(p.slug)} alt="" width={520} height={390} loading="lazy" />
+              </div>
+
+              <div class="pg__row-body">
+                <span class="tag">{p.sector}</span>
+                <h3 class="pg__row-title">{p.title}</h3>
+                <p class="pg__row-excerpt">{p.excerpt}</p>
+                <div class="pg__row-meta">
+                  <span>{p.location}</span>
+                  <span>·</span>
+                  <span>{p.area}</span>
+                  <span>·</span>
+                  <span>{p.year}</span>
+                </div>
+              </div>
+
+              <span class="pg__row-arrow" aria-hidden="true">
+                <Icon name="arrow-up-right" size={16} stroke={1.8} />
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <div class="project-grid__foot" data-reveal="fade-up">
+      <p class="pg__count">
+        <strong>{projects.length}</strong> projects in the archive
+      </p>
+      <a href="/contact-one" class="btn btn--primary btn--lg">
+        <span class="btn__label"><span>Start your project</span></span>
+        <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pg__filter { margin-bottom: 2.5rem; }
+
+  /* ══ Grid ══════════════════════════════════════════════════════════ */
+  .pg__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+
+  .pg__card { border-radius: var(--r-lg); overflow: hidden; }
+
+  .pg__card a { display: block; }
+
+  .pg__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: var(--r-lg);
+    background: var(--bg-soft);
+  }
+
+  .pg__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-expo); }
+  .pg__card:hover .pg__media :global(img) { transform: scale(1.07); }
+
+  .pg__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.24) 0%, transparent 40%, rgba(0, 0, 0, 0.55) 100%); }
+
+  .pg__tags { position: absolute; inset-block-start: 0.9rem; inset-inline-start: 0.9rem; display: flex; gap: 0.4rem; }
+  .pg__tags :global(.tag) { background: rgba(252, 242, 232, 0.92); color: var(--c-jet); backdrop-filter: blur(6px); text-transform: capitalize; letter-spacing: 0.06em; }
+
+  .pg__arrow {
+    position: absolute;
+    inset-block-end: 0.9rem;
+    inset-inline-end: 0.9rem;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--c-beige);
+    color: var(--c-jet);
+    opacity: 0;
+    transform: scale(0.7) rotate(-25deg);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .pg__card:hover .pg__arrow { opacity: 1; transform: scale(1) rotate(0); }
+
+  .pg__body { padding: 1.1rem 0.25rem 0; }
+  .pg__title { font-size: 1.2rem; letter-spacing: -0.022em; }
+  .pg__meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-mute); }
+  .pg__meta span { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+  /* ══ Masonry ═══════════════════════════════════════════════════════ */
+  .pg__masonry {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 14rem;
+    gap: 1rem;
+  }
+
+  .pg__mason { grid-column: span 2; grid-row: span 2; border-radius: var(--r-lg); overflow: hidden; }
+  .pg__mason.is-wide { grid-column: span 4; grid-row: span 2; }
+  .pg__mason.is-tall { grid-column: span 2; grid-row: span 3; }
+
+  .pg__mason a { position: relative; display: block; width: 100%; height: 100%; }
+  .pg__mason :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.3s var(--ease-expo); }
+  .pg__mason:hover :global(img) { transform: scale(1.05); }
+
+  .pg__mason .pg__scrim { background: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 30%, rgba(0, 0, 0, 0.82)); }
+
+  .pg__mason-body {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: clamp(1.25rem, 2.4vw, 2rem);
+    color: var(--c-beige);
+    transform: translateY(0.5rem);
+    opacity: 0.92;
+    transition: transform var(--dur-slow) var(--ease-expo), opacity var(--dur) var(--ease-out);
+  }
+
+  .pg__mason:hover .pg__mason-body { transform: translateY(0); opacity: 1; }
+
+  .pg__mason-cat { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252, 242, 232, 0.6); }
+  .pg__mason-title { font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.15; letter-spacing: -0.026em; margin-top: 0.5rem; }
+  .pg__mason-loc { font-size: var(--fs-sub); color: rgba(252, 242, 232, 0.6); margin-top: 0.35rem; display: block; }
+
+  /* ══ List ══════════════════════════════════════════════════════════ */
+  .pg__list { border-top: 1px solid var(--line); }
+  .pg__row { border-bottom: 1px solid var(--line); }
+
+  .pg__row a {
+    display: grid;
+    grid-template-columns: 3rem 13rem minmax(0, 1fr) auto;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: center;
+    padding: clamp(1.25rem, 2.4vw, 2rem) 0;
+    transition: padding var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out);
+  }
+
+  .pg__row a:hover { padding-inline: 1rem; background: var(--bg-soft); }
+
+  .pg__row-no { font-size: 0.6875rem; letter-spacing: 0.16em; color: var(--text-mute); font-variant-numeric: tabular-nums; }
+
+  .pg__row-media { aspect-ratio: 4 / 3; border-radius: var(--r-sm); overflow: hidden; background: var(--bg-soft); }
+  .pg__row-media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-expo); }
+  .pg__row a:hover .pg__row-media :global(img) { transform: scale(1.07); }
+
+  .pg__row-body { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+  .pg__row-title { font-size: clamp(1.15rem, 2vw, 1.6rem); letter-spacing: -0.024em; }
+  .pg__row-excerpt { font-size: var(--fs-sub); color: var(--text-soft); max-width: 62ch; }
+  .pg__row-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.75rem; color: var(--text-mute); }
+
+  .pg__row-arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    flex: none;
+    transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .pg__row a:hover .pg__row-arrow { transform: rotate(45deg); background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+
+  /* ══ Foot ══════════════════════════════════════════════════════════ */
+  .project-grid__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .pg__count { font-size: var(--fs-sub); color: var(--text-mute); }
+  .pg__count strong { color: var(--text); font-weight: 500; }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 1000px) {
+    .pg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pg__masonry { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 12rem; }
+    .pg__mason, .pg__mason.is-wide, .pg__mason.is-tall { grid-column: span 2; grid-row: span 2; }
+    .pg__row a { grid-template-columns: 2.5rem 9rem minmax(0, 1fr); }
+    .pg__row-arrow { display: none; }
+  }
+
+  @media (max-width: 660px) {
+    .pg__grid { grid-template-columns: minmax(0, 1fr); }
+    .pg__masonry { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 15rem; }
+    .pg__mason, .pg__mason.is-wide, .pg__mason.is-tall { grid-column: span 1; grid-row: span 1; }
+    .pg__row a { grid-template-columns: 2.5rem minmax(0, 1fr); }
+    .pg__row-media { display: none; }
+    .project-grid__foot { flex-direction: column; align-items: stretch; }
+    .project-grid__foot :global(.btn) { justify-content: center; }
+  }
+</style>

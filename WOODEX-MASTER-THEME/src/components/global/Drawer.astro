@@ -1,0 +1,105 @@
+---
+/**
+ * MOBILE DRAWER — off-canvas navigation with services accordion,
+ * contact block and a focus trap (handled by initDrawer in motion.js).
+ */
+import { primaryNav } from '../../data/navigation.js';
+import { serviceGroups, servicesByGroup } from '../../data/services.js';
+import { site } from '../../data/site.js';
+import Icon from '../ui/Icon.astro';
+---
+
+<div
+  class="drawer"
+  id="mobile-drawer"
+  data-drawer
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site navigation"
+>
+  <div class="drawer__scrim" data-drawer-close></div>
+
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <a href="/home-one" class="brand" style="color:inherit">
+        <span class="brand__text">
+          {site.shortName}
+          <small>Interior</small>
+        </span>
+      </a>
+      <button type="button" class="drawer__close" data-drawer-close aria-label="Close menu">
+        <Icon name="close" size={16} stroke={2} />
+      </button>
+    </div>
+
+    <div class="drawer__body">
+      <nav class="drawer__nav" aria-label="Mobile">
+        {primaryNav.map((item) => {
+          /* The services group becomes an expandable accordion. */
+          if (item.label === 'Services') {
+            return (
+              <details>
+                <summary>
+                  Services
+                  <Icon name="chevron-down" size={18} />
+                </summary>
+                <div class="drawer__sub">
+                  {servicesByGroup('residential').map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
+                  {servicesByGroup('commercial').map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
+                  {servicesByGroup('fitout').map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
+                  {servicesByGroup('specialist').map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
+                  <a href="/service" style="grid-column:1/-1;text-decoration:underline">View all services →</a>
+                </div>
+              </details>
+            );
+          }
+          if (item.label === 'Home') {
+            return (
+              <details>
+                <summary>
+                  Home
+                  <Icon name="chevron-down" size={18} />
+                </summary>
+                <div class="drawer__sub">
+                  <a href="/home-one">Home One</a>
+                  <a href="/home-two">Home Two</a>
+                  <a href="/home-three">Home Three</a>
+                </div>
+              </details>
+            );
+          }
+          const firstHref = item.mega?.columns?.[0]?.links?.[0]?.href ?? '/';
+          return <a href={firstHref}>{item.label}</a>;
+        })}
+      </nav>
+    </div>
+
+    <div class="drawer__foot">
+      <a href={site.cta.primary.href} class="btn btn--beige btn--block">
+        <span class="btn__label"><span>{site.cta.primary.label}</span></span>
+        <Icon name="arrow-right" size={14} stroke={2} />
+      </a>
+
+      <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.875rem">
+        <a href={`mailto:${site.email}`} style="display:flex;align-items:center;gap:.6rem">
+          <Icon name="mail" size={15} /> {site.email}
+        </a>
+        <a href={`tel:${site.phoneHref}`} style="display:flex;align-items:center;gap:.6rem">
+          <Icon name="phone" size={15} /> {site.phone}
+        </a>
+        <span style="display:flex;align-items:center;gap:.6rem;opacity:.6">
+          <Icon name="clock" size={15} /> {site.hours}
+        </span>
+      </div>
+
+      <div style="display:flex;gap:.5rem">
+        {site.social.map((s) => (
+          <a href={s.href} class="footer__social" style="margin:0" aria-label={s.label} target="_blank" rel="noopener">
+            <Icon name={s.icon} size={15} />
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

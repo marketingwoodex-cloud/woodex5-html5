@@ -1,0 +1,37 @@
+---
+/** PAGE TEMPLATE · Terms of Service            [ terms ] */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../data/site.js';
+
+const blocks = [
+  { type: 'h2', text: 'Scope of these terms' },
+  { type: 'p', text: `These terms govern your use of the ${site.name} website. They are not the terms of a professional appointment — if you engage us for a project, the appointment is governed by a separate signed contract and schedule of services.` },
+  { type: 'h2', text: 'Website content' },
+  { type: 'p', text: 'The content on this site — including project descriptions, photography, pricing guidance and journal articles — is provided for general information. Published rate bands are indicative planning figures, not quotations, and they do not constitute an offer capable of acceptance.' },
+  { type: 'quote', text: 'A square-foot rate is a planning tool. It is not a price. Only a costed specification is a price.' },
+  { type: 'h2', text: 'Intellectual property' },
+  { type: 'p', text: 'All design work, drawings, renders, photography and written content on this site are owned by us or licensed to us. You may view and share this content for personal, non-commercial purposes with attribution. You may not reproduce it commercially, use it to train automated systems, or present it as your own.' },
+  { type: 'h2', text: 'Design ownership on appointed projects' },
+  { type: 'p', text: 'Where we are appointed for a project, copyright in the drawings and design remains with us unless the appointment expressly transfers it. You receive a licence to construct the project and to retain the documentation for operation and maintenance.' },
+  { type: 'h2', text: 'Enquiries and correspondence' },
+  { type: 'p', text: 'Sending us an enquiry does not create a professional relationship or oblige us to accept an appointment. We reserve the right to decline work where we are not the right practice for the job, or where we cannot deliver to our own standard.' },
+  { type: 'h2', text: 'Estimates and calculators' },
+  { type: 'p', text: 'Any calculator, rate band or estimate published on this site is provided as a rough planning aid. It is based on typical projects and does not account for site conditions, structural works, authority approvals or specification choices specific to your project.' },
+  { type: 'h2', text: 'Third-party links' },
+  { type: 'p', text: 'Where we link to third-party sites, we do so because the content is useful. We are not responsible for those sites, their content or their privacy practices.' },
+  { type: 'h2', text: 'Limitation of liability' },
+  { type: 'p', text: 'To the fullest extent permitted by law, we are not liable for indirect or consequential loss arising from use of this website. Nothing in these terms limits liability for death, personal injury or fraud.' },
+  { type: 'h2', text: 'Governing law' },
+  { type: 'p', text: 'These terms are governed by the laws of the Islamic Republic of Pakistan, and the courts of Lahore have exclusive jurisdiction over any dispute arising from them.' },
+  { type: 'callout', title: 'Questions', text: `Write to ${site.email} and we will respond within one business day.` },
+];
+---
+
+<LegalLayout
+  title="Terms of Service"
+  lede="The terms that govern your use of this website, and how they relate to a professional appointment."
+  eyebrow="Legal"
+  blocks={blocks}
+  updated="February 2026"
+  crumb="Legal"
+/>

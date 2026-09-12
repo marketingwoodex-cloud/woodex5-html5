@@ -1,0 +1,158 @@
+---
+/**
+ * SECTION · FAQ                               [ faq ]
+ * ---------------------------------------------------------------------------
+ * Accordion FAQ with an optional sticky side panel (contact prompt or
+ * category filter). Emits FAQPage structured data for rich results.
+ *
+ * MOTION: accordion height animation · staggered rows
+ */
+import Icon from '../components/ui/Icon.astro';
+import { faqs } from '../data/content.js';
+import { site } from '../data/site.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  items?: { q: string; a: string; category?: string }[];
+  variant?: 'split' | 'stacked';
+  showSchema?: boolean;
+  contactPrompt?: boolean;
+}
+
+const {
+  eyebrow = 'Questions',
+  title = 'Everything you wanted to ask',
+  lede = 'If your question is not here, send it to us — we answer every one.',
+  items = faqs,
+  variant = 'split',
+  showSchema = true,
+  contactPrompt = true,
+} = Astro.props;
+
+const schema = showSchema
+  ? {
+      '@type': 'FAQPage',
+      mainEntity: items.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+---
+
+<section class="section faq-block">
+  {schema && (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+  )}
+
+  <div class="container">
+    <div class:list={['faq-block__grid', variant === 'stacked' && 'is-stacked']}>
+      <!-- ── Side panel ────────────────────────────────────────────────── -->
+      <aside class="faq-block__aside" data-pin>
+        <div data-pin-sticky>
+          <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+          <h2 class="faq-block__title" data-heading-reveal="words" data-heading-stagger="48">{title}</h2>
+          <p class="faq-block__lede" data-reveal="fade-up" style="--reveal-delay:200ms">{lede}</p>
+
+          {contactPrompt && (
+            <div class="faq-block__prompt" data-reveal="fade-up" style="--reveal-delay:300ms">
+              <Icon name="info" size={16} />
+              <div>
+                <strong>Still deciding?</strong>
+                <p>Book a free 30-minute consultation with a senior designer.</p>
+                <a href={site.cta.consult.href} class="text-link mt-4" style="font-size:.875rem">
+                  {site.cta.consult.label} <Icon name="arrow-right" size={13} class="arrow" />
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      <!-- ── Accordion ─────────────────────────────────────────────────── -->
+      <div class="faq-block__list" data-accordion id="faq-accordion" data-stagger="60">
+        {items.map((f, i) => (
+          <div
+            class:list={['acc-item', i === 0 && 'is-open']}
+            data-accordion-item
+          >
+            <h3 style="margin:0">
+              <button
+                type="button"
+                class="acc-head"
+                data-accordion-head
+                aria-expanded={i === 0 ? 'true' : 'false'}
+                aria-controls={`faq-body-${i}`}
+              >
+                <span class="faq-q">
+                  {f.category && <em class="faq-cat">{f.category}</em>}
+                  {f.q}
+                </span>
+                <span class="acc-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+
+            <div class="acc-body" id={`faq-body-${i}`} data-accordion-body role="region">
+              <div class="acc-body__inner">{f.a}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-block__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .faq-block__grid.is-stacked { grid-template-columns: minmax(0, 1fr); max-width: 54rem; margin-inline: auto; }
+
+  .faq-block__title {
+    margin-top: 1.25rem;
+    font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.028em;
+    max-width: 18ch;
+  }
+
+  .faq-block__lede { margin-top: 1.25rem; max-width: 40ch; color: var(--text-soft); }
+
+  .faq-block__prompt {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 2rem;
+    padding: 1.35rem;
+    border-radius: var(--r-md);
+    background: var(--bg-soft);
+    font-size: var(--fs-sub);
+  }
+
+  .faq-block__prompt :global(svg) { flex: none; margin-top: 0.15rem; opacity: 0.6; }
+  .faq-block__prompt strong { display: block; font-size: 0.9375rem; margin-bottom: 0.3rem; }
+  .faq-block__prompt p { color: var(--text-soft); }
+
+  .faq-block__list { border-top: 1px solid var(--line); }
+
+  .faq-q { display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+
+  .faq-cat {
+    font-family: var(--ff-body);
+    font-style: normal;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  @media (max-width: 900px) {
+    .faq-block__grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  }
+</style>

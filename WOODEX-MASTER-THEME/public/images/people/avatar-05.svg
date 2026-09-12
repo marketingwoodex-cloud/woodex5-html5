@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fcf2e8"/>
+      <stop offset="58%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e3e1e1"/>
+    </linearGradient>
+    <pattern id="d" width="46" height="46" patternUnits="userSpaceOnUse">
+      <path d="M0 46L46 0" stroke="#525252" stroke-opacity="0.07" stroke-width="1.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#g)"/>
+  <rect width="1200" height="1200" fill="url(#d)"/>
+
+  <path d="M120 996V564a87.60000000000001 87.60000000000001 0 0 1 175.20000000000002 0V996Z" fill="#fff" fill-opacity="0.5"/>
+  <path d="M408.00000000000006 996V720a62.4 62.4 0 0 1 124.8 0V996Z" fill="#fff" fill-opacity="0.34"/>
+  <rect x="612" y="336.00000000000006" width="240" height="660" fill="#fff" fill-opacity="0.22"/>
+  <path d="M912 0H1200L683.9999999999999 1200H420Z" fill="#fff" fill-opacity="0.2"/>
+  <rect y="996" width="1200" height="6" fill="#525252" fill-opacity="0.22"/>
+
+  <text x="600" y="1116" text-anchor="middle"
+        font-family="system-ui,-apple-system,Segoe UI,sans-serif"
+        font-size="24" letter-spacing="3.36"
+        fill="#525252" fill-opacity="0.58">AVATAR 05</text>
+</svg>

@@ -1,0 +1,146 @@
+---
+/**
+ * Root route — presents the theme's layout index so a visitor landing on "/"
+ * can choose which homepage variant to view. In a production build you would
+ * normally point this at your chosen homepage instead (see the note below).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+
+const layouts = [
+  { href: '/home-one', label: 'Home One', desc: 'Classic editorial hero, feature reel, scroll-driven project rail, testimonials slider.', tag: 'Editorial', image: '/images/hero/hero-one-main.jpg' },
+  { href: '/home-two', label: 'Home Two', desc: 'Split hero with rotating headlines, partner marquee, service grid, pricing teaser.', tag: 'Showcase', image: '/images/hero/hero-two-main.jpg' },
+  { href: '/home-three', label: 'Home Three', desc: 'Cinematic full-bleed hero, stats strip, timeline, awards, testimonial marquee.', tag: 'Studio', image: '/images/hero/hero-three-main.jpg' },
+];
+
+const groups = [
+  { title: 'About', links: [['About us', '/about'], ['Process', '/process'], ['Team', '/team'], ['Careers', '/careers'], ['Awards', '/awards'], ['Clients', '/clients'], ['Materials', '/materials'], ['Sustainability', '/sustainability']] },
+  { title: 'Services', links: [['All services', '/service'], ['Residential interior', '/services/residential-interior'], ['Office & corporate', '/services/office-corporate'], ['Turnkey fit-out', '/services/turnkey-interiors'], ['Custom joinery', '/services/custom-furniture-joinery'], ['3D visualisation', '/services/3d-visualisation'], ['Lighting design', '/services/lighting-design'], ['Space planning', '/services/space-planning']] },
+  { title: 'Portfolio', links: [['Grid layout', '/portfolio-one'], ['Masonry layout', '/portfolio-two'], ['List layout', '/portfolio-three'], ['All projects', '/portfolio'], ['Case study', '/project/contemporary-retreat']] },
+  { title: 'Journal', links: [['Magazine layout', '/blog-one'], ['Grid layout', '/blog-two'], ['List layout', '/blog-three'], ['All articles', '/journal'], ['Sample article', '/blog/interior-cost-pakistan']] },
+  { title: 'Contact', links: [['Enquiry form', '/contact-one'], ['Book a call', '/contact-two'], ['Studios', '/contact-three'], ['Pricing', '/pricing-one'], ['FAQ', '/faq'], ['Testimonials', '/testimonials']] },
+  { title: 'Utility', links: [['Style guide', '/style-guide'], ['Animation guide', '/instructions'], ['Licence', '/license'], ['Changelog', '/changelog'], ['404 page', '/404'], ['Sitemap', '/sitemap.xml']] },
+];
+---
+
+<BaseLayout
+  title="Woodex Master Theme — Layout Index | Woodex Interior"
+  description="Choose a homepage layout, or jump into any of the forty-plus page templates included in the Woodex Master Theme."
+  overlayHeader
+  footerCtaTitle="Take the guided tour"
+  footerCtaLabel="Open the style guide"
+  footerCtaHref="/style-guide"
+>
+  <PageHeader
+    eyebrow="Woodex Master Theme · v1.0"
+    title="Forty-plus templates. One design system."
+    lede="A complete interior design and fit-out theme: three homepage layouts, three portfolio layouts, three journal layouts, three contact layouts, seventeen generated service pages and a full section library."
+    variant="soft"
+    meta={[
+      { label: 'Section components', value: '21' },
+      { label: 'Page templates', value: '40+' },
+      { label: 'Motion engine', value: '4.4 kB gzipped' },
+      { label: 'Runtime dependencies', value: 'None' },
+    ]}
+  />
+
+  <section class="section li">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">Homepage layouts</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="46">Start with a homepage</h2>
+        </div>
+        <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">
+          All three share the same design tokens, header and footer — only the section composition differs.
+        </p>
+      </div>
+
+      <div class="li__homes" data-stagger="110">
+        {layouts.map((l) => (
+          <article class="li__home" data-reveal="fade-up">
+            <a href={l.href}>
+              <div class="li__home-media">
+                <Img src={l.image} alt={l.label} width={1200} height={800} loading="lazy" />
+                <span class="tag li__tag">{l.tag}</span>
+              </div>
+              <div class="li__home-body">
+                <h3 class="li__home-title">{l.label}</h3>
+                <p class="li__home-desc">{l.desc}</p>
+                <span class="text-link">Open layout <Icon name="arrow-right" size={14} class="arrow" /></span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="li__groups">
+        {groups.map((g) => (
+          <nav class="li__group" data-reveal="fade-up" aria-label={g.title}>
+            <span class="li__group-title">{g.title}</span>
+            <div class="li__group-links">
+              {g.links.map(([label, href]) => (
+                <a href={href}>
+                  {label}
+                  <Icon name="arrow-up-right" size={12} stroke={1.8} class="arrow-up-right" />
+                </a>
+              ))}
+            </div>
+          </nav>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .li__homes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
+
+  .li__home { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-card); transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out); }
+  .li__home:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .li__home-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-soft); }
+  .li__home-media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-expo); }
+  .li__home:hover .li__home-media :global(img) { transform: scale(1.05); }
+
+  .li__tag { position: absolute; inset-block-start: 0.85rem; inset-inline-start: 0.85rem; background: rgba(252, 242, 232, 0.94); color: var(--c-jet); }
+
+  .li__home-body { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start; padding: 1.5rem; }
+  .li__home-title { font-size: 1.25rem; letter-spacing: -0.022em; }
+  .li__home-desc { font-size: var(--fs-sub); color: var(--text-soft); }
+
+  /* ── Link groups ───────────────────────────────────────────────────── */
+  .li__groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+
+  .li__group { display: flex; flex-direction: column; gap: 1rem; padding: clamp(1.5rem, 2.6vw, 2rem); background: var(--bg); }
+
+  .li__group-title { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); }
+
+  .li__group-links { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .li__group-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--text-soft);
+    padding-block: 0.15rem;
+    transition: color var(--dur) var(--ease-out), padding var(--dur) var(--ease-out);
+  }
+
+  .li__group-links a:hover { color: var(--text); padding-inline-start: 0.25rem; }
+  .li__group-links :global(svg) { opacity: 0; transition: opacity var(--dur) var(--ease-out); }
+  .li__group-links a:hover :global(svg) { opacity: 0.6; }
+
+  @media (max-width: 1000px) {
+    .li__homes { grid-template-columns: minmax(0, 1fr); }
+    .li__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 620px) {
+    .li__groups { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

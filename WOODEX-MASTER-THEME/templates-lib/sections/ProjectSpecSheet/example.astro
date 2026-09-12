@@ -1,0 +1,14 @@
+---
+/**
+ * Minimal standalone example for: ProjectSpecSheet
+ * Copy this into src/pages/ to see the section in isolation.
+ */
+import BaseLayout from '../../src/layouts/BaseLayout.astro';
+import ProjectSpecSheet from '../../src/sections/ProjectSpecSheet.astro';
+---
+
+<BaseLayout title="ProjectSpecSheet — component preview" description="Isolated preview of the ProjectSpecSheet section." overlayHeader>
+  {/* Supply from your own data: project ((typeof projects)[number]) */}
+  <ProjectSpecSheet
+  />
+</BaseLayout>

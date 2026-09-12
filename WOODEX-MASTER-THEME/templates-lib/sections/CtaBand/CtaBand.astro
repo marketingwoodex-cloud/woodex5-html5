@@ -1,0 +1,207 @@
+---
+/**
+ * SECTION · CTA Band                          [ cta-band ]
+ * ---------------------------------------------------------------------------
+ * High-contrast conversion band. Three variants:
+ *   split  → copy left, actions right (default)
+ *   center → centred statement with a pair of buttons
+ *   banner → full-bleed image behind the copy
+ *
+ * MOTION: masked heading · marquee backdrop · magnetic buttons
+ */
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string } | null;
+  variant?: 'split' | 'center' | 'banner';
+  image?: string;
+  theme?: 'dark' | 'beige' | 'gray';
+  marqueeText?: string;
+}
+
+const {
+  eyebrow = 'Ready when you are',
+  title = 'Stay connected with us',
+  lede = 'Reach out to explore how our design and delivery team can shape your next space.',
+  primary = site.cta.consult,
+  secondary = { label: 'See our work', href: '/portfolio-one' },
+  variant = 'split',
+  image = '/images/cta/cta-banner.jpg',
+  theme = 'dark',
+  marqueeText = '',
+} = Astro.props;
+---
+
+<section
+  class:list={['cta-band', `cta-band--${variant}`, 'section']}
+  data-theme={theme}
+>
+  {variant === 'banner' && image && (
+    <div class="cta-band__bg">
+      <Img src={image} alt="" loading="lazy" width="1920" height="900" />
+      <span class="cta-band__scrim" aria-hidden="true"></span>
+    </div>
+  )}
+
+  {marqueeText && (
+    <div class="cta-band__marquee" aria-hidden="true">
+      <div data-marquee data-marquee-speed="55">
+        <div class="marquee-track">
+          {Array.from({ length: 8 }).map(() => <span class="cta-band__marquee-word">{marqueeText}</span>)}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class="container cta-band__inner">
+    <div class="cta-band__copy">
+      <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+      <h2 class="cta-band__title" data-heading-reveal="words" data-heading-stagger="62">{title}</h2>
+      {lede && <p class="cta-band__lede" data-reveal="fade-up" style="--reveal-delay:260ms">{lede}</p>}
+    </div>
+
+    <div class="cta-band__actions" data-reveal="fade-up" style="--reveal-delay:380ms">
+      <a href={primary.href} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.2">
+        <span class="btn__label">
+          <span>{primary.label}</span>
+          <span>{primary.label}</span>
+        </span>
+        <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+      </a>
+
+      {secondary && (
+        <a href={secondary.href} class="btn btn--outline-invert btn--lg">
+          <span class="btn__label"><span>{secondary.label}</span></span>
+          <Icon name="arrow-up-right" size={14} class="arrow-up-right" />
+        </a>
+      )}
+
+      <div class="cta-band__contact">
+        <a href={`mailto:${site.email}`}><Icon name="mail" size={14} /> {site.email}</a>
+        <a href={`tel:${site.phoneHref}`}><Icon name="phone" size={14} /> {site.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band { position: relative; overflow: hidden; isolation: isolate; }
+
+  .cta-band--beige .btn--beige {
+    --btn-bg: var(--c-jet);
+    --btn-fg: var(--c-beige);
+    --btn-bg-hover: transparent;
+    --btn-fg-hover: var(--c-jet);
+    --btn-border: var(--c-jet);
+  }
+
+  .cta-band--beige .btn--outline-invert {
+    --btn-fg: var(--c-jet);
+    --btn-bg-hover: var(--c-jet);
+    --btn-fg-hover: var(--c-beige);
+    --btn-border: rgba(0, 0, 0, 0.28);
+    --btn-border-hover: var(--c-jet);
+  }
+
+  /* ── Banner background ─────────────────────────────────────────────── */
+  .cta-band__bg { position: absolute; inset: 0; z-index: -2; }
+  .cta-band__bg img { width: 100%; height: 100%; object-fit: cover; }
+  .cta-band__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 55%, rgba(0, 0, 0, 0.85) 100%);
+  }
+
+  /* ── Layout ────────────────────────────────────────────────────────── */
+  .cta-band__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    position: relative;
+  }
+
+  .cta-band--center .cta-band__inner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .cta-band--center .cta-band__title { margin-inline: auto; }
+  .cta-band--center .cta-band__lede { margin-inline: auto; }
+  .cta-band--center .cta-band__actions { justify-content: center; }
+  .cta-band__copy { max-width: 44rem; }
+
+  .cta-band__title {
+    margin-top: 1.5rem;
+    font-size: clamp(2.2rem, 5.6vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+    max-width: 16ch;
+  }
+
+  .cta-band__lede {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+    font-size: 1.0625rem;
+    opacity: 0.78;
+  }
+
+  .cta-band__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .cta-band__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-inline-start: auto;
+    font-size: var(--fs-sub);
+    opacity: 0.66;
+  }
+
+  .cta-band__contact a { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .cta-band__contact a:hover { opacity: 1; }
+
+  /* ── Backdrop marquee ──────────────────────────────────────────────── */
+  .cta-band__marquee {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline: 0;
+    transform: translateY(-50%);
+    z-index: -1;
+    opacity: 0.055;
+    pointer-events: none;
+  }
+
+  .cta-band__marquee-word {
+    font-family: var(--ff-display);
+    font-size: clamp(4rem, 14vw, 13rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .cta-band__inner { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .cta-band__contact { margin-inline-start: 0; flex-direction: row; flex-wrap: wrap; gap: 1.25rem; }
+  }
+
+  @media (max-width: 560px) {
+    .cta-band__actions { flex-direction: column; align-items: stretch; }
+    .cta-band__actions :global(.btn) { justify-content: center; }
+  }
+</style>

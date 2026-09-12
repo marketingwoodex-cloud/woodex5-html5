@@ -1,0 +1,276 @@
+---
+/**
+ * VIDEO BLOCK — full-bleed media with a poster, custom play control and
+ * optional caption rail. Three modes:
+ *   poster  → image only (opens the source in a lightbox on click)
+ *   inline  → <video> with the theme's own controls, no browser chrome
+ *   embed   → click-to-load YouTube/Vimeo (no third-party request until asked)
+ *
+ * MOTION: parallax poster · clip reveal · magnetic play button.
+ */
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  poster: string;
+  /** Direct file for `inline`, or an embed URL for `embed`. */
+  src?: string;
+  mode?: 'poster' | 'inline' | 'embed';
+  caption?: string;
+  stats?: { value: string; label: string }[];
+  aspect?: string;
+  fullBleed?: boolean;
+  theme?: 'dark' | 'light' | 'beige';
+}
+
+const {
+  eyebrow,
+  title,
+  poster,
+  src,
+  mode = 'poster',
+  caption,
+  stats = [],
+  aspect = '16/9',
+  fullBleed = true,
+  theme = 'dark',
+} = Astro.props;
+
+/* Normalise a YouTube/Vimeo URL into a privacy-friendly embed URL. */
+function embedUrl(url = '') {
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{6,})/);
+  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?autoplay=1&rel=0`;
+  const vm = url.match(/vimeo\.com\/(\d+)/);
+  if (vm) return `https://player.vimeo.com/video/${vm[1]}?autoplay=1`;
+  return url;
+}
+
+const embed = embedUrl(src);
+const id = `vid-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class:list={['section', 'vb', `vb--${theme}`, fullBleed && 'vb--full']} data-theme={theme}>
+  {(eyebrow || title) && (
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-head__text">
+          {eyebrow && <span class="eyebrow" data-reveal="fade">{eyebrow}</span>}
+          {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class:list={[fullBleed ? 'vb__bleed' : 'container']}>
+    <figure class="vb__figure" data-reveal="clip" style={`--vb-aspect:${aspect}`}>
+      {mode === 'inline' && src ? (
+        <video
+          class="vb__video"
+          poster={poster}
+          preload="none"
+          playsinline
+          controls
+          data-video
+          aria-label={title ?? 'Project film'}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ) : (
+        <div class="vb__media" data-video-shell data-embed={mode === 'embed' ? embed : undefined}>
+          <Img src={poster} alt={title ?? 'Project film'} width={1920} height={1080} loading="lazy" data-parallax="0.06" />
+
+          <span class="vb__scrim" aria-hidden="true"></span>
+
+          {mode === 'poster' && src ? (
+            <a href={src} class="vb__play" data-magnetic="0.25" aria-label={`Play: ${title ?? 'project film'}`}>
+              <span class="vb__play-ring" aria-hidden="true"></span>
+              <Icon name="play" size={20} stroke={1.2} />
+            </a>
+          ) : (
+            <button type="button" class="vb__play" data-video-play data-magnetic="0.25" aria-label={`Play: ${title ?? 'project film'}`}>
+              <span class="vb__play-ring" aria-hidden="true"></span>
+              <Icon name="play" size={20} stroke={1.2} />
+            </button>
+          )}
+
+          <span class="vb__corner vb__corner--tl" aria-hidden="true"></span>
+          <span class="vb__corner vb__corner--br" aria-hidden="true"></span>
+        </div>
+      )}
+
+      {caption && <figcaption class="vb__caption">{caption}</figcaption>}
+    </figure>
+
+    {stats.length > 0 && (
+      <dl class="vb__stats" data-stagger="90">
+        {stats.map((s) => (
+          <div class="vb__stat" data-reveal="fade-up">
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+</section>
+
+<script>
+  /* Click-to-load embeds + inline video chrome. No third-party request runs
+     until the visitor asks for the film. */
+  document.querySelectorAll('[data-video-shell]').forEach((shell) => {
+    const url = shell.dataset.embed;
+    if (!url) return;
+
+    shell.querySelector('[data-video-play]')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = url;
+      frame.title = shell.querySelector('img')?.alt || 'Project film';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.loading = 'eager';
+      frame.className = 'vb__iframe';
+      shell.classList.add('is-playing');
+      shell.append(frame);
+    });
+  });
+
+  /* Pause every other inline video when one starts. */
+  const videos = [...document.querySelectorAll('video[data-video]')];
+  videos.forEach((v) =>
+    v.addEventListener('play', () => videos.forEach((o) => o !== v && o.pause()))
+  );
+</script>
+
+<style>
+  .vb { overflow: hidden; }
+  .vb--dark { background: var(--c-jet); color: var(--c-beige); }
+  .vb--beige { background: var(--c-beige); }
+  .vb--light { background: var(--bg); }
+
+  .vb--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
+  .vb--dark :global(h2) { color: var(--c-beige); }
+
+  .vb__bleed { width: 100%; }
+
+  .vb__figure { margin: 0; position: relative; }
+
+  .vb__media,
+  .vb__video {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--vb-aspect, 16 / 9);
+    overflow: hidden;
+    background: var(--c-charcoal);
+    border-radius: var(--r-lg);
+  }
+
+  .vb--full .vb__media,
+  .vb--full .vb__video { border-radius: 0; }
+
+  .vb__media :global(img) {
+    width: 100%;
+    height: 115%;
+    object-fit: cover;
+    inset-block-start: -7.5%;
+    position: relative;
+    will-change: transform;
+  }
+
+  .vb__video { object-fit: cover; }
+
+  .vb__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0.15), rgba(17, 17, 17, 0.45));
+  }
+
+  .vb__play {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: clamp(4.5rem, 9vw, 7.5rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(252, 242, 232, 0.14);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(252, 242, 232, 0.4);
+    color: var(--c-beige);
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+
+  .vb__play:hover { background: var(--c-beige); color: var(--c-jet); }
+
+  .vb__play-ring {
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1px solid rgba(252, 242, 232, 0.45);
+    animation: vb-pulse 3.2s var(--ease-out) infinite;
+  }
+
+  @keyframes vb-pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.45); opacity: 0; }
+    100% { transform: scale(1.45); opacity: 0; }
+  }
+
+  .vb__corner {
+    position: absolute;
+    width: clamp(1.5rem, 3vw, 2.5rem);
+    height: 1px;
+    background: rgba(252, 242, 232, 0.5);
+  }
+
+  .vb__corner--tl { inset-block-start: 1.5rem; inset-inline-start: 1.5rem; }
+  .vb__corner--br { inset-block-end: 1.5rem; inset-inline-end: 1.5rem; }
+
+  .vb__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .vb__media.is-playing .vb__play { display: none; }
+
+  .vb__caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    font-size: var(--fs-sub);
+    color: var(--text-mute);
+  }
+
+  .vb__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1px;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .vb--dark .vb__stats { background: rgba(252, 242, 232, 0.16); border-color: rgba(252, 242, 232, 0.16); }
+
+  .vb__stat { padding: clamp(1.25rem, 2.4vw, 1.75rem); background: inherit; }
+  .vb--dark .vb__stat { background: var(--c-jet); }
+  .vb--beige .vb__stat { background: var(--c-beige); }
+  .vb--light .vb__stat { background: var(--bg); }
+
+  .vb__stat dt { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 0.6rem; }
+  .vb--dark .vb__stat dt { color: rgba(252, 242, 232, 0.45); }
+  .vb__stat dd { margin: 0; font-family: var(--ff-display); font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 500; letter-spacing: -0.03em; }
+
+  @media (max-width: 700px) {
+    .vb__media :global(img) { height: 108%; inset-block-start: -4%; }
+    .vb__caption { flex-direction: column; gap: 0.35rem; }
+  }
+</style>

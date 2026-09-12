@@ -1,0 +1,303 @@
+---
+/**
+ * SECTION · Contact Info                      [ contact-info ]
+ * ---------------------------------------------------------------------------
+ * Studio cards with address, phone, email and a lazy-loaded map placeholder.
+ *   variant="cards"  → one card per office (default)
+ *   variant="split"  → detail rail + single map
+ *   variant="strip"  → compact contact strip (address/phone/email/hours)
+ *
+ * The map uses a click-to-load iframe so no third-party request happens
+ * until the visitor asks for it — good for privacy and for page speed.
+ */
+import Icon from '../components/ui/Icon.astro';
+import { offices } from '../data/content.js';
+import { images } from '../data/images.js';
+import Img from '../components/ui/Img.astro';
+import { site } from '../data/site.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  variant?: 'cards' | 'split' | 'strip';
+  showMap?: boolean;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Visit us',
+  title = 'Three studios, one team',
+  lede = 'Walk in, or book a slot and we will have the material library laid out for you.',
+  variant = 'cards',
+  showMap = true,
+  theme = 'default',
+} = Astro.props;
+
+const officeImages = [images.offices.lahore.path, images.offices.karachi.path, images.offices.islamabad.path];
+---
+
+<section class:list={['contact-info', 'section']} data-theme={theme}>
+  <div class="container">
+    {(title || eyebrow) && (
+      <div class="sec-head">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+          {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+        </div>
+        {lede && <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>}
+      </div>
+    )}
+
+    <!-- ══ Cards ═══════════════════════════════════════════════════════ -->
+    {variant === 'cards' && (
+      <div class="ci__grid" data-stagger="100">
+        {offices.map((o, i) => (
+          <article class="ci__card" data-reveal="fade-up">
+            <div class="ci__media">
+              <Img src={officeImages[i] ?? officeImages[0]} alt={`${o.city} studio`} width={800} height={600} loading="lazy" />
+              <span class="ci__city">{o.city}</span>
+            </div>
+
+            <div class="ci__body">
+              <span class="ci__label">{o.label}</span>
+
+              <address class="ci__address">
+                {o.address.map((line) => <span>{line}</span>)}
+              </address>
+
+              <div class="ci__links">
+                <a href={`tel:${o.phone.replace(/\s/g, '')}`}>
+                  <Icon name="phone" size={14} /> {o.phone}
+                </a>
+                <a href={`mailto:${o.email}`}>
+                  <Icon name="mail" size={14} /> {o.email}
+                </a>
+                <span>
+                  <Icon name="clock" size={14} /> {o.hours}
+                </span>
+              </div>
+
+              {showMap && (
+                <details class="ci__map-toggle">
+                  <summary>
+                    <Icon name="map-pin" size={14} /> View on map
+                    <Icon name="chevron-down" size={13} class="chev" />
+                  </summary>
+                  <div class="ci__map" data-map-lazy data-query={o.mapQuery}>
+                    <button type="button" class="ci__map-load" data-map-load>
+                      <Icon name="map-pin" size={18} />
+                      Load map for {o.city}
+                    </button>
+                  </div>
+                </details>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- ══ Split ═══════════════════════════════════════════════════════ -->
+    {variant === 'split' && (
+      <div class="ci__split">
+        <div class="ci__split-rail" data-stagger="90">
+          {offices.map((o) => (
+            <div class="ci__rail-item" data-reveal="fade-up">
+              <span class="ci__label">{o.city} — {o.label}</span>
+              <address class="ci__address">{o.address.map((l) => <span>{l}</span>)}</address>
+              <div class="ci__links">
+                <a href={`tel:${o.phone.replace(/\s/g, '')}`}><Icon name="phone" size={14} /> {o.phone}</a>
+                <a href={`mailto:${o.email}`}><Icon name="mail" size={14} /> {o.email}</a>
+              </div>
+            </div>
+          ))}
+
+          <div class="ci__rail-item" data-reveal="fade-up">
+            <span class="ci__label">Head office hours</span>
+            <p style="font-size:.9375rem;color:var(--text-soft)">{site.hours}</p>
+            <p style="font-size:.875rem;color:var(--text-mute);margin-top:.5rem">{site.responseTime}</p>
+          </div>
+        </div>
+
+        {showMap && (
+          <div class="ci__split-map" data-reveal="clip">
+            <div data-map-lazy data-query={offices[0].mapQuery} style="height:100%">
+              <button type="button" class="ci__map-load" data-map-load>
+                <Icon name="map-pin" size={20} />
+                Load map
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+    <!-- ══ Strip ═══════════════════════════════════════════════════════ -->
+    {variant === 'strip' && (
+      <div class="ci__strip" data-stagger="80">
+        <div class="ci__strip-item" data-reveal="fade-up">
+          <Icon name="map-pin" size={18} />
+          <span class="ci__label">Studio</span>
+          <p>{site.address.line1}, {site.address.line2}, {site.address.city}</p>
+        </div>
+
+        <a class="ci__strip-item" href={`tel:${site.phoneHref}`} data-reveal="fade-up">
+          <Icon name="phone" size={18} />
+          <span class="ci__label">Phone</span>
+          <p>{site.phone}</p>
+        </a>
+
+        <a class="ci__strip-item" href={`mailto:${site.email}`} data-reveal="fade-up">
+          <Icon name="mail" size={18} />
+          <span class="ci__label">Email</span>
+          <p>{site.email}</p>
+        </a>
+
+        <div class="ci__strip-item" data-reveal="fade-up">
+          <Icon name="clock" size={18} />
+          <span class="ci__label">Hours</span>
+          <p>{site.hours}</p>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  /* Click-to-load maps: no third-party request until requested. */
+  document.querySelectorAll('[data-map-lazy]').forEach((wrap) => {
+    wrap.querySelector('[data-map-load]')?.addEventListener('click', () => {
+      const q = encodeURIComponent(wrap.dataset.query || 'Lahore');
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=&layer=mapnik&q=${q}`;
+      iframe.loading = 'lazy';
+      iframe.title = `Map of ${wrap.dataset.query}`;
+      iframe.style.cssText = 'width:100%;height:100%;border:0;min-height:22rem';
+      wrap.innerHTML = '';
+      wrap.appendChild(iframe);
+    });
+  });
+</script>
+
+<style>
+  .ci__label {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 0.85rem;
+  }
+
+  /* ══ Cards ═════════════════════════════════════════════════════════ */
+  .ci__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+
+  .ci__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--bg-card);
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .ci__card:hover { transform: translateY(-0.4rem); border-color: var(--line-strong); }
+
+  .ci__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-soft); }
+  .ci__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-expo); }
+  .ci__card:hover .ci__media :global(img) { transform: scale(1.05); }
+
+  .ci__city {
+    position: absolute;
+    inset-block-start: 1rem;
+    inset-inline-start: 1rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--r-pill);
+    background: rgba(252, 242, 232, 0.94);
+    color: var(--c-jet);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ci__body { display: flex; flex-direction: column; gap: 0.35rem; padding: clamp(1.35rem, 2.4vw, 1.85rem); flex: 1; }
+
+  .ci__address { font-style: normal; font-size: 0.9375rem; line-height: 1.7; color: var(--text-soft); display: flex; flex-direction: column; }
+
+  .ci__links { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  .ci__links a, .ci__links span { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.875rem; color: var(--text-soft); }
+  .ci__links a:hover { color: var(--text); }
+  .ci__links :global(svg) { flex: none; opacity: 0.55; }
+
+  /* ══ Map ═══════════════════════════════════════════════════════════ */
+  .ci__map-toggle { margin-top: 1.25rem; }
+  .ci__map-toggle summary {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    cursor: pointer;
+    list-style: none;
+  }
+  .ci__map-toggle summary::-webkit-details-marker { display: none; }
+  .ci__map-toggle summary :global(.chev) { margin-inline-start: auto; transition: transform var(--dur) var(--ease-out); }
+  .ci__map-toggle[open] summary :global(.chev) { transform: rotate(180deg); }
+
+  .ci__map { margin-top: 0.85rem; border-radius: var(--r-md); overflow: hidden; min-height: 16rem; background: var(--bg-soft); }
+
+  .ci__map-load {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 16rem;
+    font-size: 0.875rem;
+    color: var(--text-soft);
+    background: var(--bg-soft);
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .ci__map-load:hover { background: var(--bg-card); }
+
+  /* ══ Split ═════════════════════════════════════════════════════════ */
+  .ci__split { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: stretch; }
+
+  .ci__split-rail { display: flex; flex-direction: column; }
+
+  .ci__rail-item { padding-block: 1.5rem; border-block-start: 1px solid var(--line); }
+  .ci__rail-item:last-child { border-block-end: 1px solid var(--line); }
+
+  .ci__split-map { min-height: 30rem; border-radius: var(--r-lg); overflow: hidden; background: var(--bg-soft); }
+
+  /* ══ Strip ═════════════════════════════════════════════════════════ */
+  .ci__strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+
+  .ci__strip-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: clamp(1.35rem, 2.4vw, 1.85rem);
+    background: var(--bg);
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .ci__strip-item:hover { background: var(--bg-soft); }
+  .ci__strip-item :global(svg) { opacity: 0.5; }
+  .ci__strip-item .ci__label { margin-bottom: 0; }
+  .ci__strip-item p { font-size: 0.9375rem; color: var(--text-soft); }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .ci__grid { grid-template-columns: minmax(0, 1fr); }
+    .ci__split { grid-template-columns: minmax(0, 1fr); }
+    .ci__strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 520px) {
+    .ci__strip { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,396 @@
+---
+/**
+ * SECTION · Contact Form                      [ contact-form ]
+ * ---------------------------------------------------------------------------
+ * Multi-step-capable enquiry form with a sticky info rail.
+ * Posts to `endpoint` if provided, otherwise runs in demo mode.
+ *
+ * Fields are declared in the `fields` array so a project can add/remove
+ * inputs without touching the markup.
+ */
+import Icon from '../components/ui/Icon.astro';
+import { services } from '../data/services.js';
+import { site } from '../data/site.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  endpoint?: string;
+  demo?: boolean;
+  variant?: 'split' | 'stacked';
+  submitLabel?: string;
+  showInfoRail?: boolean;
+}
+
+const {
+  eyebrow = 'Start a project',
+  title = "Tell us about your space",
+  lede = 'Share the essentials and we will come back with a considered response — usually within one business day.',
+  endpoint = '',
+  demo = true,
+  variant = 'split',
+  submitLabel = 'Send enquiry',
+  showInfoRail = true,
+} = Astro.props;
+
+const projects = [
+  { id: 'residential', label: 'Residential' },
+  { id: 'commercial', label: 'Commercial / office' },
+  { id: 'hospitality', label: 'Hospitality / F&B' },
+  { id: 'retail', label: 'Retail' },
+  { id: 'joinery', label: 'Joinery only' },
+  { id: '3d', label: '3D visualisation only' },
+];
+
+const budgets = [
+  'Under PKR 1M',
+  'PKR 1M – 3M',
+  'PKR 3M – 8M',
+  'PKR 8M – 20M',
+  'Over PKR 20M',
+  'Not sure yet',
+];
+---
+
+<section class="section contact-form">
+  <div class="container">
+    <div class:list={['cf__grid', variant === 'stacked' && 'is-stacked']}>
+      <!-- ── Info rail ─────────────────────────────────────────────────── -->
+      {showInfoRail && (
+        <aside class="cf__rail" data-pin>
+          <div data-pin-sticky>
+            <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+            <h2 class="cf__title" data-heading-reveal="words" data-heading-stagger="50">{title}</h2>
+            <p class="cf__lede" data-reveal="fade-up" style="--reveal-delay:200ms">{lede}</p>
+
+            <div class="cf__info" data-stagger="90">
+              <a href={`mailto:${site.email}`} class="cf__info-row">
+                <Icon name="mail" size={16} />
+                <span>
+                  <em>Email</em>
+                  {site.email}
+                </span>
+              </a>
+
+              <a href={`tel:${site.phoneHref}`} class="cf__info-row">
+                <Icon name="phone" size={16} />
+                <span>
+                  <em>Phone</em>
+                  {site.phone}
+                </span>
+              </a>
+
+              <div class="cf__info-row">
+                <Icon name="map-pin" size={16} />
+                <span>
+                  <em>Studio</em>
+                  {site.address.line1}, {site.address.city}
+                </span>
+              </div>
+
+              <div class="cf__info-row">
+                <Icon name="clock" size={16} />
+                <span>
+                  <em>Hours</em>
+                  {site.hours}
+                </span>
+              </div>
+            </div>
+
+            <div class="cf__promise">
+              <Icon name="shield" size={15} />
+              <p>{site.responseTime}. We never share your details.</p>
+            </div>
+          </div>
+        </aside>
+      )}
+
+      <!-- ── Form ──────────────────────────────────────────────────────── -->
+      <form
+        class="cf__form"
+        action={endpoint || undefined}
+        method={endpoint ? 'POST' : undefined}
+        data-form={demo ? 'demo' : 'live'}
+        novalidate
+      >
+        {endpoint && <input type="hidden" name="_subject" value="New website enquiry" />}
+
+        <fieldset class="cf__fs">
+          <legend class="cf__legend"><span>01</span> About you</legend>
+
+          <div class="cf__row">
+            <label class="field" data-field>
+              <span class="field__label">Full name *</span>
+              <input type="text" name="name" required autocomplete="name" placeholder="Your name" />
+            </label>
+
+            <label class="field" data-field>
+              <span class="field__label">Email *</span>
+              <input type="email" name="email" required autocomplete="email" placeholder="you@company.com" />
+            </label>
+          </div>
+
+          <div class="cf__row">
+            <label class="field" data-field>
+              <span class="field__label">Phone / WhatsApp</span>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="+92 300 0000000" />
+            </label>
+
+            <label class="field" data-field>
+              <span class="field__label">City</span>
+              <input type="text" name="city" placeholder="Lahore" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="cf__fs">
+          <legend class="cf__legend"><span>02</span> About the project</legend>
+
+          <div class="field field--choice" data-field>
+            <span class="field__label">Project type</span>
+            <div class="cf__chips">
+              {projects.map((p, i) => (
+                <label class="cf-chip">
+                  <input type="radio" name="projectType" value={p.id} checked={i === 0} />
+                  <span>{p.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div class="cf__row">
+            <label class="field" data-field>
+              <span class="field__label">Approximate area</span>
+              <input type="text" name="area" placeholder="e.g. 3,200 sq ft" />
+            </label>
+
+            <label class="field" data-field>
+              <span class="field__label">Budget range</span>
+              <select name="budget">
+                <option value="">Select a range</option>
+                {budgets.map((b) => <option value={b}>{b}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <div class="cf__row">
+            <label class="field" data-field>
+              <span class="field__label">Target start</span>
+              <select name="timeline">
+                <option value="">Select</option>
+                <option>Immediately</option>
+                <option>Within 1–3 months</option>
+                <option>Within 3–6 months</option>
+                <option>6+ months</option>
+                <option>Just exploring</option>
+              </select>
+            </label>
+
+            <label class="field" data-field>
+              <span class="field__label">Service of interest</span>
+              <select name="service">
+                <option value="">Not sure yet</option>
+                {services.map((s) => <option value={s.slug}>{s.title}</option>)}
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="cf__fs">
+          <legend class="cf__legend"><span>03</span> The brief</legend>
+
+          <label class="field field--full" data-field>
+            <span class="field__label">Tell us what you have in mind *</span>
+            <textarea
+              name="message"
+              required
+              rows="5"
+              placeholder="The space, how you want to use it, what is not working today, and anything you already know you want."
+            ></textarea>
+          </label>
+
+          <label class="check" style="margin-top:1rem">
+            <input type="checkbox" name="consent" required />
+            <span>I agree to Woodex storing these details in order to respond to my enquiry.</span>
+          </label>
+
+          <label class="check" style="margin-top:.6rem">
+            <input type="checkbox" name="newsletter" />
+            <span>Send me the occasional journal article. No more than once a month.</span>
+          </label>
+        </fieldset>
+
+        <div class="cf__submit">
+          <button
+            type="submit"
+            class="btn btn--primary btn--lg"
+            data-label={submitLabel}
+            data-success-label="Thank you — we will be in touch"
+          >
+            <span class="btn__label"><span>{submitLabel}</span></span>
+            <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+          </button>
+
+          <p class="cf__submit-note">
+            <Icon name="info" size={13} /> We reply to every enquiry personally.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cf__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .cf__grid.is-stacked { grid-template-columns: minmax(0, 1fr); max-width: 46rem; margin-inline: auto; }
+
+  .cf__title {
+    margin-top: 1.25rem;
+    font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.028em;
+    max-width: 16ch;
+  }
+
+  .cf__lede { margin-top: 1.25rem; max-width: 40ch; color: var(--text-soft); }
+
+  /* ── Info rail ─────────────────────────────────────────────────────── */
+  .cf__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .cf__info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9375rem;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  a.cf__info-row:hover { color: var(--c-charcoal); }
+
+  .cf__info-row :global(svg) { flex: none; margin-top: 0.2rem; opacity: 0.55; }
+  .cf__info-row span { display: flex; flex-direction: column; gap: 0.1rem; }
+  .cf__info-row em {
+    font-style: normal;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .cf__promise {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.75rem;
+    padding: 1rem 1.15rem;
+    border-radius: var(--r-md);
+    background: var(--bg-soft);
+    font-size: 0.8125rem;
+    color: var(--text-soft);
+  }
+
+  .cf__promise :global(svg) { flex: none; margin-top: 0.15rem; opacity: 0.6; }
+
+  /* ── Form ──────────────────────────────────────────────────────────── */
+  .cf__form { display: flex; flex-direction: column; gap: 2.75rem; }
+
+  .cf__fs { border: 0; padding: 0; margin: 0; }
+
+  .cf__legend {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding-bottom: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line-strong);
+    font-family: var(--ff-display);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .cf__legend span {
+    font-family: var(--ff-body);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    color: var(--text-mute);
+  }
+
+  .cf__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.75rem; }
+
+  .field--full { grid-column: 1 / -1; }
+  .field--choice { border-bottom: 0; padding-bottom: 0.5rem; }
+
+  /* ── Chip radios ───────────────────────────────────────────────────── */
+  .cf__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+
+  .cf-chip { position: relative; cursor: pointer; }
+
+  .cf-chip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cf-chip span {
+    display: block;
+    padding: 0.6rem 1.05rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-pill);
+    font-size: 0.875rem;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .cf-chip:hover span { border-color: var(--text); }
+
+  .cf-chip input:checked + span {
+    background: var(--c-jet);
+    border-color: var(--c-jet);
+    color: var(--c-beige);
+  }
+
+  .cf-chip input:focus-visible + span { outline: 2px solid var(--text); outline-offset: 3px; }
+
+  /* ── Submit ────────────────────────────────────────────────────────── */
+  .cf__submit {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+  }
+
+  .cf__submit-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-mute);
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .cf__grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+    .cf__row { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .cf__submit { flex-direction: column; align-items: stretch; }
+    .cf__submit :global(.btn) { justify-content: center; }
+  }
+</style>

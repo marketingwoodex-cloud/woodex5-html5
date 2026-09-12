@@ -1,0 +1,241 @@
+---
+/**
+ * SECTION · Feature Split                     [ feature-split ]
+ * ---------------------------------------------------------------------------
+ * Alternating image/copy rows. Each row can carry a checklist, a stat pair, or
+ * a CTA. The image gets a clip-path reveal and a parallax drift.
+ *
+ * MOTION: clip reveal · parallax · staggered list
+ * USED ON: /home-one, /about, /service
+ */
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+
+
+interface Feature {
+  eyebrow?: string;
+  title: string;
+  body: string;
+  list?: string[];
+  image: string;
+  imageAlt?: string;
+  stat?: { value: string; label: string };
+  cta?: { label: string; href: string };
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  features?: Feature[];
+  reverse?: boolean;
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow = 'Designed for lasting impact',
+  title = 'Detailed site analysis and planning for optimal results',
+  lede = 'We evaluate existing conditions and design systems that ensure stability, comfort and long-term performance — aligning spatial design with real life.',
+  features = [
+    {
+      eyebrow: '01 — Planning',
+      title: 'Structural and spatial assessment',
+      body: 'We evaluate existing conditions and design systems to ensure stability, comfort and long-term performance. Nothing is assumed; everything is measured.',
+      list: [
+        'Measured survey and base drawings',
+        'Structural and services constraints mapped',
+        'Daylight and ventilation strategy',
+      ],
+      image: '/images/features/feature-site-analysis.jpg',
+      stat: { value: '1:50', label: 'Drawing scale standard' },
+      cta: { label: 'See our process', href: '/process' },
+    },
+    {
+      eyebrow: '02 — Detailing',
+      title: 'Functional space planning',
+      body: 'We design efficient layouts that maximise usability, flow and comfort — aligning spatial design with how the space will actually be used.',
+      list: [
+        'Circulation and zoning studies',
+        'Joinery internals drawn to the millimetre',
+        'Storage integrated rather than added',
+      ],
+      image: '/images/features/feature-space-planning.jpg',
+      stat: { value: '40%', label: 'Typical storage gain' },
+      cta: { label: 'Explore services', href: '/service' },
+    },
+  ],
+  reverse = false,
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['section', 'feature-split']} data-theme={theme}>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head__text">
+        <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+        <h2 data-heading-reveal="words" data-heading-stagger="48">{title}</h2>
+      </div>
+      <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+    </div>
+  </div>
+
+  <div class="fs__rows">
+    {features.map((f, i) => (
+      <article class:list={['fs__row', (reverse ? i % 2 === 0 : i % 2 === 1) && 'is-flipped']}>
+        <!-- Media -->
+        <div class="fs__media-col">
+          <div class="fs__media" data-reveal="clip">
+            <Img
+              src={f.image}
+              alt={f.imageAlt ?? ''}
+              loading="lazy"
+              width="1200"
+              height="900"
+              data-parallax="0.06"
+            />
+
+            {f.stat && (
+              <div class="fs__stat" data-reveal="fade-up" style="--reveal-delay:400ms">
+                <strong>{f.stat.value}</strong>
+                <span>{f.stat.label}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Copy -->
+        <div class="fs__copy-col">
+          {f.eyebrow && <span class="eyebrow" data-reveal="fade">{f.eyebrow}</span>}
+
+          <h3 class="fs__title" data-heading-reveal="words" data-heading-stagger="46">
+            {f.title}
+          </h3>
+
+          <p class="fs__body" data-reveal="fade-up" style="--reveal-delay:200ms">{f.body}</p>
+
+          {f.list && (
+            <ul class="fs__list" data-stagger="80">
+              {f.list.map((item) => (
+                <li data-reveal="fade-up">
+                  <Icon name="check" size={14} stroke={2.2} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {f.cta && (
+            <a href={f.cta.href} class="text-link" data-reveal="fade-up" style="--reveal-delay:300ms">
+              {f.cta.label} <Icon name="arrow-right" size={14} class="arrow" />
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .fs__rows { display: flex; flex-direction: column; gap: clamp(3rem, 7vw, 7rem); }
+
+  .fs__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  }
+
+  .fs__row.is-flipped .fs__media-col { order: 2; }
+  .fs__row.is-flipped .fs__copy-col { order: 1; }
+
+  /* ── Media ─────────────────────────────────────────────────────────── */
+  .fs__media {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-soft);
+  }
+
+  .fs__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.08;
+  }
+
+  .fs__stat {
+    position: absolute;
+    inset-block-end: 1.25rem;
+    inset-inline-start: 1.25rem;
+    padding: 1rem 1.35rem;
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--c-beige) 94%, transparent);
+    color: var(--c-jet);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .fs__stat strong {
+    display: block;
+    font-family: var(--ff-display);
+    font-size: 1.9rem;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .fs__stat span {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* ── Copy ──────────────────────────────────────────────────────────── */
+  .fs__copy-col { max-width: 40rem; }
+
+  .fs__title {
+    margin-top: 1.25rem;
+    font-size: clamp(1.6rem, 2.9vw, 2.4rem);
+    line-height: 1.16;
+    letter-spacing: -0.028em;
+    max-width: 20ch;
+  }
+
+  .fs__body { margin-top: 1.25rem; color: var(--text-soft); max-width: 50ch; }
+
+  .fs__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .fs__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--text-soft);
+  }
+
+  .fs__list li :global(svg) { flex: none; margin-top: 0.28rem; }
+
+  .fs__copy-col :global(.text-link) { margin-top: 1.75rem; }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .fs__row,
+    .fs__row.is-flipped { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+    .fs__row.is-flipped .fs__media-col { order: initial; }
+    .fs__row.is-flipped .fs__copy-col { order: initial; }
+  }
+</style>

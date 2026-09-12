@@ -1,0 +1,92 @@
+---
+/**
+ * LEGAL LAYOUT — wrapper for privacy, terms, accessibility, licence etc.
+ * Provides a consistent page header, a sticky table of contents and a
+ * revision footer. Content is passed as RichText blocks.
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import RichText from '../sections/RichText.astro';
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+
+type Block = Parameters<typeof RichText>[0]['blocks'];
+
+interface Props {
+  title: string;
+  lede?: string;
+  eyebrow?: string;
+  blocks: Block[];
+  updated?: string;
+  crumb?: string;
+  crumbHref?: string;
+}
+
+const {
+  title,
+  lede,
+  eyebrow = 'Legal',
+  blocks,
+  updated = 'February 2026',
+  crumb,
+  crumbHref,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={`${title} | ${site.name}`}
+  description={lede ?? `${title} for ${site.legalName}.`}
+  overlayHeader
+  noindex
+>
+  <PageHeader
+    eyebrow={eyebrow}
+    title={title}
+    lede={lede}
+    crumbs={crumb ? [{ label: crumb, href: crumbHref }, { label: title }] : [{ label: title }]}
+    variant="soft"
+    meta={[
+      { label: 'Last updated', value: updated },
+      { label: 'Entity', value: site.legalName },
+      { label: 'Contact', value: site.email },
+    ]}
+  />
+
+  <RichText blocks={blocks} showToc />
+
+  <section class="section section--sm legal-foot">
+    <div class="container">
+      <div class="legal-foot__inner">
+        <div>
+          <span class="eyebrow">Questions about this page?</span>
+          <p style="margin-top:1rem;color:var(--text-soft);max-width:46ch">
+            Write to <a href={`mailto:${site.email}`} class="link-underline">{site.email}</a> and we
+            will respond within one business day.
+          </p>
+        </div>
+
+        <div class="legal-foot__meta">
+          <span><Icon name="shield" size={14} /> {site.legalName}</span>
+          <span><Icon name="map-pin" size={14} /> {site.address.city}, Pakistan</span>
+          <span><Icon name="clock" size={14} /> Updated {updated}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-foot { border-block-start: 1px solid var(--line); background: var(--bg-soft); }
+
+  .legal-foot__inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .legal-foot__meta { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.875rem; color: var(--text-soft); }
+  .legal-foot__meta span { display: inline-flex; align-items: center; gap: 0.55rem; }
+  .legal-foot__meta :global(svg) { opacity: 0.5; }
+</style>

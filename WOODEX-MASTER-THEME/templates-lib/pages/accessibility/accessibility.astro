@@ -1,0 +1,48 @@
+---
+/** PAGE TEMPLATE · Accessibility Statement     [ accessibility ] */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../data/site.js';
+
+const blocks = [
+  { type: 'h2', text: 'Our commitment' },
+  { type: 'p', text: 'We want this website to be usable by everyone, including people who navigate with a keyboard, a screen reader, voice control or a switch device. Accessibility is treated as a build requirement on this site, not an afterthought.' },
+  { type: 'h2', text: 'What we have implemented' },
+  { type: 'list', items: [
+    'Semantic HTML5 landmarks — header, nav, main, footer — with a skip link to the main content.',
+    'A visible focus indicator on every interactive element, using outline rather than removal.',
+    'Full keyboard support for the mega menu, mobile drawer, accordions, tabs, gallery lightbox and the before/after slider.',
+    'A focus trap inside the mobile navigation drawer, with Escape to close and focus returned to the trigger.',
+    'Text alternatives on all meaningful images; decorative images are marked aria-hidden.',
+    'Animated headlines split for visual effect retain the original text as an aria-label so screen readers read the sentence, not the fragments.',
+    'Respect for prefers-reduced-motion — all entrance animations, marquees, parallax and scroll-scrubbed effects are disabled when the operating system requests reduced motion.',
+    'Colour contrast meeting or exceeding 4.5:1 for standard body text against its background.',
+    'Form inputs with programmatically associated labels, and error states that do not rely on colour alone.',
+    'Touch targets of at least 44 by 44 pixels on interactive controls.',
+  ] },
+  { type: 'h2', text: 'Motion and vestibular safety' },
+  { type: 'p', text: 'This site uses animated text reveals, parallax movement and scroll-driven transitions. If you have set "reduce motion" in your operating system, all of these are switched off automatically and content appears in its final state. No information on this site depends on animation to be understood.' },
+  { type: 'callout', title: 'How to reduce motion on your device', text: 'macOS: System Settings → Accessibility → Display → Reduce motion. Windows: Settings → Accessibility → Visual effects → Animation effects off. iOS: Settings → Accessibility → Motion → Reduce Motion. Android: Settings → Accessibility → Remove animations.' },
+  { type: 'h2', text: 'Known limitations' },
+  { type: 'list', items: [
+    'Architectural photography is inherently visual. Where an image conveys information, we provide a text caption describing what it shows.',
+    'The click-to-load map uses a third-party embed. Its accessibility is outside our control, so every location is also given as full text in the address block beside it.',
+    'Some published PDF-style documents referenced in project pages may not yet be fully tagged for screen readers. Contact us and we will supply an accessible version.',
+  ] },
+  { type: 'h2', text: 'Standards we aim at' },
+  { type: 'p', text: 'We build to Web Content Accessibility Guidelines (WCAG) 2.2 Level AA. We test with keyboard-only navigation, VoiceOver on macOS and iOS, NVDA on Windows, and automated tooling — though we treat automated results as a starting point rather than a verdict.' },
+  { type: 'h2', text: 'Tell us about a problem' },
+  { type: 'p', text: 'If any part of this site is difficult or impossible for you to use, please tell us. Describe the page and what happened and we will fix it, and where a barrier prevents you from getting information you need, we will provide that information directly by email or phone.' },
+  { type: 'callout', tone: 'warn', title: 'Accessibility contact', text: `Email ${site.email} with the subject line "Accessibility" or call ${site.phone}. We aim to respond within one business day and to resolve confirmed barriers in the next release.` },
+  { type: 'h2', text: 'Assessment approach' },
+  { type: 'p', text: 'This statement was prepared by self-evaluation combining manual keyboard and screen-reader testing with automated auditing. It was last reviewed in February 2026.' },
+];
+---
+
+<LegalLayout
+  title="Accessibility Statement"
+  lede="How this site is built for keyboard, screen reader and reduced-motion users — and how to tell us when something does not work."
+  eyebrow="Accessibility"
+  blocks={blocks}
+  updated="February 2026"
+  crumb="Legal"
+/>

@@ -1,0 +1,341 @@
+---
+/**
+ * SECTION · Gallery                           [ gallery-grid ]
+ * ---------------------------------------------------------------------------
+ * Image gallery with a built-in lightbox (keyboard + swipe navigable).
+ *   variant="mosaic"  → mixed spans, editorial
+ *   variant="uniform" → clean 3-up grid
+ *   variant="strip"   → horizontal scroll rail
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+
+interface GalleryItem {
+  src: string;
+  alt?: string;
+  caption?: string;
+  span?: 'wide' | 'tall' | 'normal';
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  items: GalleryItem[];
+  variant?: 'mosaic' | 'uniform' | 'strip';
+  theme?: 'default' | 'dark' | 'gray';
+}
+
+const {
+  eyebrow,
+  title,
+  lede,
+  items,
+  variant = 'mosaic',
+  theme = 'default',
+} = Astro.props;
+---
+
+<section class:list={['gallery-grid', 'section']} data-theme={theme}>
+  <div class="container">
+    {(title || eyebrow) && (
+      <div class="sec-head">
+        {eyebrow && (
+          <div class="sec-head__text">
+            <span class="eyebrow" data-reveal="fade">{eyebrow}</span>
+            {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+          </div>
+        )}
+        {lede && <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>}
+      </div>
+    )}
+
+    <div
+      class:list={['gg', `gg--${variant}`]}
+      data-lightbox
+      data-stagger="80"
+    >
+      {items.map((item, i) => (
+        <figure
+          class:list={['gg__item', item.span && `is-${item.span}`]}
+          data-reveal="clip"
+          data-lightbox-item={i}
+        >
+          <button
+            type="button"
+            class="gg__btn"
+            data-lightbox-open={i}
+            aria-label={`Open image ${i + 1}${item.caption ? `: ${item.caption}` : ''}`}
+          >
+            <Img src={item.src} alt={item.alt ?? ''} width={1200} height={900} loading="lazy" />
+            <span class="gg__zoom" aria-hidden="true">
+              <Icon name="plus" size={16} stroke={1.8} />
+            </span>
+            {item.caption && <figcaption class="gg__caption">{item.caption}</figcaption>}
+          </button>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══ Lightbox ═══════════════════════════════════════════════════════ -->
+<div class="lb" data-lightbox-root aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="lb__close" data-lb-close aria-label="Close viewer">
+    <Icon name="close" size={20} stroke={1.8} />
+  </button>
+
+  <button type="button" class="lb__nav lb__nav--prev" data-lb-prev aria-label="Previous image">
+    <Icon name="arrow-left" size={20} stroke={1.8} />
+  </button>
+
+  <figure class="lb__figure">
+    <img class="lb__img" data-lb-img src="" alt="" />
+    <figcaption class="lb__caption">
+      <span data-lb-caption></span>
+      <em data-lb-counter></em>
+    </figcaption>
+  </figure>
+
+  <button type="button" class="lb__nav lb__nav--next" data-lb-next aria-label="Next image">
+    <Icon name="arrow-right" size={20} stroke={1.8} />
+  </button>
+</div>
+
+<script define:vars={{ items }}>
+  /* ── Lightbox runtime ─────────────────────────────────────────────
+     Self-contained: builds its own image list from the gallery figures, so
+     multiple galleries on one page each open their own set.             */
+  const root = document.querySelector('[data-lightbox-root]');
+  const imgEl = document.querySelector('[data-lb-img]');
+  const capEl = document.querySelector('[data-lb-caption]');
+  const cntEl = document.querySelector('[data-lb-counter]');
+  const galleries = [...document.querySelectorAll('[data-lightbox]')];
+
+  if (root && imgEl) {
+    let list = [];
+    let index = 0;
+
+    const render = () => {
+      const item = list[index];
+      if (!item) return;
+      imgEl.src = item.src;
+      imgEl.alt = item.alt || '';
+      if (capEl) capEl.textContent = item.caption || '';
+      if (cntEl) cntEl.textContent = `${index + 1} / ${list.length}`;
+    };
+
+    const open = (items, i) => {
+      list = items;
+      index = i;
+      render();
+      root.classList.add('is-open');
+      root.removeAttribute('aria-hidden');
+      document.body.classList.add('is-locked');
+    };
+
+    const close = () => {
+      root.classList.remove('is-open');
+      root.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-locked');
+    };
+
+    const step = (delta) => {
+      if (!list.length) return;
+      index = (index + delta + list.length) % list.length;
+      render();
+    };
+
+    galleries.forEach((gallery) => {
+      const figures = [...gallery.querySelectorAll('[data-lightbox-item]')];
+      const dataset = figures.map((fig) => {
+        const img = fig.querySelector('img');
+        const cap = fig.querySelector('figcaption');
+        return {
+          src: img?.getAttribute('src') ?? '',
+          alt: img?.getAttribute('alt') ?? '',
+          caption: cap?.textContent?.trim() ?? '',
+        };
+      });
+
+      figures.forEach((fig, i) => {
+        fig.querySelector('[data-lightbox-open]')?.addEventListener('click', () => open(dataset, i));
+      });
+    });
+
+    root.querySelector('[data-lb-close]')?.addEventListener('click', close);
+    root.querySelector('[data-lb-prev]')?.addEventListener('click', () => step(-1));
+    root.querySelector('[data-lb-next]')?.addEventListener('click', () => step(1));
+
+    root.addEventListener('click', (e) => { if (e.target === root) close(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (!root.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+
+    /* Touch swipe */
+    let startX = null;
+    root.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', (e) => {
+      if (startX == null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+      startX = null;
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  /* ══ Grid layouts ══════════════════════════════════════════════════ */
+  .gg--uniform { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+  .gg--mosaic {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 12rem;
+    gap: 1rem;
+  }
+
+  .gg--mosaic .gg__item { grid-column: span 2; grid-row: span 2; }
+  .gg--mosaic .gg__item.is-wide { grid-column: span 4; }
+  .gg--mosaic .gg__item.is-tall { grid-row: span 3; }
+  .gg--mosaic .gg__item.is-normal { grid-column: span 2; grid-row: span 2; }
+
+  .gg--strip { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 0.5rem; scrollbar-width: none; }
+  .gg--strip::-webkit-scrollbar { display: none; }
+  .gg--strip .gg__item { flex: none; width: clamp(18rem, 32vw, 28rem); scroll-snap-align: start; }
+
+  /* ══ Item ══════════════════════════════════════════════════════════ */
+  .gg__item { margin: 0; position: relative; border-radius: var(--r-md); overflow: hidden; background: var(--bg-soft); }
+
+  .gg__btn { display: block; width: 100%; height: 100%; position: relative; padding: 0; cursor: zoom-in; }
+
+  .gg__btn :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease-expo), filter var(--dur-slow) var(--ease-soft);
+  }
+
+  .gg__item:hover .gg__btn :global(img) { transform: scale(1.06); }
+
+  .gg--uniform .gg__btn :global(img) { aspect-ratio: 4 / 3; }
+  .gg--strip .gg__btn :global(img) { aspect-ratio: 4 / 3; }
+
+  .gg__zoom {
+    position: absolute;
+    inset-block-start: 0.85rem;
+    inset-inline-end: 0.85rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: rgba(252, 242, 232, 0.92);
+    color: var(--c-jet);
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .gg__item:hover .gg__zoom { opacity: 1; transform: scale(1); }
+
+  .gg__caption {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: 1.75rem 1.15rem 1rem;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.75));
+    color: #fff;
+    font-size: 0.8125rem;
+    text-align: left;
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-soft);
+  }
+
+  .gg__item:hover .gg__caption { opacity: 1; }
+
+  /* ══ Lightbox ══════════════════════════════════════════════════════ */
+  .lb {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: clamp(1rem, 3vw, 2.5rem);
+    background: rgba(8, 8, 8, 0.94);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur-slow) var(--ease-soft), visibility var(--dur-slow);
+  }
+
+  .lb.is-open { opacity: 1; visibility: visible; }
+
+  .lb__figure { margin: 0; display: flex; flex-direction: column; gap: 0.85rem; max-height: 100%; min-width: 0; }
+
+  .lb__img {
+    max-width: 100%;
+    max-height: 78vh;
+    margin-inline: auto;
+    object-fit: contain;
+    border-radius: var(--r-sm);
+    transform: scale(0.97);
+    opacity: 0;
+    transition: transform 500ms var(--ease-expo), opacity 400ms var(--ease-out);
+  }
+
+  .lb.is-open .lb__img { transform: scale(1); opacity: 1; }
+
+  .lb__caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    color: rgba(252, 242, 232, 0.72);
+    font-size: 0.8125rem;
+  }
+
+  .lb__caption em { font-style: normal; color: rgba(252, 242, 232, 0.45); font-variant-numeric: tabular-nums; }
+
+  .lb__close,
+  .lb__nav {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba(252, 242, 232, 0.28);
+    border-radius: 50%;
+    color: var(--c-beige);
+    flex: none;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .lb__close { position: absolute; inset-block-start: 1.25rem; inset-inline-end: 1.25rem; }
+  .lb__close:hover, .lb__nav:hover { background: var(--c-beige); color: var(--c-jet); }
+  .lb__nav--prev:hover { transform: translateX(-3px); }
+  .lb__nav--next:hover { transform: translateX(3px); }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .gg--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gg--mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 11rem; }
+    .gg--mosaic .gg__item,
+    .gg--mosaic .gg__item.is-wide,
+    .gg--mosaic .gg__item.is-tall { grid-column: span 2; grid-row: span 2; }
+  }
+
+  @media (max-width: 640px) {
+    .gg--uniform { grid-template-columns: minmax(0, 1fr); }
+    .lb { grid-template-columns: 1fr; }
+    .lb__nav { position: absolute; inset-block-end: 1.25rem; }
+    .lb__nav--prev { inset-inline-start: 1.25rem; }
+    .lb__nav--next { inset-inline-end: 1.25rem; }
+    .lb__img { max-height: 68vh; }
+  }
+</style>

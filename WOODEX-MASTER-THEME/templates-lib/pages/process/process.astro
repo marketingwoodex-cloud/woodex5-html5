@@ -1,0 +1,123 @@
+---
+/**
+ * PAGE TEMPLATE · Process                     [ process ]
+ * ---------------------------------------------------------------------------
+ * The seven-stage delivery process in full, with timeline, promises,
+ * documentation examples and FAQs.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import Timeline from '../sections/Timeline.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import RichText from '../sections/RichText.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { processSteps } from '../data/content.js';
+---
+
+<BaseLayout
+  title="Our Process — Seven Stages from Survey to Snag | Woodex Interior"
+  description="How Woodex Interior runs a project: discovery, concept, design development, visualisation, procurement, site delivery and handover — with defined deliverables at every stage."
+  overlayHeader
+  current="process"
+  schema={{
+    '@type': 'HowTo',
+    name: 'How Woodex Interior delivers an interior project',
+    step: processSteps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.title,
+      text: s.detail,
+    })),
+  }}
+>
+  <PageHeader
+    eyebrow="How we work"
+    title="A process that removes the guesswork"
+    lede="Seven stages, each with defined deliverables and a decision point. You always know what happens next, what it costs, and when it lands."
+    crumbs={[{ label: 'Process' }]}
+    image="/images/features/feature-site-analysis.jpg"
+    meta={[
+      { label: 'Stages', value: '7' },
+      { label: 'Typical timeline', value: '10–24 weeks' },
+      { label: 'Deliverables', value: 'Defined per stage' },
+      { label: 'Reporting', value: 'Weekly on site' },
+    ]}
+  />
+
+  <RichText
+    showToc={false}
+    narrow={false}
+    blocks={[
+      { type: 'h2', text: 'Why a defined process matters more than a style' },
+      { type: 'p', text: 'Ask five interior designers to describe their process and you will get five answer that all sound the same: brief, concept, drawings, build. Those words hide the thing that actually determines whether a project succeeds — how much detail exists before anyone picks up a tool.' },
+      { type: 'p', text: 'Our process is deliberately front-loaded. It is normal for us to spend eleven weeks drawing before a single sheet of board is cut. It feels slow at the time and it is the reason our programmes hold.' },
+      { type: 'quote', text: 'You cannot fix a plan with a product. Resolve it on paper, and site becomes execution rather than problem-solving.' },
+      { type: 'callout', title: 'What you always receive', text: 'A written brief, a costed specification, a revision-controlled drawing set, a milestone programme and weekly written progress reports. Five documents. They prevent almost every argument.' },
+    ]}
+  />
+
+  <ProcessAccordion
+    eyebrow="The seven stages"
+    title="Stage by stage, with deliverables"
+    lede="Everything below is included in a Design & Build appointment. Design Only appointments stop after stage four."
+    steps={processSteps}
+    variant="accordion"
+  />
+
+  <StatsStrip variant="promises" eyebrow="Our commitments" title="What we guarantee in writing" theme="gray" />
+
+  <FeatureSplit
+    eyebrow="The documents"
+    title="Five artefacts that keep a project honest"
+    lede="Each of these exists so that a question has an answer before it becomes a change order."
+    features={[
+      {
+        eyebrow: 'Document 01',
+        title: 'The drawing register',
+        body: 'Every sheet carries a revision number and a date. Nobody builds from a superseded drawing because there is a single list that says which revision is current.',
+        list: ['Revision-controlled', 'Issued to every trade', 'Site copy always current'],
+        image: '/images/features/feature-site-analysis.jpg',
+        stat: { value: '1', label: 'Source of truth' },
+      },
+      {
+        eyebrow: 'Document 02',
+        title: 'The costed specification',
+        body: 'Every line item priced, every material named with a model number. Provisional sums are replaced with real selections before orders are placed.',
+        list: ['Line-by-line pricing', 'Model numbers specified', 'Variations priced before execution'],
+        image: '/images/features/feature-space-planning.jpg',
+        stat: { value: '0', label: 'Mystery line items' },
+      },
+      {
+        eyebrow: 'Document 03',
+        title: 'The milestone programme',
+        body: 'Published before we start, reported against weekly. If we are going to miss a date, you will know weeks in advance, not on the day.',
+        list: ['Named milestones', 'Weekly percentage complete', 'Early-warning reporting'],
+        image: '/images/features/feature-lighting.jpg',
+        stat: { value: 'Weekly', label: 'Progress reports' },
+      },
+    ]}
+  />
+
+  <Timeline variant="horizontal" theme="default" />
+
+  <FaqBlock eyebrow="Questions" title="Process questions we are asked most" items={[
+    { q: 'Can we skip stages to save time?', a: 'You can shorten discovery and concept, but we will not skip design development or procurement documentation. Those two stages are what protect the programme and the budget.', category: 'Process' },
+    { q: 'What if we change our minds after design freeze?', a: 'Changes are welcome and normal. They are handled as priced variations, so you always know the cost and programme impact before approving.', category: 'Changes' },
+    { q: 'Who is our point of contact?', a: 'One project lead from first meeting to handover, backed by our contracts lead and site manager. You will not be passed between departments.', category: 'Process' },
+    { q: 'How often will we hear from you?', a: 'Weekly during delivery, with a written report including photographs and percentage complete per trade. Between stages you will hear from us at every decision point.', category: 'Communication' },
+    { q: 'Do you work to a fixed price?', a: 'Yes, after design development. Until the specification is resolved we work to a cost plan with provisional sums, which is why we front-load the drawing stage.', category: 'Cost' },
+    { q: 'What happens after handover?', a: 'A 12-month defects liability period, during which snags are fixed under warranty. You also receive as-built drawings, an O&M pack and equipment training.', category: 'Aftercare' },
+  ]} />
+
+  <CtaBand
+    eyebrow="Start stage one"
+    title="It begins with a measured survey"
+    lede="Send us the address and the outline brief. We will tell you what the space can hold, what it will cost and how long it will take."
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Book a consultation', href: '/contact-two' }}
+    marqueeText="Process"
+  />
+</BaseLayout>

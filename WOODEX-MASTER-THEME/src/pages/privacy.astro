@@ -1,0 +1,51 @@
+---
+/** PAGE TEMPLATE · Privacy Policy              [ privacy ] */
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../data/site.js';
+
+const blocks = [
+  { type: 'h2', text: 'Who we are' },
+  { type: 'p', text: `${site.legalName} is an interior design and fit-out practice registered in Pakistan, with studios in Lahore, Karachi and Islamabad. This policy explains what personal information we collect through this website, why we collect it, and what we do with it.` },
+  { type: 'h2', text: 'What we collect' },
+  { type: 'p', text: 'We collect only what is needed to respond to your enquiry and to run a project.' },
+  { type: 'list', items: [
+    'Contact details you submit through our forms — name, email address, phone number and city.',
+    'Project information you choose to share — area, budget range, intended start date and brief.',
+    'Voluntary subscription details if you sign up to the journal newsletter.',
+    'Anonymised analytics about how pages are used, if analytics is enabled on the live site.',
+  ] },
+  { type: 'h2', text: 'What we do not collect' },
+  { type: 'list', items: [
+    'We do not use advertising trackers or sell data to third parties.',
+    'We do not embed third-party maps, fonts or scripts that run before you interact with them.',
+    'We do not process payment card details through this website.',
+  ] },
+  { type: 'h2', text: 'Why we process it' },
+  { type: 'p', text: 'We process your information to respond to your enquiry, to prepare fee proposals, to deliver appointed projects, and — where you have opted in — to send occasional journal articles. Our lawful basis is your consent and our legitimate interest in responding to a business enquiry.' },
+  { type: 'h2', text: 'How long we keep it' },
+  { type: 'table', head: ['Record type', 'Retention period'], rows: [
+    ['Unsuccessful enquiries', '12 months, then deleted'],
+    ['Active project records', 'Duration of the project plus 7 years'],
+    ['Financial and warranty records', '10 years, as required for warranty claims'],
+    ['Newsletter subscribers', 'Until you unsubscribe'],
+  ] },
+  { type: 'h2', text: 'Who we share it with' },
+  { type: 'p', text: 'We share information only where it is necessary to deliver a project you have appointed us for — for example, with appointed trades, a landlord or an authority handling a submission. We require those parties to protect it and to use it only for that purpose.' },
+  { type: 'h2', text: 'Your rights' },
+  { type: 'p', text: 'You can ask us for a copy of the information we hold about you, ask us to correct it, or ask us to delete it. Write to us and we will respond within one business day.' },
+  { type: 'callout', title: 'Contact for privacy requests', text: `Email ${site.email} with the subject line "Data request". We may ask you to verify your identity before actioning a deletion request.` },
+  { type: 'h2', text: 'Cookies' },
+  { type: 'p', text: 'This site uses only functional storage necessary for the site to work — for example remembering that you have dismissed a notice. If analytics is enabled on the live site, it is configured to anonymise IP addresses and is not used for advertising.' },
+  { type: 'h2', text: 'Changes to this policy' },
+  { type: 'p', text: 'If we change this policy, we will update the revision date at the top of this page. Material changes affecting existing clients will be communicated directly.' },
+];
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  lede="What information this website collects, why we collect it, how long we keep it, and how to ask us to delete it."
+  eyebrow="Legal"
+  blocks={blocks}
+  updated="February 2026"
+  crumb="Legal"
+/>

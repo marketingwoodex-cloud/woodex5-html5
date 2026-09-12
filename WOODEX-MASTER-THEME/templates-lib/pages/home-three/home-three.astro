@@ -1,0 +1,127 @@
+---
+/**
+ * PAGE TEMPLATE · Home Three                   [ home-three ]
+ * ---------------------------------------------------------------------------
+ * Studio-led homepage: cinematic full-bleed hero with stats strip, marquee
+ * band, service rows, scroll-driven project rail, timeline, awards,
+ * testimonial marquee, journal feature, CTA banner.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroStudio from '../sections/HeroStudio.astro';
+import MarqueeText from '../sections/MarqueeText.astro';
+import IntroSplit from '../sections/IntroSplit.astro';
+import ServiceRows from '../sections/ServiceRows.astro';
+import ProjectsRail from '../sections/ProjectsRail.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import Timeline from '../sections/Timeline.astro';
+import AwardsList from '../sections/AwardsList.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Home Three — Studio Layout | Woodex Interior"
+  description="A studio-led view of Woodex Interior: cinematic hero, scroll-driven project rail, twelve-year timeline, awards and press."
+  overlayHeader
+  current="home-three"
+  footerCtaTitle="Ready when you are"
+>
+  <HeroStudio
+    eyebrow="Design · Build · Deliver"
+    title="A studio that draws, details and delivers"
+    image="/images/hero/hero-three-main.jpg"
+  />
+
+  <MarqueeText
+    items={['Interiors built to outlast trends']}
+    size="xl"
+    speed="58"
+    separator="star"
+    variant="beige"
+  />
+
+  <IntroSplit
+    eyebrow="The studio"
+    title="We are a design-and-build practice, not a decorating service"
+    body="Woodex was founded in 2014 as a two-person drafting and joinery workshop. Twelve years on, we run six disciplines under one roof — design, detail, documentation, procurement, joinery and site delivery — across six cities in Pakistan."
+    link={{ label: 'Read our story', href: '/about' }}
+    image="/images/features/feature-joinery.jpg"
+    imageCaption="Our millwork shop, where every bespoke unit is produced."
+  />
+
+  <ServiceRows
+    eyebrow="Capability"
+    title="What we take responsibility for"
+    lede="Seventeen services grouped into four sectors. Hover any row for the detail."
+    limit={6}
+  />
+
+  <ProjectsRail
+    eyebrow="Selected work"
+    title="Projects across residential, commercial and hospitality"
+    lede="Scroll to travel through the archive. Every project is documented, costed and delivered by our own team."
+    variant="dark"
+  />
+
+  <FeatureSplit
+    eyebrow="How we work"
+    title="Three disciplines that make the difference"
+    lede="Most interiors are let down by the same three things. We built our practice around removing all of them."
+    features={[
+      {
+        eyebrow: 'Joinery',
+        title: 'Produced in our own shop, not subcontracted',
+        body: 'Bespoke cabinetry is the largest single line item in most projects and the hardest to control. Because we mill it ourselves, we hold the tolerance, the lead time and the finish standard directly.',
+        list: ['Moisture-resistant cores for Pakistani humidity', 'Shop drawings issued before cutting', 'Fitted by the same team that produced it'],
+        image: '/images/features/feature-joinery.jpg',
+        stat: { value: '5 yr', label: 'Joinery warranty' },
+        cta: { label: 'Custom joinery', href: '/services/custom-furniture-joinery' },
+      },
+      {
+        eyebrow: 'Visualisation',
+        title: 'Approved in render, then built to that render',
+        body: 'We model to the actual specification — real stone, real veneer, real light fittings — so what you sign off is what arrives. Two revision rounds are included on every package.',
+        list: ['Physically-based materials and lighting', 'Day and evening lighting studies', '360° panoramas on request'],
+        image: '/images/features/feature-visualisation.jpg',
+        stat: { value: '2', label: 'Revision rounds included' },
+        cta: { label: '3D studio', href: '/services/3d-visualisation' },
+      },
+      {
+        eyebrow: 'Lighting',
+        title: 'Layered light with real photometric calculation',
+        body: 'One ceiling light can only ever give you one look. We design ambient, task, accent and feature layers with calculated lux levels and scene programming, so a room can shift from working to entertaining.',
+        list: ['Photometric study and fixture schedule', 'Scene design and commissioning', 'Site focusing at handover'],
+        image: '/images/features/feature-lighting.jpg',
+        stat: { value: '11', label: 'Scenes in our largest scheme' },
+        cta: { label: 'Lighting design', href: '/services/lighting-design' },
+      },
+    ]}
+  />
+
+  <StatsStrip variant="promises" eyebrow="Our commitments" title="What we guarantee in writing" theme="gray" />
+
+  <Timeline />
+
+  <AwardsList />
+
+  <TestimonialsSlider
+    variant="marquee"
+    eyebrow="Client words"
+    title="Twelve years of repeat clients"
+    theme="default"
+  />
+
+  <JournalGrid variant="feature" theme="gray" />
+
+  <CtaBand
+    eyebrow="Open for projects"
+    title="Let&rsquo;s design something worth keeping"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Visit a studio', href: '/contact-three' }}
+    variant="banner"
+    image="/images/cta/cta-banner.jpg"
+    marqueeText="Woodex Interior"
+  />
+</BaseLayout>

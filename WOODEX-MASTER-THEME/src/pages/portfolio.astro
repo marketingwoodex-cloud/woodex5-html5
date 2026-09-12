@@ -1,0 +1,47 @@
+---
+/** Portfolio (default index) — renders the grid layout. See portfolio-one. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import CtaBand from '../sections/CtaBand.astro';
+import { projects, sectors } from '../data/projects.js';
+
+const sectorParam = Astro.url.searchParams.get('sector') ?? undefined;
+const activeSector = sectors.find((s) => s.id === sectorParam);
+---
+
+<BaseLayout
+  title={`Portfolio${activeSector ? ` — ${activeSector.label}` : ''} | Woodex Interior`}
+  description="Interior design and fit-out projects delivered across Pakistan — residential, commercial, hospitality, retail and healthcare."
+  overlayHeader
+  current="portfolio"
+>
+  <PageHeader
+    eyebrow="Portfolio"
+    title={activeSector ? `${activeSector.label} projects` : 'Our work, documented end to end'}
+    lede="Every project on this page went through the same seven-stage process. Click any one to see the brief, the approach and the outcome."
+    crumbs={[{ label: 'Portfolio' }]}
+    image="/images/projects/spatial-innovation-cover.jpg"
+    meta={[
+      { label: 'Projects', value: `${projects.length}` },
+      { label: 'Sectors', value: `${sectors.length}` },
+      { label: 'Delivered area', value: '1.4M sq ft' },
+    ]}
+  />
+
+  <ProjectGrid eyebrow="All work" title="Selected projects" variant="grid" sector={sectorParam} limit={24} />
+
+  <StatsStrip variant="numbers" eyebrow="Delivery record" theme="dark" />
+
+  <TestimonialsSlider variant="grid" />
+
+  <CtaBand
+    eyebrow="Your project"
+    title="Let&rsquo;s add yours to the archive"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Other layouts', href: '/portfolio-two' }}
+    variant="split"
+  />
+</BaseLayout>

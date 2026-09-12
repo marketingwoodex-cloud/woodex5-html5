@@ -1,0 +1,163 @@
+---
+/**
+ * THUMBNAIL GRID — the reference's six-up project preview grid.
+ * Compact tiles, hover zoom + caption slide, optional "+N more" tile.
+ *
+ * MOTION: data-stagger reveal, index numerals, view-all tile.
+ */
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+import { featuredProjects } from '../data/projects.js';
+import { projectImage } from '../data/images.js';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  slugs?: string[];
+  columns?: 2 | 3 | 4;
+  ratio?: string;
+  theme?: 'default' | 'gray' | 'dark';
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  lede,
+  slugs,
+  columns = 3,
+  ratio = '4/3',
+  theme = 'default',
+  ctaLabel,
+  ctaHref = '/portfolio-one',
+} = Astro.props;
+
+const pool = featuredProjects(12);
+const list = slugs?.length
+  ? slugs.map((s) => pool.find((p) => p.slug === s)).filter(Boolean)
+  : pool.slice(0, columns === 4 ? 8 : 6);
+---
+
+<section class:list={['section', 'tg', `tg--${theme}`]} data-theme={theme}>
+  <div class="container">
+    {(eyebrow || title || lede) && (
+      <div class="sec-head">
+        <div class="sec-head__text">
+          {eyebrow && <span class="eyebrow" data-reveal="fade">{eyebrow}</span>}
+          {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+        </div>
+        {lede && <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>}
+      </div>
+    )}
+
+    <div class="tg__grid" data-stagger="80" style={`--tg-cols:${columns};--tg-ratio:${ratio}`}>
+      {list.map((p, i) => (
+        <a href={`/project/${p.slug}`} class="tg__tile" data-reveal="fade-up">
+          <div class="tg__media">
+            <Img src={projectImage(p.slug)} alt={p.title} width={900} height={700} loading="lazy" />
+            <span class="tg__no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="tg__arrow" aria-hidden="true">
+              <Icon name="arrow-up-right" size={15} stroke={1.8} />
+            </span>
+          </div>
+          <div class="tg__body">
+            <h3 class="tg__title">{p.title}</h3>
+            <span class="tg__meta">{p.area} · {p.location}</span>
+          </div>
+        </a>
+      ))}
+
+      {ctaLabel && (
+        <a href={ctaHref} class="tg__tile tg__tile--cta" data-reveal="fade-up">
+          <span class="tg__cta-inner">
+            <span class="tg__cta-label">{ctaLabel}</span>
+            <span class="tg__arrow tg__arrow--static" aria-hidden="true">
+              <Icon name="arrow-right" size={16} stroke={1.8} />
+            </span>
+          </span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tg--gray { background: var(--bg-soft); }
+  .tg--dark { background: var(--c-jet); color: var(--c-beige); }
+  .tg--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
+  .tg--dark :global(h2) { color: var(--c-beige); }
+  .tg--dark .tg__meta { color: rgba(252, 242, 232, 0.55); }
+  .tg--dark .tg__tile--cta { border-color: rgba(252, 242, 232, 0.24); color: var(--c-beige); }
+
+  .tg__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--tg-cols, 3), minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .tg__tile { display: flex; flex-direction: column; gap: 0.9rem; }
+
+  .tg__media {
+    position: relative;
+    aspect-ratio: var(--tg-ratio, 4 / 3);
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--bg-soft);
+  }
+
+  .tg__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease-expo); }
+  .tg__tile:hover .tg__media :global(img) { transform: scale(1.07); }
+
+  .tg__no {
+    position: absolute;
+    inset-block-start: 0.85rem;
+    inset-inline-start: 0.85rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    color: var(--c-beige);
+    mix-blend-mode: difference;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tg__arrow {
+    position: absolute;
+    inset-block-end: 0.85rem;
+    inset-inline-end: 0.85rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--c-beige);
+    color: var(--c-jet);
+    opacity: 0;
+    transform: translateY(0.5rem) rotate(-20deg);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .tg__tile:hover .tg__arrow { opacity: 1; transform: none; }
+
+  .tg__body { display: flex; flex-direction: column; gap: 0.3rem; }
+  .tg__title { font-size: clamp(1rem, 1.5vw, 1.2rem); letter-spacing: -0.02em; }
+  .tg__meta { font-size: var(--fs-sub); color: var(--text-mute); }
+
+  .tg__tile--cta {
+    display: grid;
+    place-items: center;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 2rem;
+    text-align: center;
+    transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .tg__tile--cta:hover { background: var(--bg-soft); border-color: var(--text); }
+  .tg__cta-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .tg__cta-label { font-family: var(--ff-display); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.024em; }
+  .tg__arrow--static { position: static; opacity: 1; transform: none; background: var(--c-jet); color: var(--c-beige); }
+
+  @media (max-width: 900px) { .tg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .tg__grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

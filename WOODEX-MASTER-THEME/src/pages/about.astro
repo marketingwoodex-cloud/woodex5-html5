@@ -1,0 +1,106 @@
+---
+/**
+ * PAGE TEMPLATE · About                       [ about ]
+ * ---------------------------------------------------------------------------
+ * Studio story: page header, intro, beliefs, timeline, team, stats,
+ * testimonials, offices, CTA.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import IntroSplit from '../sections/IntroSplit.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import Timeline from '../sections/Timeline.astro';
+import TeamGrid from '../sections/TeamGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import AwardsList from '../sections/AwardsList.astro';
+import ContactInfo from '../sections/ContactInfo.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="About the Studio | Woodex Interior"
+  description="Woodex Interior is a design-and-build practice founded in Lahore in 2014. Twelve years, 240+ projects and 1.4 million square feet delivered across six Pakistani cities."
+  overlayHeader
+  current="about"
+  footerCtaTitle="Come and meet the team"
+>
+  <PageHeader
+    eyebrow="About the studio"
+    title="A design-and-build practice built on documentation"
+    lede="Woodex started in 2014 as a two-person drafting and joinery workshop in Lahore. We grew by being the practice that turned up with drawings and a programme — and by staying on site until the snag list was empty."
+    crumbs={[{ label: 'About' }]}
+    image="/images/features/feature-space-planning.jpg"
+    meta={[
+      { label: 'Founded', value: '2014' },
+      { label: 'Practice', value: 'Design & Build' },
+      { label: 'Studios', value: 'Lahore · Karachi · Islamabad' },
+      { label: 'Delivered', value: '240+ projects' },
+    ]}
+  />
+
+  <IntroSplit
+    eyebrow="Who we are"
+    title="One team from first sketch to final snag — that is the whole idea"
+    body="When design and construction sit in different companies, every gap between them becomes the client's problem. We hold both roles, which means we cannot blame the drawings and we cannot blame the site. It also means the person who designed your kitchen is the person accountable for how the drawers close."
+    stats={[
+      { value: 240, suffix: '+', label: 'Projects delivered' },
+      { value: 1.4, suffix: 'M', decimals: 1, label: 'Sq ft completed' },
+      { value: 98, suffix: '%', label: 'Client retention' },
+    ]}
+    reverse
+    image="/images/features/feature-joinery.jpg"
+    imageCaption="In-house millwork: the single biggest lever on quality."
+  />
+
+  <FeatureSplit
+    eyebrow="What we believe"
+    title="Three ideas that shape every project we take on"
+    features={[
+      {
+        eyebrow: 'Belief 01',
+        title: 'Detail is not decoration — it is the design',
+        body: 'A 6mm shadow gap held consistently across a twelve-metre run of joinery is the difference between a room that feels considered and one that feels approximate. We draw at that level because the eye notices even when the client cannot name it.',
+        list: ['Setting-out drawings issued before cutting', 'Tolerance documented, not assumed', 'Sample panels signed off on larger runs'],
+        image: '/images/features/feature-joinery.jpg',
+        stat: { value: '1:1', label: 'Details where required' },
+      },
+      {
+        eyebrow: 'Belief 02',
+        title: 'Resolve it on paper, not on site',
+        body: 'Every hour spent on a drawing saves several on site. We would rather delay a start by a week than discover a services clash after the ceiling has been closed. It is less dramatic and far cheaper.',
+        list: ['Clash review before setting out', 'Provisional sums replaced before order', 'Nothing ordered from a superseded sheet'],
+        image: '/images/features/feature-site-analysis.jpg',
+        stat: { value: '0', label: 'Typical programme variations' },
+      },
+      {
+        eyebrow: 'Belief 03',
+        title: 'Build for the climate you actually have',
+        body: 'European specification sheets assume a European climate. In Lahore and Karachi that means humidity, dust and a forty-degree summer. We spec moisture-resistant cores, sealed edges, UV-stable finishes and hardware rated for real use.',
+        list: ['Moisture-resistant substrates throughout', 'Every exposed edge banded or lipped', 'UV-stable finishes near glazing'],
+        image: '/images/features/feature-sustainability.jpg',
+        stat: { value: '12 yr', label: 'Of local material testing' },
+      },
+    ]}
+  />
+
+  <StatsStrip variant="numbers" eyebrow="By the numbers" theme="dark" />
+
+  <Timeline eyebrow="Our story" title="Twelve years, built one project at a time" theme="gray" />
+
+  <TeamGrid />
+
+  <AwardsList theme="default" />
+
+  <TestimonialsSlider variant="slider" eyebrow="Client words" title="What clients say when we hand the keys back" />
+
+  <ContactInfo variant="cards" eyebrow="Where we work" title="Three studios, one team" lede="Every studio is open to walk-ins during business hours — and the material library is worth the trip." />
+
+  <CtaBand
+    eyebrow="Work with us"
+    title="If you value documentation and delivery, we will get along"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'See our process', href: '/process' }}
+    variant="split"
+  />
+</BaseLayout>

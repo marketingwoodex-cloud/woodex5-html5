@@ -1,0 +1,47 @@
+---
+/** PAGE TEMPLATE · Clients                     [ clients ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ClientsMarquee from '../sections/ClientsMarquee.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import ProjectGrid from '../sections/ProjectGrid.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Clients & Partners | Woodex Interior"
+  description="Developers, operators, brands and families who have appointed Woodex Interior across Pakistan."
+  overlayHeader
+  current="about"
+>
+  <PageHeader
+    eyebrow="Who we build for"
+    title="Clients and partners"
+    lede="We work with developers, operators, brands and families. Most of them come back — 98% retention is the number we are proudest of."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Clients' }]}
+    variant="soft"
+    meta={[
+      { label: 'Active clients', value: '40+' },
+      { label: 'Sectors', value: '5' },
+      { label: 'Retention', value: '98%' },
+      { label: 'Since', value: '2014' },
+    ]}
+  />
+
+  <ClientsMarquee variant="grid" eyebrow="Our clients" title="Driving success through strong partnerships" />
+
+  <TestimonialsSlider variant="grid" theme="gray" />
+
+  <StatsStrip variant="promises" eyebrow="What you can expect" title="Our commitments to every client" theme="dark" />
+
+  <ProjectGrid eyebrow="Their projects" title="Work delivered for these clients" variant="grid" limit={6} showFilter={false} />
+
+  <CtaBand
+    eyebrow="Join them"
+    title="Become a client we keep for twelve years"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Book a consultation', href: '/contact-two' }}
+    variant="split"
+  />
+</BaseLayout>

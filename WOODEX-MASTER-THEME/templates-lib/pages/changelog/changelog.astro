@@ -1,0 +1,37 @@
+---
+/** PAGE TEMPLATE · Changelog                   [ changelog ] */
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const blocks = [
+  { type: 'h2', text: 'v1.0.0 — Initial release' },
+  { type: 'p', text: 'The first complete build of the Woodex Master Theme: 20 reusable section components, 3 homepage layouts, 3 portfolio layouts, 3 journal layouts, 3 contact layouts, and 17 generated service pages.' },
+  { type: 'list', items: [
+    'Design token system derived from the reference template style guide.',
+    'Dependency-free motion engine replacing GSAP — 4.4 kB gzipped.',
+    'Attribute-driven animation API: data-heading-reveal, data-scroll-opacity, data-parallax, data-marquee, data-reveal and more.',
+    'Full mega menu with hover intent, click, keyboard and touch support.',
+    'Click-to-load maps, so no third-party request runs until requested.',
+    'Build-time image resolver: missing photography falls back to a branded SVG placeholder rather than a broken image.',
+    'JSON-LD structured data on every template type.',
+    'Reduced-motion support across every animation.',
+  ] },
+  { type: 'h2', text: 'Planned' },
+  { type: 'list', items: [
+    'Optional GSAP adapter for teams that prefer it (documented drop-in).',
+    'Contentful / Sanity content adapters for the RichText block schema.',
+    'Additional portfolio layout — full-screen horizontal scroll.',
+    'WooCommerce or Shopify buy-button integration for a materials shop.',
+    'Multi-language scaffolding with locale-prefixed routes.',
+  ] },
+  { type: 'callout', title: 'Reporting an issue', text: 'Describe the page, the browser and what you expected to happen. Include a screenshot where possible, and we will fix it in the next release.' },
+];
+---
+
+<LegalLayout
+  title="Changelog"
+  lede="Release history and the roadmap for the Woodex Master Theme."
+  eyebrow="Release notes"
+  blocks={blocks}
+  updated="February 2026"
+  crumb="Legal"
+/>

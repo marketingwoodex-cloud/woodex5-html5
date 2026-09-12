@@ -1,0 +1,21 @@
+{
+  "name": "woodex-master-theme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Woodex Interior — Master Theme. Astro-based, section-template driven premium interior & architecture theme.",
+  "scripts": {
+    "dev": "node scripts/ensure-images.mjs && astro dev --host 0.0.0.0 --port 4321",
+    "start": "node scripts/ensure-images.mjs && astro dev --host 0.0.0.0 --port 4321",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 4321",
+    "check": "astro check",
+    "templates": "node scripts/build-template-library.mjs",
+    "prebuild": "node scripts/ensure-images.mjs && node scripts/make-icons.mjs",
+    "images": "node scripts/ensure-images.mjs",
+    "icons": "node scripts/make-icons.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.14.1"
+  }
+}

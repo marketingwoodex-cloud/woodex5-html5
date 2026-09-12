@@ -1,0 +1,91 @@
+---
+/** PAGE TEMPLATE · Pricing                     [ pricing-one ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import PricingGrid from '../sections/PricingGrid.astro';
+import RichText from '../sections/RichText.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import TestimonialsSlider from '../sections/TestimonialsSlider.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Pricing & Packages | Woodex Interior"
+  description="Transparent interior design and fit-out pricing in Pakistan. Three packages, published rate bands, add-on services and an indicative budget calculator."
+  overlayHeader
+  current="about"
+  schema={{
+    '@type': 'OfferCatalog',
+    name: 'Woodex Interior packages',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Design Only', priceCurrency: 'PKR', description: 'Survey, concept, full drawing set and renders.' },
+      { '@type': 'Offer', name: 'Design & Build', priceCurrency: 'PKR', description: 'Full design plus fixed-cost delivery under one contract.' },
+      { '@type': 'Offer', name: 'Turnkey Prime', priceCurrency: 'PKR', description: 'Design, build, FF&E procurement and commissioning.' },
+    ],
+  }}
+>
+  <PageHeader
+    eyebrow="Pricing"
+    title="Published fees, costed line by line"
+    lede="Most practices will not put a number on a website. We publish our structure because a client who knows the shape of the cost makes better decisions — and better clients make better projects."
+    crumbs={[{ label: 'Pricing' }]}
+    variant="soft"
+    meta={[
+      { label: 'Packages', value: '3' },
+      { label: 'Rate band', value: 'PKR 3,500–10,500 / sq ft' },
+      { label: 'Design only from', value: 'PKR 275,000' },
+      { label: 'Defects period', value: '12–24 months' },
+    ]}
+  />
+
+  <PricingGrid />
+
+  <RichText
+    showToc
+    blocks={[
+      { type: 'h2', text: 'What actually drives the cost' },
+      { type: 'p', text: 'Clients usually assume finishes dominate a project budget. They rarely do. On a typical fit-out, joinery is the single largest line item, followed by MEP, then flooring and walls, with decorative finishes last.' },
+      { type: 'h2', text: 'The four cost bands in Pakistan' },
+      { type: 'p', text: 'Delivered interior work generally falls into four bands. The gaps between them are not marketing — they reflect genuinely different materials, tolerances and levels of supervision.' },
+      { type: 'list', items: [
+        'Basic — standard board, laminate finishes, factory hardware. Serviceable for rental property.',
+        'Mid-market — veneers and solid surfaces in key areas, branded hardware, sealed edges, full drawing set.',
+        'Premium — natural stone, engineered timber, imported hardware, shadow-gap detailing, on-site QC.',
+        'Bespoke — one-off joinery, specialist finishes, imported lighting, mock-ups before production.',
+      ] },
+      { type: 'h2', text: 'Where not to save money' },
+      { type: 'list', items: [
+        'Waterproofing in wet areas — a failed membrane costs five times what doing it properly would have.',
+        'Hardware on doors, drawers and shutters — this is what you touch every single day.',
+        'Electrical capacity and containment — retrofitting circuits into a finished wall is brutal.',
+        'Acoustic separation between bedrooms, bathrooms and meeting rooms.',
+      ] },
+      { type: 'callout', tone: 'warn', title: 'Where the quote gets cheaper', text: 'Complexity, not quality, is what makes projects expensive. Every additional finish, every different tile size and every bespoke profile adds labour, waste and coordination. Reducing variety usually saves more than downgrading materials.' },
+      { type: 'h2', text: 'How payments work' },
+      { type: 'p', text: 'A design-stage fee covers survey through to the costed specification. Delivery is then paid against verified milestones — typically a mobilisation payment followed by stage payments tied to progress. We never ask for full payment up front.' },
+      { type: 'quote', text: 'Ask any contractor for a schedule of rates. If they will not produce one, the lump sum you were given was a guess.' },
+    ]}
+  />
+
+  <TestimonialsSlider variant="grid" theme="gray" />
+
+  <FaqBlock eyebrow="Questions" title="Cost and payment questions" items={[
+    { q: 'Why is a square-foot rate not enough?', a: 'Because two 3,000 sq ft projects can differ by a factor of three. Rate bands are useful for planning; only a costed specification tells you the real number.', category: 'Cost' },
+    { q: 'Do you charge for the initial survey?', a: 'No. The site survey is included in the design-stage fee, and the consultation before it is free.', category: 'Cost' },
+    { q: 'What is a provisional sum?', a: 'An allowance for an item not yet selected — a stone, an appliance, a light fitting. We use them honestly and replace each with a real selection as soon as possible.', category: 'Cost' },
+    { q: 'Can you work to a fixed budget?', a: 'Yes, and it is often the most useful way to brief us. Give us the number and we will design to it, telling you clearly what it does and does not buy.', category: 'Cost' },
+    { q: 'How are variations handled?', a: 'Every variation is priced and approved in writing before work proceeds. You always know the cost and programme implication before committing.', category: 'Cost' },
+    { q: 'Do you take a percentage on materials?', a: 'We use open-book pricing on our Design & Build appointments. You can see the build-up, including our management fee, before you sign.', category: 'Cost' },
+    { q: 'What does the 12-month defects period cover?', a: 'Any defect in our workmanship. Snags are remedied at our cost. Hardware and appliances carry their manufacturer warranties, which we pass through in full.', category: 'Aftercare' },
+    { q: 'Is VAT / sales tax included?', a: 'No. All published figures exclude government taxes, which are shown separately on the final invoice at the applicable rate.', category: 'Cost' },
+  ]} />
+
+  <CtaBand
+    eyebrow="Get a real number"
+    title="Send us a plan and we will cost it properly"
+    lede="Not a rate — a costed specification with every line item visible, so you can see exactly where the money sits."
+    primary={{ label: 'Request a proposal', href: '/contact-one' }}
+    secondary={{ label: 'Book a consultation', href: '/contact-two' }}
+    marqueeText="Pricing"
+  />
+</BaseLayout>

@@ -1,0 +1,321 @@
+---
+/**
+ * SECTION · Hero Classic                      [ hero-classic ]
+ * ---------------------------------------------------------------------------
+ * The flagship homepage hero: eyebrow, oversized masked headline, lede, dual
+ * CTA, a three-card "precision / structure / blueprint" feature reel, and an
+ * infinite vertical marquee down the right edge.
+ *
+ * MOTION: headline word-mask reveal · staggered card entrance · vertical marquee
+ * USED ON: /home-one
+ */
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site.js';
+import Img from '../components/ui/Img.astro';
+
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  image?: string;
+  marqueeWords?: string[];
+  cards?: { no: string; title: string; text: string; image: string }[];
+  meta?: string[];
+}
+
+const {
+  eyebrow = 'Built for sustainable growth',
+  title = 'Designing spaces for modern living',
+  lede = 'We push the boundaries of interior design through considered planning and refined craftsmanship. Every project tells a unique story shaped by vision, detail and purpose.',
+  primary = site.cta.primary,
+  secondary = { label: 'Our process', href: '/process' },
+  image = '/images/hero/hero-one-main.jpg',
+  marqueeWords = ['Interior', 'Architecture', 'Joinery', 'Fit-Out', 'Materials', 'Light'],
+  cards = [
+    { no: '01', title: 'Precision in every model', text: 'Crafted with detail, built to inspire.', image: '/images/hero/hero-card-01.jpg' },
+    { no: '02', title: 'Structure meets aesthetics', text: 'Where bold form follows fine function.', image: '/images/hero/hero-card-02.jpg' },
+    { no: '03', title: 'Blueprint for the future', text: 'Spaces designed for how you live now.', image: '/images/hero/hero-card-03.jpg' },
+  ],
+  meta = ['Lahore · Karachi · Islamabad', '240+ projects delivered', 'Since 2014'],
+} = Astro.props;
+---
+
+<section class="hero-classic" data-theme="dark">
+  <!-- Background media -->
+  <div class="hero-classic__media">
+    <Img src={image} alt="" fetchpriority="high" width="1920" height="1080" />
+    <span class="hero-classic__scrim" aria-hidden="true"></span>
+  </div>
+
+  <div class="container hero-classic__inner">
+    <!-- Copy column -->
+    <div class="hero-classic__copy">
+      <span class="eyebrow" data-reveal="fade" style="--reveal-delay:120ms">{eyebrow}</span>
+
+      <h1
+        class="hero-classic__title"
+        data-heading-reveal="words"
+        data-heading-stagger="78"
+      >
+        {title}
+      </h1>
+
+      <p class="hero-classic__lede" data-reveal="fade-up" style="--reveal-delay:420ms">
+        {lede}
+      </p>
+
+      <div class="hero-classic__actions" data-reveal="fade-up" style="--reveal-delay:560ms">
+        <a href={primary.href} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.18">
+          <span class="btn__label">
+            <span>{primary.label}</span>
+            <span>{primary.label}</span>
+          </span>
+          <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+        </a>
+
+        <a href={secondary.href} class="btn btn--outline-invert btn--lg">
+          <span class="btn__label"><span>{secondary.label}</span></span>
+          <Icon name="arrow-up-right" size={14} class="arrow-up-right" />
+        </a>
+      </div>
+
+      <ul class="hero-classic__meta" data-stagger="90" aria-label="Key facts">
+        {meta.map((m) => (
+          <li><Icon name="check" size={13} stroke={2.4} /> {m}</li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Feature card reel -->
+    <div class="hero-classic__cards" data-stagger="140">
+      {cards.map((card) => (
+        <article class="hero-card">
+          <div class="hero-card__media">
+            <Img src={card.image} alt="" loading="eager" width="560" height="700" />
+          </div>
+          <div class="hero-card__body">
+            <span class="hero-card__no">{card.no}</span>
+            <h3 class="hero-card__title">{card.title}</h3>
+            <p class="hero-card__text">{card.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Vertical marquee rail -->
+  <div class="hero-classic__rail" aria-hidden="true">
+    <div class="rt-marquee" data-marquee-vertical data-marquee-speed="55" style="--marquee-height:100%">
+      <div class="marquee-track">
+        {[...marqueeWords, ...marqueeWords].map((w) => (
+          <span class="hero-rail__word">{w}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="hero-classic__cue" aria-hidden="true">
+    <span>Scroll</span>
+    <i></i>
+  </div>
+</section>
+
+<style>
+  .hero-classic {
+    position: relative;
+    min-height: min(56rem, 100vh);
+    display: flex;
+    align-items: flex-end;
+    padding-block: calc(var(--header-h) + 5rem) clamp(3rem, 6vw, 5.5rem);
+    background: var(--c-jet);
+    color: var(--c-beige);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ── Background ────────────────────────────────────────────────────── */
+  .hero-classic__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero-classic__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: hero-drift 24s var(--ease-soft) infinite alternate;
+  }
+
+  @keyframes hero-drift {
+    from { transform: scale(1.06) translate3d(0, 0, 0); }
+    to   { transform: scale(1.14) translate3d(-1.5%, -1.5%, 0); }
+  }
+
+  .hero-classic__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.34) 38%, rgba(0, 0, 0, 0.86) 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, transparent 62%);
+  }
+
+  /* ── Layout ────────────────────────────────────────────────────────── */
+  .hero-classic__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: end;
+    width: 100%;
+  }
+
+  .hero-classic__copy { max-width: 46rem; }
+
+  .hero-classic__title {
+    margin-top: 1.5rem;
+    font-size: clamp(2.6rem, 6.2vw, 5.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.038em;
+    max-width: 14ch;
+  }
+
+  .hero-classic__lede {
+    margin-top: 1.75rem;
+    max-width: 44ch;
+    font-size: 1.0625rem;
+    color: rgba(252, 242, 232, 0.76);
+  }
+
+  .hero-classic__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero-classic__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(252, 242, 232, 0.18);
+    list-style: none;
+    font-size: 0.8125rem;
+    color: rgba(252, 242, 232, 0.6);
+  }
+
+  .hero-classic__meta li { display: flex; align-items: center; gap: 0.5rem; }
+
+  /* ── Feature cards ─────────────────────────────────────────────────── */
+  .hero-classic__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    align-self: end;
+  }
+
+  .hero-card {
+    position: relative;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(252, 242, 232, 0.16);
+    backdrop-filter: blur(6px);
+    transition: transform var(--dur-slow) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+
+  .hero-card:hover { transform: translateY(-0.5rem); border-color: rgba(252, 242, 232, 0.4); }
+
+  .hero-card__media { aspect-ratio: 3 / 4; overflow: hidden; }
+  .hero-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-expo); }
+  .hero-card:hover .hero-card__media img { transform: scale(1.07); }
+
+  .hero-card__body { padding: 1rem 1.1rem 1.25rem; }
+
+  .hero-card__no {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    color: rgba(252, 242, 232, 0.42);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-card__title { font-size: 1rem; line-height: 1.3; letter-spacing: -0.01em; }
+  .hero-card__text { font-size: 0.8125rem; line-height: 1.55; color: rgba(252, 242, 232, 0.6); margin-top: 0.4rem; }
+
+  /* ── Vertical rail ─────────────────────────────────────────────────── */
+  .hero-classic__rail {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: clamp(-1rem, 1vw, 1.5rem);
+    width: 3.5rem;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  }
+
+  .hero-rail__word {
+    writing-mode: vertical-rl;
+    font-family: var(--ff-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.22);
+    padding-block: 0.5rem;
+  }
+
+  /* ── Scroll cue ────────────────────────────────────────────────────── */
+  .hero-classic__cue {
+    position: absolute;
+    inset-block-end: 1.75rem;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.5);
+  }
+
+  .hero-classic__cue i {
+    display: block;
+    width: 1px;
+    height: 2.5rem;
+    background: linear-gradient(180deg, currentColor, transparent);
+    animation: cue-drop 2.2s var(--ease-in-out) infinite;
+  }
+
+  @keyframes cue-drop {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .hero-classic__inner { grid-template-columns: minmax(0, 1fr); }
+    .hero-classic__cards { grid-template-columns: repeat(3, 1fr); margin-top: 1rem; }
+    .hero-classic__rail { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-classic { min-height: auto; padding-block: calc(var(--header-h) + 3.5rem) 3.5rem; }
+    .hero-classic__cards { grid-template-columns: 1fr; }
+    .hero-card { display: grid; grid-template-columns: 6.5rem 1fr; align-items: center; }
+    .hero-card__media { aspect-ratio: 1 / 1; }
+    .hero-classic__cue { display: none; }
+    .hero-classic__actions { flex-direction: column; align-items: stretch; }
+    .hero-classic__actions :global(.btn) { justify-content: center; }
+  }
+</style>

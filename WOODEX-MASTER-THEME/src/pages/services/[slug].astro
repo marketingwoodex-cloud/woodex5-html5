@@ -1,0 +1,230 @@
+---
+/**
+ * PAGE TEMPLATE · Service Detail              [ services/:slug ]
+ * ---------------------------------------------------------------------------
+ * Generates one page per entry in src/data/services.js.
+ * Structure: detail hero → intro → deliverables + included → process →
+ * related projects → FAQ → related services → CTA.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceDetailHero from '../../sections/ServiceDetailHero.astro';
+import IntroSplit from '../../sections/IntroSplit.astro';
+import ServiceRows from '../../sections/ServiceRows.astro';
+import ProjectGrid from '../../sections/ProjectGrid.astro';
+import FaqBlock from '../../sections/FaqBlock.astro';
+import ProcessAccordion from '../../sections/ProcessAccordion.astro';
+import CtaBand from '../../sections/CtaBand.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { services, serviceGroups, getService } from '../../data/services.js';
+import { projects } from '../../data/projects.js';
+import { faqs } from '../../data/content.js';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug } }));
+}
+
+const { slug } = Astro.params;
+const service = getService(slug);
+
+if (!service) {
+  return Astro.redirect('/service');
+}
+
+const group = serviceGroups.find((g) => g.id === service.group);
+const siblings = services.filter((s) => s.group === service.group && s.slug !== service.slug).slice(0, 5);
+
+/* Surface projects mentioning this service, falling back to featured work. */
+const relatedProjects = projects
+  .filter((p) => p.services.some((s) => s.toLowerCase().includes(service.shortTitle.toLowerCase().split(' ')[0])))
+  .slice(0, 3);
+const showcase = relatedProjects.length ? relatedProjects : projects.slice(0, 3);
+
+const serviceFaqs = service.faqs?.length ? service.faqs : faqs.slice(0, 5);
+
+const meta = [
+  { label: 'Typical duration', value: service.duration },
+  { label: 'Investment', value: service.startingAt },
+  { label: 'Category', value: group?.label ?? service.group },
+  { label: 'Deliverables', value: `${service.deliverables.length} items` },
+];
+---
+
+<BaseLayout
+  title={`${service.title} — ${group?.label ?? 'Services'} | Woodex Interior`}
+  description={`${service.lede} Delivered across Pakistan by Woodex Interior. Typical duration ${service.duration}. ${service.startingAt}.`}
+  overlayHeader
+  current="service"
+  footerCtaTitle={`Ready to discuss ${service.shortTitle.toLowerCase()}?`}
+  schema={{
+    '@type': 'Service',
+    name: service.title,
+    description: service.lede,
+    serviceType: service.title,
+    provider: { '@type': 'Organization', name: 'Woodex Interior' },
+    areaServed: { '@type': 'Country', name: 'Pakistan' },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'PKR',
+      description: service.startingAt,
+      availability: 'https://schema.org/InStock',
+    },
+  }}
+>
+  <ServiceDetailHero service={service} />
+
+  <IntroSplit
+    eyebrow={group?.label ?? 'Service'}
+    title={service.summary}
+    body={service.body.join(' ')}
+    stats={[
+      { value: 240, suffix: '+', label: 'Projects delivered' },
+      { value: 12, suffix: '', label: 'Years in practice' },
+      { value: 5, suffix: ' yr', label: 'Joinery warranty' },
+    ]}
+  />
+
+  <!-- ══ Deliverables ══════════════════════════════════════════════════ -->
+  <section class="section svd__deliverables" data-theme="gray">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-head__text">
+          <span class="eyebrow" data-reveal="fade">What you get</span>
+          <h2 data-heading-reveal="words" data-heading-stagger="46">Included in this service</h2>
+        </div>
+        <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">
+          Every item below is priced in the costed specification — nothing appears as a surprise later.
+        </p>
+      </div>
+
+      <div class="svd__grid" data-stagger="80">
+        {service.deliverables.map((d, i) => (
+          <article class="svd__item" data-reveal="fade-up">
+            <span class="svd__no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="svd__check" aria-hidden="true">
+              <Icon name="check" size={14} stroke={2.2} />
+            </span>
+            <p class="svd__text">{d}</p>
+          </article>
+        ))}
+      </div>
+
+      <dl class="svd__facts" data-stagger="90">
+        {meta.map((m) => (
+          <div class="svd__fact" data-reveal="fade-up">
+            <dt>{m.label}</dt>
+            <dd>{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <ProcessAccordion
+    eyebrow="How it runs"
+    title={`Delivering ${service.shortTitle.toLowerCase()}, stage by stage`}
+    lede="The same seven-stage process applies to every project we take on, scaled to the size of the scope."
+  />
+
+  <ProjectGrid
+    eyebrow="Related work"
+    title={`${service.shortTitle} projects from the archive`}
+    lede="A selection of completed work where this service formed part of the scope."
+    variant="grid"
+    showFilter={false}
+    limit={3}
+    theme="gray"
+  />
+
+  <FaqBlock
+    eyebrow="Questions"
+    title={`${service.shortTitle} — what clients ask`}
+    items={serviceFaqs}
+    theme="default"
+  />
+
+  <ServiceRows
+    eyebrow="Also in this sector"
+    title={`More ${group?.label.toLowerCase() ?? ''} services`}
+    lede="Clients who appoint us for this service often combine it with the following."
+    group={service.group}
+    limit={6}
+  />
+
+  <CtaBand
+    eyebrow="Next step"
+    title={`Let&rsquo;s scope your ${service.shortTitle.toLowerCase()} project`}
+    lede={`Typical duration ${service.duration}. ${service.startingAt}. We will give you a costed specification before you commit to anything.`}
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'Book a consultation', href: '/contact-two' }}
+    marqueeText={service.shortTitle}
+  />
+</BaseLayout>
+
+<style>
+  .svd__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .svd__item {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: start;
+    gap: 0.85rem;
+    padding: clamp(1.25rem, 2.2vw, 1.75rem);
+    background: var(--bg);
+    transition: background var(--dur) var(--ease-out);
+  }
+
+  .svd__item:hover { background: var(--bg-card); }
+
+  .svd__no { font-size: 0.625rem; letter-spacing: 0.14em; color: var(--text-mute); font-variant-numeric: tabular-nums; padding-top: 0.15rem; }
+
+  .svd__check {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    flex: none;
+  }
+
+  .svd__text { font-size: 0.9375rem; color: var(--text-soft); line-height: 1.55; }
+
+  .svd__facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: clamp(1.75rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .svd__fact dt {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 0.55rem;
+  }
+
+  .svd__fact dd {
+    margin: 0;
+    font-family: var(--ff-display);
+    font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 820px) {
+    .svd__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 480px) {
+    .svd__facts { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

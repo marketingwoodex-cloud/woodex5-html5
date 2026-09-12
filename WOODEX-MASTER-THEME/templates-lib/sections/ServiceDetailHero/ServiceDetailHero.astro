@@ -1,0 +1,217 @@
+---
+/**
+ * SECTION · Service Detail Hero               [ service-detail-hero ]
+ * ---------------------------------------------------------------------------
+ * Header for a single service page: breadcrumb, masked title, lede, a quick
+ * fact rail (duration / price / group) and a wide image with clip reveal.
+ */
+import Img from '../components/ui/Img.astro';
+import Icon from '../components/ui/Icon.astro';
+import { serviceGroups } from '../data/services.js';
+import { serviceImage } from '../data/images.js';
+import { site } from '../data/site.js';
+import type { services } from '../data/services.js';
+
+type Service = (typeof services)[number];
+
+interface Props {
+  service: Service;
+  showFacts?: boolean;
+}
+
+const { service, showFacts = true } = Astro.props;
+
+const groupLabel = serviceGroups.find((g) => g.id === service.group)?.label ?? service.group;
+
+const facts = [
+  { label: 'Typical duration', value: service.duration, icon: 'clock' },
+  { label: 'Investment', value: service.startingAt, icon: 'calculator' },
+  { label: 'Category', value: groupLabel, icon: 'layers' },
+];
+---
+
+<section class="service-hero" data-theme="dark">
+  <div class="container">
+    <nav class="sh__crumb" aria-label="Breadcrumb" data-reveal="fade">
+      <a href="/home-one">Home</a>
+      <Icon name="chevron-right" size={11} stroke={2} />
+      <a href="/service">Services</a>
+      <Icon name="chevron-right" size={11} stroke={2} />
+      <span>{service.title}</span>
+    </nav>
+
+    <div class="sh__grid">
+      <div class="sh__copy">
+        <span class="sh__icon" data-reveal="fade" style="--reveal-delay:60ms" aria-hidden="true">
+          <Icon name={service.icon} size={22} stroke={1.5} />
+        </span>
+
+        <h1 class="sh__title" data-heading-reveal="words" data-heading-stagger="56">{service.title}</h1>
+
+        <p class="sh__lede" data-reveal="fade-up" style="--reveal-delay:280ms">{service.lede}</p>
+
+        <div class="sh__actions" data-reveal="fade-up" style="--reveal-delay:380ms">
+          <a href={site.cta.primary.href} class="btn btn--beige btn--lg btn--swap" data-magnetic="0.18">
+            <span class="btn__label">
+              <span>{site.cta.primary.label}</span>
+              <span>{site.cta.primary.label}</span>
+            </span>
+            <span class="btn__chip" aria-hidden="true"><Icon name="arrow-right" size={12} stroke={2.4} /></span>
+          </a>
+          <a href="/portfolio-one" class="btn btn--outline-invert btn--lg">
+            <span class="btn__label"><span>See related work</span></span>
+          </a>
+        </div>
+      </div>
+
+      <figure class="sh__media" data-reveal="clip-x" style="--reveal-delay:180ms">
+        <Img
+          src={serviceImage(service.slug)}
+          alt={service.title}
+          width={1200}
+          height={900}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+
+    {showFacts && (
+      <dl class="sh__facts" data-stagger="100">
+        {facts.map((f) => (
+          <div class="sh__fact" data-reveal="fade-up">
+            <dt><Icon name={f.icon} size={14} /> {f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+
+        <div class="sh__fact" data-reveal="fade-up">
+          <dt><Icon name="check" size={14} /> Deliverables</dt>
+          <dd>{service.deliverables.length} defined items</dd>
+        </div>
+      </dl>
+    )}
+  </div>
+</section>
+
+<style>
+  .service-hero {
+    position: relative;
+    padding-block: calc(var(--header-h) + clamp(2.5rem, 5vw, 4.5rem)) clamp(3rem, 6vw, 5rem);
+    background: var(--c-jet);
+    color: var(--c-beige);
+    overflow: hidden;
+  }
+
+  .service-hero::before {
+    content: '';
+    position: absolute;
+    inset-block-start: -30%;
+    inset-inline-end: -10%;
+    width: 55%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(252, 242, 232, 0.06), transparent 68%);
+    pointer-events: none;
+  }
+
+  .sh__crumb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-size: var(--fs-sub);
+    color: rgba(252, 242, 232, 0.5);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .sh__crumb a:hover { color: var(--c-beige); }
+
+  .sh__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .sh__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid rgba(252, 242, 232, 0.24);
+    border-radius: 50%;
+    margin-bottom: 1.75rem;
+  }
+
+  .sh__title {
+    font-size: clamp(2.2rem, 5.2vw, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+    max-width: 16ch;
+  }
+
+  .sh__lede {
+    margin-top: 1.5rem;
+    max-width: 48ch;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: rgba(252, 242, 232, 0.74);
+  }
+
+  .sh__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
+
+  .sh__media {
+    margin: 0;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .sh__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── Facts ─────────────────────────────────────────────────────────── */
+  .sh__facts {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    background: rgba(252, 242, 232, 0.14);
+    border-block: 1px solid rgba(252, 242, 232, 0.14);
+  }
+
+  .sh__fact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem clamp(1rem, 2vw, 1.75rem);
+    background: var(--c-jet);
+  }
+
+  .sh__fact dt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(252, 242, 232, 0.45);
+  }
+
+  .sh__fact dd { margin: 0; font-family: var(--ff-display); font-size: clamp(1.05rem, 1.7vw, 1.3rem); font-weight: 500; letter-spacing: -0.018em; }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .sh__grid { grid-template-columns: minmax(0, 1fr); }
+    .sh__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .sh__actions { flex-direction: column; align-items: stretch; }
+    .sh__actions :global(.btn) { justify-content: center; }
+    .sh__facts { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

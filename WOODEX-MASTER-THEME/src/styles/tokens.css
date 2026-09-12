@@ -1,0 +1,206 @@
+/* ============================================================================
+   WOODEX MASTER THEME — DESIGN TOKENS
+   ----------------------------------------------------------------------------
+   Source of truth: scraped from the reference template's /style-guide page.
+   Every value below is a 1:1 match with the reference design system.
+   Change a value HERE and it propagates through the entire theme.
+   ========================================================================= */
+
+:root {
+  /* ── 1. BRAND PALETTE ───────────────────────────────────────────────────
+     Exact hex values from the reference style guide.                        */
+  --c-black: #000000;          /* Black            — deepest ground        */
+  --c-jet: #111111;            /* Jet Black        — primary dark surface  */
+  --c-charcoal: #525252;       /* Charcoal Gray     — secondary text       */
+  --c-silver: #c0c0c0;         /* Silver            — muted / borders      */
+  --c-light-gray: #e3e1e1;     /* Light Gray        — soft section ground   */
+  --c-deep-gray: #d9d9d9;      /* Deep Gray         — card / divider tone   */
+  --c-beige: #fcf2e8;          /* Light Beige       — warm accent + paper   */
+  --c-navy: #0f1e36;           /* Deep Navy Blue    — alternate dark        */
+  --c-white: #ffffff;
+
+  /* ── 1b. SEMANTIC ALIASES ───────────────────────────────────────────────
+     These are what components actually consume. Re-point them to rebrand.   */
+  --bg: var(--c-beige);
+  --bg-soft: var(--c-light-gray);
+  --bg-card: var(--c-white);
+  --surface-dark: var(--c-jet);
+  --surface-dark-2: var(--c-navy);
+
+  --text: var(--c-black);
+  --text-soft: var(--c-charcoal);
+  --text-mute: var(--c-silver);
+  --text-invert: var(--c-beige);
+  --text-invert-soft: rgba(252, 242, 232, 0.62);
+
+  --line: rgba(0, 0, 0, 0.12);
+  --line-strong: rgba(0, 0, 0, 0.24);
+  --line-invert: rgba(252, 242, 232, 0.18);
+  --line-invert-strong: rgba(252, 242, 232, 0.4);
+
+  --accent: var(--c-beige);
+  --accent-ink: var(--c-black);
+
+  /* ── 2. TYPOGRAPHY SCALE ────────────────────────────────────────────────
+     size / line-height / weight — mirrored from the reference style guide.  */
+
+  /* H1 — 5rem, 112.5%, 500 */
+  --fs-h1: 5rem;
+  --lh-h1: 112.5%;
+  --fw-h1: 500;
+
+  /* H2 — 2.812rem, 122%, 500 */
+  --fs-h2: 2.812rem;
+  --lh-h2: 122%;
+  --fw-h2: 500;
+
+  /* H3 — 1.875rem, 133%, 500 */
+  --fs-h3: 1.875rem;
+  --lh-h3: 133%;
+  --fw-h3: 500;
+
+  /* H4 — 1.562rem, 128%, 500 */
+  --fs-h4: 1.562rem;
+  --lh-h4: 128%;
+  --fw-h4: 500;
+
+  /* H5 — 1.25rem, 150%, 500 */
+  --fs-h5: 1.25rem;
+  --lh-h5: 150%;
+  --fw-h5: 500;
+
+  /* H6 — 1.125rem, 155%, 400 */
+  --fs-h6: 1.125rem;
+  --lh-h6: 155%;
+  --fw-h6: 400;
+
+  /* Body / Sub / Button */
+  --fs-body: 1rem;      --lh-body: 162%;    --fw-body: 400;
+  --fs-sub: 0.875rem;   --lh-sub: 185%;     --fw-sub: 400;
+  --fs-btn: 0.9375rem;  --lh-btn: 162%;     --fw-btn: 500;
+
+  /* Display sizes used by hero + oversized marquees (fluid) */
+  --fs-display: clamp(2.75rem, 8.4vw, 7.5rem);
+  --fs-display-xl: clamp(3.5rem, 13vw, 13rem);
+  --fs-eyebrow: 0.75rem;
+  --fs-micro: 0.6875rem;
+
+  /* ── 3. FONT FAMILIES ───────────────────────────────────────────────────
+     Self-hosted first, system fallback. No remote font CDN dependency.      */
+  --ff-display: 'Woodex Display', 'Instrument Sans', 'Inter Tight',
+                -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ff-body: 'Woodex Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+             'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ff-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Letter-spacing rhythm */
+  --ls-display: -0.035em;
+  --ls-heading: -0.02em;
+  --ls-body: 0;
+  --ls-eyebrow: 0.16em;
+
+  /* ── 4. SPACING ─────────────────────────────────────────────────────────
+     8-point base scale. `--space-section` drives every section's block pad. */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+  --sp-40: 10rem;
+
+  --space-section: clamp(5rem, 9vw, 9.5rem);
+  --space-section-sm: clamp(3.5rem, 6vw, 6rem);
+
+  /* ── 5. LAYOUT ────────────────────────────────────────────────────────── */
+  --container: 82.5rem;      /* 1320px */
+  --container-narrow: 62rem;
+  --container-wide: 96rem;
+  --gutter: 1.5rem;
+  --header-h: 5.5rem;
+  --header-h-compact: 4.25rem;
+
+  /* ── 6. RADII ───────────────────────────────────────────────────────── */
+  --r-xs: 0.25rem;
+  --r-sm: 0.5rem;
+  --r-md: 0.875rem;
+  --r-lg: 1.25rem;
+  --r-xl: 2rem;
+  --r-pill: 100rem;
+
+  /* ── 7. ELEVATION ─────────────────────────────────────────────────────
+     Small / Medium / Large — the three shadow steps in the style guide.     */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.22), 0 8px 24px rgba(0, 0, 0, 0.10);
+  --shadow-xl: 0 40px 90px -20px rgba(0, 0, 0, 0.34);
+
+  /* ── 8. MOTION ────────────────────────────────────────────────────────
+     One easing family so every animation in the theme feels related.        */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 620ms;
+  --dur-slower: 1000ms;
+  --dur-reveal: 900ms;
+
+  --stagger: 90ms;
+
+  /* ── 9. Z-INDEX LADDER ──────────────────────────────────────────────── */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 500;
+  --z-mega: 600;
+  --z-drawer: 800;
+  --z-overlay: 900;
+  --z-cursor: 950;
+  --z-toast: 1000;
+}
+
+/* ── DARK SURFACE CONTEXT ─────────────────────────────────────────────────
+   Add `data-theme="dark"` (or the `.is-dark` class) to any wrapper and all
+   semantic tokens flip. No component needs to know it is on a dark ground.  */
+[data-theme='dark'],
+.is-dark {
+  --bg: var(--c-jet);
+  --bg-soft: var(--c-navy);
+  --bg-card: #1a1a1a;
+  --surface-dark: var(--c-beige);
+
+  --text: var(--c-beige);
+  --text-soft: rgba(252, 242, 232, 0.68);
+  --text-mute: rgba(252, 242, 232, 0.42);
+  --text-invert: var(--c-black);
+
+  --line: var(--line-invert);
+  --line-strong: var(--line-invert-strong);
+
+  --accent: var(--c-beige);
+  --accent-ink: var(--c-black);
+}
+
+/* ── INVERTED / BEIGE CONTEXT ───────────────────────────────────────────── */
+[data-theme='beige'] {
+  --bg: var(--c-beige);
+  --text: var(--c-black);
+  --text-soft: var(--c-charcoal);
+  --line: rgba(0, 0, 0, 0.14);
+}
+
+/* ── COOL / LIGHT-GRAY CONTEXT ──────────────────────────────────────────── */
+[data-theme='gray'] {
+  --bg: var(--c-light-gray);
+  --text: var(--c-black);
+  --text-soft: var(--c-charcoal);
+}

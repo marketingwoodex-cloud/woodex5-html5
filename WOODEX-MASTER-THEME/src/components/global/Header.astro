@@ -1,0 +1,247 @@
+---
+/**
+ * HEADER — sticky, transparent-over-hero, with a full mega menu.
+ *
+ * Mega menu pattern:
+ *   <li data-mega>                              ← hover intent wrapper
+ *     <button data-mega-trigger aria-controls>  ← the nav item
+ *   </li>
+ *   <div class="mega-panel" id="..." data-mega-panel> … </div>
+ *
+ * Handles: hover intent, click, keyboard (Enter/Space/Escape/ArrowDown),
+ * focus-out, outside click, and touch. See initMegaMenu() in motion.js.
+ */
+import { primaryNav, announcementBar } from '../../data/navigation.js';
+import { site } from '../../data/site.js';
+import Icon from '../ui/Icon.astro';
+import Img from '../ui/Img.astro';
+
+
+interface Props {
+  /** true → header starts light-on-dark (for hero pages) and flips on scroll */
+  overlay?: boolean;
+  /** highlight the active nav item */
+  current?: string;
+  showAnnouncement?: boolean;
+}
+
+const {
+  overlay = true,
+  current = '',
+  showAnnouncement = site.features.announcementBar && announcementBar.enabled,
+} = Astro.props;
+
+const layouts: Record<string, string> = { '4': 'mega-panel__inner', '3': 'mega-panel__inner mega-panel__inner--3', '2': 'mega-panel__inner mega-panel__inner--2', services: 'mega-panel__inner mega-panel__inner--services' };
+---
+
+{showAnnouncement && (
+  <div class="announce">
+    <div class="container announce__inner">
+      <span>{announcementBar.text}</span>
+      <a href={announcementBar.href}>{announcementBar.linkLabel}</a>
+      <span aria-hidden="true">→</span>
+    </div>
+  </div>
+)}
+
+<header
+  class:list={['header', overlay && 'header--overlay']}
+  data-header
+  data-header-threshold="30"
+>
+  <div class="container header__inner">
+    <!-- ── Brand ──────────────────────────────────────────────────────── -->
+    <a href="/home-one" class="brand" aria-label={`${site.name} — home`}>
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 20V7l5 5 3-6 3 6 5-5v13" />
+        </svg>
+      </span>
+      <span class="brand__text">
+        {site.shortName}
+        <small>Interior</small>
+      </span>
+    </a>
+
+    <!-- ── Desktop nav ────────────────────────────────────────────────── -->
+    <nav class="nav" aria-label="Primary">
+      {primaryNav.map((item) => {
+        const id = item.mega?.id;
+        /* `current` on the page (e.g. "service") is matched against the mega id
+           ("mega-services" → "services"); compare on a normalised singular form
+           so both "service" and "services" light the same nav item. */
+        const key = (id ?? '').replace(/^mega-/, '');
+        const isCurrent =
+          Boolean(current) &&
+          (key === current ||
+            key === `${current}s` ||
+            key.replace(/s$/, '') === current);
+        return (
+          <div data-mega class={isCurrent ? 'is-current' : ''}>
+            <button
+              type="button"
+              class="nav__trigger"
+              data-mega-trigger
+              aria-controls={id}
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-current={isCurrent ? 'true' : undefined}
+            >
+              {item.label}
+              <Icon name="chevron-down" class="chev" size={11} stroke={2} />
+              {isCurrent && <span class="sr-only"> (current section)</span>}
+            </button>
+          </div>
+        );
+      })}
+    </nav>
+
+    <!-- ── Actions ────────────────────────────────────────────────────── -->
+    <div class="header__actions nav__actions">
+      <a
+        href={`tel:${site.phoneHref}`}
+        class="btn btn--ghost btn--sm header__phone"
+        aria-label={`Call ${site.phone}`}
+      >
+        <Icon name="phone" size={14} />
+        <span class="btn__label"><span>Call</span></span>
+      </a>
+
+      <a href={site.cta.primary.href} class="btn btn--primary btn--sm btn--swap">
+        <span class="btn__label">
+          <span>{site.cta.primary.label}</span>
+          <span>{site.cta.primary.label}</span>
+        </span>
+        <span class="btn__chip" aria-hidden="true">
+          <Icon name="arrow-right" size={11} stroke={2.4} />
+        </span>
+      </a>
+
+      <button
+        type="button"
+        class="burger"
+        data-drawer-open
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        aria-label="Open navigation menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Mega panels ──────────────────────────────────────────────────── -->
+  {primaryNav.map((item) => {
+    const m = item.mega;
+    if (!m) return null;
+    return (
+      <div class="mega-panel" id={m.id} data-mega-panel aria-label={`${item.label} menu`}>
+        <div class="container">
+          <div class={layouts[m.layout] ?? 'mega-panel__inner'}>
+            {m.layout === 'services' ? (
+              /* Services mega: grouped columns + feature card */
+              <>
+                {m.groups.map((group) => (
+                  <div class="mega-col">
+                    <span class="mega-col__title">{group.label}</span>
+                    <div class="mega-list">
+                      {group.links.map((l) => (
+                        <a href={l.href}>{l.label}</a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {m.feature && (
+                  <a href={m.feature.href} class="mega-feature">
+                    <Img src={m.feature.image} alt="" loading="lazy" width="640" height="480" />
+                    <div class="mega-feature__body">
+                      <h4>{m.feature.title}</h4>
+                      <p>{m.feature.text}</p>
+                      <span class="text-link" style="margin-top:1rem;border-color:currentColor">
+                        {m.feature.cta}
+                      </span>
+                    </div>
+                  </a>
+                )}
+              </>
+            ) : (
+              <>
+                {m.columns?.map((col, ci) => (
+                  <div class:list={['mega-col', ci === m.columns.length - 1 && 'mega-col--optional']}>
+                    <span class="mega-col__title">{col.title}</span>
+                    <div class="mega-list">
+                      {col.links.map((l) => (
+                        <a href={l.href}>{l.label}</a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {m.feature && (
+                  <a href={m.feature.href} class="mega-feature">
+                    <Img src={m.feature.image} alt="" loading="lazy" width="640" height="480" />
+                    <div class="mega-feature__body">
+                      <h4>{m.feature.title}</h4>
+                      <p>{m.feature.text}</p>
+                      <span class="text-link" style="margin-top:1rem;border-color:currentColor">
+                        {m.feature.cta}
+                      </span>
+                    </div>
+                  </a>
+                )}
+              </>
+            )}
+          </div>
+
+          {m.stats && (
+            <div class="mega-strip">
+              {m.stats.map((s) => (
+                <div class="mega-strip__item">
+                  <strong>{s.value}</strong>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  })}
+</header>
+
+<style>
+  /* Current-section indicator on the nav trigger */
+  .nav :global(.is-current) > .nav__trigger { color: var(--text); }
+
+  .nav :global(.is-current) > .nav__trigger::after {
+    content: '';
+    position: absolute;
+    inset-block-end: 0.35rem;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform-origin: left center;
+    animation: nav-current-in 620ms var(--ease-expo) both;
+  }
+
+  @keyframes nav-current-in {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .nav :global(.nav__trigger) { position: relative; }
+
+  /* The services mega panel needs five columns */
+  :global(.mega-panel__inner--services) {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 1.35fr;
+  }
+  @media (max-width: 1280px) {
+    :global(.mega-panel__inner--services) {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) 1fr;
+    }
+    :global(.mega-panel__inner--services) > :nth-child(3),
+    :global(.mega-panel__inner--services) > :nth-child(4) {
+      display: none;
+    }
+  }
+</style>

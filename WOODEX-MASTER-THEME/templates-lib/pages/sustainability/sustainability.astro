@@ -1,0 +1,108 @@
+---
+/** PAGE TEMPLATE · Sustainability              [ sustainability ] */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import RichText from '../sections/RichText.astro';
+import FeatureSplit from '../sections/FeatureSplit.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Sustainability | Woodex Interior"
+  description="How Woodex Interior approaches sustainability in Pakistani interiors: local sourcing, reclaimed timber, low-VOC finishes, breathable plasters and design for longevity."
+  overlayHeader
+  current="about"
+>
+  <PageHeader
+    eyebrow="Responsibility"
+    title="The most sustainable interior is one you do not replace"
+    lede="We are sceptical of sustainability as a marketing word. In practice it means three things for us: source locally where it performs, specify finishes that are safe to live with, and design for a twenty-year life rather than a five-year trend."
+    crumbs={[{ label: 'About', href: '/about' }, { label: 'Sustainability' }]}
+    image="/images/features/feature-sustainability.jpg"
+    meta={[
+      { label: 'Local sourcing', value: '68% of spend' },
+      { label: 'Timber', value: 'Reclaimed where possible' },
+      { label: 'Finishes', value: 'Low-VOC water-based' },
+      { label: 'Waste', value: 'Sorted on site' },
+    ]}
+  />
+
+  <RichText
+    showToc
+    blocks={[
+      { type: 'h2', text: 'Where sustainability actually happens' },
+      { type: 'p', text: 'Interior projects generate most of their environmental impact before a single finish is chosen — in the structure that already exists, and in the lifespan of what gets installed. The highest-leverage decisions are therefore about what we keep and how long it lasts.' },
+      { type: 'h2', text: 'What works well in this climate' },
+      { type: 'list', items: [
+        'Local stone — low transport footprint, and thermally massive when used internally.',
+        'Reclaimed hardwood — already acclimatised, and often better seasoned than new stock.',
+        'Lime-based plasters — breathable, and they help regulate internal humidity.',
+        'Low-VOC water-based finishes — measurably better for indoor air quality.',
+        'Microcement — seamless, repairable, and it eliminates tile waste and grout failure.',
+      ] },
+      { type: 'h2', text: 'What fails without careful detailing' },
+      { type: 'list', items: [
+        'Solid bamboo in wet areas — dimensionally unstable at high humidity.',
+        'Unsealed reclaimed timber near external doors — moisture cycling causes movement.',
+        'Natural fibre carpets on ground floors without a vapour barrier.',
+      ] },
+      { type: 'quote', text: 'The material is rarely the problem. The detail around it is.' },
+      { type: 'h2', text: 'Design for longevity, not for photographs' },
+      { type: 'p', text: 'A room that is refitted in five years is less sustainable than a room built in 2015 that still works. That is why we specify hardware rated for real use, seal every board edge, and resist finishes that are fashionable rather than durable.' },
+      { type: 'callout', title: 'Our position on certification', text: 'We do not claim formal green building certification for interiors. Where a client is pursuing LEED or EDGE, we will document material sourcing and VOC data to support their submission.' },
+    ]}
+  />
+
+  <FeatureSplit
+    eyebrow="In practice"
+    title="Three decisions we make on every project"
+    lede="None of these are expensive. They are simply choices about what to keep, what to seal and what to source locally."
+    features={[
+      {
+        eyebrow: 'Keep',
+        title: 'Retain what already has value',
+        body: 'Before we specify anything new, we survey what exists. Structural elements, existing joinery in good condition and quality stone are all candidates to retain — and retaining is nearly always the lowest-carbon option.',
+        list: ['Condition survey before strip-out', 'Retained elements documented', 'Waste sorted and recycled where possible'],
+        image: '/images/features/feature-sustainability.jpg',
+        stat: { value: '68%', label: 'Local sourcing by spend' },
+      },
+      {
+        eyebrow: 'Seal',
+        title: 'Specify for the humidity you have',
+        body: 'Moisture-resistant cores, every exposed edge banded or lipped, and hardware rated for real use. It costs marginally more at specification stage and it is the single biggest determinant of how long an interior lasts here.',
+        list: ['Moisture-resistant substrates throughout', 'Every exposed edge sealed', 'Hardware specified for cycle life'],
+        image: '/images/features/feature-joinery.jpg',
+        stat: { value: '5 yr', label: 'Joinery warranty' },
+      },
+      {
+        eyebrow: 'Source',
+        title: 'Buy local where it performs',
+        body: 'Local stone, local plaster, local labour. We are sceptical of imported finishes that perform no better but travel further. Where imported products genuinely outperform — hardware, engineered timber — we say so and specify them.',
+        list: ['Local stone and lime plaster specified', 'Reclaimed timber preferred', 'Imported only where it earns its cost'],
+        image: '/images/features/feature-space-planning.jpg',
+        stat: { value: '420', label: 'Swatches in the library' },
+      },
+    ]}
+    theme="gray"
+  />
+
+  <StatsStrip variant="numbers" eyebrow="The record" theme="dark" />
+
+  <FaqBlock eyebrow="Questions" title="Sustainability questions" items={[
+    { q: 'Do you offer green building certification?', a: 'We do not claim certification for interiors. Where a client is pursuing LEED or EDGE, we document material sourcing, recycled content and VOC data to support their submission.', category: 'Certification' },
+    { q: 'Is sustainable specification more expensive?', a: 'Usually not more than marginally. The bigger cost driver is complexity, not sourcing. Local stone is often cheaper than imported alternatives while being lower-carbon.', category: 'Cost' },
+    { q: 'Do you use reclaimed materials?', a: 'Yes, where they suit the application. Reclaimed hardwood is often better seasoned than new stock, though it is not appropriate in wet areas without additional protection.', category: 'Specification' },
+    { q: 'What happens to strip-out waste?', a: 'It is sorted on site. Metal, stone and timber are separated for recycling; usable fittings are offered to the client or donated rather than landfilled.', category: 'Waste' },
+    { q: 'How do you improve indoor air quality?', a: 'Low-VOC water-based finishes, sealed substrates, and mechanical ventilation designed with adequate fresh-air rates rather than minimum compliance.', category: 'Wellbeing' },
+  ]} />
+
+  <CtaBand
+    eyebrow="Build better"
+    title="Sustainability without the marketing"
+    primary={{ label: 'Start a project', href: '/contact-one' }}
+    secondary={{ label: 'See our materials', href: '/materials' }}
+    variant="split"
+  />
+</BaseLayout>

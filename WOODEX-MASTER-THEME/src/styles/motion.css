@@ -1,0 +1,523 @@
+/* ============================================================================
+   WOODEX MASTER THEME — MOTION SYSTEM
+   ----------------------------------------------------------------------------
+   Attribute-driven, exactly like the reference template:
+     data-heading-reveal        → bottom-to-top word/char reveal (SplitText feel)
+     data-text-reveal           → per-line masked reveal
+     data-scroll-opacity        → scroll-scrubbed 0 → 1 opacity
+     data-reveal="fade-up"      → IntersectionObserver entrance
+     data-parallax="0.15"       → scroll-linked translate
+     data-marquee               → infinite loop (horizontal | vertical)
+     data-counter="200"         → count-up on enter
+     data-stagger               → auto-stagger direct children
+     data-pin                   → sticky pinning section
+   All of it degrades to static content when JS or motion is unavailable.
+   ========================================================================= */
+
+/* ── 0. GLOBAL BEHAVIOUR ───────────────────────────────────────────────── */
+html.has-scroll-anim { scroll-behavior: smooth; }
+
+/* Elements awaiting a JS-driven entrance start hidden, but ONLY when JS has
+   confirmed it can run (`.js-enabled` is set by an inline script in <head>).
+   This guarantees no blank page if JS fails. */
+.js-enabled [data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.js-enabled [data-reveal].is-in {
+  opacity: 1;
+}
+
+/* ── 1. ENTRANCE REVEALS ───────────────────────────────────────────────── */
+[data-reveal] {
+  --reveal-x: 0px;
+  --reveal-y: 0px;
+  --reveal-scale: 1;
+  --reveal-rotate: 0deg;
+  --reveal-blur: 0px;
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out),
+    filter var(--dur-reveal) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal='fade-up'],
+[data-reveal='up'] {
+  --reveal-y: 2.5rem;
+}
+
+[data-reveal='fade-down'],
+[data-reveal='down'] {
+  --reveal-y: -2.5rem;
+}
+
+[data-reveal='fade-left'],
+[data-reveal='left'] {
+  --reveal-x: 3rem;
+}
+
+[data-reveal='fade-right'],
+[data-reveal='right'] {
+  --reveal-x: -3rem;
+}
+
+[data-reveal='fade'] { --reveal-y: 0px; }
+
+[data-reveal='zoom'] {
+  --reveal-scale: 0.92;
+  --reveal-y: 1rem;
+}
+
+[data-reveal='zoom-in'] {
+  --reveal-scale: 1.08;
+}
+
+[data-reveal='blur'] {
+  --reveal-blur: 12px;
+  --reveal-y: 1.5rem;
+}
+
+[data-reveal='rotate'] {
+  --reveal-rotate: -3deg;
+  --reveal-y: 2rem;
+}
+
+[data-reveal] {
+  transform: translate3d(var(--reveal-x), var(--reveal-y), 0)
+             scale(var(--reveal-scale))
+             rotate(var(--reveal-rotate));
+  filter: blur(var(--reveal-blur));
+}
+
+[data-reveal].is-in {
+  --reveal-x: 0px;
+  --reveal-y: 0px;
+  --reveal-scale: 1;
+  --reveal-rotate: 0deg;
+  --reveal-blur: 0px;
+}
+
+/* ── 2. CLIP-PATH IMAGE REVEAL ─────────────────────────────────────────── */
+[data-reveal='clip'] {
+  clip-path: inset(0 0 100% 0);
+  opacity: 1;
+  transform: none;
+  transition: clip-path 1.1s var(--ease-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal='clip'].is-in { clip-path: inset(0 0 0 0); }
+
+[data-reveal='clip-x'] {
+  clip-path: inset(0 100% 0 0);
+  opacity: 1;
+  transform: none;
+  transition: clip-path 1.1s var(--ease-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal='clip-x'].is-in { clip-path: inset(0 0 0 0); }
+
+/* ── 3. TEXT REVEALS ───────────────────────────────────────────────────── */
+
+/* 3a. Masked line reveal — wrap children in .line-mask > .line-inner */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  /* Descenders of g/j/p/q get clipped by `overflow:hidden` — pad it back. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.line-inner {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1s var(--ease-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.is-in > .line-mask > .line-inner,
+.line-mask.is-in > .line-inner,
+.line-mask.is-in .line-inner {
+  transform: translate3d(0, 0, 0);
+}
+
+/* 3b. Word / character reveal — JS injected spans */
+[data-heading-reveal],
+[data-text-reveal] {
+  --word-dur: 1000ms;
+}
+
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.word-inner {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+  transition:
+    transform var(--word-dur) var(--ease-expo),
+    opacity calc(var(--word-dur) * 0.6) var(--ease-expo);
+  transition-delay: var(--word-delay, 0ms);
+}
+
+.is-in .word-inner,
+[data-heading-reveal].is-in .word-inner,
+[data-text-reveal].is-in .word-inner {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.char-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.char-inner {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 900ms var(--ease-expo);
+  transition-delay: var(--char-delay, 0ms);
+}
+
+.is-in .char-inner,
+[data-heading-reveal].is-in .char-inner {
+  transform: translate3d(0, 0, 0);
+}
+
+/* 3c. Scroll-scrubbed opacity — the reference's `opacity="1"` attribute.
+   `--scrub` is written by JS on every scroll frame (0 → 1). */
+[data-scroll-opacity] {
+  opacity: var(--scrub, 0.08);
+  transition: none;
+}
+
+/* 3d. Scroll-scrubbed colour fill: text goes from outline to solid */
+[data-scroll-fill] {
+  --fill: 0%;
+  background-image: linear-gradient(
+    90deg,
+    currentColor 0%,
+    currentColor var(--fill),
+    transparent var(--fill),
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--text);
+}
+
+/* 3e. Typewriter / rotating words */
+.rotate-words {
+  display: inline-grid;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+
+.rotate-words > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+  transition: opacity 500ms var(--ease-out), transform 700ms var(--ease-expo);
+}
+
+.rotate-words > span.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.rotate-words > span.is-leaving {
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+}
+
+/* ── 4. SCROLL SCRUB PRIMITIVES ────────────────────────────────────────── */
+/* Parallax: `data-parallax="0.2"` → JS writes --par-y */
+[data-parallax] {
+  transform: translate3d(0, var(--par-y, 0px), 0);
+  will-change: transform;
+}
+
+/* Horizontal scroll rail driven by vertical scroll */
+[data-scroll-rail] {
+  will-change: transform;
+}
+
+[data-scroll-rail-track] {
+  display: flex;
+  gap: var(--sp-6);
+  width: max-content;
+  transform: translate3d(var(--rail-x, 0px), 0, 0);
+  will-change: transform;
+}
+
+/* Sticky pin */
+[data-pin] { position: relative; }
+
+[data-pin-sticky] {
+  position: sticky;
+  top: var(--pin-top, calc(var(--header-h) + 1rem));
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: var(--text);
+  z-index: var(--z-header);
+  pointer-events: none;
+}
+
+/* ── 5. MARQUEE ────────────────────────────────────────────────────────── */
+[data-marquee] {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--marquee-gap, 2.5rem);
+  mask-image: var(--marquee-mask, none);
+  -webkit-mask-image: var(--marquee-mask, none);
+}
+
+[data-marquee] > .marquee-track {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap, 2.5rem);
+  min-width: 100%;
+  animation: marquee-x var(--marquee-dur, 32s) linear infinite;
+  animation-direction: var(--marquee-dir, normal);
+}
+
+[data-marquee]:hover > .marquee-track {
+  animation-play-state: var(--marquee-hover, running);
+}
+
+[data-marquee='reverse'] > .marquee-track,
+[data-marquee-dir='reverse'] > .marquee-track {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(calc(-100% - var(--marquee-gap, 2.5rem)), 0, 0); }
+}
+
+/* Vertical marquee — the reference's `.rt-marquee` class. */
+[data-marquee-vertical],
+.rt-marquee {
+  overflow: hidden;
+  height: var(--marquee-height, 32rem);
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+[data-marquee-vertical] > .marquee-track,
+.rt-marquee > .marquee-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--marquee-gap, 1.25rem);
+  animation: marquee-y var(--marquee-dur, 40s) linear infinite;
+}
+
+@keyframes marquee-y {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, calc(-100% - var(--marquee-gap, 1.25rem)), 0); }
+}
+
+/* ── 6. HOVER MOTION ───────────────────────────────────────────────────── */
+.hover-lift {
+  transition: transform var(--dur-slow) var(--ease-out),
+              box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translate3d(0, -0.5rem, 0);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-zoom img { transition: transform 1s var(--ease-expo); }
+.hover-zoom:hover img { transform: scale(1.06); }
+
+/* Animated underline for links */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--dur-slow) var(--ease-expo);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Arrow that slides out on hover — used across every CTA in the theme */
+.arrow {
+  display: inline-block;
+  transition: transform var(--dur-slow) var(--ease-expo);
+}
+
+:is(a, button):hover .arrow { transform: translate3d(0.35rem, 0, 0); }
+
+.arrow-up-right { transition: transform var(--dur-slow) var(--ease-expo); }
+:is(a, button):hover .arrow-up-right { transform: translate3d(0.2rem, -0.2rem, 0); }
+
+/* ── 7. COUNTER ────────────────────────────────────────────────────────── */
+[data-counter] { font-variant-numeric: tabular-nums; }
+
+/* ── 8. MAGNETIC / CURSOR ──────────────────────────────────────────────── */
+[data-magnetic] {
+  transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
+  transition: transform 400ms var(--ease-out);
+}
+
+[data-cursor] {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--cursor-size, 3.5rem);
+  height: var(--cursor-size, 3.5rem);
+  border-radius: 50%;
+  background: var(--c-beige);
+  color: var(--c-jet);
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%) scale(var(--cursor-scale, 0));
+  transition: transform 260ms var(--ease-out), opacity 260ms var(--ease-out);
+  opacity: 0;
+  mix-blend-mode: normal;
+}
+
+[data-cursor].is-active {
+  opacity: 1;
+  --cursor-scale: 1;
+}
+
+/* ── 9. STICKY / PINNED SECTION FADE ───────────────────────────────────── */
+[data-sticky-stack] > * {
+  position: sticky;
+  top: var(--stack-top, calc(var(--header-h) + 2rem));
+}
+
+/* ── 10. PAGE TRANSITION ───────────────────────────────────────────────── */
+.page-veil {
+  position: fixed;
+  inset: 0;
+  background: var(--c-jet);
+  z-index: var(--z-overlay);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+
+.page-veil.is-out {
+  transition: transform 620ms var(--ease-expo);
+  transform: scaleY(1);
+  transform-origin: bottom center;
+}
+
+.page-veil.is-in {
+  transform: scaleY(1);
+  transform-origin: top center;
+  transition: transform 620ms var(--ease-expo);
+}
+
+.js-enabled.is-page-ready .page-veil {
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+/* ── 11. LOADER ────────────────────────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-toast);
+  background: var(--c-jet);
+  color: var(--c-beige);
+  display: grid;
+  place-items: center;
+  transition: opacity 700ms var(--ease-soft), visibility 700ms;
+}
+
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-bar {
+  width: min(18rem, 60vw);
+  height: 1px;
+  background: rgba(252, 242, 232, 0.2);
+  overflow: hidden;
+}
+
+.preloader-bar span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--c-beige);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 200ms linear;
+}
+
+/* ── 12. REDUCED MOTION ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js-enabled [data-reveal],
+  [data-heading-reveal] .word-inner,
+  [data-text-reveal] .word-inner,
+  .line-inner,
+  .char-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
+
+  [data-scroll-opacity] { opacity: 1 !important; }
+
+  [data-marquee] > .marquee-track,
+  [data-marquee-vertical] > .marquee-track,
+  .rt-marquee > .marquee-track { animation: none !important; }
+
+  [data-parallax] { transform: none !important; }
+}

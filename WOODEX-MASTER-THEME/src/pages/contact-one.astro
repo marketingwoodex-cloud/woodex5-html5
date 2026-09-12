@@ -1,0 +1,63 @@
+---
+/**
+ * PAGE TEMPLATE · Contact One                 [ contact-one ]
+ * ---------------------------------------------------------------------------
+ * The primary enquiry route: full multi-section form with a sticky info rail,
+ * FAQ, office strip and trust signals.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import ContactFormSection from '../sections/ContactFormSection.astro';
+import ContactInfo from '../sections/ContactInfo.astro';
+import FaqBlock from '../sections/FaqBlock.astro';
+import StatsStrip from '../sections/StatsStrip.astro';
+import ProcessAccordion from '../sections/ProcessAccordion.astro';
+import { faqs } from '../data/content.js';
+---
+
+<BaseLayout
+  title="Start a Project | Woodex Interior"
+  description="Tell us about your space and we will respond within one business day with an honest view of scope, cost and programme. Free 30-minute consultation."
+  overlayHeader
+  current="contact"
+  footerCta={false}
+>
+  <PageHeader
+    eyebrow="Start a project"
+    title="Tell us about your space"
+    lede="The more you can tell us now, the more useful our first response will be. There is no obligation and no sales script — a senior designer reads every enquiry."
+    crumbs={[{ label: 'Contact', href: '/contact-one' }, { label: 'Enquiry form' }]}
+    variant="soft"
+    meta={[
+      { label: 'Response time', value: '1 business day' },
+      { label: 'Consultation', value: 'Free, 30 minutes' },
+      { label: 'Coverage', value: 'Pakistan nationwide' },
+      { label: 'Languages', value: 'English · اردو' },
+    ]}
+  />
+
+  <ContactFormSection
+    eyebrow="Enquiry form"
+    title="Three short sections, about two minutes"
+    lede="Share what you know. If you are missing the area, the budget or the timeline, leave it blank — we will establish it together."
+    submitLabel="Send enquiry"
+    showInfoRail
+  />
+
+  <StatsStrip variant="promises" eyebrow="What happens next" title="Our commitments to you" theme="gray" />
+
+  <ProcessAccordion
+    variant="cards"
+    eyebrow="After you send it"
+    title="From enquiry to first drawing"
+    lede="Here is exactly how the first three stages run once your enquiry lands."
+  />
+
+  <ContactInfo variant="strip" theme="default" showMap={false} />
+
+  <FaqBlock
+    eyebrow="Before you send"
+    title="Questions we get at enquiry stage"
+    items={faqs.slice(0, 6)}
+  />
+</BaseLayout>

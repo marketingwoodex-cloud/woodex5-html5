@@ -1,0 +1,43 @@
+---
+/** Blog Two — uniform card grid layout. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/global/PageHeader.astro';
+import JournalGrid from '../sections/JournalGrid.astro';
+import NewsletterBand from '../sections/NewsletterBand.astro';
+import ClientsMarquee from '../sections/ClientsMarquee.astro';
+import CtaBand from '../sections/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Journal Two — Grid Layout | Woodex Interior"
+  description="A clean three-up grid index of the Woodex Journal, with topic filters and reading times."
+  overlayHeader
+  current="journal"
+>
+  <PageHeader
+    eyebrow="Journal · Layout two"
+    title="Every article, one grid"
+    lede="The fastest way to scan the archive. Filter by topic, and every card shows the date, reading time and author."
+    crumbs={[{ label: 'Journal', href: '/journal' }, { label: 'Grid' }]}
+    variant="soft"
+    meta={[
+      { label: 'Layout', value: 'Grid' },
+      { label: 'Articles', value: '9' },
+      { label: 'Topics', value: '5' },
+    ]}
+  />
+
+  <JournalGrid eyebrow="Archive" title="All articles" variant="grid" limit={12} />
+
+  <NewsletterBand variant="band" theme="gray" />
+
+  <ClientsMarquee variant="text" eyebrow="Trusted by" title="The operators behind the work" />
+
+  <CtaBand
+    eyebrow="Layouts"
+    title="Other ways to browse"
+    primary={{ label: 'Magazine layout', href: '/blog-one' }}
+    secondary={{ label: 'List layout', href: '/blog-three' }}
+    variant="split"
+  />
+</BaseLayout>

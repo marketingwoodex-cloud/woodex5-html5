@@ -1,0 +1,233 @@
+---
+/**
+ * TABS SHOWCASE — a horizontal tab rail driving a media + copy panel.
+ * Replicates the reference's "Designed for lasting impact" tabs section.
+ *
+ * MOTION: data-tabs / data-tab / data-tab-panel (motion.js), panel
+ * cross-fade, arrow-key roving focus, magnetic CTA.
+ */
+import Icon from '../components/ui/Icon.astro';
+import Img from '../components/ui/Img.astro';
+
+interface TabItem {
+  id: string;
+  label: string;
+  title: string;
+  body: string;
+  bullets?: string[];
+  image?: string;
+  imageAlt?: string;
+  stat?: { value: string; label: string };
+  cta?: { label: string; href: string };
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  tabs: TabItem[];
+  variant?: 'media-right' | 'media-left';
+  theme?: 'default' | 'gray' | 'dark' | 'beige';
+}
+
+const { eyebrow, title, lede, tabs, variant = 'media-right', theme = 'default' } = Astro.props;
+if (!tabs?.length) throw new Error('TabsShowcase requires at least one tab.');
+---
+
+<section class:list={['section', 'ts', `ts--${variant}`]} data-theme={theme}>
+  <div class="container">
+    {(eyebrow || title || lede) && (
+      <div class="sec-head">
+        <div class="sec-head__text">
+          {eyebrow && <span class="eyebrow" data-reveal="fade">{eyebrow}</span>}
+          {title && <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>}
+        </div>
+        {lede && (
+          <p class="sec-head__aside" data-reveal="fade-up" style="--reveal-delay:180ms">{lede}</p>
+        )}
+      </div>
+    )}
+
+    <div class="ts__tabs" data-tabs data-tabs-orientation="horizontal">
+      <div class="ts__rail" role="tablist" aria-label={title ?? 'Showcase tabs'}>
+        {tabs.map((t, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${t.id}`}
+            class="ts__tab"
+            data-tab
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`panel-${t.id}`}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <span class="ts__tab-no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ts__tab-label">{t.label}</span>
+            <span class="ts__tab-bar" aria-hidden="true"></span>
+          </button>
+        ))}
+      </div>
+
+      <div class="ts__panels">
+        {tabs.map((t, i) => (
+          <div
+            class="ts__panel"
+            id={`panel-${t.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${t.id}`}
+            data-tab-panel
+            hidden={i !== 0}
+          >
+            <div class="ts__media">
+              {t.image && (
+                <Img src={t.image} alt={t.imageAlt ?? t.title} width={1200} height={900} loading="lazy" />
+              )}
+              {t.stat && (
+                <div class="ts__stat">
+                  <strong>{t.stat.value}</strong>
+                  <span>{t.stat.label}</span>
+                </div>
+              )}
+            </div>
+
+            <div class="ts__copy">
+              <h3 class="ts__title">{t.title}</h3>
+              <p class="ts__body">{t.body}</p>
+
+              {t.bullets?.length ? (
+                <ul class="ts__bullets">
+                  {t.bullets.map((b) => (
+                    <li>
+                      <span class="ts__tick" aria-hidden="true"><Icon name="check" size={11} stroke={2.6} /></span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
+              {t.cta && (
+                <a href={t.cta.href} class="text-link" style="margin-top:1.5rem" data-magnetic="0.15">
+                  {t.cta.label}
+                  <Icon name="arrow-right" size={13} class="arrow" />
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ts__rail {
+    display: flex;
+    gap: 0;
+    border-block-end: 1px solid var(--line);
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ts__rail::-webkit-scrollbar { display: none; }
+
+  .ts__tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 1rem clamp(1rem, 2.4vw, 2rem) 1.15rem;
+    font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--text-mute);
+    white-space: nowrap;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .ts__tab:hover { color: var(--text-soft); }
+  .ts__tab[aria-selected='true'] { color: var(--text); }
+
+  .ts__tab-no { font-size: 0.625rem; letter-spacing: 0.14em; opacity: 0.6; font-variant-numeric: tabular-nums; }
+
+  .ts__tab-bar {
+    position: absolute;
+    inset-block-end: -1px;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-slow) var(--ease-expo);
+  }
+
+  .ts__tab[aria-selected='true'] .ts__tab-bar { transform: scaleX(1); }
+
+  .ts__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    animation: ts-in 620ms var(--ease-expo) both;
+  }
+
+  .ts--media-left .ts__panel > .ts__media { order: 2; }
+
+  @keyframes ts-in {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .ts__media { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg-soft); }
+  .ts__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .ts__stat {
+    position: absolute;
+    inset-block-end: 1rem;
+    inset-inline-start: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.85rem 1.15rem;
+    border-radius: var(--r-md);
+    background: rgba(252, 242, 232, 0.94);
+    color: var(--c-jet);
+    backdrop-filter: blur(4px);
+  }
+
+  .ts__stat strong { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 600; letter-spacing: -0.03em; }
+  .ts__stat span { font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.65; }
+
+  .ts__copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .ts__title { font-size: clamp(1.5rem, 2.8vw, 2.25rem); letter-spacing: -0.03em; line-height: 1.14; max-width: 22ch; }
+  .ts__body { margin-top: 1.25rem; color: var(--text-soft); max-width: 52ch; }
+
+  .ts__bullets { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.5rem; }
+  .ts__bullets li { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.9375rem; color: var(--text-soft); }
+
+  .ts__tick {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+    margin-top: 0.1rem;
+    border-radius: 50%;
+    background: var(--c-beige);
+    color: var(--c-jet);
+  }
+
+  [data-theme='dark'] .ts__bullets li,
+  [data-theme='dark'] .ts__body { color: rgba(252, 242, 232, 0.72); }
+  [data-theme='dark'] .ts__tab { color: rgba(252, 242, 232, 0.5); }
+  [data-theme='dark'] .ts__tab[aria-selected='true'] { color: var(--c-beige); }
+  [data-theme='dark'] .ts__tab-bar { background: var(--c-beige); }
+  [data-theme='dark'] .ts__rail { border-color: rgba(252, 242, 232, 0.2); }
+  [data-theme='dark'] .ts__tick { background: var(--c-beige); color: var(--c-jet); }
+
+  @media (max-width: 900px) {
+    .ts__panel { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .ts--media-left .ts__panel > .ts__media { order: 0; }
+  }
+</style>
