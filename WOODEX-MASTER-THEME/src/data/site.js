@@ -12,25 +12,25 @@ export const site = {
     'Woodex Interior designs and builds premium residential, commercial and hospitality interiors across Pakistan — from concept and 3D visualisation through to turnkey fit-out and custom joinery.',
 
   // ── Contact ────────────────────────────────────────────────────────────
-  email: 'hello@woodexinterior.com',
-  emailSales: 'projects@woodexinterior.com',
-  phone: '+92 300 000 0000',
-  phoneHref: '+923000000000',
-  whatsapp: '+92 300 000 0000',
-  whatsappHref: '923000000000',
+  email: 'studio@woodex.interior',
+  emailSales: 'studio@woodex.interior',
+  phone: '+92 336 2259477',
+  phoneHref: '+923362259477',
+  whatsapp: 'https://wa.me/923224000768',
+  whatsappHref: '923224000768',
 
   // ── Locations ──────────────────────────────────────────────────────────
   market: 'Pakistan nationwide',
   cities: ['Lahore', 'Karachi', 'Islamabad', 'Faisalabad', 'Multan', 'Rawalpindi'],
   address: {
-    line1: 'Studio 04, Design District',
-    line2: 'Gulberg III',
+    line1: 'LG 90 Link Road, Model Town',
+    line2: 'Gulberg III, Lahore',
     city: 'Lahore',
     region: 'Punjab',
     postal: '54660',
     country: 'Pakistan',
   },
-  hours: 'Mon – Sat · 10:00 – 19:00 PKT',
+  hours: 'Office 10:00 – 20:30 PKT',
   responseTime: 'Human reply within one business day',
 
   // ── Social ─────────────────────────────────────────────────────────────
@@ -104,26 +104,33 @@ export const theme = {
   fonts: {
     enabled: true,
     provider: 'google',
-    display: 'Inter Tight',
-    body: 'Inter',
-    displayWeights: [400, 500],
-    bodyWeights: [400, 500],
+    /* Woodex runs ONE typeface site-wide — DESIGN.md rules out a second
+       family. Weights 300-700, as locked. Display sits at 500, body at 400. */
+    display: 'Plus Jakarta Sans',
+    body: 'Plus Jakarta Sans',
+    displayWeights: [300, 400, 500, 600, 700],
+    bodyWeights: [300, 400, 500, 600, 700],
   },
 
   imageTone: 'cream',
   palette: {
+    navy: '#0c1628',   // Navy    — dark surfaces, buttons, dark ground
+    navy2: '#121e34',  // Navy 2  — raised panels on dark
+    card: '#152033',   // Card    — cards on dark
+    cream: '#f4efe7',  // Cream   — warm alternate ground
+    ink: '#12151c',    // Ink     — body text, headlines on light
+    muted: '#6a6560',  // Muted   — secondary copy
+    wood: '#b8956a',   // Wood    — THE accent, used sparingly
     white: '#ffffff',
-    blue: '#0f1e36', // navy — all dark surfaces, buttons and accents
-    navy: '#0f1e36', // alias kept for compatibility
-    cream: '#fcf2e8',
     black: '#000000',
-    // deprecated aliases (resolve into the four above)
-    jet: '#0f1e36',
-    beige: '#fcf2e8',
+    // deprecated aliases (resolve into the values above)
+    blue: '#0c1628',
+    jet: '#0c1628',
+    beige: '#f4efe7',
   },
   /** Which palette key drives the page background and the primary text. */
-  background: 'beige',
-  foreground: 'black',
+  background: 'white',
+  foreground: 'ink',
 };
 
 export default site;

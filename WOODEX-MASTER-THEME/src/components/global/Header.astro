@@ -44,6 +44,46 @@ const layouts: Record<string, string> = { '4': 'mega-panel__inner', '3': 'mega-p
   </div>
 )}
 
+<!-- The announcement bar is fixed above the header. This measures it so the
+     header can sit exactly beneath (--announce-h) on any viewport, and retires
+     the bar once the reader scrolls — so no page ever loses its top strip. -->
+<script is:inline>
+  (() => {
+    const bar = document.querySelector('.announce');
+    const root = document.documentElement;
+    if (!bar) {
+      root.style.setProperty('--announce-h', '0px');
+      root.style.setProperty('--announce-offset', '0px');
+      return;
+    }
+    let h = 0;
+
+    /* --announce-h      the bar's real height: pads the page so nothing hides
+                          underneath it.
+       --announce-offset the header's top: follows the bar until the reader
+                          scrolls, then snaps to 0 as the bar leaves. */
+    const apply = () =>
+      root.style.setProperty('--announce-offset', window.scrollY > h ? '0px' : h + 'px');
+
+    const measure = () => {
+      h = bar.offsetHeight;
+      root.style.setProperty('--announce-h', h + 'px');
+      apply();
+    };
+
+    const onScroll = () => {
+      bar.classList.toggle('is-away', window.scrollY > h);
+      apply();
+    };
+
+    measure();
+    onScroll();
+    window.addEventListener('resize', measure);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('load', measure);
+  })();
+</script>
+
 <header
   class:list={['header', overlay && 'header--overlay']}
   data-header

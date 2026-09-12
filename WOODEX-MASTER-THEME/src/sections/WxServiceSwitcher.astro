@@ -1,0 +1,257 @@
+---
+/**
+ * WX SERVICE SWITCHER — "Six services you can actually buy".
+ * ---------------------------------------------------------------------------
+ * One image panel, six named services. Clicking (or focusing) a row swaps the
+ * image and its caption — the reference's `.st-spaces` block. The rows are the
+ * real UI, so they are <a> elements: keyboard and no-JS both work, because the
+ * first image is server-rendered and each row links to its service page.
+ */
+import Btn from '../components/ui/Btn.astro';
+import { services } from '../data/home.js';
+
+const { eyebrow, title, lede, items } = services;
+---
+
+<section class="sw">
+  <div class="container">
+    <div class="sw__head">
+      <div data-reveal="fade-up">
+        <p class="sw__eyebrow"><i aria-hidden="true"></i>{eyebrow}</p>
+        <h2 data-heading-reveal="words" data-heading-stagger="44">{title}</h2>
+      </div>
+      <p class="sw__lede" data-reveal="fade-up" style="--reveal-delay:120ms">{lede}</p>
+    </div>
+
+    <div class="sw__grid">
+      <div class="sw__media" data-reveal="fade-up">
+        {items.map((s, i) => (
+          <img
+            class:list={['sw__img', i === 0 && 'is-on']}
+            src={s.image}
+            alt={s.alt}
+            width="1408"
+            height="768"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            data-sw-img={i}
+            data-tone="none"
+          />
+        ))}
+        <div class="sw__cap">
+          <small>Service {items[0].n}</small>
+          <strong data-sw-cap>{items[0].caption}</strong>
+        </div>
+        <span class="sw__frame" aria-hidden="true"></span>
+      </div>
+
+      <div class="sw__list" role="list">
+        {items.map((s, i) => (
+          <a
+            class:list={['sw__row', i === 0 && 'is-on']}
+            href={s.href}
+            role="listitem"
+            data-sw-row={i}
+            data-caption={s.caption}
+            data-number={`Service ${s.n}`}
+          >
+            <span class="sw__n">{s.n}</span>
+            <span class="sw__body">
+              <h3>{s.name}</h3>
+              <p>{s.copy}</p>
+            </span>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="sw__foot" data-reveal="fade-up">
+      <Btn href="/services" label="See all services" variant="ghost" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .sw {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: var(--c-cream);
+    color: var(--c-ink);
+  }
+  .sw__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .sw__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .sw__eyebrow i {
+    width: 22px;
+    height: 1px;
+    background: var(--c-wood, #b8956a);
+    flex: none;
+  }
+  .sw h2 {
+    margin: 0;
+    font-size: clamp(2rem, 3.9vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.038em;
+    max-width: 18ch;
+  }
+  .sw__lede {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--c-muted);
+    max-width: 46ch;
+  }
+
+  .sw__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: stretch;
+  }
+
+  /* ── Media ────────────────────────────────────────────────────────────── */
+  .sw__media {
+    position: relative;
+    /* NOTE: no aspect-ratio here. This panel is a stretched grid item, so its
+       height is definite — aspect-ratio would then set the WIDTH from that
+       height and the panel would overflow its column. A min-height gives the
+       same proportion without the trap. */
+    min-height: clamp(24rem, 32vw, 33rem);
+    overflow: hidden;
+    border-radius: var(--r-lg, 24px);
+    background: var(--c-navy);
+  }
+  .sw__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.05);
+    transition:
+      opacity 0.85s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      transform 1.4s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .sw__img.is-on { opacity: 1; transform: scale(1); }
+  .sw__frame {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+    pointer-events: none;
+  }
+  .sw__cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 1.5rem 1.6rem 1.4rem;
+    display: grid;
+    gap: 6px;
+    background: linear-gradient(0deg, rgba(12, 22, 40, 0.9), rgba(12, 22, 40, 0));
+    color: var(--c-cream);
+  }
+  .sw__cap small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-wood, #b8956a);
+  }
+  .sw__cap strong {
+    font-size: clamp(1rem, 1.5vw, 1.22rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Rows ─────────────────────────────────────────────────────────────── */
+  .sw__list { display: grid; align-content: start; }
+  .sw__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(0.9rem, 2vw, 1.5rem);
+    padding: clamp(1.05rem, 2vw, 1.4rem) 0.25rem;
+    border-top: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+    transition: padding 0.5s var(--ease-out), background 0.5s var(--ease-out);
+  }
+  .sw__row:last-child { border-bottom: 1px solid var(--line); }
+  .sw__row:hover,
+  .sw__row:focus-visible { padding-left: 1rem; }
+  .sw__n {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--c-muted);
+    transition: color 0.4s var(--ease-out);
+  }
+  .sw__body h3 {
+    margin: 0 0 4px;
+    font-size: clamp(1.05rem, 1.6vw, 1.32rem);
+    font-weight: 500;
+    letter-spacing: -0.024em;
+  }
+  .sw__body p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--c-muted);
+    max-width: 40ch;
+  }
+  .sw__row svg {
+    width: 16px;
+    height: 16px;
+    color: var(--c-wood, #b8956a);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  }
+  .sw__row.is-on { padding-left: 1rem; }
+  .sw__row.is-on .sw__n { color: var(--c-wood, #b8956a); }
+  .sw__row.is-on svg,
+  .sw__row:hover svg,
+  .sw__row:focus-visible svg { opacity: 1; transform: translateX(0); }
+  .sw__row.is-on::before {
+    content: '';
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .sw__foot { margin-top: clamp(2rem, 4vw, 3rem); }
+
+  @media (max-width: 940px) {
+    .sw__head { grid-template-columns: 1fr; align-items: start; }
+    .sw__grid { grid-template-columns: 1fr; }
+    .sw__media { min-height: 22rem; }
+    .sw__row.is-on { padding-left: 0.25rem; }
+    .sw__row.is-on .sw__n { color: var(--c-wood, #b8956a); }
+  }
+  @media (max-width: 520px) {
+    .sw__row { grid-template-columns: auto minmax(0, 1fr); }
+    .sw__row svg { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sw__img { transition: opacity 0.2s linear; transform: none; }
+  }
+</style>

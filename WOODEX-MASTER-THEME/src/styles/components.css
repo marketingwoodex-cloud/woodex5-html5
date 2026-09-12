@@ -193,7 +193,10 @@
 
 .header {
   position: fixed;
-  inset-block-start: 0;
+  /* Sits beneath the announcement bar, then takes the top slot once the bar
+     has scrolled away (both values are set by Header's inline script). */
+  inset-block-start: var(--announce-offset, 0px);
+  transition: inset-block-start var(--dur-slow) var(--ease-expo);
   inset-inline: 0;
   z-index: var(--z-header);
   display: block;
@@ -1201,20 +1204,46 @@
 
 /* Announcement bar above the header */
 .announce {
-  position: relative;
-  z-index: var(--z-header);
+  /* Fixed above the header, using the height the inline script measures
+     (--announce-h). Without JS the bar is simply 0px tall for the header's
+     purposes and sits in the flow, so nothing overlaps either way. */
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: calc(var(--z-header) + 1);
   background: var(--c-navy);
   color: var(--c-cream);
   font-size: var(--fs-sub);
   padding-block: 0.6rem;
+  transition: transform var(--dur-slow) var(--ease-expo);
 }
+
+/* Once the reader scrolls, the bar leaves and the header takes the top slot. */
+.announce.is-away { transform: translate3d(0, -100%, 0); }
 
 .announce__inner {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--sp-4);
-  flex-wrap: wrap;
+  /* One line, always — a wrap here costs 40px of viewport on a phone. The
+     sentence truncates; the call to action never does. */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.announce__inner > * { min-width: 0; }
+.announce__inner > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.announce__inner > a,
+.announce__inner > span:last-child { flex: none; }
+
+@media (max-width: 640px) {
+  .announce { font-size: 0.8rem; padding-block: 0.5rem; }
+  .announce__inner { gap: var(--sp-2, 0.5rem); }
 }
 
 .announce a { text-decoration: underline; text-underline-offset: 3px; }

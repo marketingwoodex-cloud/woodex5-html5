@@ -12,6 +12,9 @@ import '../styles/global.css';
 import SEO from '../components/global/SEO.astro';
 import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
+import WxFooter from '../components/global/WxFooter.astro';
+import WhatsAppFloat from '../components/global/WhatsAppFloat.astro';
+import Btn from '../components/ui/Btn.astro';
 import Drawer from '../components/global/Drawer.astro';
 import Icon from '../components/ui/Icon.astro';
 import { site, theme } from '../data/site.js';
@@ -37,6 +40,16 @@ interface Props {
   padForHeader?: boolean;
   /** Overrides theme.imageTone: how photography is tinted for the palette. */
   imageTone?: string;
+  /**
+   * Which footer to render. 'default' is the theme footer (all 40+ templates);
+   * 'woodex' is the brand footer with the full-bleed INTERIORS wordmark, used
+   * by the redesigned Woodex pages.
+   */
+  footer?: 'default' | 'woodex';
+  /** Show the floating WhatsApp shortcut (Woodex pages do). */
+  whatsapp?: boolean;
+  /** Extra script, e.g. a page-specific interaction module. */
+  script?: string;
 }
 
 const {
@@ -55,6 +68,9 @@ const {
   schema,
   padForHeader = false,
   imageTone = theme.imageTone ?? 'cream',
+  footer = 'default',
+  whatsapp = false,
+  script,
 } = Astro.props;
 
 /* ── Webfonts ─────────────────────────────────────────────────────────────
@@ -67,13 +83,26 @@ const {
 const fonts = theme.fonts ?? {};
 const fontHref =
   fonts.enabled && fonts.provider === 'google'
-    ? `https://fonts.googleapis.com/css2?${[
-        [fonts.display, fonts.displayWeights ?? [400, 500]],
-        [fonts.body, fonts.bodyWeights ?? [400, 500]],
-      ]
-        .filter(([family]) => Boolean(family))
-        .map(([family, weights]) => `family=${String(family).replace(/ /g, '+')}:wght@${weights.join(';')}`)
-        .join('&')}&display=swap`
+    ? `https://fonts.googleapis.com/css2?${(() => {
+        /* Dedupe: Woodex uses one family for display and body, so a naive
+           map would emit it twice. Merge weights per family instead. */
+        const wanted = new Map();
+        for (const [family, weights] of [
+          [fonts.display, fonts.displayWeights ?? [400, 500]],
+          [fonts.body, fonts.bodyWeights ?? [400, 500]],
+        ]) {
+          if (!family) continue;
+          const set = wanted.get(family) ?? new Set();
+          for (const w of weights) set.add(w);
+          wanted.set(family, set);
+        }
+        return [...wanted.entries()]
+          .map(([family, weights]) => {
+            const list = [...weights].sort((a, b) => a - b).join(';');
+            return `family=${String(family).replace(/ /g, '+')}:wght@${list}`;
+          })
+          .join('&');
+      })()}&display=swap`
     : null;
 ---
 
@@ -125,13 +154,19 @@ const fontHref =
       <slot />
     </main>
 
-    <Footer
-      variant={footerVariant}
-      ctaTitle={footerCtaTitle}
-      ctaLabel={footerCtaLabel}
-      ctaHref={footerCtaHref}
-      cta={footerCta}
-    />
+    {footer === 'woodex' ? (
+      <WxFooter />
+    ) : (
+      <Footer
+        variant={footerVariant}
+        ctaTitle={footerCtaTitle}
+        ctaLabel={footerCtaLabel}
+        ctaHref={footerCtaHref}
+        cta={footerCta}
+      />
+    )}
+
+    {whatsapp && <WhatsAppFloat />}
 
     <Drawer />
 
@@ -143,6 +178,12 @@ const fontHref =
     <script>
       import '../scripts/motion.js';
     </script>
+
+    {script === 'woodex-home' && (
+      <script>
+        import '../scripts/woodex-home.js';
+      </script>
+    )}
 
     <style is:global>
       .has-pad-header main { padding-top: var(--header-h); }

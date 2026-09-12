@@ -1,0 +1,238 @@
+---
+/**
+ * WX STUDIO PIN — the pinned 3D Studio block.
+ * ---------------------------------------------------------------------------
+ * The most distinctive section on the Woodex home page. On desktop the section
+ * pins while the reader scrolls: three crops of one engagement (still →
+ * walkthrough → BOQ) cross-fade on the left while the matching copy card,
+ * numbered 3D / 360 / BOQ, lights up on the right, and a hairline progress bar
+ * tracks the whole pinned run.
+ *
+ * On narrow screens and with reduced motion it collapses to a plain stack —
+ * no pin, no cross-fade, everything visible.
+ *
+ * Behaviour: src/scripts/woodex-home.js (progressive; the first state is
+ * server-rendered so the block is complete without JS).
+ */
+import Btn from '../components/ui/Btn.astro';
+import { studio } from '../data/home.js';
+
+const { kicker, cards, cta } = studio;
+---
+
+<section class="pin" data-pin-studio aria-label="In-house 3D Studio">
+  <div class="pin__track">
+    <div class="pin__stick">
+      <div class="container pin__grid">
+        <div class="pin__media">
+          {cards.map((c, i) => (
+            <img
+              class:list={['pin__img', i === 0 && 'is-on']}
+              src={c.image}
+              alt={c.alt}
+              width="1408"
+              height="768"
+              loading="lazy"
+              data-tone="none"
+            />
+          ))}
+          <h2 class="pin__kicker">{kicker}</h2>
+          <div class="pin__bar" aria-hidden="true"><i></i></div>
+        </div>
+
+        <div class="pin__card">
+          {cards.map((c, i) => (
+            <article class:list={['pin__copy', i === 0 && 'is-on']}>
+              <div class="pin__num">{c.num}</div>
+              <div class="pin__body">
+                <h3>{c.title}</h3>
+                <p>{c.copy}</p>
+                <Btn href={cta.href} label={cta.label} variant="line" />
+              </div>
+            </article>
+          ))}
+
+          <div class="pin__thumbs" role="tablist" aria-label="3D Studio slides">
+            {cards.map((c, i) => (
+              <button
+                class:list={['pin__thumb', i === 0 && 'is-on']}
+                type="button"
+                role="tab"
+                aria-selected={i === 0 ? 'true' : 'false'}
+                aria-label={c.thumb}
+                data-pin-thumb={i}
+              >
+                <img src={c.image} alt="" width="1408" height="768" loading="lazy" data-tone="none" />
+                <span>{c.thumb}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pin {
+    position: relative;
+    background: var(--c-navy);
+    color: var(--c-cream);
+  }
+  .pin__stick {
+    /* JS sets a taller track so the section can pin; without JS this is a
+       normal, full-height section. */
+    display: grid;
+    align-items: center;
+    padding-block: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .pin__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(1.75rem, 4vw, 4rem);
+    align-items: center;
+  }
+
+  /* ── Media stack ──────────────────────────────────────────────────────── */
+  .pin__media {
+    position: relative;
+    aspect-ratio: 4 / 3.2;
+    border-radius: var(--r-lg, 24px);
+    overflow: hidden;
+    background: var(--c-navy-2);
+  }
+  .pin__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition:
+      opacity 0.9s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      transform 1.6s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .pin__img.is-on { opacity: 1; transform: scale(1); }
+  .pin__kicker {
+    position: absolute;
+    left: clamp(1.1rem, 2.4vw, 2rem);
+    bottom: clamp(2.4rem, 5vw, 3.4rem);
+    right: clamp(1.1rem, 2.4vw, 2rem);
+    margin: 0;
+    z-index: 2;
+    font-size: clamp(1.35rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.036em;
+    color: var(--c-white);
+    text-shadow: 0 2px 30px rgba(12, 22, 40, 0.5);
+  }
+  .pin__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(12, 22, 40, 0.82) 0%, rgba(12, 22, 40, 0) 54%);
+    pointer-events: none;
+  }
+  .pin__bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.16);
+    z-index: 3;
+  }
+  .pin__bar i {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--c-wood, #b8956a);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s linear;
+  }
+
+  /* ── Copy cards ───────────────────────────────────────────────────────── */
+  .pin__card { position: relative; }
+  .pin__copy {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+    padding-block: clamp(1.1rem, 2vw, 1.6rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    opacity: 0.42;
+    transition: opacity 0.6s var(--ease-out);
+  }
+  .pin__copy:last-of-type { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .pin__copy.is-on { opacity: 1; }
+  .pin__num {
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.28);
+    transition: color 0.6s var(--ease-out);
+    min-width: 3.2ch;
+  }
+  .pin__copy.is-on .pin__num { color: var(--c-wood, #b8956a); }
+  .pin__body h3 {
+    margin: 0 0 8px;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-weight: 500;
+    letter-spacing: -0.024em;
+    color: var(--c-white);
+  }
+  .pin__body p {
+    margin: 0 0 12px;
+    font-size: 0.94rem;
+    line-height: 1.66;
+    color: rgba(255, 255, 255, 0.66);
+    max-width: 44ch;
+  }
+
+  /* ── Thumbs ───────────────────────────────────────────────────────────── */
+  .pin__thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: clamp(1.2rem, 2.4vw, 1.8rem);
+  }
+  .pin__thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-sm, 12px);
+    overflow: hidden;
+    opacity: 0.42;
+    transition: opacity 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  }
+  .pin__thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .pin__thumb span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-cream);
+    background: linear-gradient(0deg, rgba(12, 22, 40, 0.85), transparent);
+    text-align: left;
+  }
+  .pin__thumb.is-on,
+  .pin__thumb:hover { opacity: 1; }
+  .pin__thumb.is-on { box-shadow: inset 0 0 0 2px var(--c-wood, #b8956a); }
+
+  @media (max-width: 940px) {
+    .pin__grid { grid-template-columns: 1fr; }
+    .pin__copy { opacity: 1; }
+    .pin__num { color: var(--c-wood, #b8956a); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pin__img { transition: opacity 0.2s linear; transform: none; }
+  }
+</style>

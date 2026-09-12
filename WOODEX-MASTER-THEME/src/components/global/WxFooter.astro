@@ -1,0 +1,178 @@
+---
+/**
+ * WX FOOTER — the Woodex footer.
+ * ---------------------------------------------------------------------------
+ * Four columns of real navigation, then the wordmark set at full bleed:
+ * INTERIORS at whatever width the viewport allows. The giant type is the last
+ * thing on every page, which is what makes the footer feel like the end of the
+ * brand rather than a list of links.
+ */
+import Btn from '../ui/Btn.astro';
+import { site } from '../../data/site.js';
+
+const columns = [
+  {
+    title: 'Practice',
+    links: [
+      ['About', '/about'],
+      ['Process', '/process'],
+      ['Woodex Craft', '/services/custom-furniture-joinery'],
+      ['3D Studio', '/services/3d-visualisation'],
+      ['Careers', '/careers'],
+    ],
+  },
+  {
+    title: 'Explore',
+    links: [
+      ['Services', '/services'],
+      ['Projects', '/portfolio-one'],
+      ['Locations', '/contact-three'],
+      ['Insights', '/journal'],
+      ['FAQ', '/faq'],
+      ['Contact', '/contact'],
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="wf">
+  <div class="container">
+    <div class="wf__top">
+      <div class="wf__lead">
+        <h2>Stay connected with us</h2>
+        <p>Have a space in mind? Tell us what you have and where you are in the process.</p>
+        <Btn href="/start-your-project" label="Start your project" variant="light" />
+      </div>
+
+      {columns.map((col) => (
+        <nav class="wf__col" aria-label={col.title}>
+          <h3>{col.title}</h3>
+          <div class="wf__links">
+            {col.links.map(([label, href]) => <a href={href}>{label}</a>)}
+          </div>
+        </nav>
+      ))}
+
+      <div class="wf__col">
+        <h3>Get in touch</h3>
+        <div class="wf__links">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          {site.whatsapp && (
+            <a href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp Woodex</a>
+          )}
+          {/* eslint-disable-next-line */}
+          {site.phone && <a href={`tel:${site.phone.replace(/\s/g, '')}`}>Call {site.phone}</a>}
+          <p>
+            {site.address.line1}<br />
+            {site.address.line2}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf__giant" aria-hidden="true">Interiors</div>
+
+    <div class="wf__bottom">
+      <p>© {year} Woodex Interior. All rights reserved.</p>
+      <div class="wf__legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/accessibility">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .wf {
+    background: var(--c-navy);
+    color: var(--c-cream);
+    padding-top: clamp(3.5rem, 7vw, 6rem);
+    overflow: hidden;
+  }
+  .wf__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) repeat(3, minmax(0, 0.7fr));
+    gap: clamp(2rem, 4vw, 4rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .wf__lead h2 {
+    margin: 0 0 0.9rem;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.038em;
+    max-width: 16ch;
+  }
+  .wf__lead p {
+    margin: 0 0 1.75rem;
+    max-width: 40ch;
+    font-size: 0.98rem;
+    line-height: 1.68;
+    color: rgba(255, 255, 255, 0.66);
+  }
+
+  .wf__col h3 {
+    margin: 0 0 1.1rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-wood, #b8956a);
+  }
+  .wf__links { display: grid; gap: 0.7rem; }
+  .wf__links a,
+  .wf__links p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    transition: color 0.35s var(--ease-out);
+  }
+  .wf__links a:hover { color: var(--c-cream); }
+
+  /* ── Giant wordmark ───────────────────────────────────────────────────── */
+  .wf__giant {
+    margin-top: clamp(2rem, 4vw, 3.25rem);
+    font-size: clamp(3.5rem, 19.5vw, 17rem);
+    font-weight: 600;
+    line-height: 0.82;
+    letter-spacing: -0.055em;
+    color: rgba(244, 239, 231, 0.1);
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .wf__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 1.4rem 0 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .wf__bottom p { margin: 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.52); }
+  .wf__legal { display: flex; gap: 1.5rem; }
+  .wf__legal a {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.52);
+    text-decoration: none;
+    transition: color 0.35s var(--ease-out);
+  }
+  .wf__legal a:hover { color: var(--c-cream); }
+
+  @media (max-width: 1024px) {
+    .wf__top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .wf__lead { grid-column: 1 / -1; }
+  }
+  @media (max-width: 560px) {
+    .wf__top { grid-template-columns: 1fr; }
+    .wf__bottom { justify-content: flex-start; }
+  }
+</style>

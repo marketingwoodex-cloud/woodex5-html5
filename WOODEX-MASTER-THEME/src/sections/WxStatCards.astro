@@ -1,0 +1,120 @@
+---
+/**
+ * WX STAT CARDS — "Practice at a glance".
+ * ---------------------------------------------------------------------------
+ * Four proof points. The numerals are the design: set large in the display
+ * face, with one card stepped up to the navy ground as the accent.
+ *
+ * The figures are deliberately NOT counted up from zero. On a practice's
+ * published proof points, "448+ projects" is a credibility problem — and it is
+ * what a screenshot, a slow device or an interrupted scroll will capture. The
+ * real figure is in the DOM from the first paint and moves only with the
+ * section's own entrance animation.
+ */
+import { stats } from '../data/home.js';
+
+const { eyebrow, title, items } = stats;
+---
+
+<section class="sc">
+  <div class="container">
+    <div class="sc__head" data-reveal="fade-up">
+      <p class="sc__eyebrow"><i aria-hidden="true"></i>{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+
+    <div class="sc__grid">
+      {items.map((s, i) => (
+        <article
+          class:list={['sc__card', s.accent && 'is-accent']}
+          data-reveal="fade-up"
+          style={`--reveal-delay:${i * 90}ms`}
+        >
+          <div class="sc__num">{s.num}</div>
+          <div class="sc__body">
+            <h3>{s.title}</h3>
+            <p>{s.copy}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sc {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: var(--c-white);
+    color: var(--c-ink);
+  }
+  .sc__head { margin-bottom: clamp(2.25rem, 4vw, 3.25rem); max-width: 62ch; }
+  .sc__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .sc__eyebrow i { width: 22px; height: 1px; background: var(--c-wood, #b8956a); flex: none; }
+  .sc h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.24;
+    letter-spacing: -0.032em;
+  }
+
+  .sc__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg, 24px);
+    overflow: hidden;
+  }
+  .sc__card {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.6rem);
+    align-content: start;
+    padding: clamp(1.4rem, 2.6vw, 2.1rem);
+    background: var(--c-white);
+    transition: background 0.5s var(--ease-out), color 0.5s var(--ease-out);
+  }
+  .sc__num {
+    font-size: clamp(2.6rem, 4.4vw, 4rem);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    color: var(--c-navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .sc__body h3 {
+    margin: 0 0 7px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+  }
+  .sc__body p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--c-muted);
+  }
+
+  /* Accent card — the whole panel steps onto the navy ground. */
+  .sc__card.is-accent { background: var(--c-navy); color: var(--c-cream); }
+  .sc__card.is-accent .sc__num { color: var(--c-wood, #b8956a); }
+  .sc__card.is-accent .sc__body p { color: rgba(255, 255, 255, 0.66); }
+
+  @media (max-width: 1024px) {
+    .sc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .sc__grid { grid-template-columns: 1fr; }
+  }
+</style>

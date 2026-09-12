@@ -1,0 +1,208 @@
+---
+/**
+ * BTN — the Woodex pill button.
+ * ---------------------------------------------------------------------------
+ * Two details make this button feel like the brand rather than a default link:
+ *   1. The label is duplicated and slides up on hover, so the text appears to
+ *      roll over itself.
+ *   2. The circular icon holds two arrows — one leaves as the next arrives.
+ *
+ * Variants — dark (navy fill, default), light (cream fill, for dark grounds),
+ * wood (accent), ghost (outline), line (inline text + arrow, no pill).
+ *
+ * NOTE: this is deliberately a *separate* component from the theme's existing
+ * `.btn` so the 37-section library keeps rendering while the Woodex pages adopt
+ * the new button. Import this one in the redesigned pages.
+ */
+interface Props {
+  href?: string;
+  label: string;
+  variant?: 'dark' | 'light' | 'wood' | 'ghost' | 'line';
+  size?: 'md' | 'lg';
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  label,
+  variant = 'dark',
+  size = 'md',
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+const classes = ['wx-btn', `wx-btn--${variant}`, `wx-btn--${size}`, className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a
+      class={classes}
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <span class="wx-btn__label">
+        <span>{label}</span>
+        <span aria-hidden="true">{label}</span>
+      </span>
+      <span class="wx-btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </span>
+    </a>
+  ) : (
+    <button class={classes} type="button">
+      <span class="wx-btn__label">
+        <span>{label}</span>
+        <span aria-hidden="true">{label}</span>
+      </span>
+      <span class="wx-btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <svg viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </span>
+    </button>
+  )
+}
+
+<style>
+  .wx-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    height: 54px;
+    padding: 0 8px 0 24px;
+    border-radius: var(--r-pill, 999px);
+    font-family: var(--ff-body);
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+    isolation: isolate;
+    overflow: hidden;
+    transition: transform 0.4s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .wx-btn:hover { transform: translateY(-2px); }
+  .wx-btn:active { transform: translateY(0); }
+  .wx-btn--lg { height: 60px; padding-left: 28px; font-size: 1rem; }
+
+  /* Label roll */
+  .wx-btn__label {
+    display: grid;
+    overflow: hidden;
+    height: 1.35em;
+    line-height: 1.35em;
+  }
+  .wx-btn__label > span {
+    grid-area: 1 / 1;
+    display: block;
+    transition: transform 0.5s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .wx-btn__label > span:last-child { transform: translateY(115%); }
+  .wx-btn:hover .wx-btn__label > span:first-child { transform: translateY(-115%); }
+  .wx-btn:hover .wx-btn__label > span:last-child { transform: translateY(0); }
+
+  /* Icon disc with the double arrow */
+  .wx-btn__icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: none;
+  }
+  .wx-btn__icon svg {
+    grid-area: 1 / 1;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.5s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .wx-btn__icon svg:last-child { transform: translateX(-130%); }
+  .wx-btn:hover .wx-btn__icon svg:first-child { transform: translateX(130%); }
+  .wx-btn:hover .wx-btn__icon svg:last-child { transform: translateX(0); }
+
+  /* ── Variants ─────────────────────────────────────────────────────────── */
+  .wx-btn--dark {
+    background: var(--c-navy);
+    color: var(--c-white);
+  }
+  .wx-btn--dark .wx-btn__icon { background: var(--c-white); color: var(--c-navy); }
+
+  .wx-btn--light {
+    background: var(--c-cream);
+    color: var(--c-navy);
+  }
+  .wx-btn--light .wx-btn__icon { background: var(--c-navy); color: var(--c-cream); }
+
+  .wx-btn--wood {
+    background: var(--c-wood, #b8956a);
+    color: var(--c-navy);
+  }
+  .wx-btn--wood .wx-btn__icon { background: var(--c-navy); color: var(--c-wood, #b8956a); }
+
+  .wx-btn--ghost {
+    background: transparent;
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+  .wx-btn--ghost .wx-btn__icon { background: var(--c-navy); color: var(--c-cream); }
+
+  /* Inline text link with the same roll */
+  .wx-btn--line {
+    height: auto;
+    padding: 0;
+    gap: 10px;
+    background: none;
+    color: inherit;
+    border-radius: 0;
+  }
+  .wx-btn--line .wx-btn__icon {
+    width: 18px;
+    height: 18px;
+    background: none;
+    color: var(--c-wood, #b8956a);
+  }
+  .wx-btn--line .wx-btn__icon svg { width: 16px; height: 16px; }
+  .wx-btn--line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.28;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .wx-btn--line:hover::after { transform: scaleX(1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wx-btn,
+    .wx-btn__label > span,
+    .wx-btn__icon svg,
+    .wx-btn--line::after {
+      transition: none;
+    }
+  }
+  @media (max-width: 520px) {
+    .wx-btn { height: 50px; padding-left: 20px; font-size: 0.9rem; }
+    .wx-btn__icon { width: 34px; height: 34px; }
+  }
+</style>

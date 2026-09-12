@@ -1,0 +1,72 @@
+---
+/**
+ * WHATSAPP FLOAT — the standing enquiry shortcut.
+ * ---------------------------------------------------------------------------
+ * Bottom-right on every page. Hidden until the reader has scrolled past the
+ * fold (so it never competes with the hero CTA), and it collapses to the icon
+ * alone on small screens. The number lives in src/data/site.js → site.whatsapp.
+ */
+import { site } from '../../data/site.js';
+
+const href = site.whatsapp ?? 'https://wa.me/923224000768';
+const withText = `${href}${href.includes('?') ? '&' : '?'}text=${encodeURIComponent('Hello Woodex — I have a space in mind.')}`;
+---
+
+<a
+  class="wa"
+  href={withText}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="WhatsApp Woodex"
+  data-wa-float
+>
+  <span class="wa__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 3.9A10 10 0 0 0 3.3 17.6L2 22l4.5-1.2A10 10 0 0 0 20 3.9zm-8 16.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.6.7.7-2.5-.2-.3A8.2 8.2 0 1 1 12 20.1zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.8c-.1.1-.3.2-.5.1s-1-.4-1.9-1.2-1.3-1.8-1.4-2.1 0-.4.1-.6l.4-.5c.1-.1.1-.2.2-.4 0-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.6 2.5 3.8 3.4 1.4.6 1.8.6 2.5.5.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z" />
+    </svg>
+  </span>
+  <span class="wa__text">WhatsApp us</span>
+</a>
+
+<style>
+  .wa {
+    position: fixed;
+    /* Sits under the theme's back-to-top button (z 50), and shifts left of it
+       on the pages where that button is present. */
+    right: clamp(1rem, 2.5vw, 1.75rem);
+    bottom: clamp(4.75rem, 5vw, 5.25rem);
+    z-index: 40;
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    height: 54px;
+    padding: 0 20px 0 15px;
+    border-radius: var(--r-pill, 999px);
+    background: var(--c-navy);
+    color: var(--c-cream);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 14px 34px rgba(12, 22, 40, 0.28);
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+    pointer-events: none;
+    transition:
+      opacity 0.5s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      transform 0.5s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      background 0.4s var(--ease-out);
+  }
+  .wa.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  .wa:hover { background: var(--c-wood, #b8956a); color: var(--c-navy); }
+  .wa__icon { display: grid; place-items: center; width: 26px; height: 26px; flex: none; }
+  .wa__icon svg { width: 24px; height: 24px; }
+
+  @media (max-width: 640px) {
+    .wa { padding: 0; width: 54px; gap: 0; }
+    .wa__text { display: none; }
+    .wa__icon { margin: 0 auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wa { transition: opacity 0.2s linear; transform: none; }
+  }
+</style>

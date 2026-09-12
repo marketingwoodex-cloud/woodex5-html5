@@ -21,6 +21,8 @@ html {
 }
 
 body {
+  /* Clears the fixed announcement bar so no page loses its first strip. */
+  padding-top: var(--announce-h, 0px);
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--ff-body);

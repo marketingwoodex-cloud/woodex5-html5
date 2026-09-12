@@ -1,0 +1,131 @@
+---
+/**
+ * WX FEATURED — "From approved still to BOQ and site".
+ * ---------------------------------------------------------------------------
+ * Two overlapping plates against the closing argument and three checks. The
+ * plates are offset in the grid rather than stacked, so the section does not
+ * repeat the split layout used elsewhere on the page.
+ */
+import Btn from '../components/ui/Btn.astro';
+import { featured } from '../data/home.js';
+
+const { title, lede, checks, cta, big, small } = featured;
+---
+
+<section class="ft">
+  <div class="container ft__grid">
+    <div class="ft__media" data-reveal="fade-up">
+      <figure class="ft__big">
+        <img src={big.image} alt={big.alt} width="1408" height="768" loading="lazy" data-tone="none" />
+      </figure>
+      <figure class="ft__small">
+        <img src={small.image} alt={small.alt} width="1408" height="768" loading="lazy" data-tone="none" />
+      </figure>
+    </div>
+
+    <div class="ft__copy" data-reveal="fade-up" style="--reveal-delay:100ms">
+      <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      <p class="ft__lede">{lede}</p>
+      <ul class="ft__checks">
+        {checks.map((c) => (
+          <li>
+            <span class="ft__tick" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            {c}
+          </li>
+        ))}
+      </ul>
+      <Btn href={cta.href} label={cta.label} variant="dark" size="lg" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .ft {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: var(--c-white);
+    color: var(--c-ink);
+  }
+  .ft__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* ── Plates ───────────────────────────────────────────────────────────── */
+  .ft__media { position: relative; padding-left: 2.5rem; padding-top: 2rem; }
+  .ft__big {
+    margin: 0;
+    aspect-ratio: 4 / 3.4;
+    border-radius: var(--r-lg, 24px);
+    overflow: hidden;
+    background: var(--c-navy);
+  }
+  .ft__big img { width: 100%; height: 100%; object-fit: cover; }
+  .ft__small {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: min(42%, 13rem);
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-md, 16px);
+    overflow: hidden;
+    border: 6px solid var(--c-white);
+    box-shadow: 0 18px 44px rgba(12, 22, 40, 0.18);
+  }
+  .ft__small img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── Copy ─────────────────────────────────────────────────────────────── */
+  .ft h2 {
+    margin: 0 0 1.1rem;
+    font-size: clamp(2rem, 3.9vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    max-width: 17ch;
+  }
+  .ft__lede {
+    margin: 0 0 1.9rem;
+    max-width: 50ch;
+    font-size: 1.03rem;
+    line-height: 1.72;
+    color: var(--c-muted);
+  }
+  .ft__checks {
+    list-style: none;
+    margin: 0 0 clamp(1.75rem, 3vw, 2.5rem);
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .ft__checks li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .ft__tick {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--c-cream);
+    color: var(--c-navy);
+    flex: none;
+  }
+  .ft__tick svg { width: 14px; height: 14px; }
+
+  @media (max-width: 940px) {
+    .ft__grid { grid-template-columns: 1fr; }
+    .ft__media { padding-left: 1.75rem; padding-top: 1.5rem; }
+    .ft__small { width: min(38%, 10rem); border-width: 5px; }
+  }
+</style>

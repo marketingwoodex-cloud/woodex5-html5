@@ -1,0 +1,142 @@
+---
+/**
+ * WX PRACTICE — "One team. One process. One result."
+ * ---------------------------------------------------------------------------
+ * A two-image composition (a main plate with a small overlap) against the
+ * argument, the CTA and the three entry paths. The paths are a numbered list
+ * with hairlines so they read as a decision, not as navigation filler.
+ */
+import Btn from '../components/ui/Btn.astro';
+import { practice } from '../data/home.js';
+
+const { title, lede, cta, main, float, paths } = practice;
+---
+
+<section class="pr">
+  <div class="container pr__grid">
+    <div class="pr__media" data-reveal="fade-up">
+      <div class="pr__plate">
+        <img src={main.image} alt={main.alt} width="1408" height="768" loading="lazy" data-tone="none" />
+      </div>
+      <div class="pr__small">
+        <img src={float.image} alt={float.alt} width="1408" height="768" loading="lazy" data-tone="none" />
+      </div>
+    </div>
+
+    <div class="pr__copy" data-reveal="fade-up" style="--reveal-delay:100ms">
+      <h2 data-heading-reveal="words" data-heading-stagger="46">{title}</h2>
+      <p class="pr__lede">{lede}</p>
+      <Btn href={cta.href} label={cta.label} variant="dark" />
+
+      <ol class="pr__paths">
+        {paths.map((p, i) => (
+          <li>
+            <a href={p.href}>
+              <span class="pr__i">{String(i + 1).padStart(2, '0')}</span>
+              <span class="pr__label">{p.label}</span>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pr {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    background: var(--c-cream);
+    color: var(--c-ink);
+  }
+  .pr__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  /* ── Two-plate media ──────────────────────────────────────────────────── */
+  .pr__media { position: relative; padding-bottom: 3.5rem; padding-right: 3rem; }
+  .pr__plate {
+    aspect-ratio: 4 / 3.1;
+    border-radius: var(--r-lg, 24px);
+    overflow: hidden;
+    background: var(--c-navy);
+  }
+  .pr__plate img { width: 100%; height: 100%; object-fit: cover; }
+  .pr__small {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: min(48%, 15rem);
+    aspect-ratio: 1 / 1;
+    border-radius: var(--r-md, 16px);
+    overflow: hidden;
+    border: 6px solid var(--c-cream);
+    box-shadow: 0 20px 50px rgba(12, 22, 40, 0.2);
+  }
+  .pr__small img { width: 100%; height: 100%; object-fit: cover; }
+
+  .pr h2 {
+    margin: 0 0 1.1rem;
+    font-size: clamp(2rem, 3.9vw, 3.4rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    max-width: 15ch;
+  }
+  .pr__lede {
+    margin: 0 0 1.9rem;
+    max-width: 52ch;
+    font-size: 1.03rem;
+    line-height: 1.72;
+    color: var(--c-muted);
+  }
+
+  /* ── Paths ────────────────────────────────────────────────────────────── */
+  .pr__paths {
+    list-style: none;
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .pr__paths a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+    transition: padding-left 0.5s var(--ease-out);
+  }
+  .pr__paths a:hover,
+  .pr__paths a:focus-visible { padding-left: 0.9rem; }
+  .pr__i {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--c-wood, #b8956a);
+  }
+  .pr__label { font-size: 0.98rem; font-weight: 500; letter-spacing: -0.015em; }
+  .pr__paths svg {
+    width: 16px;
+    height: 16px;
+    color: var(--c-navy);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+  }
+  .pr__paths a:hover svg,
+  .pr__paths a:focus-visible svg { opacity: 1; transform: none; }
+
+  @media (max-width: 940px) {
+    .pr__grid { grid-template-columns: 1fr; }
+    .pr__media { padding-bottom: 2.5rem; padding-right: 1.5rem; }
+    .pr__small { width: min(44%, 12rem); }
+  }
+</style>

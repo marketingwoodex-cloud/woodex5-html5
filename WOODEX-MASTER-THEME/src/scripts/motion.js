@@ -217,6 +217,24 @@ function initReveals(root = document) {
   );
 
   targets.forEach((el) => io.observe(el));
+
+  /* Safety net. Reveals start hidden, so anything that never intersects —
+     a fast programmatic scroll, a restored scroll position, a section that
+     is parked under a sticky element — would stay invisible. Anything still
+     hidden after the page settles is revealed outright.                    */
+  const sweep = () => {
+    targets.forEach((el) => {
+      if (el.classList.contains('is-in')) return;
+      const rect = el.getBoundingClientRect();
+      const seen = rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+      const passed = rect.bottom <= 0; // scrolled past without being observed
+      if (seen || passed) reveal(el);
+    });
+  };
+  window.addEventListener('load', sweep);
+  document.addEventListener('visibilitychange', () => !document.hidden && sweep());
+  window.setTimeout(sweep, 2500);
+  window.setTimeout(() => targets.forEach((el) => reveal(el)), 8000);
 }
 
 /* ── 3. COUNTER ────────────────────────────────────────────────────────── */
