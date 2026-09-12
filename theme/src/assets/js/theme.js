@@ -16,7 +16,7 @@
   'use strict';
   var util = W.util, doc = document, win = window;
 
-  var THEME = {
+  var Theme = {
     version: '1.0.0',
     name: 'Woodex Master Theme',
 
@@ -66,7 +66,7 @@
       /* --- Page-type hooks --- */
       Theme.pageHooks();
 
-      util.log('theme initialised ·', THEME.version);
+      util.log('theme initialised ·', Theme.version);
       util.bus.emit('theme:ready', root);
     },
 

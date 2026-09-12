@@ -312,6 +312,126 @@ for (const dir of dataDirs) {
   }
 }
 
+/* ------------------------------------------------- runtime smoke test */
+/* Every gate above is static: it reads markup and asks whether it is
+   well-formed. That misses the worst class of defect there is -- a script that
+   parses perfectly and still dies at runtime, taking the whole page with it.
+   theme.js once declared its orchestrator as `var THEME` while every reference
+   used `Theme`, so `W.Theme = Theme` threw a ReferenceError at IIFE top level,
+   boot() was never registered, and all 56 pages froze behind the loader at 0%.
+   node --check passed on that file. So did every selector and init() audit.
+   Only executing the chain catches it.
+
+   This loads the built scripts, in the same order the pages do, under a minimal
+   DOM shim and fires DOMContentLoaded. Any throw is a failure. */
+const SCRIPT_ORDER = ['util', 'api', 'chrome', 'motion', 'sections', 'forms', 'theme'];
+
+function makeShim() {
+  const listeners = {};
+  function mkEl(tag) {
+    return {
+      tagName: (tag || 'div').toUpperCase(), children: [], dataset: {},
+      style: { setProperty() {} },
+      classList: { _s: new Set(),
+        add(...c) { c.forEach((x) => this._s.add(x)); },
+        remove(...c) { c.forEach((x) => this._s.delete(x)); },
+        contains(c) { return this._s.has(c); },
+        toggle(c, f) { const on = f === undefined ? !this._s.has(c) : !!f; on ? this._s.add(c) : this._s.delete(c); return on; } },
+      setAttribute() {}, getAttribute() { return null; }, removeAttribute() {},
+      addEventListener() {}, removeEventListener() {}, appendChild(c) { return c; },
+      insertBefore(c) { return c; }, removeChild() {}, remove() {},
+      querySelector() { return mkEl(); }, querySelectorAll() { return []; },
+      closest() { return null; }, contains() { return false; }, focus() {}, click() {},
+      getBoundingClientRect() { return { top: 0, left: 0, width: 100, height: 100 }; },
+      offsetHeight: 88, offsetWidth: 100, scrollHeight: 100, clientHeight: 100,
+      innerHTML: '', textContent: '', value: '', type: 'text', matches() { return false; },
+    };
+  }
+  const doc = mkEl('html');
+  Object.assign(doc, {
+    documentElement: doc, body: mkEl('body'), head: mkEl('head'),
+    readyState: 'interactive', title: 'qa',
+    createElement: (t) => mkEl(t), getElementById: () => mkEl(),
+    querySelector: () => mkEl(), querySelectorAll: () => [],
+    addEventListener: (ev, fn) => { (listeners[ev] = listeners[ev] || []).push(fn); },
+    removeEventListener() {},
+  });
+  const win = {
+    document: doc, location: { pathname: '/index.html', href: 'http://qa/index.html', search: '', hash: '' },
+    addEventListener: (ev, fn) => { (listeners[ev] = listeners[ev] || []).push(fn); }, removeEventListener() {},
+    matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {}, addListener() {} }),
+    getComputedStyle: () => ({ getPropertyValue: () => '88px' }),
+    performance: { getEntriesByType: () => [{ type: 'navigate' }] },
+    requestAnimationFrame: (fn) => setTimeout(() => fn(16), 16), cancelAnimationFrame: clearTimeout,
+    IntersectionObserver: class { observe() {} unobserve() {} disconnect() {} },
+    ResizeObserver: class { observe() {} unobserve() {} disconnect() {} },
+    MutationObserver: class { observe() {} disconnect() {} },
+    AbortController: class { constructor() { this.signal = {}; } abort() {} },
+    fetch: () => Promise.resolve({ ok: true, status: 200, json: async () => ({}) }),
+    setTimeout, clearTimeout, setInterval, clearInterval, scrollTo() {},
+    scrollY: 0, innerWidth: 1280, innerHeight: 800, devicePixelRatio: 1,
+    localStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+    history: { replaceState() {}, pushState() {} },
+    navigator: { userAgent: 'qa', maxTouchPoints: 0 }, open() {}, print() {},
+  };
+  win.window = win; win.self = win; win.top = win;
+  return { doc, win, listeners };
+}
+
+function runtimeSmokeTest() {
+  const dir = path.join(OUT, 'assets/js');
+  if (!fs.existsSync(dir)) { fail('assets/js', 'directory not found in the built output'); return; }
+  const { doc, win, listeners } = makeShim();
+  const sandboxGlobals = {
+    window: win, document: doc, self: win, location: win.location, navigator: win.navigator,
+    getComputedStyle: win.getComputedStyle, matchMedia: win.matchMedia,
+    requestAnimationFrame: win.requestAnimationFrame, cancelAnimationFrame: win.cancelAnimationFrame,
+    IntersectionObserver: win.IntersectionObserver, ResizeObserver: win.ResizeObserver,
+    MutationObserver: win.MutationObserver, AbortController: win.AbortController,
+    fetch: win.fetch, localStorage: win.localStorage, sessionStorage: win.sessionStorage,
+    history: win.history, performance: win.performance, scrollTo: win.scrollTo,
+    /* A fresh vm context has the ECMAScript builtins but none of the host's.
+       The scripts call these bare, exactly as they would on window. */
+    setTimeout, clearTimeout, setInterval, clearInterval, console, queueMicrotask,
+  };
+  /* Run each script in its own vm context layer over a shared global object,
+     mirroring how separate <script> tags share one window in the browser. */
+  const vm = require_node_vm();
+  const shared = Object.assign(globalThis.__qaShared || {}, sandboxGlobals);
+  globalThis.__qaShared = shared;
+  for (const name of SCRIPT_ORDER) {
+    const file = path.join(dir, `${name}.js`);
+    if (!fs.existsSync(file)) { fail(`assets/js/${name}.js`, 'missing from the built output'); continue; }
+    const code = fs.readFileSync(file, 'utf8');
+    try {
+      vm.runInNewContext(code, Object.assign(Object.create(shared), shared), { filename: `${name}.js`, timeout: 4000 });
+    } catch (e) {
+      fail(`assets/js/${name}.js`, `threw at load: ${e.constructor.name}: ${e.message}`);
+      return; /* later scripts depend on earlier ones; stop at the first break */
+    }
+  }
+  /* boot() registers on DOMContentLoaded when readyState is 'loading'; our shim
+     reports 'interactive', so theme.js calls boot() synchronously. Either way,
+     fire the event too so a listener-registered boot also runs. */
+  try { (listeners['DOMContentLoaded'] || []).forEach((fn) => fn({})); }
+  catch (e) { fail('boot()', `threw on DOMContentLoaded: ${e.message}`); }
+
+  const W = shared.window && shared.window.Woodex;
+  if (!W) fail('boot()', 'window.Woodex was never created');
+  else {
+    if (typeof W.Theme !== 'object' || !W.Theme) fail('theme.js', 'W.Theme was not exported (the orchestrator died before publishing itself)');
+    if (typeof W.Loader !== 'object') fail('theme.js', 'W.Loader missing — the overlay can never be dismissed');
+    if (typeof W.api !== 'object') fail('theme.js', 'W.api missing — content slots can never hydrate');
+  }
+}
+
+/* node:vm is builtin; imported lazily so the rest of the file stays ESM-clean */
+import { createRequire } from 'node:module';
+function require_node_vm() { return createRequire(import.meta.url)('node:vm'); }
+
+runtimeSmokeTest();
+
 /* ------------------------------------------------------------------ report */
 const ok = issues.length === 0 && unresolved.size === 0;
 
