@@ -7,7 +7,7 @@
   },
   "site": {
     "url": "",
-    "_comment": "Set site.url to your production origin (e.g. https://woodexinterior.pk) to emit sitemap.xml + robots.txt."
+    "_comment": "Set site.url to your production origin (e.g. https://woodexinterior.pk) to switch on canonical + og:url, sitemap.xml and robots.txt in one step. Left empty deliberately: a wrong canonical is worse than none, because it tells search engines the page duplicates a URL that does not exist."
   },
   "generate": [
     {

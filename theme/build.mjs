@@ -510,6 +510,20 @@ function buildPage(templatePath, extraScope = {}, outRel = null) {
     }
   }
 
+  /* Canonical URL. Derived from site.url the moment it is set, so every page
+     carries a self-referencing canonical and the Organization JSON-LD receives
+     a real url rather than an empty string. Front matter may still override it
+     per page, which is how an alternate home or portfolio variant points back
+     at its primary. While site.url is empty no canonical is emitted at all —
+     better absent than wrong. */
+  if (scope.canonical === undefined) {
+    const origin = String((CONFIG.site && CONFIG.site.url) || '').replace(/\/+$/, '');
+    if (origin) {
+      const clean = rel.replace(/^index\.html$/, '').replace(/\\/g, '/');
+      scope.canonical = `${origin}/${clean}`;
+    }
+  }
+
   let html = render(body, scopes, path.relative(SRC, templatePath));
 
   /* Whole-document chrome tokens */
@@ -551,6 +565,7 @@ ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 ${img ? `<meta property="og:image" content="${esc(img)}">` : ''}
+${canonical ? `<meta property="og:url" content="${esc(canonical)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="${esc(seo.twitterHandle || '')}">
 <link rel="icon" href="${B}assets/images/favicon.svg" type="image/svg+xml">
@@ -577,7 +592,9 @@ ${JSON.stringify({
     name: site.legalName,
     alternateName: site.name,
     description: site.description,
-    url: s.canonical || '',
+    /* Omitted entirely rather than emitted empty: schema.org treats a blank url
+       as invalid, and half the graph was carrying one. */
+    ...(canonical ? { url: canonical } : {}),
     email: site.email,
     telephone: site.phone,
     foundingDate: String(site.founded),
