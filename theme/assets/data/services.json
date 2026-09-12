@@ -225,7 +225,7 @@
     "title": "Custom Furniture & Joinery",
     "summary": "Made to fit the room exactly.",
     "icon": "wood",
-    "image": "craft-detail.jpg",
+    "image": "workshop.jpg",
     "description": [
       "Our workshop is the heart of Woodex. Kitchens, wardrobes, vanities, libraries, doors and desks — designed to the millimetre for your walls, built from certified oak, walnut and birch plywood with hardware that closes like a good car door.",
       "Every piece is signed, dated and covered by our ten-year warranty."
@@ -291,7 +291,7 @@
     "title": "3D Studio",
     "summary": "See the space before we build it.",
     "icon": "cube",
-    "image": "hero-02.jpg",
+    "image": "3d-studio.jpg",
     "description": [
       "Our in-house visualisation team turns drawings into daylight-accurate stills and walkthroughs — the same sun your room will get, at the hour you will use it. Clients approve materials with confidence; nothing goes to production on imagination alone.",
       "Also available as a standalone service for architects, developers and private clients with their own drawings."

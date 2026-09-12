@@ -161,8 +161,8 @@ Fonts (Google Fonts CDN in every page `<head>`; see §12 for self-hosting):
 
 ### 4.5 Imagery
 
-Original AI-generated set in `theme/assets/images/` (all license-safe, no stock):
-`hero-01/02/03` · `about-studio` · `craft-detail` · `lounge` · `dining` · `kitchen` · `workspace` · `facade` · `apartment` · `bedroom-min` · `loft` · `villa` · `cafe` · `retail` · `materials` · `model`
+Original AI-generated set in `theme/assets/images/` — 20 photographs, all license-safe:
+`hero-01/02/03` · `about-studio` · `craft-detail` · `lounge` · `dining` · `kitchen` · `workspace` · `facade` · `apartment` · `bedroom-min` · `loft` · `villa` · `cafe` · `retail` · `materials` · `model` · `3d-studio` · `workshop`
 Treat every photo with `filter: saturate(.96) contrast(1.02)`. Dark sections may use `brightness(.9)`. Aspect ratios via CSS (`aspect-ratio` + `object-fit: cover`). Grain overlay class `.wx-grain` available for hero media.
 
 ---
