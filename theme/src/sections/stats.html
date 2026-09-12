@@ -6,7 +6,7 @@
       statsVariant: default | inline
     Counters run once on enter; reduced-motion prints the final value.
     ========================================================================== }}
-<section class="s-stats section{{#if statsVariant}} s-stats--{{statsVariant}}{{/if}}" aria-label="{{statsLabel}}">
+<section class="s-stats section{{#if statsVariant}} s-stats--{{statsVariant}}{{/if}}" id="{{#if statsId}}{{statsId}}{{else}}sec-stats{{/if}}" aria-label="{{statsLabel}}">
   <div class="container">
     {{#if statsHead}}
     <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">

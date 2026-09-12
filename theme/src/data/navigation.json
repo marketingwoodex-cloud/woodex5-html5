@@ -164,7 +164,7 @@
       { "label": "Our process", "href": "process.html" },
       { "label": "Journal", "href": "blog.html" },
       { "label": "Awards", "href": "about.html#awards" },
-      { "label": "Careers", "href": "contact.html#careers" }
+      { "label": "Careers", "href": "contact.html#direct" }
     ],
     "services": [
       { "label": "Commercial interior", "href": "services/commercial-interior.html" },

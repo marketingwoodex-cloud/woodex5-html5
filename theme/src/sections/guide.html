@@ -90,7 +90,9 @@
 
     {{! ---- buttons ---- }}
     {{#if btnTitle}}
-    <div class="s-guide__block" data-reveal="up">
+    {{! id="buttons" is the target of the demo links below -- without it they
+        resolved to nothing and a click did not move at all. }}
+    <div class="s-guide__block" id="buttons" data-reveal="up">
       <div class="section-head section-head--split">
         <div>
           <div class="eyebrow eyebrow--dot">04 / Controls</div>
