@@ -1,14 +1,11 @@
 {{! PARTIAL · chrome.html — loader, curtain, cursor, progress, back-to-top,
     grain overlay. Included once immediately after <body>. }}
-<div class="loader" role="status" aria-live="polite" aria-label="Loading">
-  <div class="loader__inner">
-    <div class="loader__word" aria-hidden="true">
-      <span style="animation-delay:.00s">W</span><span style="animation-delay:.05s">o</span><span style="animation-delay:.10s">o</span><span style="animation-delay:.15s">d</span><span style="animation-delay:.20s">e</span><span style="animation-delay:.25s">x</span><span style="animation-delay:.34s">&nbsp;</span><span style="animation-delay:.38s">I</span><span style="animation-delay:.43s">n</span><span style="animation-delay:.48s">t</span><span style="animation-delay:.53s">e</span><span style="animation-delay:.58s">r</span><span style="animation-delay:.63s">i</span><span style="animation-delay:.68s">o</span><span style="animation-delay:.73s">r</span>
-    </div>
-    <div class="loader__bar"><i></i></div>
-    <div class="loader__pct">0%</div>
-  </div>
-</div>
+{{! The pre-JS loading overlay is disabled by design. It was a full-screen
+    opaque element visible from first paint, hidden only by a class that
+    JavaScript adds -- so any failure anywhere in the boot chain left every page
+    stuck behind a blank screen at 0%. The site now paints its real content
+    immediately and needs no gate in front of it. Loader.init() tolerates the
+    missing element and simply clears the scroll lock. }}
 
 <div class="curtain" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>

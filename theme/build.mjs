@@ -36,6 +36,7 @@
    ========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -59,12 +60,34 @@ const CHECK = argv.includes('--check');
    changed nothing — generate[] rules and site.url were frozen at the values
    the process started with. Every read of CONFIG happens inside a function, so
    reloading it at the top of build() is safe. */
+/* Cache-busting token appended to every local CSS/JS URL. Browsers cache these
+   aggressively and a bare static server sends no Cache-Control header, so a
+   visitor can keep running a stale, broken copy of a script long after it was
+   fixed on the server -- which is exactly how one browser kept reproducing a
+   bug that was already fixed. The token is a content hash, so it changes if
+   and only if the assets actually change, keeping caching effective between
+   real edits. */
+let ASSET_V = '';
+function computeAssetVersion() {
+  const h = crypto.createHash('sha1');
+  for (const dir of ['css', 'js']) {
+    const base = path.join(__dirname, 'src/assets', dir);
+    if (!fs.existsSync(base)) continue;
+    for (const f of fs.readdirSync(base).sort()) {
+      h.update(f); h.update(fs.readFileSync(path.join(base, f)));
+    }
+  }
+  ASSET_V = '?v=' + h.digest('hex').slice(0, 8);
+  return ASSET_V;
+}
+
 let CONFIG = null;
 function loadConfig() {
   CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'site.config.json'), 'utf8'));
   return CONFIG;
 }
 loadConfig();
+computeAssetVersion();
 
 /* ------------------------------------------------------------------ data */
 const data = {};
@@ -686,16 +709,16 @@ ${canonical ? `<meta property="og:url" content="${esc(canonical)}">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${B}assets/css/fonts.css">
-<link rel="stylesheet" href="${B}assets/css/01-tokens.css">
-<link rel="stylesheet" href="${B}assets/css/02-base.css">
-<link rel="stylesheet" href="${B}assets/css/03-components.css">
-<link rel="stylesheet" href="${B}assets/css/04-chrome.css">
-<link rel="stylesheet" href="${B}assets/css/05-motion.css">
-<link rel="stylesheet" href="${B}assets/css/06-sections.css">
-<link rel="stylesheet" href="${B}assets/css/07-sections-b.css">
-<link rel="stylesheet" href="${B}assets/css/08-responsive.css">
-<link rel="stylesheet" href="${B}assets/css/09-docs.css">
+<link rel="stylesheet" href="${B}assets/css/fonts.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/01-tokens.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/02-base.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/03-components.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/04-chrome.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/05-motion.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/06-sections.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/07-sections-b.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/08-responsive.css${ASSET_V}">
+<link rel="stylesheet" href="${B}assets/css/09-docs.css${ASSET_V}">
 ${s.extraCSS ? `<link rel="stylesheet" href="${B}${esc(s.extraCSS)}">` : ''}
 ${s.noIndex ? '<meta name="robots" content="noindex,nofollow">' : ''}
 <script type="application/ld+json">
@@ -748,13 +771,13 @@ function renderOpenBody(s) {
 function renderCloseBody(s) {
   const B = (s && s.base) || '';
   return `
-<script src="${B}assets/js/util.js" defer></script>
-<script src="${B}assets/js/api.js" defer></script>
-<script src="${B}assets/js/chrome.js" defer></script>
-<script src="${B}assets/js/motion.js" defer></script>
-<script src="${B}assets/js/sections.js" defer></script>
-<script src="${B}assets/js/forms.js" defer></script>
-<script src="${B}assets/js/theme.js" defer></script>
+<script src="${B}assets/js/util.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/api.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/chrome.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/motion.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/sections.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/forms.js${ASSET_V}" defer></script>
+<script src="${B}assets/js/theme.js${ASSET_V}" defer></script>
 </body>
 </html>`;
 }

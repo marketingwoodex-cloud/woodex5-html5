@@ -174,6 +174,10 @@ a:hover .media-hover img, .media-hover:hover img { transform: scale(1.055); }
 }
 
 /* ---------- 3. PAGE LOADER --------------------------------------------- */
+/* Hard-disabled. The loader overlay is no longer emitted by chrome.html, and
+   this rule guarantees that a stale cached page still carrying the old markup
+   can never put an opaque screen in front of the real content. */
+.loader { display: none !important; }
 .loader {
   position: fixed; inset: 0; z-index: var(--z-loader);
   display: grid; place-items: center; gap: var(--sp-5);
