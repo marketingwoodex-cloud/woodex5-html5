@@ -1,0 +1,118 @@
+{{! ==========================================================================
+    SECTION · post                id: sec-post
+    --------------------------------------------------------------------------
+    Long-form article reader. Driven by the generated `item` scope from
+    data/posts.json plus page params:
+      bodyLabel, shareLabel, authorNote
+    Renders: meta rail → lead image → sticky TOC + prose body (included from
+    content/posts/{{item.body}}) → tags → share → author card → pager.
+    ========================================================================== }}
+<article class="s-post" id="article" aria-label="{{item.title}}">
+
+  <div class="container container--narrow">
+    <div class="s-post__meta" data-reveal="up">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="{{base}}index.html">Home</a>
+        <span class="crumbs__sep" aria-hidden="true">/</span>
+        <a href="{{base}}blog.html">Journal</a>
+        <span class="crumbs__sep" aria-hidden="true">/</span>
+        <span aria-current="page">{{item.categoryLabel}}</span>
+      </nav>
+      <dl class="s-post__facts">
+        <div><dt>Published</dt><dd><time datetime="{{item.date}}">{{item.dateLabel}}</time></dd></div>
+        <div><dt>Read time</dt><dd>{{item.readTime}} min</dd></div>
+        <div><dt>Topic</dt><dd>{{item.categoryLabel}}</dd></div>
+        <div><dt>Written by</dt><dd>{{item.author}}</dd></div>
+      </dl>
+    </div>
+
+    <h1 class="s-post__title" data-split>{{item.title}}</h1>
+    <p class="s-post__excerpt" data-reveal="up" data-reveal-delay="2">{{item.excerpt}}</p>
+  </div>
+
+  {{#if item.image}}
+  <figure class="s-post__lead" data-reveal="up">
+    <div class="media media--wide">
+      <img src="{{base}}{{item.image}}" alt="{{item.title}}" loading="lazy" decoding="async" width="1600" height="900">
+    </div>
+  </figure>
+  {{/if}}
+
+  <div class="container container--narrow">
+    <div class="s-post__layout">
+
+      {{#if item.toc}}
+      <nav class="s-post__toc" aria-label="On this page" data-sticky-col>
+        <span class="eyebrow eyebrow--dot">Contents</span>
+        <ol>
+          {{#each item.toc}}
+          <li><a href="#sec-{{@index}}" data-toc-link="sec-{{@index}}">{{this}}</a></li>
+          {{/each}}
+        </ol>
+        <a class="link-arrow s-post__toc-cta" href="{{base}}contact.html">
+          <span>Ask a designer</span><svg aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </nav>
+      {{/if}}
+
+      <div class="s-post__body prose" data-reveal="up">
+        {{> {{item.body}} }}
+      </div>
+    </div>
+
+    {{#if item.tags}}
+    <ul class="s-post__tags" aria-label="Topics covered" data-reveal="up">
+      {{#each item.tags}}
+      <li><a class="chip" href="{{base}}blog.html?cat={{this}}">{{this}}</a></li>
+      {{/each}}
+    </ul>
+    {{/if}}
+
+    <div class="s-post__share" data-reveal="up">
+      <span class="eyebrow eyebrow--dot">{{#if shareLabel}}{{shareLabel}}{{else}}Share this article{{/if}}</span>
+      <div class="s-post__share-btns">
+        <a class="chip" rel="noopener" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={{base}}blog/{{item.slug}}.html" data-share="linkedin">LinkedIn</a>
+        <a class="chip" rel="noopener" target="_blank" href="https://twitter.com/intent/tweet?text={{item.title}}&amp;url={{base}}blog/{{item.slug}}.html" data-share="x">X</a>
+        <a class="chip" rel="noopener" target="_blank" href="https://wa.me/?text={{item.title}}%20—%20{{base}}blog/{{item.slug}}.html" data-share="whatsapp">WhatsApp</a>
+        <button class="chip" type="button" data-share="copy" data-copy="{{base}}blog/{{item.slug}}.html">Copy link</button>
+      </div>
+    </div>
+
+    <aside class="s-post__author" data-reveal="up">
+      <span class="s-post__author-mark" aria-hidden="true">{{item.authorInitials}}</span>
+      <div>
+        <span class="s-post__author-name">{{item.author}}</span>
+        <span class="s-post__author-role meta">{{item.authorRole}} · Woodex Interior</span>
+        {{#if authorNote}}<p class="s-post__author-note">{{authorNote}}</p>{{else}}<p class="s-post__author-note">{{item.author}} writes from the Gulberg studio about materials, planning and the decisions that shape how a space behaves in daily use.</p>{{/if}}
+      </div>
+      <a class="btn" href="{{base}}about.html">
+        <span class="btn__label"><span>About the studio</span><span>About the studio</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+    </aside>
+
+    {{#if prevItem}}
+    <nav class="s-post__pager" aria-label="Article navigation" data-reveal="up">
+      <a class="s-post__pager-link s-post__pager-link--prev" href="{{base}}blog/{{prevItem.slug}}.html" rel="prev">
+        <span class="meta">Previous</span>
+        <span class="s-post__pager-title">{{prevItem.title}}</span>
+      </a>
+      {{#if nextItem}}
+      <a class="s-post__pager-link s-post__pager-link--next" href="{{base}}blog/{{nextItem.slug}}.html" rel="next">
+        <span class="meta">Next</span>
+        <span class="s-post__pager-title">{{nextItem.title}}</span>
+      </a>
+      {{/if}}
+    </nav>
+    {{else}}
+    {{#if nextItem}}
+    <nav class="s-post__pager" aria-label="Article navigation" data-reveal="up">
+      <a class="s-post__pager-link s-post__pager-link--next" href="{{base}}blog/{{nextItem.slug}}.html" rel="next">
+        <span class="meta">Next</span>
+        <span class="s-post__pager-title">{{nextItem.title}}</span>
+      </a>
+    </nav>
+    {{/if}}
+    {{/if}}
+  </div>
+</article>

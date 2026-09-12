@@ -1,0 +1,88 @@
+{{! ==========================================================================
+    PARTIAL · header.html
+    Renders brand + primary nav (with mega menus from data/navigation.json)
+    + header actions + burger.
+
+    Page front-matter switches:
+      headerClass: is-top | (empty)     → transparent over a dark hero
+      headerSolid: true                 → always-solid surface
+      hideHeaderCta: true               → drop the header button
+    ========================================================================== }}
+<header class="site-header {{headerClass}}{{#if headerSolid}} site-header--solid{{/if}}" data-sticky-offset="40" data-hide-on-scroll="true">
+  <div class="container container--wide site-header__inner">
+
+    <a class="brand" href="{{base}}index.html" aria-label="{{site.name}} — home">
+      <span class="brand__mark" aria-hidden="true">W</span>
+      <span class="brand__type">
+        <span class="brand__name">Woodex</span>
+        <span class="brand__sub">Interior Studio</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__list">
+        {{#each navigation.main}}
+        <li class="nav__item">
+          {{#if children}}
+          <button type="button" class="nav__link" aria-expanded="false" aria-haspopup="true">
+            {{label}}
+            <svg class="nav__caret" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <div class="mega">
+            <div class="container">
+              <div class="mega__inner">
+                {{#each children}}
+                <div class="mega__col">
+                  <div class="mega__col-title">{{title}}</div>
+                  <div class="mega__links">
+                    {{#each links}}
+                    <a class="mega__link" href="{{../base}}{{href}}">{{label}}{{#if note}}<small>{{note}}</small>{{/if}}</a>
+                    {{/each}}
+                  </div>
+                </div>
+                {{/each}}
+                {{#if feature}}
+                <a class="mega__feature" href="{{../base}}{{feature.href}}">
+                  <img src="{{../base}}{{feature.image}}" alt="" loading="lazy" decoding="async">
+                  <h4>{{feature.title}}</h4>
+                  <p>{{feature.text}}</p>
+                  <span class="tlink">{{feature.cta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+                </a>
+                {{/if}}
+                {{#if promo}}
+                <div class="mega__promo">
+                  <div class="mega__promo-text"><b>{{promo.title}}</b> {{promo.text}}</div>
+                  <a class="btn btn--sm" href="{{../base}}{{promo.href}}"><span class="btn__label"><span>{{promo.cta}}</span><span>{{promo.cta}}</span></span><span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span></a>
+                </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          {{else}}
+          <a class="nav__link" href="{{../base}}{{href}}">{{label}}</a>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      {{#unless hideHeaderMeta}}
+      <div class="header-actions__meta hide-mobile">
+        <small>Studio line</small>
+        <a href="tel:{{site.phoneRaw}}" data-site="phone">{{site.phone}}</a>
+      </div>
+      {{/unless}}
+      {{#unless hideHeaderCta}}
+      <a class="btn btn--sm" href="{{base}}contact.html" data-magnetic="0.18">
+        <span class="btn__label"><span>{{site.cta.primary}}</span><span>{{site.cta.primary}}</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {{/unless}}
+      <button class="burger" type="button" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">
+        <span class="burger__bars" aria-hidden="true"><i class="burger__bar"></i><i class="burger__bar"></i><i class="burger__bar"></i></span>
+      </button>
+    </div>
+
+  </div>
+</header>

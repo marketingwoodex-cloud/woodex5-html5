@@ -1,0 +1,39 @@
+{{! ==========================================================================
+    SECTION · newsletter          id: sec-newsletter
+    --------------------------------------------------------------------------
+    Email capture panel. Posts through Woodex.api.submitForm → data-endpoint
+    or shows a success toast when no endpoint is configured.
+    ========================================================================== }}
+<section class="s-news" id="newsletter" aria-label="Newsletter">
+  <div class="container">
+    <div class="s-news__inner" data-reveal="up">
+      <div class="s-news__copy">
+        <div class="eyebrow eyebrow--dot">{{newsEyebrow}}</div>
+        <h3 style="font-family:var(--ff-display);font-size:var(--fs-h2);line-height:var(--lh-tight);letter-spacing:var(--tr-tightest);margin-top:var(--sp-3)">{{{newsTitle}}}</h3>
+        <p class="muted">{{newsText}}</p>
+      </div>
+      <form class="s-news__form" data-newsletter data-form="newsletter" {{#if newsEndpoint}}data-endpoint="{{newsEndpoint}}" {{/if}} novalidate>
+        <div class="field field--boxed">
+          <label class="field__label" for="news-email">Email address</label>
+          <input class="field__control" id="news-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+        </div>
+        <div class="flex" style="gap:var(--sp-4);align-items:center;justify-content:space-between;flex-wrap:wrap">
+          <label class="choice choice--radio" style="font-size:var(--fs-xs)">
+            <input type="radio" name="interest" value="Residential" checked><span class="choice__box"></span><span>Residential</span>
+          </label>
+          <label class="choice choice--radio" style="font-size:var(--fs-xs)">
+            <input type="radio" name="interest" value="Commercial"><span class="choice__box"></span><span>Commercial</span>
+          </label>
+          <label class="choice choice--radio" style="font-size:var(--fs-xs)">
+            <input type="radio" name="interest" value="Trade"><span class="choice__box"></span><span>Trade / specifier</span>
+          </label>
+          <button class="btn btn--solid" type="submit">
+            <span class="btn__label"><span>Subscribe</span><span>Subscribe</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </button>
+        </div>
+        <p class="field__hint">One note a month. Project releases, material notes and pricing updates. Unsubscribe in one click.</p>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+title: Pricing Guide — Interior Design & Fit-Out Rates in Pakistan | Woodex Interior
+description: Indicative PKR per square foot rates for interior design and fit-out in Lahore, what is included at each package level, the line items that cause most overruns, and how proposals are priced.
+page: pricing
+theme: canvas
+bodyClass: page--pricing
+api: site,navigation,pricing,faqs,services
+ogImage: assets/images/detail-materials.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · PACKAGES + RATE TABLE + PRICING FAQ ---------- }}
+  {{> sections/pricing}}
+
+  {{! ---------- 03 · INCLUSION MATRIX ---------- }}
+  {{> sections/compare}}
+
+  {{! ---------- 04 · MONEY FAQ ---------- }}
+  {{> sections/faq}}
+
+  {{! ---------- 05 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"OfferCatalog","name":"Woodex Interior packages","itemListElement":[{{#each pricing.tiers}}{{#unless @first}},{{/unless}}{"@type":"Offer","name":"{{name}}","description":"{{tagline}}","priceCurrency":"PKR","priceSpecification":{"@type":"UnitPriceSpecification","price":"{{designBuild}}","priceCurrency":"PKR","unitText":"{{unit}}"}}{{/each}}]}
+</script>

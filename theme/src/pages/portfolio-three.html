@@ -1,0 +1,43 @@
+---
+title: Portfolio Carousel — Woodex Interior Projects by Sector
+description: Woodex Interior projects as draggable rails, grouped by sector: residential homes, workplace floors, retail flagships and hospitality venues across Pakistan.
+page: portfolio-three
+theme: canvas
+bodyClass: page--portfolio page--portfolio-rail
+api: site,navigation,projects,services
+ogImage: assets/images/space-restaurant.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · ALL PROJECTS RAIL ---------- }}
+  {{> sections/projects-carousel}}
+
+  {{! ---------- 03 · RESIDENTIAL RAIL ---------- }}
+  {{> sections/projects-carousel with=railResidential}}
+
+  {{! ---------- 04 · WORKPLACE RAIL ---------- }}
+  {{> sections/projects-carousel with=railWorkplace}}
+
+  {{! ---------- 05 · RETAIL & HOSPITALITY RAIL ---------- }}
+  {{> sections/projects-carousel with=railRetail}}
+
+  {{! ---------- 06 · DETAIL STUDY ---------- }}
+  {{> sections/scatter}}
+
+  {{! ---------- 07 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

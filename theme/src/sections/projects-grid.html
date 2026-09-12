@@ -1,0 +1,66 @@
+{{! ==========================================================================
+    SECTION · projects-grid       id: sec-projects-grid
+    --------------------------------------------------------------------------
+    Filterable editorial project grid. Filters come from the categories
+    present in projects.json; cards keep their authored `size` span.
+      projGridLimit, projGridFilters (default true), projGridHead
+    ========================================================================== }}
+<section class="s-proj-grid" id="{{projGridId}}" aria-label="{{projGridLabel}}" data-filter-group>
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{projGridEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{projGridTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{projGridText}}</p>
+        {{#if projGridCta}}<a class="tlink" href="{{base}}{{projGridCtaHref}}" style="margin-top:var(--sp-5)">{{projGridCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>{{/if}}
+      </div>
+    </div>
+
+    {{#unless projGridNoBar}}
+    <div class="s-proj-grid__bar" data-reveal="up">
+      <div class="s-proj-grid__filters" role="group" aria-label="Filter projects by sector">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All work <span class="chip__count">10</span></button>
+        <button class="chip" type="button" data-filter="residential" aria-pressed="false">Residential</button>
+        <button class="chip" type="button" data-filter="workplace" aria-pressed="false">Workplace</button>
+        <button class="chip" type="button" data-filter="retail" aria-pressed="false">Retail</button>
+        <button class="chip" type="button" data-filter="hospitality" aria-pressed="false">Hospitality</button>
+        <button class="chip" type="button" data-filter="commercial" aria-pressed="false">Commercial</button>
+      </div>
+      <span class="s-proj-grid__count" data-filter-count>10 projects</span>
+    </div>
+    {{/unless}}
+
+    <div class="s-proj-grid__grid">
+      {{#each projects limit=@projGridLimit where=@projGridWhere}}
+      <a class="proj proj--{{size}}{{#if @first}} proj--tall{{/if}}" href="{{../base}}project/{{slug}}.html"
+         data-filter-item="{{category}} {{tags}}" data-reveal="up" data-reveal-delay="{{@index}}" data-cursor-label="View">
+        <div class="proj__media media-hover">
+          <img src="{{../base}}{{cover}}" alt="{{title}} — {{location}}" loading="{{#if @first}}eager{{else}}lazy{{/if}}" decoding="async">
+          <span class="proj__cat">{{categoryLabel}}</span>
+          <span class="proj__overlay">
+            <span class="meta" style="color:var(--raw-cream-200)">{{area}} · {{year}}</span>
+            <span class="proj__view">View</span>
+          </span>
+        </div>
+        <span class="proj__info">
+          <span class="proj__title">{{title}}</span>
+          <span class="proj__meta">{{location}}</span>
+        </span>
+      </a>
+      {{/each}}
+    </div>
+
+    {{#if projGridPager}}
+    <nav class="pager" style="margin-top:var(--sp-9)" aria-label="Portfolio pages">
+      <a class="pager__link" href="{{base}}portfolio-two.html" aria-label="Previous layout"><svg aria-hidden="true" width="14" height="14"><use href="#i-arrow-left"/></svg></a>
+      <a class="pager__link" href="{{base}}portfolio-one.html" aria-current="page">1</a>
+      <a class="pager__link" href="{{base}}portfolio-two.html">2</a>
+      <a class="pager__link" href="{{base}}portfolio-three.html">3</a>
+      <a class="pager__link" href="{{base}}portfolio-two.html" aria-label="Next layout"><svg aria-hidden="true" width="14" height="14"><use href="#i-arrow-right"/></svg></a>
+    </nav>
+    {{/if}}
+  </div>
+</section>

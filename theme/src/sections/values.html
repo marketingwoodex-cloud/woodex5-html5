@@ -1,0 +1,31 @@
+{{! ==========================================================================
+    SECTION · values              id: sec-values
+    --------------------------------------------------------------------------
+    Icon-led principle grid, driven entirely by page params:
+      valuesEyebrow, valuesTitle, valuesText, valuesCols (2|3|4, default 3)
+      values: [{icon,title,text}]   — icon = symbol id from partials/icons.html
+    ========================================================================== }}
+<section class="s-values" id="values" aria-label="Our principles">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{valuesEyebrow}}</div>
+        <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{valuesTitle}}}</h2>
+      </div>
+      {{#if valuesText}}<div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{valuesText}}</p></div>{{/if}}
+    </div>
+
+    <div class="s-values__grid s-values__grid--{{#if valuesCols}}{{valuesCols}}{{else}}3{{/if}}">
+      {{#each values}}
+      <article class="s-values__item" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="s-values__no" aria-hidden="true">{{@pad}}</span>
+        {{#if icon}}
+        <span class="s-values__icon" aria-hidden="true"><svg><use href="#{{icon}}"/></svg></span>
+        {{/if}}
+        <h3 class="s-values__title">{{title}}</h3>
+        <p class="s-values__text">{{text}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

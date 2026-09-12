@@ -1,0 +1,37 @@
+---
+title: Style Guide — Identity, Type & Components | Woodex Interior
+description: The complete Woodex Interior visual system: colour tokens, the type scale, spacing rhythm, buttons and controls, component class contracts and the full section library.
+page: style-guide
+theme: canvas
+bodyClass: page--style-guide
+api: site,navigation
+ogImage: assets/images/detail-materials.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · GUIDE BLOCKS ----------
+       One include drives every block: swatches, types, spaces, buttons,
+       comps, secList. Each renders only when its parameter array exists. }}
+  {{> sections/guide}}
+
+  {{! ---------- 03 · LIVE SECTION SAMPLES ---------- }}
+  {{> sections/marquee}}
+
+  {{> sections/stats}}
+
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->

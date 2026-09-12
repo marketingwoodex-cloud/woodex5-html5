@@ -1,0 +1,58 @@
+{{! ==========================================================================
+    SECTION · svc-grid            id: sec-svc-grid
+    --------------------------------------------------------------------------
+    Service card grid. Cards invert to ink on hover.
+    Front matter: svcGridLimit, svcGridCols (2|3|4), svcGridMedia (true →
+    image cards), svcGridWhere (e.g. "group:Interior design").
+    ========================================================================== }}
+<section class="s-svc-grid" id="{{svcGridId}}" aria-label="{{svcGridLabel}}">
+  <div class="container">
+
+    {{#if svcGridTitle}}
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{svcGridEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{svcGridTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{svcGridText}}</p>
+        {{#if svcGridCta}}<a class="tlink" href="{{base}}{{svcGridCtaHref}}" style="margin-top:var(--sp-5)">{{svcGridCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>{{/if}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="s-svc-grid__grid"{{#if svcGridCols}} style="grid-template-columns:repeat({{svcGridCols}},minmax(0,1fr))"{{/if}}>
+      {{#each services where=@svcGridWhere limit=@svcGridLimit}}
+      <article class="svc-card{{#if ../svcGridMedia}} svc-card--media{{/if}}" data-reveal="up" data-reveal-delay="{{@index}}">
+        {{#if ../svcGridMedia}}
+        <a class="svc-card__media" href="{{../base}}services/{{slug}}.html" tabindex="-1" aria-hidden="true">
+          <img src="{{../base}}{{image}}" alt="{{title}}" loading="lazy" decoding="async">
+        </a>
+        <div class="svc-card__body">
+        {{/if}}
+          <div class="svc-card__top">
+            <span class="svc-card__icon" aria-hidden="true"><svg><use href="#{{icon}}"/></svg></span>
+            <span class="svc-card__no">{{id}}</span>
+          </div>
+          <h3 class="svc-card__title"><a href="{{../base}}services/{{slug}}.html" style="color:inherit">{{title}}</a></h3>
+          <p class="svc-card__text">{{summary}}</p>
+          <ul class="svc-card__list">
+            {{#each deliverables limit=3}}<li>{{this}}</li>{{/each}}
+          </ul>
+          <a class="svc-card__link" href="{{../base}}services/{{slug}}.html">View service <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        {{#if ../svcGridMedia}}</div>{{/if}}
+      </article>
+      {{/each}}
+    </div>
+
+    {{#if svcGridFootCta}}
+    <div style="margin-top:var(--sp-9);display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center;justify-content:space-between;padding-top:var(--sp-6);border-top:1px solid var(--c-line)" data-reveal="up">
+      <p class="muted small" style="max-width:44ch">{{svcGridFootText}}</p>
+      <a class="btn btn--solid" href="{{base}}{{svcGridFootCtaHref}}" data-magnetic="0.2">
+        <span class="btn__label"><span>{{svcGridFootCta}}</span><span>{{svcGridFootCta}}</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+    {{/if}}
+  </div>
+</section>

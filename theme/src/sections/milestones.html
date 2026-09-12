@@ -1,0 +1,32 @@
+{{! ==========================================================================
+    SECTION · milestones          id: sec-milestones
+    --------------------------------------------------------------------------
+    Studio timeline from page params:
+      milestonesEyebrow, milestonesTitle, milestonesText
+      milestones: [{year,title,text}]
+    Rendered as a ruled year-index; the rail fills on scroll.
+    ========================================================================== }}
+<section class="s-milestones" id="milestones" aria-label="Studio milestones">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{milestonesEyebrow}}</div>
+        <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{milestonesTitle}}}</h2>
+      </div>
+      {{#if milestonesText}}<div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{milestonesText}}</p></div>{{/if}}
+    </div>
+
+    <ol class="s-milestones__rail" data-reveal="up">
+      {{#each milestones}}
+      <li class="s-milestones__item" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="s-milestones__dot" aria-hidden="true"></span>
+        <span class="s-milestones__year">{{year}}</span>
+        <div class="s-milestones__body">
+          <h3 class="s-milestones__title">{{title}}</h3>
+          <p class="s-milestones__text">{{text}}</p>
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+</section>

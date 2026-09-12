@@ -1,0 +1,14 @@
+[
+  { "id": "01", "name": "Systems Ltd", "sector": "Technology" },
+  { "id": "02", "name": "Qissa Group", "sector": "Hospitality" },
+  { "id": "03", "name": "Karandaaz Spaces", "sector": "Co-working" },
+  { "id": "04", "name": "Indus Health", "sector": "Healthcare" },
+  { "id": "05", "name": "Serai Hospitality", "sector": "Restaurants" },
+  { "id": "06", "name": "Liberty Jewellers", "sector": "Retail" },
+  { "id": "07", "name": "Arfa Ventures", "sector": "Real estate" },
+  { "id": "08", "name": "Noor Textiles", "sector": "Corporate" },
+  { "id": "09", "name": "Beaconhouse Clinics", "sector": "Healthcare" },
+  { "id": "10", "name": "Chenab Retail Group", "sector": "Retail" },
+  { "id": "11", "name": "Ravi Developers", "sector": "Residential" },
+  { "id": "12", "name": "Meridian Law", "sector": "Professional services" }
+]

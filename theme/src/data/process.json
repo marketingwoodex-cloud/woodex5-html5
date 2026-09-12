@@ -1,0 +1,69 @@
+{
+  "intro": {
+    "eyebrow": "The way we work",
+    "title": "Six stages, one <em>accountable</em> team",
+    "text": "No handovers between a designer who disappears and a contractor who improvises. The people who draw your space are the people who build it, and the same project manager owns the programme from survey to snag list."
+  },
+  "stages": [
+    {
+      "id": "01",
+      "name": "Listen",
+      "title": "Brief & site survey",
+      "duration": "Week 1",
+      "summary": "A 60-minute consultation, a measured survey and an honest read on the building — including the things that will cost you money if ignored.",
+      "outputs": ["Measured drawings", "Existing-conditions report", "Budget range", "Indicative programme"],
+      "image": "assets/images/studio-team.jpg"
+    },
+    {
+      "id": "02",
+      "name": "Plan",
+      "title": "Concept & space planning",
+      "duration": "Weeks 2 – 4",
+      "summary": "Layout options tested against how you actually use the space: circulation, daylight, storage, headcount and the view from the door.",
+      "outputs": ["Two layout options", "Zoning diagram", "Furniture plan", "Concept material direction"],
+      "image": "assets/images/detail-materials.jpg"
+    },
+    {
+      "id": "03",
+      "name": "Design",
+      "title": "Design development",
+      "duration": "Weeks 4 – 7",
+      "summary": "Materials, lighting and joinery resolved to specification. Every decision written down with a code, a supplier and a price attached.",
+      "outputs": ["Finishes schedule", "Lighting layout & scenes", "Joinery design intent", "Sanitaryware & hardware schedule"],
+      "image": "assets/images/detail-lighting.jpg"
+    },
+    {
+      "id": "04",
+      "name": "See",
+      "title": "3D visualisation & approval",
+      "duration": "Weeks 7 – 9",
+      "summary": "Photoreal views built from the same model the workshop uses, so the image you approve is the geometry we cut.",
+      "outputs": ["Photoreal stills", "Optional walkthrough", "Two revision rounds", "Signed design approval"],
+      "image": "assets/images/hero-living.jpg"
+    },
+    {
+      "id": "05",
+      "name": "Draw",
+      "title": "Construction & shop drawings",
+      "duration": "Weeks 9 – 11",
+      "summary": "Coordinated MEP, reflected ceilings, partitions and full joinery shop drawings issued for manufacture — the set your landlord approves too.",
+      "outputs": ["Coordinated MEP drawings", "Reflected ceiling plan", "Joinery shop drawings", "Line-item BOQ & contract"],
+      "image": "assets/images/cta-workshop.jpg"
+    },
+    {
+      "id": "06",
+      "name": "Build",
+      "title": "Manufacture, site & handover",
+      "duration": "Weeks 11 – 30",
+      "summary": "Workshop production runs in parallel with site works. Friday photo reports, a resident supervisor, and a snag list closed before the final payment.",
+      "outputs": ["Weekly photo report", "Factory inspection notes", "Testing & commissioning", "O&M pack and 10-year warranty"],
+      "image": "assets/images/space-workspace.jpg"
+    }
+  ],
+  "promises": [
+    { "title": "One accountable team", "text": "Design, workshop and site under a single contract and a single project manager." },
+    { "title": "Fixed-price proposals", "text": "A line-item BOQ taken from the drawings, so there is nowhere for an allowance to hide." },
+    { "title": "Approved before production", "text": "The 3D model and the workshop drawings are the same model. What you sign is what we cut." },
+    { "title": "Friday, every Friday", "text": "Photos, progress against programme, decisions needed next week, and risks we can see coming." }
+  ]
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "01",
+    "type": "Design studio",
+    "city": "Lahore",
+    "flag": "Head office",
+    "address": "{{site.address.line1}}, {{site.address.line2}}, {{site.address.city}} {{site.address.postalCode}}",
+    "phone": "{{site.phone}}",
+    "email": "{{site.email}}",
+    "hours": "Mon – Thu 10:00–19:00 · Fri 10:00–13:00 & 14:30–19:00 · Sat 11:00–17:00",
+    "map": "assets/images/contact-studio.jpg",
+    "pin": { "x": "52%", "y": "46%" }
+  },
+  {
+    "id": "02",
+    "type": "Workshop & factory",
+    "city": "Raiwind Road",
+    "flag": "Manufacturing",
+    "address": "Plot 18-C, Sundar Industrial Estate, Raiwind Road, Lahore",
+    "phone": "+92 301 0000000",
+    "email": "workshop@woodexinterior.pk",
+    "hours": "Mon – Sat 08:00–18:00 · Visits by appointment",
+    "map": "assets/images/cta-workshop.jpg",
+    "pin": { "x": "38%", "y": "58%" }
+  },
+  {
+    "id": "03",
+    "type": "Project office",
+    "city": "Islamabad",
+    "flag": "By appointment",
+    "address": "3rd Floor, Centaurus Corporate Block, F-8, Islamabad 44000",
+    "phone": "+92 302 0000000",
+    "email": "isb@woodexinterior.pk",
+    "hours": "Mon – Fri 10:00–18:00",
+    "map": "assets/images/space-lobby.jpg",
+    "pin": { "x": "61%", "y": "34%" }
+  },
+  {
+    "id": "04",
+    "type": "Project office",
+    "city": "Karachi",
+    "flag": "By appointment",
+    "address": "Office 902, Tower B, Business Bay, Clifton, Karachi 75600",
+    "phone": "+92 303 0000000",
+    "email": "khi@woodexinterior.pk",
+    "hours": "Mon – Fri 10:00–18:00",
+    "map": "assets/images/space-workspace.jpg",
+    "pin": { "x": "44%", "y": "62%" }
+  }
+]

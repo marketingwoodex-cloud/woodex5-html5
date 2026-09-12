@@ -1,0 +1,44 @@
+---
+title: Contact Woodex Interior — Interior Design Studio, Gulberg Lahore
+description: Send your floor plan and get a budget range within 48 hours. Studio line {{site.phone}}, {{site.address.city}}, plus project offices in Islamabad and Karachi.
+page: contact
+theme: canvas
+bodyClass: page--contact
+api: site,navigation,services,locations,faqs
+ogImage: assets/images/contact-studio.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · ENQUIRY FORM + STUDIO PANEL ---------- }}
+  {{> sections/contact-split}}
+
+  {{! ---------- 03 · OFFICES ---------- }}
+  {{> sections/locations}}
+
+  {{! ---------- 04 · HOW TO BRIEF US ---------- }}
+  {{> sections/split}}
+
+  {{! ---------- 05 · STARTING FAQ ---------- }}
+  {{> sections/faq}}
+
+  {{! ---------- 06 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ContactPage","name":"Contact {{site.name}}","mainEntity":{"@type":"Organization","name":"{{site.name}}","email":"{{site.email}}","telephone":"{{site.phoneRaw}}","address":{"@type":"PostalAddress","streetAddress":"{{site.address.line1}}, {{site.address.line2}}","addressLocality":"{{site.address.city}}","addressRegion":"{{site.address.region}}","postalCode":"{{site.address.postalCode}}","addressCountry":"PK"},"contactPoint":[{"@type":"ContactPoint","telephone":"{{site.phoneRaw}}","contactType":"sales","areaServed":"PK","availableLanguage":["English","Urdu"]},{"@type":"ContactPoint","email":"{{site.salesEmail}}","contactType":"customer support","areaServed":"PK"}]}}
+</script>

@@ -1,0 +1,240 @@
+{
+  "portfolio-one": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Portfolio",
+    "heroTitle": "Two hundred and forty spaces. <em>Ten you can walk through here.</em>",
+    "heroLead": "Residential, workplace, retail, hospitality and healthcare projects across Pakistan — each one surveyed, designed, manufactured and installed by Woodex under a single contract.",
+    "crumbCurrent": "Portfolio",
+    "heroTag": "Grid layout · 01 of 03",
+    "heroFacts": true,
+    "heroFactList": [
+      {
+        "k": "Projects delivered",
+        "v": "240+"
+      },
+      {
+        "k": "Floor area",
+        "v": "1.45m sq ft"
+      },
+      {
+        "k": "On programme",
+        "v": "97%"
+      },
+      {
+        "k": "Sectors",
+        "v": "5"
+      }
+    ],
+    "heroActions": true,
+    "heroCta": {
+      "label": "Start a project",
+      "href": "contact.html"
+    },
+    "heroCta2": {
+      "label": "List layout",
+      "href": "portfolio-two.html"
+    },
+    "projGridId": "work",
+    "projGridLabel": "All projects",
+    "projGridEyebrow": "Selected work",
+    "projGridTitle": "Filter by <em>sector</em>",
+    "projGridText": "Every card links to a full case study with the brief, the challenge, our approach and the specification.",
+    "projGridLimit": 10,
+    "projGridPager": true,
+    "projGridCta": "Compare packages",
+    "projGridCtaHref": "pricing.html",
+    "statsLabel": "Delivery record",
+    "statsHead": "The record, <em>unrounded</em>",
+    "statsEyebrow": "Delivery record",
+    "statsNote": "Tracked against contracted dates and handover certificates.",
+    "statsLimit": 4,
+    "testiId": "testimonials",
+    "testiLabel": "Client testimonials",
+    "testiEyebrow": "Client words",
+    "testiTitle": "Reviewed after <em>handover</em>",
+    "testiText": "Feedback collected three months after each project went live.",
+    "testiLimit": 6,
+    "testiCta": "Read the case studies",
+    "testiCtaHref": "portfolio-two.html",
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaVariant": "image",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Your project next",
+    "ctaTitle": "Send us your floor plan and <em>your deadline</em>",
+    "ctaText": "We will tell you honestly whether the date is achievable, what it will cost, and which parts of the brief are worth protecting.",
+    "ctaPrimary": "Book a design consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See pricing guide",
+    "ctaSecondaryHref": "pricing.html",
+    "ctaImage": "assets/images/space-villa.jpg",
+    "ctaAside": [
+      {
+        "k": "Reply window",
+        "v": "One business day"
+      },
+      {
+        "k": "Consultation",
+        "v": "Free, 60 minutes"
+      }
+    ]
+  },
+  "portfolio-two": {
+    "heroVariant": "tall",
+    "heroEyebrow": "Portfolio",
+    "heroTitle": "The index",
+    "heroLead": "Every project as a line: number, title, sector, location and year. Hover a row for the thumbnail, click for the full case study.",
+    "crumbCurrent": "Portfolio",
+    "heroTag": "List layout · 02 of 03",
+    "heroActions": true,
+    "heroCta": {
+      "label": "Grid layout",
+      "href": "portfolio-one.html"
+    },
+    "heroCta2": {
+      "label": "Carousel layout",
+      "href": "portfolio-three.html"
+    },
+    "heroDeco": "INDEX",
+    "projListId": "work",
+    "projListLabel": "Project index",
+    "projListEyebrow": "Project index",
+    "projListTitle": "Ten handovers, <em>newest first</em>",
+    "projListText": "2024 – 2025. Older projects are available on request, including six under NDA.",
+    "projListLimit": 10,
+    "projListCta": "Full case studies",
+    "projListCtaHref": "portfolio-one.html",
+    "svcListId": "services",
+    "svcListLabel": "Service index",
+    "svcListEyebrow": "By service",
+    "svcListTitle": "Find work by the <em>service you need</em>",
+    "svcListText": "Fifteen services. Hover a row to preview the work associated with it.",
+    "svcListCta": "All services",
+    "svcListCtaHref": "service.html",
+    "svcListLimit": 15,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "wood",
+    "ctaEyebrow": "Start a project",
+    "ctaTitle": "Which of these <em>looks like yours?</em>",
+    "ctaText": "Send the closest match from this index with your floor plan. It gives us a head start on scope and budget.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "WhatsApp the studio",
+    "ctaSecondaryHref": "contact.html#whatsapp"
+  },
+  "portfolio-three": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Portfolio",
+    "heroTitle": "Work, <em>as a rail</em>",
+    "heroLead": "Drag the carousel or use the arrows. Grouped by sector, with the same case studies behind every card.",
+    "crumbCurrent": "Portfolio",
+    "heroTag": "Carousel layout · 03 of 03",
+    "heroActions": true,
+    "heroCta": {
+      "label": "Grid layout",
+      "href": "portfolio-one.html"
+    },
+    "heroCta2": {
+      "label": "List layout",
+      "href": "portfolio-two.html"
+    },
+    "projCarId": "work-all",
+    "projCarLabel": "All projects",
+    "projCarEyebrow": "All work",
+    "projCarTitle": "Ten projects, <em>one rail</em>",
+    "projCarText": "Drag, swipe or use the arrows. Cards link to the full case study.",
+    "projCarLimit": 10,
+    "projCarLg": false,
+    "projCarCta": "Grid view",
+    "projCarCtaHref": "portfolio-one.html",
+    "scatterLabel": "Details",
+    "scatterEyebrow": "Detail study",
+    "scatterTitle": "The parts you <em>touch every day</em>",
+    "scatterText": "Handles, reveals, joints and light. Five details from recent projects, photographed on site.",
+    "scatterItems": [
+      {
+        "src": "assets/images/detail-joinery.jpg",
+        "alt": "Mitred joint in solid ash",
+        "cap": "Ash mitre · Raavi Farmhouse",
+        "parallax": "0.08"
+      },
+      {
+        "src": "assets/images/detail-materials.jpg",
+        "alt": "Material palette samples",
+        "cap": "Palette · Qissa Coffee House",
+        "parallax": "-0.06"
+      },
+      {
+        "src": "assets/images/detail-lighting.jpg",
+        "alt": "Recessed linear lighting",
+        "cap": "Cove light · Systems Ltd HQ",
+        "parallax": "0.1"
+      },
+      {
+        "src": "assets/images/detail-staircase.jpg",
+        "alt": "Staircase with steel stringers",
+        "cap": "Stair · Gulberg Townhouse",
+        "parallax": "-0.08"
+      },
+      {
+        "src": "assets/images/space-retail.jpg",
+        "alt": "Brass retail fixture rail",
+        "cap": "Brass rail · MM Alam Flagship",
+        "parallax": "0.06"
+      }
+    ],
+    "scatterSticker": "HANDLE · REVEAL · JOINT · LIGHT · ",
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaVariant": "split",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Start a project",
+    "ctaTitle": "Send the floor plan. <em>Get a budget range in 48 hours.</em>",
+    "ctaText": "One designer reviews every enquiry personally.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See pricing",
+    "ctaSecondaryHref": "pricing.html",
+    "ctaAside": [
+      {
+        "k": "Projects",
+        "v": "240 delivered"
+      },
+      {
+        "k": "On programme",
+        "v": "97%"
+      }
+    ],
+    "railResidential": {
+      "projCarId": "work-residential",
+      "projCarLabel": "Residential projects",
+      "projCarEyebrow": "Residential",
+      "projCarTitle": "Homes we have <em>re-planned</em>",
+      "projCarText": "Apartments, townhouses and farmhouses — from a single kitchen to a 9,800 sq ft weekend house.",
+      "projCarWhere": "category:residential",
+      "projCarLimit": 4,
+      "projCarLg": false
+    },
+    "railWorkplace": {
+      "projCarId": "work-workplace",
+      "projCarLabel": "Workplace projects",
+      "projCarEyebrow": "Workplace",
+      "projCarTitle": "Floors that <em>hold a headcount</em>",
+      "projCarText": "Corporate fit-out, co-working and clinic planning — designed around adjacency and acoustics.",
+      "projCarWhere": "category:workplace",
+      "projCarLimit": 4,
+      "projCarLg": false
+    },
+    "railRetail": {
+      "projCarId": "work-retail",
+      "projCarLabel": "Retail and hospitality projects",
+      "projCarEyebrow": "Retail & hospitality",
+      "projCarTitle": "Spaces that <em>sell and serve</em>",
+      "projCarText": "Flagships, boutiques, cafés and restaurants — designed from the queue line outwards.",
+      "projCarWhere": "category:retail,category:hospitality",
+      "projCarLimit": 4,
+      "projCarLg": false
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "blog": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Journal",
+    "heroTitle": "Notes from the <em>workshop and site</em>",
+    "heroLead": "Practical writing on materials, budgets, lighting and site discipline — by the people doing the work, not a content agency. Eight articles, updated monthly.",
+    "crumbCurrent": "Journal",
+    "heroTag": "Featured grid · 01 of 02",
+    "heroActions": true,
+    "heroCta": { "label": "Editorial list view", "href": "blog-two.html" },
+    "heroCta2": { "label": "Subscribe by email", "href": "#newsletter" },
+
+    "blogId": "articles",
+    "blogLabel": "All articles",
+    "blogEyebrow": "All articles",
+    "blogTitle": "Latest <em>writing</em>",
+    "blogText": "Filter by topic. Every article is written in-house and reviewed by the projects team before it goes live.",
+    "blogFeatured": true,
+    "blogFilter": true,
+    "blogLimit": 6,
+    "blogOffset": 1,
+    "blogCta": "List view",
+    "blogCtaHref": "blog-two.html",
+
+    "newsId": "newsletter",
+    "newsEyebrow": "Journal by email",
+    "newsTitle": "One note a month, <em>no marketing</em>",
+    "newsText": "Project releases, material notes and pricing updates for the Pakistan market. Roughly 900 words, once a month, unsubscribe in one click.",
+    "newsEndpoint": "",
+
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "From reading to building",
+    "ctaTitle": "Have a project behind <em>the bookmark?</em>",
+    "ctaText": "Send the floor plan. A designer replies within one business day with a budget range and an honest view of the programme.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See our work",
+    "ctaSecondaryHref": "portfolio-one.html"
+  },
+
+  "blog-two": {
+    "heroVariant": "tall",
+    "heroEyebrow": "Journal",
+    "heroTitle": "The archive",
+    "heroLead": "Every article as a dated row — materials, planning, budgeting and site execution. Filter by topic or read straight through.",
+    "crumbCurrent": "Journal",
+    "heroTag": "Editorial list · 02 of 02",
+    "heroActions": true,
+    "heroCta": { "label": "Featured grid view", "href": "blog.html" },
+    "heroCta2": { "label": "Subscribe", "href": "#newsletter" },
+    "heroDeco": "JOURNAL",
+
+    "blogListId": "articles",
+    "blogListLabel": "All articles",
+    "blogListEyebrow": "The archive",
+    "blogListTitle": "Eight articles, <em>newest first</em>",
+    "blogListText": "Written in-house and reviewed by the projects team before publication.",
+    "blogListLimit": 8,
+    "blogListCta": "Featured grid view",
+    "blogListCtaHref": "blog.html",
+
+    "topicsTitle": "Browse by <em>topic</em>",
+    "topicsText": "Four topics, eight articles. Each topic collects the writing we would send a client before they make that decision.",
+    "topics": [
+      { "slug": "materials", "label": "Materials & finishes", "count": 1, "text": "Specification notes on timber, veneer, lacquer, stone and metal — and how each behaves in a Lahore summer.", "href": "blog.html?cat=materials" },
+      { "slug": "planning", "label": "Planning & layouts", "count": 3, "text": "Space planning, zoning, clearances and lighting layers. The decisions that are cheap to make early and expensive to make late.", "href": "blog.html?cat=planning" },
+      { "slug": "budget", "label": "Budgeting", "count": 2, "text": "Rates, BOQs, provisional sums and the five line items that cause most overruns on Pakistani fit-out projects.", "href": "blog.html?cat=budget" },
+      { "slug": "site", "label": "Site & execution", "count": 2, "text": "Supervision routines, acoustic performance, quality control and what we inspect every Friday on a live site.", "href": "blog.html?cat=site" }
+    ],
+
+    "newsEyebrow": "Journal by email",
+    "newsTitle": "One note a month, <em>no marketing</em>",
+    "newsText": "Project releases, material notes and pricing updates. Unsubscribe in one click.",
+    "newsEndpoint": "",
+
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "wood",
+    "ctaEyebrow": "Start a project",
+    "ctaTitle": "Ask us the question <em>the article raised</em>",
+    "ctaText": "Send the article link with your floor plan and we will answer it against your specific project.",
+    "ctaPrimary": "Ask a designer",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See our work",
+    "ctaSecondaryHref": "portfolio-one.html"
+  },
+
+  "blog-post": {
+    "relatedTitle": "Keep <em>reading</em>",
+    "relatedText": "Three more articles on the same topic.",
+    "relatedLimit": 3,
+    "shareLabel": "Share this article",
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "From reading to building",
+    "ctaTitle": "Have a project behind <em>the bookmark?</em>",
+    "ctaText": "Send the floor plan. A designer replies within one business day.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See our work",
+    "ctaSecondaryHref": "portfolio-one.html"
+  }
+}

@@ -1,0 +1,39 @@
+---
+title: "{{item.title}}"
+description: "{{item.excerpt}}"
+page: blog-post
+theme: canvas
+bodyClass: page--blog-post
+api: site,navigation,posts
+ogImage: "{{item.image}}"
+ogType: article
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · ARTICLE READER ---------- }}
+  {{> sections/post}}
+
+  {{! ---------- 02 · RELATED ARTICLES ---------- }}
+  {{> sections/blog-grid}}
+
+  {{! ---------- 03 · NEWSLETTER ---------- }}
+  {{> sections/newsletter}}
+
+  {{! ---------- 04 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{item.title}}","description":"{{item.excerpt}}","datePublished":"{{item.date}}","image":"{{base}}{{item.image}}","articleSection":"{{item.categoryLabel}}","wordCount":"{{item.readTime}}00","author":{"@type":"Person","name":"{{item.author}}","jobTitle":"{{item.authorRole}}"},"publisher":{"@type":"Organization","name":"{{site.name}}","logo":{"@type":"ImageObject","url":"{{base}}assets/images/apple-touch-icon.png"}},"keywords":"{{#each item.tags}}{{#unless @first}}, {{/unless}}{{this}}{{/each}}"}
+</script>

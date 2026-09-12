@@ -1,0 +1,54 @@
+{{! ==========================================================================
+    SECTION · cta                 id: sec-cta
+    --------------------------------------------------------------------------
+    Closing call-to-action band. Variants:
+      ctaVariant: plain | image | split
+      ctaSurface: default | inverse | wood | accent
+      ctaTitle (<em> ok), ctaText, ctaPrimary, ctaPrimaryHref,
+      ctaSecondary, ctaSecondaryHref, ctaImage, ctaAside[{k,v}]
+    ========================================================================== }}
+<section class="s-cta{{#if ctaVariant}} s-cta--{{ctaVariant}}{{/if}}{{#if ctaSurface}} section--{{ctaSurface}}{{/if}}" id="{{ctaId}}" aria-label="{{ctaLabel}}">
+  {{#if ctaImage}}
+  <div class="s-cta__bg" aria-hidden="true"><img src="{{base}}{{ctaImage}}" alt="" loading="lazy" decoding="async" data-parallax="0.1"></div>
+  {{/if}}
+
+  <div class="container">
+    <div class="s-cta__inner{{#if ctaVariant}} s-cta__split{{/if}}">
+
+      <div style="display:grid;gap:var(--sp-5);justify-items:inherit">
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{ctaEyebrow}}</div>
+        <h2 class="s-cta__title" data-split>{{{ctaTitle}}}</h2>
+        {{#if ctaText}}<p class="s-cta__text" data-reveal="up" data-reveal-delay="2">{{ctaText}}</p>{{/if}}
+        <div class="s-cta__actions" data-reveal="up" data-reveal-delay="3">
+          <a class="btn btn--solid btn--lg" href="{{base}}{{ctaPrimaryHref}}" data-magnetic="0.22">
+            <span class="btn__label"><span>{{ctaPrimary}}</span><span>{{ctaPrimary}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          {{#if ctaSecondary}}
+          <a class="btn btn--lg" href="{{base}}{{ctaSecondaryHref}}">
+            <span class="btn__label"><span>{{ctaSecondary}}</span><span>{{ctaSecondary}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+          {{/if}}
+        </div>
+      </div>
+
+      {{#if ctaAside}}
+      <dl style="display:grid;gap:var(--sp-5)" data-reveal="up" data-reveal-delay="2">
+        {{#each ctaAside}}
+        <div style="display:grid;gap:.25rem">
+          <dt class="meta">{{k}}</dt>
+          <dd style="font-family:var(--ff-display);font-size:var(--fs-h4);line-height:1.2">{{v}}</dd>
+        </div>
+        {{/each}}
+      </dl>
+      {{/if}}
+    </div>
+
+    {{#if ctaFoot}}
+    <div class="s-cta__aside" data-reveal="up">
+      {{#each ctaFoot}}<span>{{k}} — <strong style="color:var(--c-text)">{{v}}</strong></span>{{/each}}
+    </div>
+    {{/if}}
+  </div>
+</section>

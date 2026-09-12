@@ -1,0 +1,312 @@
+{
+  "instructions": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Instructions",
+    "heroTitle": "How to run, edit and <em>extend this theme</em>",
+    "heroLead": "This theme ships as source templates plus a zero-dependency build script. Pages are assembled from partials and section templates, and every piece of content comes from a JSON file that is also served at runtime.",
+    "crumbCurrent": "Instructions",
+    "heroTag": "Builder documentation",
+
+    "stepsTitle": "Getting <em>started</em>",
+    "stepsText": "Four steps from a fresh checkout to a running site. Node 18 or newer is the only requirement — there are no packages to install.",
+    "steps": [
+      { "k": "01", "title": "Install nothing", "text": "The build script is a single ES module with zero dependencies. Confirm you have Node 18+: <code>node --version</code>." },
+      { "k": "02", "title": "Build the site", "text": "From the repository root run <code>node theme/build.mjs</code>. HTML pages are written to the output root, assets are copied, and a manifest is produced." },
+      { "k": "03", "title": "Serve it locally", "text": "Any static server works: <code>npx serve .</code> or <code>python3 -m http.server 8080</code>. Open the printed URL and browse." },
+      { "k": "04", "title": "Watch while editing", "text": "Run <code>node theme/build.mjs --watch</code>. Templates, sections, partials and data changes rebuild in well under a second." }
+    ],
+
+    "treeTitle": "Where <em>everything lives</em>",
+    "treeText": "Source of truth is the <code>theme/</code> directory. Everything at the repository root is generated output — do not edit it by hand.",
+    "tree": [
+      { "k": "theme/build.mjs", "v": "Zero-dependency static site generator: front matter, tokens, includes, loops, conditionals, data derivation." },
+      { "k": "theme/site.config.json", "v": "Site settings, generation rules for service / project / post detail pages, sitemap and robots options." },
+      { "k": "theme/src/data/*.json", "v": "All content: site, services, projects, posts, process, testimonials, team, pricing, faq, offices, logos, stats." },
+      { "k": "theme/src/data/pages/*.json", "v": "Per-page section parameters. Front matter sets <code>page: &lt;id&gt;</code> and the matching object is merged into scope." },
+      { "k": "theme/src/partials/", "v": "Chrome: head/body macros, icon sprite, header, mega menu drawer, footer, font declarations." },
+      { "k": "theme/src/sections/", "v": "One template per section — every block in the library, reusable across pages with different parameters." },
+      { "k": "theme/src/pages/", "v": "Hand-written page templates composed from section includes." },
+      { "k": "theme/src/pages/_templates/", "v": "Detail templates looped over data by the generator (service, project, blog post)." },
+      { "k": "theme/src/content/posts/", "v": "Long-form article bodies, included into the blog post template." },
+      { "k": "theme/src/assets/css/", "v": "Eight stylesheets: tokens, base, layout, components, sections, motion, utilities, responsive." },
+      { "k": "theme/src/assets/js/", "v": "Seven modules: util, api, chrome, motion, sections, forms, theme. Vanilla, deferred, no dependencies." },
+      { "k": "theme/src/assets/images/", "v": "Original AI-generated imagery referenced by data and page parameters." },
+      { "k": "assets/data/*.json", "v": "Generated copy of the content files, served at runtime as the front-end JSON API." },
+      { "k": "build-manifest.json", "v": "Generated build report: page list, warnings, timings, asset inventory." }
+    ],
+
+    "editTitle": "Editing <em>content</em>",
+    "editText": "Content edits never require touching a template. Change a JSON file, rebuild, and every page that reads it updates.",
+    "edits": [
+      { "k": "Change the business name, phone, address or social links", "v": "theme/src/data/site.json" },
+      { "k": "Add, remove or rename a service", "v": "theme/src/data/services.json — the detail page is generated automatically" },
+      { "k": "Add a project to the portfolio", "v": "theme/src/data/projects.json" },
+      { "k": "Write a new article", "v": "Add a post object in theme/src/data/posts.json and a body file in theme/src/content/posts/" },
+      { "k": "Change what a section says on one page", "v": "theme/src/data/pages/&lt;file&gt;.json — find the page id and edit its parameters" },
+      { "k": "Change the palette, type scale or spacing rhythm", "v": "theme/src/assets/css/01-tokens.css" },
+      { "k": "Change a section's structure everywhere", "v": "theme/src/sections/&lt;name&gt;.html" },
+      { "k": "Change header, drawer or footer markup", "v": "theme/src/partials/" }
+    ],
+
+    "apiTitle": "The front-end <em>JSON API</em>",
+    "apiText": "Every content file is published under <code>assets/data/</code> as a plain JSON endpoint. The browser layer reads them on load; you can read them from anything else.",
+    "apiItems": [
+      { "k": "GET assets/data/site.json", "v": "Business identity, contact details, social links, navigation and footer link groups." },
+      { "k": "GET assets/data/services.json", "v": "Fifteen services with slugs, groups, deliverables and FAQ entries." },
+      { "k": "GET assets/data/projects.json", "v": "Portfolio items with sectors, area, programme, scope and gallery sets." },
+      { "k": "GET assets/data/posts.json", "v": "Article metadata with topics, read time and body file references." },
+      { "k": "GET assets/data/process.json", "v": "The six delivery stages, outputs and durations." },
+      { "k": "GET assets/data/testimonials.json", "v": "Client reviews with sector, project and rating." },
+      { "k": "GET assets/data/team.json", "v": "People, roles, disciplines and social links." },
+      { "k": "GET assets/data/pricing.json", "v": "Packages, inclusions and indicative rate bands." },
+      { "k": "GET assets/data/faq.json", "v": "Grouped questions and answers." },
+      { "k": "GET assets/data/offices.json", "v": "Office locations, hours and direct lines." },
+      { "k": "GET assets/data/logos.json", "v": "Client and partner marks for the marquee." },
+      { "k": "GET assets/data/stats.json", "v": "Studio figures for counters and stat bands." }
+    ],
+    "apiNote": "Responses are static files with no server logic, so they can be served from any host, CDN or object store. Set <code>body[data-api]</code> to a base URL to point the browser layer somewhere else.",
+
+    "motionTitle": "Motion <em>system</em>",
+    "motionText": "All animation is vanilla JS plus CSS, gated behind <code>html.js</code> and disabled entirely under <code>prefers-reduced-motion</code>. Every effect is a data attribute you can add to any element.",
+    "motionItems": [
+      { "k": "data-reveal", "v": "IntersectionObserver fade-and-rise, with optional <code>data-reveal-delay</code> in milliseconds." },
+      { "k": "data-split", "v": "Word-by-word text reveal for headings, staggered by word index." },
+      { "k": "data-marquee", "v": "Seamless scrolling band; <code>data-speed</code> controls seconds per loop." },
+      { "k": "data-parallax", "v": "Subtle scroll-linked offset; the value is the travel factor." },
+      { "k": "data-sticky-col", "v": "Pins one column of a two-column section while the other scrolls." },
+      { "k": "data-kenburns", "v": "Slow scale-and-drift on hero and feature imagery." },
+      { "k": "data-magnetic", "v": "Pointer attraction on buttons and links, released on mouseleave." },
+      { "k": "data-tilt", "v": "Perspective tilt on cards, bounded and eased back to neutral." },
+      { "k": "data-count", "v": "Counts a number up on first view; respects suffix, prefix and decimals." }
+    ],
+    "motionNote": "To turn motion off globally, set <code>data-motion=\"off\"</code> on <code>&lt;html&gt;</code>. Reduced-motion users get the same content with transitions replaced by instant state changes.",
+
+    "ctaId": "start",
+    "ctaLabel": "Next step",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Next step",
+    "ctaTitle": "Read the <em>design document</em>",
+    "ctaText": "The product requirements document covers identity, typography, spacing, component contracts and the full section library.",
+    "ctaPrimary": "Open design.md",
+    "ctaPrimaryHref": "theme/docs/design.md",
+    "ctaSecondary": "Style guide page",
+    "ctaSecondaryHref": "style-guide.html"
+  },
+
+  "style-guide": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Style guide",
+    "heroTitle": "Identity, <em>type</em> and components",
+    "heroLead": "The complete visual system: colour tokens, the type scale, spacing rhythm, buttons, cards, forms, navigation patterns and every section in the library — documented against live examples.",
+    "crumbCurrent": "Style guide",
+    "heroTag": "Reference document",
+
+    "paletteTitle": "Colour <em>tokens</em>",
+    "paletteText": "Five base colours plus four surface themes. Every component reads tokens, never literals, so a rebrand is a single file change.",
+    "swatches": [
+      { "name": "Canvas", "token": "--c-canvas", "hex": "#F8F3EA", "use": "Page background, cards, section fills" },
+      { "name": "Ink", "token": "--c-ink", "hex": "#14110D", "use": "Body text, headings, inverse surfaces" },
+      { "name": "Clay", "token": "--c-clay", "hex": "#A94E2B", "use": "Primary accent, links, active states" },
+      { "name": "Clay hover", "token": "--c-clay-strong", "hex": "#8E3F22", "use": "Hover and pressed accent states" },
+      { "name": "Walnut", "token": "--c-walnut", "hex": "#4A3527", "use": "Warm dark sections, footer" },
+      { "name": "Brass", "token": "--c-brass", "hex": "#B9922E", "use": "Micro accents: rules, badges, numerals" },
+      { "name": "Charcoal", "token": "--c-muted", "hex": "#5C554B", "use": "Secondary text, captions, meta" },
+      { "name": "Silver", "token": "--c-line", "hex": "#DED3C2", "use": "Borders, dividers, input outlines" }
+    ],
+
+    "typeTitle": "Type <em>scale</em>",
+    "typeText": "Two families plus a mono for eyebrows, meta and counters. Display uses an italic for emphasis words; body stays upright at 162% leading.",
+    "types": [
+      { "class": "h1", "label": "H1 · Display", "size": "clamp(2.75rem, 7vw, 5rem)", "family": "Fraunces", "use": "Page and hero titles" },
+      { "class": "h2", "label": "H2 · Display", "size": "clamp(2rem, 4.6vw, 3.25rem)", "family": "Fraunces", "use": "Section titles" },
+      { "class": "h3", "label": "H3 · Display", "size": "clamp(1.5rem, 2.6vw, 2rem)", "family": "Fraunces", "use": "Card and block titles" },
+      { "class": "h4", "label": "H4 · Display", "size": "1.25rem", "family": "Fraunces", "use": "Sub-heads, list titles" },
+      { "class": "lead", "label": "Lead", "size": "1.125rem / 168%", "family": "Manrope", "use": "Hero introductions, section leads" },
+      { "class": "body", "label": "Body", "size": "1rem / 162%", "family": "Manrope", "use": "All running copy" },
+      { "class": "small", "label": "Small", "size": "0.875rem / 158%", "family": "Manrope", "use": "Captions, helper text" },
+      { "class": "eyebrow", "label": "Eyebrow", "size": "0.75rem / 140%, 0.14em", "family": "JetBrains Mono", "use": "Section labels, meta, counters" }
+    ],
+
+    "spaceTitle": "Spacing and <em>rhythm</em>",
+    "spaceText": "A four-pixel base with a fluid section rhythm. Container width caps at 1440px with 24px gutters, widening to 40px above 1200px.",
+    "spaces": [
+      { "token": "--sp-1", "value": "4px", "use": "Icon padding, tight inline gaps" },
+      { "token": "--sp-2", "value": "8px", "use": "Label to value gaps" },
+      { "token": "--sp-3", "value": "16px", "use": "Card padding, form field gaps" },
+      { "token": "--sp-4", "value": "24px", "use": "Block gaps, container gutter" },
+      { "token": "--sp-5", "value": "40px", "use": "Section inner spacing, wide gutter" },
+      { "token": "--sp-6", "value": "64px", "use": "Between related sections" },
+      { "token": "--sp-7", "value": "96px", "use": "Section vertical padding (desktop)" },
+      { "token": "--sp-8", "value": "144px", "use": "Hero and closing section padding" }
+    ],
+
+    "btnTitle": "Buttons and <em>links</em>",
+    "btnText": "The signature control is a pill with a doubled label that slides on hover, plus a rotating arrow medallion. Four variants cover every context.",
+    "btnVariants": ["primary", "outline", "ghost", "link"],
+
+    "compTitle": "Component <em>contracts</em>",
+    "compText": "Class names are the public API of the theme. Sections expose a single <code>.s-*</code> root; everything inside is namespaced beneath it.",
+    "comps": [
+      { "k": ".s-* section roots", "v": "One per section template — the styling and JS hooks attach here." },
+      { "k": ".btn / .btn--*", "v": "Pill buttons with sliding dual labels and arrow medallion." },
+      { "k": ".eyebrow", "v": "Mono label with a leading rule; used above every section title." },
+      { "k": ".media / .media--arch", "v": "Image wrapper with an arch-top mask variant." },
+      { "k": ".card / .card--*", "v": "Project, service, post and testimonial cards." },
+      { "k": ".field / .field--*", "v": "Form controls with floating labels and inline validation states." },
+      { "k": ".nav / .drawer", "v": "Header navigation and the full-screen mega menu overlay." },
+      { "k": ".marquee / .ticker", "v": "Seamless scrolling bands at display and small sizes." },
+      { "k": "[data-render] + [data-template]", "v": "Client-side render slots for content arriving from the JSON API." },
+      { "k": "window.Woodex", "v": "The single global: utilities, API client, motion registry and section initialisers." }
+    ],
+
+    "secTitle": "Section <em>library</em>",
+    "secText": "Thirty-six section templates, each driven entirely by parameters. Any section can be placed on any page by adding its include and the matching parameters.",
+    "secList": [
+      { "k": "hero-split", "v": "Split-type hero with stacked points and dual calls to action." },
+      { "k": "hero-slider", "v": "Full-bleed slider hero with dots, progress and auto-advance." },
+      { "k": "hero-panel", "v": "Editorial panel hero with media stack and floating caption." },
+      { "k": "page-hero", "v": "Standard inner-page hero with breadcrumbs, facts and actions." },
+      { "k": "project-hero", "v": "Case-study hero with meta rail and lead image." },
+      { "k": "marquee", "v": "Scrolling band in display or small variant, any surface." },
+      { "k": "logos", "v": "Client mark row or scrolling logo band." },
+      { "k": "stats", "v": "Counter band with a heading, note and configurable count." },
+      { "k": "statement", "v": "Editorial manifesto with signature and caption image." },
+      { "k": "split", "v": "Two-column text and media, sticky option, list and quote." },
+      { "k": "scatter", "v": "Scattered image collage with parallax and rotating sticker." },
+      { "k": "reel", "v": "Full-width video or poster panel with stat rail." },
+      { "k": "svc-acc", "v": "Sticky two-column service accordion with swapping media." },
+      { "k": "svc-grid", "v": "Service card grid with icon, media and group filtering." },
+      { "k": "svc-list", "v": "Index-style service rows with hover preview." },
+      { "k": "feature", "v": "Feature block with image, numbered bullets and stat rail." },
+      { "k": "process", "v": "Stage timeline or stepped grid with promise list." },
+      { "k": "awards", "v": "Award and recognition table with result badges." },
+      { "k": "quote", "v": "Large pull quote with attribution and portrait." },
+      { "k": "projects-grid", "v": "Filterable project card grid with optional pager." },
+      { "k": "projects-list", "v": "Project index rows with hover thumbnail." },
+      { "k": "projects-carousel", "v": "Draggable project rail with arrows and progress." },
+      { "k": "project-meta", "v": "Case-study meta rail and narrative body." },
+      { "k": "project-gallery", "v": "Gallery grid with lightbox hooks and captions." },
+      { "k": "project-next", "v": "Next-project teaser with full-bleed media." },
+      { "k": "testimonials", "v": "Review deck with controls, or a static review grid." },
+      { "k": "team", "v": "People grid with role, discipline and hover detail." },
+      { "k": "pricing", "v": "Package cards with inclusions and rate bands." },
+      { "k": "faq", "v": "Grouped accordion that also emits FAQPage structured data." },
+      { "k": "blog-grid", "v": "Article grid with optional featured lead and filters." },
+      { "k": "blog-list", "v": "Editorial article rows with date and topic." },
+      { "k": "cta", "v": "Closing call to action in plain, image or split variant." },
+      { "k": "contact-split", "v": "Enquiry form with aside, media and contact meta." },
+      { "k": "locations", "v": "Office cards with hours, lines and map links." },
+      { "k": "newsletter", "v": "Email capture with topic selection and consent." },
+      { "k": "notfound", "v": "404 panel with search and suggested destinations." }
+    ],
+
+    "ctaId": "start",
+    "ctaLabel": "Next step",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "Next step",
+    "ctaTitle": "Read the builder <em>instructions</em>",
+    "ctaText": "How to build, serve, watch, edit content and consume the JSON API.",
+    "ctaPrimary": "Open instructions",
+    "ctaPrimaryHref": "instructions.html",
+    "ctaSecondary": "Open design.md",
+    "ctaSecondaryHref": "theme/docs/design.md"
+  },
+
+  "404": {
+    "nfTitle": "Page not found",
+    "nfCode": "404",
+    "nfText": "The page you were looking for has moved, been renamed, or never existed. Try the search below, or jump to one of the destinations we know people want.",
+    "nfSearch": true,
+    "nfSearchLabel": "Search the site",
+    "nfSearchPlaceholder": "Search services, projects, articles…",
+    "nfCta": { "label": "Back to the homepage", "href": "index.html" },
+    "nfCta2": { "label": "See selected work", "href": "portfolio-one.html" },
+    "nfLinks": [
+      { "label": "Services", "href": "service.html" },
+      { "label": "Portfolio", "href": "portfolio-one.html" },
+      { "label": "Journal", "href": "blog.html" },
+      { "label": "About the studio", "href": "about.html" },
+      { "label": "Pricing guide", "href": "pricing.html" },
+      { "label": "Contact", "href": "contact.html" }
+    ],
+
+    "projGridId": "recent",
+    "projGridLabel": "Recent work",
+    "projGridEyebrow": "While you are here",
+    "projGridTitle": "Recent <em>handovers</em>",
+    "projGridText": "Four projects worth a look.",
+    "projGridLimit": 4,
+    "projGridFilter": false,
+    "projGridCta": "Full portfolio",
+    "projGridCtaHref": "portfolio-one.html",
+
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "wood",
+    "ctaEyebrow": "Start a project",
+    "ctaTitle": "Looking for something <em>specific?</em>",
+    "ctaText": "Tell us what you needed and we will point you at it.",
+    "ctaPrimary": "Contact the studio",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "Call {{site.phone}}",
+    "ctaSecondaryHref": "tel:{{site.phoneRaw}}"
+  },
+
+  "privacy": {
+    "legalTitle": "Privacy notice",
+    "legalUpdated": "Last updated 12 September 2025",
+    "legalIntro": "This notice explains what personal information Woodex Interior collects when you use this website or enquire about a project, why we collect it, how long we keep it, and the choices you have. It is written to be read, not skimmed past.",
+    "legalToc": true,
+    "legalSections": [
+      { "id": "who", "title": "Who we are", "body": "<p>Woodex Interior is an interior design and fit-out practice trading from {{site.addressOneLine}}. For the purposes of this notice we are the controller of the personal information described below.</p><p>Questions about this notice, or about your information, should go to <a href=\"mailto:{{site.email}}\">{{site.email}}</a> or <a href=\"tel:{{site.phoneRaw}}\">{{site.phone}}</a>.</p>" },
+      { "id": "what", "title": "What we collect", "body": "<p><strong>Information you give us.</strong> When you submit an enquiry form, book a consultation or subscribe to the journal, you give us your name, email address, telephone number, the city your project is in, the type of project, an indicative area and budget, a target date, and anything you write in the message field — including any floor plans or photographs you attach.</p><p><strong>Information collected automatically.</strong> Our server logs record the pages requested, the referring address, the browser and device type, and the time of the request. We use these logs to diagnose faults and to understand which pages are useful. If analytics are enabled they are configured without cross-site identifiers and without advertising use.</p><p><strong>Information we do not collect.</strong> We do not collect payment card details on this website, we do not build advertising profiles, and we do not sell or rent personal information to anyone.</p>" },
+      { "id": "why", "title": "Why we use it", "body": "<ul><li>To respond to your enquiry and, where you ask, to prepare a proposal or budget range.</li><li>To schedule and run consultations, site visits and workshop visits.</li><li>To administer a live project: programmes, site access, approvals, deliveries and invoicing.</li><li>To send the monthly journal note, but only where you have subscribed and until you unsubscribe.</li><li>To keep the website secure, to diagnose faults and to understand aggregate usage.</li><li>To meet legal, tax and regulatory obligations that apply to a construction business in Pakistan.</li></ul>" },
+      { "id": "lawful", "title": "Lawful basis", "body": "<p>We process enquiry and project information because it is necessary to take steps at your request before entering a contract, and to perform that contract once signed. We process journal subscriptions on the basis of your consent, which you can withdraw at any time by unsubscribing. We process server logs and security information on the basis of our legitimate interest in operating a secure website. We process some information because we are legally required to — for example tax records relating to invoicing.</p>" },
+      { "id": "sharing", "title": "Who we share it with", "body": "<p>We share information only where it is necessary to deliver a project or to operate the business:</p><ul><li><strong>Project team and workshop.</strong> Designers, project managers, craftsmen and site supervisors need contact details and drawings to do the work.</li><li><strong>Approved subcontractors and suppliers.</strong> Where a specialist trade is engaged, we share only what that trade needs — typically scope, location and contact for access.</li><li><strong>Landlords, building management and authorities.</strong> Where approvals, permits or access permissions require a named applicant.</li><li><strong>Professional advisers.</strong> Accountants and legal advisers, bound by confidentiality.</li><li><strong>Service providers.</strong> Email delivery and website hosting, under written terms that prohibit use of your data for their own purposes.</li></ul><p>We do not share personal information with advertisers or data brokers.</p>" },
+      { "id": "transfer", "title": "Where it is stored", "body": "<p>Project records are stored on systems operated from Pakistan. Some service providers — for example email delivery and website hosting — may process information in other jurisdictions. Where that happens we rely on the provider's contractual commitments and, where applicable, standard data-transfer safeguards. Server logs are retained for a limited period and are not combined with your enquiry data.</p>" },
+      { "id": "retention", "title": "How long we keep it", "body": "<p>Enquiries that do not become projects are kept for twenty-four months, so we can recognise you if you return. Project records, contracts, drawings and correspondence are kept for ten years after handover, matching the workmanship warranty period. Invoicing and tax records are kept for the period required by Pakistani law. Journal subscriptions are kept until you unsubscribe, plus a short suppression record so we do not re-add you by mistake.</p>" },
+      { "id": "rights", "title": "Your rights", "body": "<p>Subject to applicable law, you may ask us to:</p><ul><li>Provide a copy of the personal information we hold about you.</li><li>Correct information that is inaccurate or incomplete.</li><li>Delete information, where we have no legal or contractual reason to keep it.</li><li>Restrict or object to particular processing.</li><li>Receive your information in a structured, machine-readable format.</li><li>Withdraw consent for the journal at any time.</li></ul><p>Write to <a href=\"mailto:{{site.email}}\">{{site.email}}</a> and we will respond within thirty days. Some rights are limited where records must be retained for warranty, contractual or tax reasons — if we cannot delete something we will explain why.</p>" },
+      { "id": "security", "title": "Security", "body": "<p>Enquiry forms are transmitted over HTTPS. Access to project records is limited to the people who need them, and shared files are access-controlled. No system is perfectly secure, so we also keep manual verification for anything involving payment instructions or changes to bank details — we will never accept a change of payment details by email alone without a callback to a number already on file.</p>" },
+      { "id": "cookies", "title": "Cookies and local storage", "body": "<p>This website uses the minimum storage needed to function. A small record in your browser's local storage remembers your chosen surface theme and text-density preference so the site looks the way you set it on your next visit. This is not used to identify you and is not shared with anyone. If analytics are enabled they use a short-lived session record to count page views without building a cross-site profile. You can block or delete cookies and local storage in your browser settings; the site remains usable if you do, but your display preferences will not persist.</p>" },
+      { "id": "children", "title": "Children", "body": "<p>This website is aimed at adults commissioning interior design, fit-out and construction services. We do not knowingly collect information from children. If you believe a child has sent us information, contact us and we will delete it.</p>" },
+      { "id": "changes", "title": "Changes to this notice", "body": "<p>We update this notice when our practices, services or legal obligations change. The date at the top of this page shows the current version. Material changes will also be announced on the website rather than only in this document.</p>" },
+      { "id": "contact-privacy", "title": "Contact", "body": "<p>Woodex Interior, {{site.addressOneLine}}.<br>Email: <a href=\"mailto:{{site.email}}\">{{site.email}}</a><br>Telephone: <a href=\"tel:{{site.phoneRaw}}\">{{site.phone}}</a></p>" }
+    ]
+  },
+
+  "terms": {
+    "legalTitle": "Terms of use",
+    "legalUpdated": "Last updated 12 September 2025",
+    "legalIntro": "These terms govern your use of this website. They do not govern a design or build contract — that is a separate written agreement signed by both parties, with its own scope, programme, payment schedule and warranty terms.",
+    "legalToc": true,
+    "legalSections": [
+      { "id": "acceptance", "title": "Acceptance of these terms", "body": "<p>By accessing this website you agree to these terms. If you do not agree, please do not use the site. We may update these terms from time to time; the version published here at the time of your use is the version that applies.</p>" },
+      { "id": "use", "title": "Using this website", "body": "<p>You may browse the site, read the journal, download material we explicitly make available, and send us enquiries. You agree not to:</p><ul><li>Use the site in any way that breaches applicable law or regulation.</li><li>Attempt to gain unauthorised access to any system, or to interfere with the site's operation.</li><li>Submit false, misleading or fraudulent enquiries, or impersonate another person or business.</li><li>Use automated tools to scrape content at a volume that degrades the service for others.</li><li>Upload anything malicious through a form or attachment field.</li></ul>" },
+      { "id": "ip", "title": "Intellectual property", "body": "<p>The website design, code, written content, drawings, specifications, photography and imagery on this site are owned by Woodex Interior or used with permission. They are protected by copyright and other intellectual property laws.</p><p>You may reference our published articles with attribution and a link back. You may not reproduce our drawings, specifications, price schedules, project photography or written content in whole or in substantial part without written permission. Nothing on this website transfers any intellectual property right to you.</p>" },
+      { "id": "no-advice", "title": "Information, not professional advice", "body": "<p>Journal articles, pricing guides, rate bands and process descriptions are general information published to help clients understand interior projects. They are not professional advice about your specific property, and they do not create a client relationship. Rates change with material costs, labour, scope and location; every real quotation is a line-item bill of quantities prepared from drawings for a named project.</p>" },
+      { "id": "enquiries", "title": "Enquiries and proposals", "body": "<p>Sending an enquiry does not create a contract and does not reserve our availability. We reply to enquiries within one business day where possible, but response times are not guaranteed. A proposal becomes binding only when a written agreement covering scope, programme, price, payment schedule and warranty is signed by both parties.</p>" },
+      { "id": "third-party", "title": "Third-party links and content", "body": "<p>The site may link to third-party resources — mapping services, social platforms, suppliers, standards bodies. We do not control those sites and are not responsible for their content, availability or privacy practices. Links are provided for convenience and do not imply endorsement.</p>" },
+      { "id": "submissions", "title": "Material you send us", "body": "<p>Floor plans, photographs, briefs and other material you send are used to assess and, if instructed, to deliver your project. You confirm you have the right to share it — including any landlord, developer or third-party rights that attach to drawings. We may reference completed work in our portfolio unless you ask us in writing not to; some projects are excluded anyway under non-disclosure agreements.</p>" },
+      { "id": "availability", "title": "Availability and changes", "body": "<p>We aim to keep the site available but do not guarantee uninterrupted access. We may change, suspend or withdraw any part of it without notice, including during maintenance or when services are retired.</p>" },
+      { "id": "liability", "title": "Limitation of liability", "body": "<p>To the maximum extent permitted by law, we are not liable for indirect or consequential loss arising from your use of this website, and our total liability connected with the website is limited. Nothing in these terms limits liability that cannot lawfully be limited, including for fraud or for death or personal injury caused by negligence. Liability connected with a signed design or build contract is governed by that contract, not by these terms.</p>" },
+      { "id": "law", "title": "Governing law", "body": "<p>These terms are governed by the laws of the Islamic Republic of Pakistan. The courts of Lahore, Punjab have jurisdiction over any dispute arising from your use of this website, without prejudice to the dispute-resolution mechanism set out in any signed project contract.</p>" },
+      { "id": "contact-terms", "title": "Contact", "body": "<p>Woodex Interior, {{site.addressOneLine}}.<br>Email: <a href=\"mailto:{{site.email}}\">{{site.email}}</a><br>Telephone: <a href=\"tel:{{site.phoneRaw}}\">{{site.phone}}</a></p>" }
+    ]
+  },
+
+  "accessibility": {
+    "legalTitle": "Accessibility statement",
+    "legalUpdated": "Last updated 12 September 2025",
+    "legalIntro": "We want this website to be usable by everyone, including people using assistive technology, keyboard-only navigation, screen magnification or a reduced-motion setting. This statement describes what we have done, what we are still doing, and how to tell us when something fails.",
+    "legalToc": true,
+    "legalSections": [
+      { "id": "standard", "title": "Conformance target", "body": "<p>We target the Web Content Accessibility Guidelines 2.2 level AA. We test against that standard during development and re-test when a section template changes materially. Conformance is a moving target on a living site, so we treat this statement as current rather than permanent.</p>" },
+      { "id": "measures", "title": "Measures we have taken", "body": "<ul><li><strong>Semantic structure.</strong> Every page has one <code>h1</code> and a logical heading order; landmarks identify banner, navigation, main, complementary and contentinfo regions.</li><li><strong>Keyboard operation.</strong> All navigation, accordions, sliders, tabs, filters, lightboxes and forms are reachable and operable by keyboard, with visible focus styling and logical focus order.</li><li><strong>Focus management.</strong> Opening the mega menu or a lightbox moves focus into it and traps it there; closing returns focus to the control that opened it. <code>Escape</code> closes both.</li><li><strong>Skip link.</strong> A skip-to-content link is the first focusable element on every page.</li><li><strong>Text alternatives.</strong> Every content image carries a meaningful <code>alt</code>; purely decorative images and icon glyphs are hidden from assistive technology.</li><li><strong>Contrast.</strong> Body text, headings, links, buttons and form labels meet a minimum 4.5:1 contrast ratio against their background; large display text meets 3:1.</li><li><strong>Resizable text.</strong> The layout holds together up to 400% zoom and reflows to a single column without horizontal scrolling.</li><li><strong>Motion control.</strong> All animation is disabled under <code>prefers-reduced-motion</code>, marquee bands stop, and reveals become instant state changes rather than transitions.</li><li><strong>Form usability.</strong> Every field has a persistent visible label, required fields are marked in text as well as by symbol, errors are announced and described in words, and validation does not depend on colour alone.</li><li><strong>Structured data.</strong> Services, projects, articles, FAQs, organisation details and breadcrumbs are published as schema.org JSON-LD so assistive technology and search engines read the same content.</li><li><strong>No autoplaying media.</strong> Video and audio never start automatically, and any media player exposes accessible controls.</li></ul>" },
+      { "id": "themes", "title": "Display preferences", "body": "<p>The site offers surface themes and text-density settings that persist in your browser's local storage. These are an additional convenience, not a replacement for your own system or browser settings — font size, colours, contrast and reduced motion set at the operating-system level are always respected first.</p>" },
+      { "id": "known", "title": "Known limitations", "body": "<ul><li><strong>Legacy pages.</strong> Older prototype pages retained at the repository root predate this system and have not been re-audited. The pages generated from the current templates are the accessible set.</li><li><strong>Embedded maps.</strong> Office location maps are embedded from a third party whose player we do not control; each office card therefore also lists the full address in text and links to an external map.</li><li><strong>Complex tables.</strong> The comparison and pricing tables are wide. They scroll horizontally on small screens, and we are working on a stacked card alternative for the narrowest viewports.</li><li><strong>Drag interaction.</strong> Project carousels support dragging as a convenience, but every rail also has accessible previous and next controls and can be navigated by keyboard.</li><li><strong>Photography.</strong> Some project photography contains small embedded text — signage, drawings, labels — that cannot be fully conveyed in an <code>alt</code> attribute. Case studies therefore repeat the key facts in the body text.</li></ul>" },
+      { "id": "testing", "title": "How we test", "body": "<p>We test with current versions of Chrome, Firefox and Safari on desktop, and Chrome and Safari on mobile. We test keyboard-only navigation, screen-reader behaviour with NVDA and VoiceOver, zoom and reflow at 400%, forced-colours and high-contrast modes, and the reduced-motion setting. Every section template change is checked against these cases before it is published.</p>" },
+      { "id": "feedback", "title": "Feedback and contact", "body": "<p>If you find something that blocks you, tell us — we would rather fix it than explain it. Include the page address, what you were trying to do, and the assistive technology or browser you were using.</p><p>Email: <a href=\"mailto:{{site.email}}\">{{site.email}}</a><br>Telephone: <a href=\"tel:{{site.phoneRaw}}\">{{site.phone}}</a><br>Post: {{site.addressOneLine}}</p><p>We aim to acknowledge accessibility reports within two business days and to give you a substantive response within ten.</p>" },
+      { "id": "enforcement", "title": "Formal complaints", "body": "<p>If you are not satisfied with our response you may raise the matter with the relevant consumer protection or disability rights authority in your jurisdiction. For users in Pakistan, the Pakistan Telecommunication Authority and the provincial consumer protection bodies both handle complaints about digital services.</p>" }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "theme": {
+    "name": "Woodex Master Theme",
+    "version": "1.0.0",
+    "description": "Section-template + page-template driven HTML5 master theme for Woodex Interior.",
+    "framework": "Zero-dependency static HTML5 + vanilla JS + JSON content API"
+  },
+  "site": {
+    "url": "",
+    "_comment": "Set site.url to your production origin (e.g. https://woodexinterior.pk) to switch on canonical + og:url, sitemap.xml and robots.txt in one step. Left empty deliberately: a wrong canonical is worse than none, because it tells search engines the page duplicates a URL that does not exist."
+  },
+  "generate": [
+    {
+      "template": "pages/_templates/service-detail.html",
+      "collection": "services",
+      "as": "item",
+      "out": "services/{{slug}}.html"
+    },
+    {
+      "template": "pages/_templates/project-detail.html",
+      "collection": "projects",
+      "as": "item",
+      "out": "project/{{slug}}.html"
+    },
+    {
+      "template": "pages/_templates/blog-post.html",
+      "collection": "posts",
+      "as": "item",
+      "out": "blog/{{slug}}.html"
+    }
+  ]
+}

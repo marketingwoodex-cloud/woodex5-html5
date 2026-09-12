@@ -1,0 +1,67 @@
+{{! ==========================================================================
+    SECTION · page-hero           id: sec-page-hero
+    --------------------------------------------------------------------------
+    Inner-page hero. All content comes from page front matter:
+      heroVariant: plain | tall | dark | image
+      heroEyebrow, heroTitle (may contain <em>), heroLead
+      heroImage, heroImageAlt
+      heroFacts: true → renders the site.* fact list
+      heroMedia: true → renders the wide 21:9 media strip
+    ========================================================================== }}
+<section class="s-page-hero{{#if heroVariant}} s-page-hero--{{heroVariant}}{{/if}}" id="top" aria-label="Page introduction">
+  {{#if heroImage}}
+  <div class="s-page-hero__bg" aria-hidden="true">
+    <img src="{{base}}{{heroImage}}" alt="" fetchpriority="high" decoding="async">
+  </div>
+  {{/if}}
+  {{#if heroDeco}}<div class="s-page-hero__deco" aria-hidden="true" data-parallax="0.1">{{heroDeco}}</div>{{/if}}
+
+  <div class="container">
+    <div class="s-page-hero__inner">
+
+      <div class="s-page-hero__top">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="{{base}}index.html">Home</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span>
+          {{#if crumbParent}}<a href="{{base}}{{crumbParentHref}}">{{crumbParent}}</a><span class="crumbs__sep" aria-hidden="true">/</span>{{/if}}
+          <span aria-current="page">{{crumbCurrent}}</span>
+        </nav>
+        {{#if heroTag}}<span class="badge badge--outline">{{heroTag}}</span>{{/if}}
+      </div>
+
+      <div class="s-page-hero__split">
+        <div style="display:grid;gap:var(--sp-5)">
+          <div class="eyebrow eyebrow--dot" data-reveal="up">{{heroEyebrow}}</div>
+          <h1 class="s-page-hero__title" data-split>{{{heroTitle}}}</h1>
+          {{#if heroLead}}<p class="s-page-hero__lead" data-reveal="up" data-reveal-delay="2">{{heroLead}}</p>{{/if}}
+          {{#if heroActions}}
+          <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center" data-reveal="up" data-reveal-delay="3">
+            <a class="btn btn--solid" href="{{base}}{{heroCta.href}}" data-magnetic="0.2">
+              <span class="btn__label"><span>{{heroCta.label}}</span><span>{{heroCta.label}}</span></span>
+              <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+            <a class="btn" href="{{base}}{{heroCta2.href}}">
+              <span class="btn__label"><span>{{heroCta2.label}}</span><span>{{heroCta2.label}}</span></span>
+              <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+          </div>
+          {{/if}}
+        </div>
+
+        {{#if heroFacts}}
+        <dl class="s-page-hero__facts" data-reveal="up" data-reveal-delay="3">
+          {{#each heroFactList}}
+          <div class="s-page-hero__fact"><dt>{{k}}</dt><dd>{{v}}</dd></div>
+          {{/each}}
+        </dl>
+        {{/if}}
+      </div>
+
+      {{#if heroMedia}}
+      <div class="s-page-hero__media media" data-reveal="clip" data-reveal-delay="2">
+        <img src="{{base}}{{heroMediaImage}}" alt="{{heroMediaAlt}}" loading="lazy" decoding="async">
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+{{! ==========================================================================
+    SECTION · process             id: sec-process
+    --------------------------------------------------------------------------
+    Six-stage delivery process from data/process.json.
+      processVariant: grid (4-col cards) | timeline (vertical) | rail (drag)
+      processLimit: number of stages to show
+    ========================================================================== }}
+<section class="s-process" id="{{processId}}" aria-label="{{processLabel}}">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{process.intro.eyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{processTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{processText}}</p>
+        <a class="tlink" href="{{base}}process.html" style="margin-top:var(--sp-5)">The full process <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+
+    {{#if processVariant}}
+    {{#if timeline}}
+    <div class="timeline">
+      {{#each process.stages limit=@processLimit}}
+      <article class="timeline__item" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="timeline__dot" aria-hidden="true"></span>
+        <span class="timeline__no">Stage {{id}} · {{duration}}</span>
+        <h3 class="timeline__title">{{name}} — {{title}}</h3>
+        <p class="timeline__text">{{summary}}</p>
+        <ul class="tick-list" style="margin-top:var(--sp-3)">
+          {{#each outputs}}<li><svg aria-hidden="true"><use href="#i-check"/></svg><span>{{this}}</span></li>{{/each}}
+        </ul>
+      </article>
+      {{/each}}
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{#unless timeline}}
+    <div class="{{#if rail}}rail{{else}}s-process__grid{{/if}}">
+      {{#each process.stages limit=@processLimit}}
+      <article class="step" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="step__no" aria-hidden="true">{{id}}</span>
+        <div>
+          <div class="step__meta">{{name}} · {{duration}}</div>
+          <h3 class="step__title" style="margin-top:var(--sp-2)">{{title}}</h3>
+        </div>
+        <p class="step__text">{{summary}}</p>
+        <ul class="tick-list">
+          {{#each outputs limit=3}}<li><svg aria-hidden="true"><use href="#i-check"/></svg><span>{{this}}</span></li>{{/each}}
+        </ul>
+        {{#if image}}
+        <div class="step__media media-hover">
+          <img src="{{../base}}{{image}}" alt="{{title}}" loading="lazy" decoding="async">
+        </div>
+        {{/if}}
+      </article>
+      {{/each}}
+    </div>
+    {{/unless}}
+
+    {{#if processPromises}}
+    <div class="grid grid-4" style="margin-top:var(--sp-10)">
+      {{#each process.promises}}
+      <div class="idx-card" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="idx-card__no">Promise {{@pad}}</span>
+        <h3 class="idx-card__title">{{title}}</h3>
+        <p class="idx-card__text">{{text}}</p>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</section>

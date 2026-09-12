@@ -1,0 +1,59 @@
+---
+title: About Woodex Interior — Design & Build Studio, Lahore
+description: Founded in 2014, Woodex Interior is a design-and-build practice in Lahore with 68 people, a 22,000 sq ft workshop and 240 delivered projects across six cities in Pakistan.
+page: about
+theme: canvas
+bodyClass: page--about
+api: site,navigation,services,projects,team,awards,testimonials,stats,process
+ogImage: assets/images/studio-team.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · OUR STORY ---------- }}
+  {{> sections/split}}
+
+  {{! ---------- 03 · STATS ---------- }}
+  {{> sections/stats}}
+
+  {{! ---------- 04 · PRINCIPLES ---------- }}
+  {{> sections/values}}
+
+  {{! ---------- 05 · THE WORKSHOP ---------- }}
+  {{> sections/feature}}
+
+  {{! ---------- 06 · TEAM ---------- }}
+  {{> sections/team}}
+
+  {{! ---------- 07 · MILESTONES ---------- }}
+  {{> sections/milestones}}
+
+  {{! ---------- 08 · AWARDS ---------- }}
+  {{> sections/awards}}
+
+  {{! ---------- 09 · STUDIO REEL ---------- }}
+  {{> sections/reel}}
+
+  {{! ---------- 10 · TESTIMONIALS ---------- }}
+  {{> sections/testimonials}}
+
+  {{! ---------- 11 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AboutPage","name":"About {{site.name}}","description":"Founded in {{site.founded}}, {{site.name}} is a design-and-build interior practice in {{site.address.city}} with {{site.stats.teamMembers}} people and a {{site.stats.workshopSqftLabel}} sq ft in-house workshop.","mainEntity":{"@type":"Organization","name":"{{site.name}}","foundingDate":"{{site.founded}}","numberOfEmployees":{"@type":"QuantitativeValue","value":{{site.stats.teamMembers}}},"address":{"@type":"PostalAddress","streetAddress":"{{site.address.line1}}, {{site.address.line2}}","addressLocality":"{{site.address.city}}","addressRegion":"{{site.address.region}}","postalCode":"{{site.address.postalCode}}","addressCountry":"PK"},"email":"{{site.email}}","telephone":"{{site.phoneRaw}}"}}
+</script>

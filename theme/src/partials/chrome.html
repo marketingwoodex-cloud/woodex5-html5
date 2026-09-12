@@ -1,0 +1,23 @@
+{{! PARTIAL · chrome.html — loader, curtain, cursor, progress, back-to-top,
+    grain overlay. Included once immediately after <body>. }}
+<div class="loader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="loader__inner">
+    <div class="loader__word" aria-hidden="true">
+      <span style="animation-delay:.00s">W</span><span style="animation-delay:.05s">o</span><span style="animation-delay:.10s">o</span><span style="animation-delay:.15s">d</span><span style="animation-delay:.20s">e</span><span style="animation-delay:.25s">x</span><span style="animation-delay:.34s">&nbsp;</span><span style="animation-delay:.38s">I</span><span style="animation-delay:.43s">n</span><span style="animation-delay:.48s">t</span><span style="animation-delay:.53s">e</span><span style="animation-delay:.58s">r</span><span style="animation-delay:.63s">i</span><span style="animation-delay:.68s">o</span><span style="animation-delay:.73s">r</span>
+    </div>
+    <div class="loader__bar"><i></i></div>
+    <div class="loader__pct">0%</div>
+  </div>
+</div>
+
+<div class="curtain" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+<div class="progress-bar" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<button class="to-top" type="button" aria-label="Back to top">
+  <svg class="to-top__ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18"/></svg>
+  <svg aria-hidden="true" width="15" height="15"><use href="#i-arrow-up"/></svg>
+</button>

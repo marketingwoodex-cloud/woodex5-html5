@@ -1,0 +1,40 @@
+{{! ==========================================================================
+    SECTION · team                id: sec-team
+    --------------------------------------------------------------------------
+    Team grid from data/team.json. Images fade from greyscale on hover and
+    reveal social links. Limit with teamLimit.
+    ========================================================================== }}
+<section class="s-team" id="team" aria-label="The team">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-9)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{teamEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{teamTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{teamText}}</p></div>
+    </div>
+
+    <div class="s-team__grid">
+      {{#each team limit=@teamLimit where=@teamWhere}}
+      <article class="member" data-reveal="up" data-reveal-delay="{{@index}}">
+        <div class="member__media media-hover">
+          <img src="{{../base}}{{image}}" alt="{{name}}, {{role}}" loading="lazy" decoding="async">
+          <div class="member__social">
+            {{#if social.linkedin}}<a href="{{social.linkedin}}" aria-label="{{name}} on LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>{{/if}}
+            {{#if social.instagram}}<a href="{{social.instagram}}" aria-label="{{name}} on Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>{{/if}}
+          </div>
+        </div>
+        <div>
+          <h3 class="member__name">{{name}}</h3>
+          <div class="member__role">{{role}}</div>
+        </div>
+        <p class="member__bio">{{bio}}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-2)">
+          {{#each expertise}}<span class="badge">{{this}}</span>{{/each}}
+        </div>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

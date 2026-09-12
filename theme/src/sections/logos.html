@@ -1,0 +1,25 @@
+{{! ==========================================================================
+    SECTION · logos               id: sec-logos
+    --------------------------------------------------------------------------
+    Client / brand strip rendered as a marquee of typographic wordmarks from
+    data/clients.json (no image dependency — swap for real logos any time by
+    adding "logo": "assets/images/clients/x.svg" to a client record).
+    ========================================================================== }}
+<section class="s-logos" aria-label="Selected clients">
+  <div class="container">
+    <div class="s-logos__head">
+      <div class="eyebrow eyebrow--dot" data-reveal="up">{{logosEyebrow}}</div>
+      <p class="small muted" style="max-width:38ch" data-reveal="up" data-reveal-delay="1">{{logosNote}}</p>
+    </div>
+  </div>
+  <div class="marquee marquee--fade" data-marquee="{{logosSpeed}}" aria-hidden="true">
+    <div class="marquee__track s-logos__track">
+      {{#each clients}}
+      <span class="s-logos__item marquee__item">
+        {{#if logo}}<img src="{{../base}}{{logo}}" alt="{{name}}" loading="lazy" style="height:1.7rem;width:auto">{{else}}{{name}}{{/if}}
+        <small>{{sector}}</small>
+      </span>
+      {{/each}}
+    </div>
+  </div>
+</section>

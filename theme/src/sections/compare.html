@@ -1,0 +1,57 @@
+{{! ==========================================================================
+    SECTION · compare             id: sec-compare
+    --------------------------------------------------------------------------
+    Three-tier inclusion matrix from page params:
+      compareTitle, compareText, compareNote
+      compare: [{k, essential, signature, atelier}]
+      compareFeatured: tier name to emphasise (default "signature")
+    "—" / empty values render as a muted "not included" cell.
+    ========================================================================== }}
+<section class="s-compare" id="compare" aria-label="What is included at each level">
+  <div class="container">
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">Inclusions</div>
+        <h2 class="section-head__title" data-split style="margin-top:var(--sp-4)">{{{compareTitle}}}</h2>
+      </div>
+      {{#if compareText}}<div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{compareText}}</p></div>{{/if}}
+    </div>
+
+    <div class="s-compare__scroll" data-reveal="up" tabindex="0" role="region" aria-label="Inclusion comparison table, scrollable">
+      <table class="s-compare__table">
+        <caption class="u-vh">What is included in the Essential, Signature and Atelier packages</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="u-vh">Inclusion</span></th>
+            <th scope="col"><span class="s-compare__tier">Essential</span><span class="s-compare__note">Design only</span></th>
+            <th scope="col" class="is-featured"><span class="s-compare__tier">Signature</span><span class="s-compare__note">Design + build</span></th>
+            <th scope="col"><span class="s-compare__tier">Atelier</span><span class="s-compare__note">Flagship &amp; rollout</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each compare}}
+          <tr>
+            <th scope="row">{{k}}</th>
+            <td>{{#if essential}}{{essential}}{{else}}<span class="s-compare__na" aria-label="Not included">—</span>{{/if}}</td>
+            <td class="is-featured">{{#if signature}}{{signature}}{{else}}<span class="s-compare__na" aria-label="Not included">—</span>{{/if}}</td>
+            <td>{{#if atelier}}{{atelier}}{{else}}<span class="s-compare__na" aria-label="Not included">—</span>{{/if}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    {{#if compareNote}}<p class="s-compare__foot meta" data-reveal="up">{{{compareNote}}}</p>{{/if}}
+
+    <div class="s-compare__actions" data-reveal="up" data-reveal-delay="2">
+      <a class="btn btn--solid" href="{{base}}contact.html" data-magnetic="0.2">
+        <span class="btn__label"><span>Request a proposal</span><span>Request a proposal</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="btn" href="{{base}}pricing.html">
+        <span class="btn__label"><span>Indicative rates</span><span>Indicative rates</span></span>
+        <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>

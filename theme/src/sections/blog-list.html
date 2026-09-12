@@ -1,0 +1,44 @@
+{{! ==========================================================================
+    SECTION · blog-list           id: sec-blog-list
+    --------------------------------------------------------------------------
+    Editorial row list: big date, title, excerpt, thumbnail. Data: posts.json.
+      blogListLimit, blogListTitle, blogListEyebrow, blogListText
+    ========================================================================== }}
+<section class="s-blog" id="{{blogListId}}" aria-label="{{blogListLabel}}">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{blogListEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{blogListTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{blogListText}}</p>
+        {{#if blogListCta}}<a class="tlink" href="{{base}}{{blogListCtaHref}}" style="margin-top:var(--sp-5)">{{blogListCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>{{/if}}
+      </div>
+    </div>
+
+    <div class="post-list" data-filter-group>
+      <div class="s-proj-grid__filters" role="group" aria-label="Filter articles" style="margin-bottom:var(--sp-6)">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="materials" aria-pressed="false">Materials</button>
+        <button class="chip" type="button" data-filter="planning" aria-pressed="false">Planning</button>
+        <button class="chip" type="button" data-filter="budget" aria-pressed="false">Budget</button>
+        <button class="chip" type="button" data-filter="site" aria-pressed="false">Site</button>
+      </div>
+
+      {{#each posts limit=@blogListLimit where=@blogListWhere}}
+      <a class="post-row" href="{{../base}}blog/{{slug}}.html" data-reveal="up" data-reveal-delay="{{@index}}" data-filter-item="{{category}}">
+        <span class="post-row__date"><b>{{day}}</b><span>{{monthShort}} {{yearOnly}}</span></span>
+        <span>
+          <span class="post-row__title">{{title}}</span>
+          <span class="post-row__excerpt">{{excerpt}}</span>
+          <span class="post__meta" style="margin-top:var(--sp-3)"><span>{{categoryLabel}}</span><i>·</i><span>{{readTime}} min</span><i>·</i><span>{{author}}</span></span>
+        </span>
+        <span class="post-row__thumb" aria-hidden="true"><img src="{{../base}}{{image}}" alt="" loading="lazy" decoding="async"></span>
+        <span class="prow__arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</section>

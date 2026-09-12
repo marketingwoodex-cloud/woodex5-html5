@@ -1,0 +1,296 @@
+/* ==========================================================================
+   05 · MOTION / ANIMATION PRIMITIVES
+   --------------------------------------------------------------------------
+   Zero-dependency motion system. Every effect is opt-in via a data attribute
+   or utility class, driven by /assets/js/motion.js.
+
+   CONTRACT (agent note):
+     [data-reveal]            → generic reveal, honours data-reveal="dir"
+     [data-reveal-delay="n"]  → n * 90ms stagger
+     [data-split]             → word/char split reveal on headings
+     [data-count="1200"]      → count-up on enter
+     [data-marquee]           → infinite marquee track
+     [data-parallax="0.18"]   → translate on scroll (positive = slower)
+     [data-sticky-col]        → sticky two-column pin
+     [data-magnetic]          → cursor-follow micro translate
+     [data-tilt]              → pointer tilt on media
+     [data-kenburns]          → slow zoom on media
+     .is-in                   → added by IO when element enters viewport
+
+   Everything is disabled under prefers-reduced-motion and when JS is off
+   (progressive enhancement: content is visible by default in the no-JS case).
+   ========================================================================== */
+
+/* ---------- 0. NO-JS SAFETY -------------------------------------------- */
+/* Elements only hide themselves once JS marks the document as enhanced. */
+html.js [data-reveal] { opacity: 0; }
+html.js [data-reveal="up"]      { transform: translate3d(0, 42px, 0); }
+html.js [data-reveal="down"]    { transform: translate3d(0, -42px, 0); }
+html.js [data-reveal="left"]    { transform: translate3d(48px, 0, 0); }
+html.js [data-reveal="right"]   { transform: translate3d(-48px, 0, 0); }
+html.js [data-reveal="scale"]   { transform: scale(.94); }
+html.js [data-reveal="fade"]    { transform: none; }
+html.js [data-reveal="clip"]    { clip-path: inset(0 0 100% 0); transform: none; }
+html.js [data-reveal="mask"]    { clip-path: inset(0 100% 0 0); transform: none; }
+html.js [data-reveal="blur"]    { filter: blur(10px); transform: translate3d(0, 20px, 0); }
+
+html.js [data-reveal] {
+  transition:
+    opacity var(--rv-dur, .9s) var(--ease-out-expo) var(--rv-delay, 0s),
+    transform var(--rv-dur, 1s) var(--ease-out-expo) var(--rv-delay, 0s),
+    clip-path var(--rv-dur, 1.1s) var(--ease-out-expo) var(--rv-delay, 0s),
+    filter var(--rv-dur, .9s) var(--ease-out-expo) var(--rv-delay, 0s);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+  filter: none;
+  will-change: auto;
+}
+
+/* Line-mask reveal for headings: each line slides up from an overflow clip */
+.split-line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.split-line > span {
+  display: block;
+  transform: translate3d(0, 105%, 0) rotate(2deg);
+  transition: transform 1.05s var(--ease-out-expo) var(--lv-delay, 0s);
+}
+html.js [data-split].is-in .split-line > span,
+html.no-js [data-split] .split-line > span { transform: none; }
+
+/* Word-by-word reveal (used for statement paragraphs) */
+.split-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.split-word > span {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+  transition: transform .8s var(--ease-out-expo) var(--wv-delay, 0s),
+              opacity .6s var(--ease-out-soft) var(--wv-delay, 0s);
+}
+html.js [data-split="words"].is-in .split-word > span { transform: none; opacity: 1; }
+
+/* Char shimmer (display headings, hero) */
+.split-char { display: inline-block; transform: translate3d(0, 100%, 0) rotate(4deg); opacity: 0;
+  transition: transform .7s var(--ease-out-expo) var(--cv-delay, 0s), opacity .5s linear var(--cv-delay, 0s); }
+html.js [data-split="chars"].is-in .split-char { transform: none; opacity: 1; }
+
+/* ---------- 1. MARQUEE -------------------------------------------------- */
+.marquee { position: relative; overflow: hidden; width: 100%; user-select: none; }
+.marquee__track {
+  display: flex; align-items: center; gap: var(--mq-gap, 3rem);
+  width: max-content;
+  animation: marquee-x var(--mq-dur, var(--dur-marquee)) linear infinite;
+  animation-direction: var(--mq-dir, normal);
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee--reverse { --mq-dir: reverse; }
+.marquee__item { display: inline-flex; align-items: center; gap: var(--mq-gap, 3rem); flex: none; white-space: nowrap; }
+.marquee__dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--c-accent); flex: none; }
+.marquee__star { width: 1.1rem; height: 1.1rem; flex: none; color: var(--c-accent); }
+@keyframes marquee-x { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+.marquee--display .marquee__item {
+  font-family: var(--ff-display); font-size: var(--fs-marquee); line-height: 1;
+  letter-spacing: var(--tr-tightest); text-transform: none;
+}
+.marquee--display .marquee__item em { font-style: italic; }
+.marquee--outline .marquee__item {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-text-muted);
+  paint-order: stroke fill;
+}
+.marquee--small .marquee__item {
+  font-family: var(--ff-mono); font-size: var(--fs-small);
+  letter-spacing: var(--tr-widest); text-transform: uppercase;
+}
+
+/* Edge fades */
+.marquee--fade::before, .marquee--fade::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 12%; z-index: 2; pointer-events: none;
+}
+.marquee--fade::before { left: 0; background: linear-gradient(90deg, var(--c-bg), transparent); }
+.marquee--fade::after { right: 0; background: linear-gradient(270deg, var(--c-bg), transparent); }
+
+/* Vertical marquee (logo towers, credit columns) */
+.marquee-y { overflow: hidden; height: var(--mqy-h, 22rem); }
+.marquee-y__track { display: grid; gap: var(--sp-5); animation: marquee-y var(--mqy-dur, 26s) linear infinite; }
+@keyframes marquee-y { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+
+/* ---------- 2. KEN BURNS + MEDIA MOTION -------------------------------- */
+[data-kenburns] img, .kb img { animation: kenburns 18s var(--ease-in-out) infinite alternate; }
+@keyframes kenburns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.12) translate3d(-1.5%, -1.5%, 0); }
+}
+.media-hover img { transition: transform 1.2s var(--ease-out-expo), filter var(--dur-slow); }
+a:hover .media-hover img, .media-hover:hover img { transform: scale(1.055); }
+.media-zoom-out img { transform: scale(1.14); transition: transform 1.6s var(--ease-out-expo); }
+.is-in .media-zoom-out img { transform: scale(1); }
+
+/* Greyscale → colour on hover (portfolio) */
+.hover-colour img { filter: grayscale(1) contrast(1.03); transition: filter var(--dur-slow) var(--ease-out-soft), transform 1.1s var(--ease-out-expo); }
+.hover-colour:hover img { filter: none; }
+
+/* Image swap on hover (accordion rows) */
+.swap-media { position: relative; }
+.swap-media img { transition: opacity var(--dur-slow) var(--ease-out-soft), transform 1.1s var(--ease-out-expo); }
+.swap-media img + img { position: absolute; inset: 0; opacity: 0; transform: scale(1.05); }
+.swap-media:hover img:first-child { opacity: 0; }
+.swap-media:hover img + img { opacity: 1; transform: scale(1); }
+
+/* Parallax host */
+[data-parallax] { will-change: transform; }
+
+/* Sticky column pin */
+[data-sticky-col] .sticky-col { position: sticky; top: calc(var(--header-h) + var(--sp-7)); }
+@media (max-width: 900px) { [data-sticky-col] .sticky-col { position: static; } }
+
+/* Magnetic element */
+[data-magnetic] { transition: transform .5s var(--ease-out-expo); will-change: transform; }
+
+/* Tilt */
+[data-tilt] { transform-style: preserve-3d; transition: transform .5s var(--ease-out-expo); }
+[data-tilt] > * { transform: translateZ(24px); }
+
+/* Floating idle animation (badges, stickers) */
+.float { animation: float 6.5s var(--ease-in-out) infinite; }
+.float--slow { animation-duration: 9s; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+/* Rotating seal / badge */
+.seal { position: relative; display: grid; place-items: center; width: 8.5rem; height: 8.5rem; }
+.seal__ring { position: absolute; inset: 0; animation: spin 22s linear infinite; }
+.seal__ring text { font-family: var(--ff-mono); font-size: 9.4px; letter-spacing: .34em; text-transform: uppercase; fill: currentColor; }
+.seal__core { position: relative; width: 3.4rem; height: 3.4rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--c-accent); color: var(--raw-cream-50); }
+
+/* Pulse marker (map pins, live indicators) */
+.pulse { position: relative; }
+.pulse::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1px solid var(--c-accent); animation: pulse-ring 2.4s var(--ease-out-soft) infinite;
+}
+
+/* ---------- 3. PAGE LOADER --------------------------------------------- */
+.loader {
+  position: fixed; inset: 0; z-index: var(--z-loader);
+  display: grid; place-items: center; gap: var(--sp-5);
+  background: var(--c-bg); color: var(--c-text);
+  transition: opacity .7s var(--ease-out-soft), visibility .7s;
+}
+.loader__inner { display: grid; justify-items: center; gap: var(--sp-5); }
+.loader__word {
+  font-family: var(--ff-display); font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: 1; letter-spacing: var(--tr-tightest); overflow: hidden;
+}
+.loader__word span { display: inline-block; transform: translateY(105%); animation: loader-rise .8s var(--ease-out-expo) forwards; }
+@keyframes loader-rise { to { transform: none; } }
+.loader__bar { width: min(22rem, 60vw); height: 1px; background: var(--c-line); position: relative; overflow: hidden; }
+.loader__bar i { position: absolute; inset: 0; background: var(--c-accent); transform-origin: left; transform: scaleX(var(--lp, 0)); transition: transform .3s linear; }
+.loader__pct { font-family: var(--ff-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-widest); color: var(--c-text-muted); }
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader.is-done .loader__inner { transform: translateY(-24px); opacity: 0; transition: transform .6s var(--ease-out-expo), opacity .4s; }
+
+/* Curtain page transition (used on internal navigation) */
+.curtain {
+  position: fixed; inset: 0; z-index: var(--z-overlay); pointer-events: none;
+  display: grid; grid-template-rows: repeat(4, 1fr);
+}
+.curtain i {
+  display: block; background: var(--c-bg-inverse);
+  transform: scaleY(0); transform-origin: bottom;
+}
+.curtain.is-in i { animation: curtain-in .5s var(--ease-in-out) forwards; }
+.curtain.is-in i:nth-child(2) { animation-delay: .06s; }
+.curtain.is-in i:nth-child(3) { animation-delay: .12s; }
+.curtain.is-in i:nth-child(4) { animation-delay: .18s; }
+.curtain.is-out i { transform-origin: top; animation: curtain-out .5s var(--ease-in-out) forwards; }
+.curtain.is-out i:nth-child(2) { animation-delay: .06s; }
+.curtain.is-out i:nth-child(3) { animation-delay: .12s; }
+.curtain.is-out i:nth-child(4) { animation-delay: .18s; }
+@keyframes curtain-in { to { transform: scaleY(1); } }
+@keyframes curtain-out { from { transform: scaleY(1); } to { transform: scaleY(0); } }
+
+/* ---------- 4. HERO-SPECIFIC MOTION ------------------------------------ */
+/* Giant background word */
+.hero-word {
+  position: absolute; left: 50%; bottom: -.12em; transform: translateX(-50%);
+  font-family: var(--ff-display); font-size: var(--fs-word); line-height: .78;
+  letter-spacing: var(--tr-tightest); white-space: nowrap; pointer-events: none;
+  z-index: 0; user-select: none;
+}
+.hero-word__item {
+  position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 110%);
+  opacity: 0; transition: transform 1s var(--ease-out-expo), opacity .7s var(--ease-out-soft);
+  background: linear-gradient(180deg, rgba(248,243,234,.95) 22%, rgba(248,243,234,.06) 92%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-word__item.is-active { transform: translate(-50%, 0); opacity: 1; }
+
+/* Slide deck (hero / testimonial) */
+.deck { position: relative; }
+.deck__slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translate3d(0, 26px, 0);
+  transition: opacity var(--dur-slow) var(--ease-out-soft), transform var(--dur-slow) var(--ease-out-expo), visibility var(--dur-slow); }
+.deck__slide.is-active { position: relative; opacity: 1; visibility: visible; transform: none; }
+.deck--absolute .deck__slide.is-active { position: absolute; }
+
+/* Scroll cue */
+.scroll-cue { display: inline-flex; flex-direction: column; align-items: center; gap: var(--sp-3);
+  font-family: var(--ff-mono); font-size: 10px; letter-spacing: var(--tr-widest); text-transform: uppercase; color: var(--c-text-muted); }
+.scroll-cue__line { position: relative; width: 1px; height: 3.4rem; background: var(--c-line); overflow: hidden; }
+.scroll-cue__line::after { content: ""; position: absolute; inset: 0; background: var(--c-accent);
+  animation: cue 1.9s var(--ease-in-out) infinite; }
+@keyframes cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
+
+/* Horizontal scroll-scrub gallery (scroll-linked, JS sets --sx) */
+.scrub { position: relative; height: var(--scrub-h, 300vh); }
+.scrub__pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+.scrub__track { display: flex; gap: var(--grid-gap); padding-inline: var(--gutter);
+  transform: translate3d(var(--sx, 0), 0, 0); will-change: transform; }
+.scrub__item { flex: none; width: min(30rem, 74vw); }
+
+/* ---------- 5. REDUCED MOTION ------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; transition: none !important; }
+  .split-line > span, .split-word > span, .split-char, .loader__word span { transform: none !important; opacity: 1 !important; transition: none !important; animation: none !important; }
+  .marquee__track, .marquee-y__track, [data-kenburns] img, .kb img, .float, .seal__ring, .scroll-cue__line::after, .pulse::after { animation: none !important; }
+  [data-parallax], [data-magnetic], [data-tilt] { transform: none !important; }
+  .scrub { height: auto; }
+  .scrub__pin { position: static; height: auto; overflow-x: auto; }
+  .scrub__track { transform: none !important; }
+  .curtain { display: none; }
+  .media-hover img, .hover-colour img, .swap-media img { transition: none !important; transform: none !important; }
+  .hover-colour img { filter: none !important; }
+}
+
+/* ---------- MANUAL OPT-OUT ------------------------------------------------
+   html[data-motion="off"] reproduces the reduced-motion rules exactly, so a
+   visitor (or a preview tool) can disable all motion without changing an OS
+   setting. js/util.js reads the same attribute, so behaviour and styling
+   always agree. */
+html[data-motion="off"] [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; transition: none !important; }
+html[data-motion="off"] .split-line > span,
+html[data-motion="off"] .split-word > span,
+html[data-motion="off"] .split-char,
+html[data-motion="off"] .loader__word span { transform: none !important; opacity: 1 !important; transition: none !important; animation: none !important; }
+html[data-motion="off"] .marquee__track,
+html[data-motion="off"] .marquee-y__track,
+html[data-motion="off"] [data-kenburns] img,
+html[data-motion="off"] .kb img,
+html[data-motion="off"] .float,
+html[data-motion="off"] .seal__ring,
+html[data-motion="off"] .scroll-cue__line::after,
+html[data-motion="off"] .pulse::after { animation: none !important; }
+html[data-motion="off"] [data-parallax],
+html[data-motion="off"] [data-magnetic],
+html[data-motion="off"] [data-tilt] { transform: none !important; }
+html[data-motion="off"] .scrub { height: auto; }
+html[data-motion="off"] .scrub__pin { position: static; height: auto; overflow-x: auto; }
+html[data-motion="off"] .scrub__track { transform: none !important; }
+html[data-motion="off"] .curtain { display: none; }
+html[data-motion="off"] .media-hover img,
+html[data-motion="off"] .hover-colour img,
+html[data-motion="off"] .swap-media img { transition: none !important; transform: none !important; }
+html[data-motion="off"] .hover-colour img { filter: none !important; }

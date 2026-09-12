@@ -1,0 +1,40 @@
+{{! ==========================================================================
+    SECTION · locations           id: sec-locations
+    --------------------------------------------------------------------------
+    Studio / workshop / project-office cards from data/locations.json.
+      locTitle, locEyebrow, locText, locMap (true → adds a wide map frame)
+    ========================================================================== }}
+<section class="s-locations" id="locations" aria-label="Our locations">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{locEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{locTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{locText}}</p></div>
+    </div>
+
+    <div class="loc-grid">
+      {{#each locations limit=@locLimit}}
+      <article class="loc-card" data-reveal="up" data-reveal-delay="{{@index}}">
+        <div class="loc-card__top">
+          <h3 class="loc-card__city">{{city}}</h3>
+          <span class="badge badge--accent">{{flag}}</span>
+        </div>
+        <div class="loc-card__map media-hover">
+          <img src="{{../base}}{{map}}" alt="Map of the {{city}} {{type}}" loading="lazy" decoding="async">
+          <span class="map-frame__pin" style="left:{{pin.x}};top:{{pin.y}}" aria-hidden="true"></span>
+        </div>
+        <span class="meta">{{type}}</span>
+        <address class="loc-card__addr" style="font-style:normal">{{address}}</address>
+        <div style="display:grid;gap:.4rem;font-size:var(--fs-small)">
+          <a class="link" href="tel:{{phone}}">{{phone}}</a>
+          <a class="link" href="mailto:{{email}}">{{email}}</a>
+        </div>
+        <p class="meta">{{hours}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

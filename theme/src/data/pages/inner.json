@@ -1,0 +1,607 @@
+{
+  "about": {
+    "heroVariant": "plain",
+    "heroEyebrow": "The studio",
+    "heroTitle": "We built the workshop first, <em>then the studio</em>",
+    "heroLead": "Woodex Interior is a design-and-build practice in Lahore. Sixty-eight people: designers, project managers, forty-one craftsmen and site supervisors — all on our own payroll, all accountable to one programme.",
+    "crumbCurrent": "About",
+    "heroTag": "Established 2014",
+    "heroFacts": true,
+    "heroFactList": [
+      {
+        "k": "Founded",
+        "v": "2014, Lahore"
+      },
+      {
+        "k": "Team",
+        "v": "68 people"
+      },
+      {
+        "k": "Workshop",
+        "v": "22,000 sq ft"
+      },
+      {
+        "k": "Projects",
+        "v": "240 delivered"
+      },
+      {
+        "k": "Cities",
+        "v": "6 nationwide"
+      }
+    ],
+    "heroActions": true,
+    "heroCta": {
+      "label": "Book a consultation",
+      "href": "contact.html"
+    },
+    "heroCta2": {
+      "label": "See our work",
+      "href": "portfolio-one.html"
+    },
+    "splitLabel": "Our story",
+    "splitEyebrow": "Our story",
+    "splitTitle": "Founded in 2014 around a <em>simple frustration</em>",
+    "splitText": "Woodex began because our founders kept watching good drawings get ruined on site. Designers handed over a set, a contractor interpreted it, and nobody owned the gap between the two. So we bought the machines first.",
+    "splitText2": "Eleven years later the same principle runs everything: the people who draw your space are the people who build it, and one project manager is accountable from the measured survey to the last snag.",
+    "splitImage": "assets/images/studio-team.jpg",
+    "splitImageAlt": "Designers reviewing drawings together at the Gulberg studio",
+    "splitImage2": "assets/images/detail-materials.jpg",
+    "splitImage2Alt": "Material palette of oak, walnut, terrazzo and brass on a studio table",
+    "splitQuote": "Detail is not decoration. Detail is the reason a door closes quietly.",
+    "splitList": true,
+    "splitListItems": [
+      {
+        "k": "Design and build under one roof",
+        "v": "No handover gap between the drawing office and the site team."
+      },
+      {
+        "k": "In-house manufacture since day one",
+        "v": "22,000 sq ft workshop, 41 craftsmen, one production queue."
+      },
+      {
+        "k": "Honest survey before honest price",
+        "v": "We measure, photograph and report existing conditions before quoting."
+      },
+      {
+        "k": "A date you can plan around",
+        "v": "97% of projects handed over on the contracted programme."
+      }
+    ],
+    "splitCta": "Meet the team",
+    "splitCtaHref": "about.html#team",
+    "statsLabel": "Studio numbers",
+    "statsHead": "Eleven years, <em>measured</em>",
+    "statsEyebrow": "By the numbers",
+    "statsNote": "Tracked against contract dates and handover certificates — not estimated for a website.",
+    "statsLimit": 4,
+    "valuesEyebrow": "What we hold to",
+    "valuesTitle": "Six principles that decide <em>how we work</em>",
+    "valuesText": "They are not slogans. Each one changes something concrete about how a project is quoted, drawn, made or supervised.",
+    "values": [
+      {
+        "icon": "i-s-ruler",
+        "title": "Measure twice",
+        "text": "Every project starts with a measured survey and an existing-conditions report. We would rather spend a day measuring than a week re-making."
+      },
+      {
+        "icon": "i-s-doc",
+        "title": "Write it down",
+        "text": "Line-item BOQs, signed variation notes and Friday photo reports. If it is not documented, it did not happen."
+      },
+      {
+        "icon": "i-s-joinery",
+        "title": "Make it ourselves",
+        "text": "Joinery, metalwork and finishing happen in our own workshop, where we control the queue and the tolerance."
+      },
+      {
+        "icon": "i-s-shield",
+        "title": "Stand behind it",
+        "text": "Ten years on structure, twenty-four months on finishes and services, with scheduled returns at month three and month twelve."
+      },
+      {
+        "icon": "i-s-team",
+        "title": "One accountable name",
+        "text": "A single project manager owns your programme, your budget and your phone calls from day one to handover."
+      },
+      {
+        "icon": "i-s-light",
+        "title": "Light before furniture",
+        "text": "We design the lighting layers early. It is the cheapest thing to get right and the most expensive thing to fix later."
+      }
+    ],
+    "featureId": "workshop",
+    "featureLabel": "The workshop",
+    "featureEyebrow": "Sundar Industrial Estate",
+    "featureTitle": "Where your joinery is <em>actually made</em>",
+    "featureText": "Panel processing, veneer pressing, spray finishing and metal fabrication happen in one building twenty-five minutes from the studio. Clients visit at the dry-assembly stage — it is the single most reassuring hour of any project.",
+    "featureImage": "assets/images/cta-workshop.jpg",
+    "featureImageAlt": "Panel processing bay inside the Woodex workshop",
+    "featureBadge": "22,000 sq ft",
+    "featureParallax": "0.06",
+    "featureBullets": [
+      {
+        "k": "01",
+        "v": "CNC panel processing and edge-banding line"
+      },
+      {
+        "k": "02",
+        "v": "Veneer pressing and book-matching bay"
+      },
+      {
+        "k": "03",
+        "v": "Dust-free spray booth for PU, acrylic and Duco finishes"
+      },
+      {
+        "k": "04",
+        "v": "Metal fabrication: frames, screens, handrails and retail fixtures"
+      }
+    ],
+    "featureStats": [
+      {
+        "k": "Machines",
+        "v": "34 stations"
+      },
+      {
+        "k": "Craftsmen",
+        "v": "41 in-house"
+      },
+      {
+        "k": "Queue",
+        "v": "Published weekly"
+      }
+    ],
+    "featureCta": "Custom joinery service",
+    "featureCtaHref": "services/custom-furniture-joinery.html",
+    "teamEyebrow": "The people",
+    "teamTitle": "Eight of the <em>sixty-eight</em>",
+    "teamText": "The team you will actually work with: design leadership, projects, lighting, site operations and the workshop.",
+    "teamLimit": 8,
+    "milestonesEyebrow": "Eleven years",
+    "milestonesTitle": "How the studio <em>was built</em>",
+    "milestones": [
+      {
+        "year": "2014",
+        "title": "Studio founded in Gulberg",
+        "text": "Two designers, one shared workshop and a first residential commission in DHA."
+      },
+      {
+        "year": "2016",
+        "title": "First commercial fit-out",
+        "text": "A 4,200 sq ft corporate floor — and the decision to take fit-out work seriously."
+      },
+      {
+        "year": "2018",
+        "title": "Workshop moves to Sundar",
+        "text": "22,000 sq ft of panel processing, veneer pressing and spray finishing under one roof."
+      },
+      {
+        "year": "2020",
+        "title": "Retail rollout practice formed",
+        "text": "First franchise manual delivered; thirty-eight outlets followed across nine cities."
+      },
+      {
+        "year": "2022",
+        "title": "Hospitality team established",
+        "text": "Dedicated restaurant and café designers, with acoustic design brought in-house."
+      },
+      {
+        "year": "2024",
+        "title": "240th project handed over",
+        "text": "Systems Ltd HQ, 24,600 sq ft, delivered two days ahead of programme."
+      },
+      {
+        "year": "2025",
+        "title": "Islamabad and Karachi offices",
+        "text": "Project offices opened to support national delivery and a growing specifier network."
+      }
+    ],
+    "awardsEyebrow": "Recognition",
+    "awardsTitle": "Awarded and <em>shortlisted</em>",
+    "awardsText": "Seven nominations across Pakistan's design and construction awards since 2022.",
+    "reelLabel": "Studio showreel",
+    "reelEyebrow": "Studio showreel",
+    "reelTitle": "Eleven years in <em>two minutes</em>",
+    "reelText": "Survey to handover: the studio, the workshop, four live sites and six finished spaces.",
+    "reelPoster": "assets/images/reel-poster.jpg",
+    "reelSrc": "",
+    "reelDuration": "2 min 14 sec",
+    "reelStats": [
+      {
+        "k": "Filmed",
+        "v": "Lahore · 2025"
+      },
+      {
+        "k": "Sites",
+        "v": "4 live projects"
+      },
+      {
+        "k": "Spaces",
+        "v": "6 completed"
+      }
+    ],
+    "testiId": "testimonials",
+    "testiLabel": "Client testimonials",
+    "testiEyebrow": "Client words",
+    "testiTitle": "What clients say <em>afterwards</em>",
+    "testiText": "Unedited feedback from residential, workplace, retail and hospitality projects.",
+    "testiLimit": 6,
+    "testiCta": "Read case studies",
+    "testiCtaHref": "portfolio-one.html",
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaVariant": "image",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Work with us",
+    "ctaTitle": "Come and see the <em>workshop</em>",
+    "ctaText": "The fastest way to understand how we work is an hour in Sundar Industrial Estate: machines running, panels numbered, a dry-assembly you can touch.",
+    "ctaPrimary": "Book a studio visit",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See our work",
+    "ctaSecondaryHref": "portfolio-one.html",
+    "ctaImage": "assets/images/cta-workshop.jpg",
+    "ctaAside": [
+      {
+        "k": "Studio",
+        "v": "Gulberg III, Lahore"
+      },
+      {
+        "k": "Workshop",
+        "v": "Sundar Industrial Estate"
+      },
+      {
+        "k": "Visits",
+        "v": "By appointment"
+      }
+    ]
+  },
+  "service": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Services",
+    "heroTitle": "Fifteen services. <em>One delivery model.</em>",
+    "heroLead": "Design, manufacture and site execution — bought as a single layer or as a complete turnkey contract. Every service is quoted as a line-item BOQ taken from drawings, never as a square-foot guess.",
+    "crumbCurrent": "Services",
+    "heroTag": "15 services",
+    "heroFacts": true,
+    "heroFactList": [
+      {
+        "k": "Design only from",
+        "v": "PKR 65 / sq ft"
+      },
+      {
+        "k": "Design + build from",
+        "v": "PKR 1,400 / sq ft"
+      },
+      {
+        "k": "Typical programme",
+        "v": "6 – 26 weeks"
+      },
+      {
+        "k": "Warranty",
+        "v": "10 years structure"
+      }
+    ],
+    "heroActions": true,
+    "heroCta": {
+      "label": "Request a proposal",
+      "href": "contact.html"
+    },
+    "heroCta2": {
+      "label": "Pricing guide",
+      "href": "pricing.html"
+    },
+    "compareTitle": "What is included <em>at each level</em>",
+    "compareText": "Three ways to buy us. The design fee on Signature and Atelier is credited against build cost when you proceed.",
+    "compare": [
+      {
+        "k": "Measured survey & condition report",
+        "essential": "Included",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "Space planning & layout options",
+        "essential": "2 options",
+        "signature": "3 options",
+        "atelier": "Unlimited"
+      },
+      {
+        "k": "Finishes & lighting schedules",
+        "essential": "Included",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "Construction drawing set",
+        "essential": "Included",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "3D visualisation",
+        "essential": "Add-on",
+        "signature": "6 views",
+        "atelier": "Unlimited + animation"
+      },
+      {
+        "k": "In-house joinery manufacture",
+        "essential": "—",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "Site execution & supervision",
+        "essential": "—",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "Approvals & landlord liaison",
+        "essential": "—",
+        "signature": "Included",
+        "atelier": "Included"
+      },
+      {
+        "k": "FF&E procurement & styling",
+        "essential": "—",
+        "signature": "Add-on",
+        "atelier": "Included"
+      },
+      {
+        "k": "Rollout / franchise documentation",
+        "essential": "—",
+        "signature": "—",
+        "atelier": "Included"
+      },
+      {
+        "k": "Workmanship warranty",
+        "essential": "Drawings only",
+        "signature": "10 years",
+        "atelier": "10 years + 2 checks"
+      }
+    ],
+    "featureId": "how",
+    "featureLabel": "How a service engagement runs",
+    "featureEyebrow": "How we work",
+    "featureTitle": "Every service runs on the <em>same six stages</em>",
+    "featureText": "Whether you buy drawings only or a complete turnkey contract, the sequence does not change. What changes is how much of it we own.",
+    "featureImage": "assets/images/detail-lighting.jpg",
+    "featureImageAlt": "Lighting detail above a joinery run",
+    "featureBullets": [
+      {
+        "k": "01",
+        "v": "Measured survey and existing-conditions report"
+      },
+      {
+        "k": "02",
+        "v": "Concept and space planning, signed off by you"
+      },
+      {
+        "k": "03",
+        "v": "Design development: materials, lighting, joinery"
+      },
+      {
+        "k": "04",
+        "v": "3D visualisation and formal design approval"
+      },
+      {
+        "k": "05",
+        "v": "Construction and shop drawings, line-item BOQ"
+      },
+      {
+        "k": "06",
+        "v": "Manufacture, site execution, commissioning, handover"
+      }
+    ],
+    "featureStats": [
+      {
+        "k": "Stages",
+        "v": "6"
+      },
+      {
+        "k": "Sign-offs",
+        "v": "At every stage"
+      },
+      {
+        "k": "Reporting",
+        "v": "Weekly, Fridays"
+      }
+    ],
+    "featureCta": "See the full process",
+    "featureCtaHref": "process.html",
+    "projGridId": "work",
+    "projGridLabel": "Service work",
+    "projGridEyebrow": "Service work",
+    "projGridTitle": "Recent projects <em>by sector</em>",
+    "projGridText": "Filter to see the sector closest to your project.",
+    "projGridLimit": 6,
+    "projGridCta": "Full portfolio",
+    "projGridCtaHref": "portfolio-one.html",
+    "faqEyebrow": "Service questions",
+    "faqTitle": "Before you <em>brief us</em>",
+    "faqText": "The twelve questions we are asked most often about scope, price and programme.",
+    "faqLimit": 12,
+    "faqSchema": true,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "Ready when you are",
+    "ctaTitle": "Send the floor plan. <em>We will send a budget range.</em>",
+    "ctaText": "Forty-eight hours, one designer, no obligation. If we are not the right studio for your project we will say so and suggest who is.",
+    "ctaPrimary": "Request a proposal",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "Compare packages",
+    "ctaSecondaryHref": "pricing.html",
+    "svcDesign": {
+      "svcGridId": "design",
+      "svcGridLabel": "Interior design services",
+      "svcGridEyebrow": "Interior design",
+      "svcGridTitle": "Design <em>services</em>",
+      "svcGridText": "Space planning, material direction, lighting and joinery design — delivered as a drawing set you own outright.",
+      "svcGridCols": 3,
+      "svcGridLimit": 5,
+      "svcGridWhere": "group:Interior design",
+      "svcGridMedia": true,
+      "svcGridCta": "All design services",
+      "svcGridCtaHref": "services/interior-renovation.html"
+    },
+    "svcFitout": {
+      "svcGridId": "fitout",
+      "svcGridLabel": "Fit-out and execution services",
+      "svcGridEyebrow": "Fit-out & execution",
+      "svcGridTitle": "Build <em>services</em>",
+      "svcGridText": "Turnkey delivery: approvals, MEP coordination, manufacture, site supervision, commissioning and handover.",
+      "svcGridCols": 3,
+      "svcGridLimit": 5,
+      "svcGridWhere": "group:Fit-out & execution",
+      "svcGridMedia": true,
+      "svcGridCta": "All fit-out services",
+      "svcGridCtaHref": "services/turnkey-interiors.html",
+      "svcGridFootText": "Buying fit-out on its own? We will still coordinate your designer — we have done it with eleven other practices.",
+      "svcGridFootCta": "Talk to a project manager",
+      "svcGridFootCtaHref": "contact.html"
+    },
+    "svcSpecialist": {
+      "svcGridId": "specialist",
+      "svcGridLabel": "Specialist services",
+      "svcGridEyebrow": "Hospitality & specialist",
+      "svcGridTitle": "Specialist <em>services</em>",
+      "svcGridText": "Restaurant and café environments, bespoke joinery, furniture procurement and photoreal visualisation.",
+      "svcGridCols": 3,
+      "svcGridLimit": 5,
+      "svcGridWhere": "group:Hospitality & specialist",
+      "svcGridMedia": true,
+      "svcGridCta": "All specialist services",
+      "svcGridCtaHref": "services/restaurant-interior.html"
+    }
+  },
+  "process": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Our process",
+    "heroTitle": "Six stages, <em>one accountable team</em>",
+    "heroLead": "No handover between a designer who disappears and a contractor who improvises. Each stage has defined outputs you sign off before the next one starts.",
+    "crumbCurrent": "Process",
+    "heroTag": "6 stages",
+    "heroActions": true,
+    "heroCta": {
+      "label": "Start stage one",
+      "href": "contact.html"
+    },
+    "heroCta2": {
+      "label": "Pricing guide",
+      "href": "pricing.html"
+    },
+    "processId": "stages",
+    "processLabel": "The six stages",
+    "processTitle": "From measured survey to <em>snag list</em>",
+    "processText": "Typical durations shown for a mid-size commercial project. A single-room renovation compresses to four weeks; a large home expands to thirty.",
+    "processLimit": 6,
+    "timeline": true,
+    "processPromises": true,
+    "splitLabel": "Governance",
+    "splitEyebrow": "How we keep a programme",
+    "splitTitle": "Friday, <em>every Friday</em>",
+    "splitText": "One report, one thread, one person accountable. It is the least glamorous part of what we do and the reason our on-programme rate is 97%.",
+    "splitText2": "You will always know what happened this week, what happens next week, what decision we need from you, and any risk we can see coming.",
+    "splitImage": "assets/images/studio-team.jpg",
+    "splitImageAlt": "Project team reviewing a site programme",
+    "splitList": true,
+    "splitListItems": [
+      {
+        "k": "Photo report",
+        "v": "Every room, every trade, timestamped"
+      },
+      {
+        "k": "Programme tracking",
+        "v": "Planned versus actual, with float shown"
+      },
+      {
+        "k": "Decision log",
+        "v": "What we need from you, and by when"
+      },
+      {
+        "k": "Risk register",
+        "v": "Long-lead items, access issues, approvals"
+      }
+    ],
+    "splitCta": "Meet the projects team",
+    "splitCtaHref": "about.html#team",
+    "faqEyebrow": "Process questions",
+    "faqTitle": "How the stages <em>actually work</em>",
+    "faqText": "Timelines, sign-offs, variations and living on site during works.",
+    "faqLimit": 8,
+    "faqSchema": true,
+    "ctaId": "start",
+    "ctaLabel": "Begin stage one",
+    "ctaSurface": "inverse",
+    "ctaEyebrow": "Stage one is free",
+    "ctaTitle": "A sixty-minute consultation, <em>with no obligation</em>",
+    "ctaText": "Bring the floor plan and the date you need the space by. You will leave with a budget range and an honest view of the programme.",
+    "ctaPrimary": "Book stage one",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "Read the FAQs",
+    "ctaSecondaryHref": "faq.html"
+  },
+  "pricing": {
+    "heroVariant": "plain",
+    "heroEyebrow": "Pricing guide",
+    "heroTitle": "What an interior project <em>actually costs</em>",
+    "heroLead": "Indicative rates for Lahore, 2025-26, published so you can sanity-check any proposal — ours or anyone else's. Every real quotation is a line-item BOQ taken from drawings.",
+    "crumbCurrent": "Pricing",
+    "heroTag": "PKR rates",
+    "heroActions": true,
+    "heroCta": {
+      "label": "Request a quotation",
+      "href": "contact.html"
+    },
+    "heroCta2": {
+      "label": "Compare services",
+      "href": "service.html"
+    },
+    "pricingEyebrow": "Three ways to buy us",
+    "pricingTitle": "Packages and <em>indicative rates</em>",
+    "faqEyebrow": "Pricing questions",
+    "faqTitle": "Money, <em>plainly</em>",
+    "faqText": "How proposals are priced, what causes a quote to move, and how payment is structured.",
+    "faqLimit": 9,
+    "ctaId": "start",
+    "ctaLabel": "Request a quotation",
+    "ctaSurface": "wood",
+    "ctaEyebrow": "Next step",
+    "ctaTitle": "Send the drawings. <em>Get a line-item BOQ.</em>",
+    "ctaText": "If you already have drawings we will price them within five working days. If you do not, stage one is a free consultation.",
+    "ctaPrimary": "Request a quotation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "See the services",
+    "ctaSecondaryHref": "service.html"
+  },
+  "faq": {
+    "heroVariant": "plain",
+    "heroEyebrow": "FAQs",
+    "heroTitle": "Twenty-four questions, <em>answered properly</em>",
+    "heroLead": "Everything clients ask before signing: how projects start, what they cost, how long they take, who builds them and what happens if something goes wrong.",
+    "crumbCurrent": "FAQs",
+    "heroTag": "24 answers",
+    "faqEyebrow": "Frequently asked",
+    "faqTitle": "Answers, <em>without the marketing</em>",
+    "faqText": "If your question is not here, send it with your floor plan — a designer answers, not a call centre.",
+    "faqLimit": 24,
+    "faqSchema": true,
+    "contactId": "still-stuck",
+    "contactLabel": "Ask us directly",
+    "contactTitle": "Still <em>unresolved?</em>",
+    "contactText": "Send the question with your floor plan and any photographs. We reply within one business day.",
+    "contactEyebrow": "Ask us directly",
+    "contactFormKind": "question",
+    "contactFields": false,
+    "ctaId": "start",
+    "ctaLabel": "Start a project",
+    "ctaSurface": "accent",
+    "ctaEyebrow": "Ready when you are",
+    "ctaTitle": "Book the free <em>consultation</em>",
+    "ctaText": "Sixty minutes, at the studio, on your site or on video. You leave with a budget range.",
+    "ctaPrimary": "Book a consultation",
+    "ctaPrimaryHref": "contact.html",
+    "ctaSecondary": "Pricing guide",
+    "ctaSecondaryHref": "pricing.html"
+  }
+}

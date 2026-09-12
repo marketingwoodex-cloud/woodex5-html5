@@ -1,0 +1,35 @@
+{{! ==========================================================================
+    SECTION · projects-list       id: sec-projects-list
+    --------------------------------------------------------------------------
+    Index-style project list: number, title, category, year, hover thumbnail,
+    arrow. Rows wipe with a background panel on hover.
+      projListLimit, projListEyebrow, projListTitle, projListText
+    ========================================================================== }}
+<section class="s-proj-list" id="{{projListId}}" aria-label="{{projListLabel}}">
+  <div class="container">
+
+    <div class="section-head section-head--split" style="margin-bottom:var(--sp-8)">
+      <div>
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{projListEyebrow}}</div>
+        <h2 class="section-head__title" data-split data-reveal="up" data-reveal-delay="1" style="margin-top:var(--sp-4)">{{{projListTitle}}}</h2>
+      </div>
+      <div class="section-head__aside" data-reveal="up" data-reveal-delay="2">
+        <p>{{projListText}}</p>
+        {{#if projListCta}}<a class="tlink" href="{{base}}{{projListCtaHref}}" style="margin-top:var(--sp-5)">{{projListCta}} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>{{/if}}
+      </div>
+    </div>
+
+    <div class="s-proj-list__rows">
+      {{#each projects limit=@projListLimit where=@projListWhere}}
+      <a class="prow" href="{{../base}}project/{{slug}}.html" data-reveal="up" data-reveal-delay="{{@index}}">
+        <span class="prow__no">{{id}}</span>
+        <span class="prow__title">{{title}}</span>
+        <span class="prow__cat">{{categoryLabel}} · {{location}}</span>
+        <span class="prow__year">{{year}}</span>
+        <span class="prow__thumb" aria-hidden="true"><img src="{{../base}}{{cover}}" alt="" loading="lazy" decoding="async"></span>
+        <span class="prow__arrow" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</section>

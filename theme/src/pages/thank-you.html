@@ -1,0 +1,32 @@
+---
+title: Thank You — Enquiry Received | Woodex Interior
+description: Your Woodex Interior enquiry is with a designer. We reply within one business day with a budget range and a realistic programme.
+page: thank-you
+theme: canvas
+bodyClass: page--thank-you
+robots: noindex, follow
+api: site,navigation,posts
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · CONFIRMATION PANEL ---------- }}
+  {{> sections/thanks}}
+
+  {{! ---------- 02 · READING WHILE YOU WAIT ---------- }}
+  {{> sections/blog-grid}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Thank you","description":"Enquiry received confirmation for Woodex Interior.","isPartOf":{"@type":"WebSite","name":"Woodex Interior"}}
+</script>

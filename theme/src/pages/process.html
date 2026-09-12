@@ -1,0 +1,41 @@
+---
+title: Our Process — Six Stages from Survey to Handover | Woodex Interior
+description: How a Woodex Interior project runs: measured survey, concept and space planning, design development, 3D approval, construction drawings and BOQ, then manufacture, site execution and handover.
+page: process
+theme: canvas
+bodyClass: page--process
+api: site,navigation,process,faqs,services
+ogImage: assets/images/studio-team.jpg
+---
+<!-- @head -->
+<!-- @open-body -->
+{{> icons}}
+{{> chrome}}
+{{> header}}
+{{> drawer}}
+
+<main id="main">
+
+  {{! ---------- 01 · PAGE HERO ---------- }}
+  {{> sections/page-hero}}
+
+  {{! ---------- 02 · THE SIX STAGES ---------- }}
+  {{> sections/process}}
+
+  {{! ---------- 03 · GOVERNANCE SPLIT ---------- }}
+  {{> sections/split}}
+
+  {{! ---------- 04 · PROCESS FAQ ---------- }}
+  {{> sections/faq}}
+
+  {{! ---------- 05 · CLOSING CTA ---------- }}
+  {{> sections/cta}}
+
+</main>
+
+{{> footer}}
+<!-- @close-body -->
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"How a Woodex Interior project runs","description":"Six delivery stages from measured survey to handover.","step":[{{#each process.stages}}{{#unless @first}},{{/unless}}{"@type":"HowToStep","name":"{{title}}","text":"{{summary}}"}{{/each}}]}
+</script>

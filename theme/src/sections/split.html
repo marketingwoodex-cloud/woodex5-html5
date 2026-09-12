@@ -1,0 +1,60 @@
+{{! ==========================================================================
+    SECTION · split               id: sec-split
+    --------------------------------------------------------------------------
+    Two-column copy + media. Fully front-matter driven so one template covers
+    about blurbs, service intros, workshop stories, etc.
+
+      splitOrder: default (copy left) | media-first
+      splitEyebrow, splitTitle (may contain <em>), splitText
+      splitList: true → renders splitListItems [{k,v}]
+      splitImage, splitImage2 (stacked), splitQuote
+      splitSticky: true → media column pins while copy scrolls
+    ========================================================================== }}
+<section class="s-split"{{#if splitSticky}} data-sticky-col{{/if}} aria-label="{{splitLabel}}">
+  <div class="container">
+    <div class="s-split__grid{{#if splitOrder}} s-split__grid--{{splitOrder}}{{/if}}">
+
+      <div class="s-split__copy{{#if splitSticky}} sticky-col{{/if}}">
+        <div class="eyebrow eyebrow--dot" data-reveal="up">{{splitEyebrow}}</div>
+        <h2 data-split data-reveal="up" data-reveal-delay="1">{{{splitTitle}}}</h2>
+        {{#if splitText}}<p class="lead" data-reveal="up" data-reveal-delay="2">{{splitText}}</p>{{/if}}
+        {{#if splitText2}}<p class="muted" data-reveal="up" data-reveal-delay="3">{{splitText2}}</p>{{/if}}
+
+        {{#if splitList}}
+        <ul class="s-split__list" data-reveal="up" data-reveal-delay="3">
+          {{#each splitListItems}}
+          <li>
+            <svg aria-hidden="true"><use href="#i-check"/></svg>
+            <span><b>{{k}}</b><span>{{v}}</span></span>
+          </li>
+          {{/each}}
+        </ul>
+        {{/if}}
+
+        {{#if splitCta}}
+        <div data-reveal="up" data-reveal-delay="4" style="margin-top:var(--sp-4)">
+          <a class="btn btn--solid" href="{{base}}{{splitCtaHref}}" data-magnetic="0.2">
+            <span class="btn__label"><span>{{splitCta}}</span><span>{{splitCta}}</span></span>
+            <span class="btn__med" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="s-split__media{{#if splitImage2}} s-split__media--stack{{/if}}" data-reveal="scale">
+        <div class="media media--4x5 media-hover">
+          <img src="{{base}}{{splitImage}}" alt="{{splitImageAlt}}" loading="lazy" decoding="async"{{#if splitParallax}} data-parallax="0.07"{{/if}}>
+        </div>
+        {{#if splitImage2}}
+        <div class="media media--4x5 media-hover">
+          <img src="{{base}}{{splitImage2}}" alt="{{splitImage2Alt}}" loading="lazy" decoding="async">
+        </div>
+        {{/if}}
+        {{#if splitQuote}}
+        <blockquote class="s-split__quote" data-reveal="up" data-reveal-delay="3">&ldquo;{{splitQuote}}&rdquo;</blockquote>
+        {{/if}}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+{{! ==========================================================================
+    SECTION · quote               id: sec-quote
+    --------------------------------------------------------------------------
+    Centred pull quote. Front matter: quoteText (<em> ok), quoteName,
+    quoteRole, quoteInitials, quoteImage (optional side media).
+    ========================================================================== }}
+<section class="s-quote" aria-label="Client quote">
+  <div class="container">
+    <div class="s-quote__inner">
+      <span class="s-quote__mark" aria-hidden="true">&ldquo;</span>
+      <blockquote class="s-quote__text" data-split>{{#if quoteText}}{{{quoteText}}}{{else}}{{item.testimonial.quote}}{{/if}}</blockquote>
+      <div class="s-quote__by" data-reveal="up" data-reveal-delay="2">
+        {{#if quoteInitials}}<span class="avatar" aria-hidden="true">{{quoteInitials}}</span>{{else}}{{#if item.testimonial.initials}}<span class="avatar" aria-hidden="true">{{item.testimonial.initials}}</span>{{/if}}{{/if}}
+        <span style="text-align:left">
+          <b>{{#if quoteName}}{{quoteName}}{{else}}{{item.testimonial.name}}{{/if}}</b>
+          <span>{{#if quoteRole}}{{quoteRole}}{{else}}{{item.testimonial.role}}{{/if}}</span>
+        </span>
+        {{#if quoteRating}}
+        <span class="stars" aria-label="Rated {{quoteRating}} out of 5" style="margin-left:var(--sp-4)">
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+          <svg aria-hidden="true"><use href="#i-star"/></svg>
+        </span>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
