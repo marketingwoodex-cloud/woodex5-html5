@@ -109,7 +109,7 @@ ogImage: "{{item.image}}"
       <ol class="s-docs__steps">
         {{#each item.deliverables}}
         <li class="s-docs__step" data-reveal="up" data-reveal-delay="{{@index}}">
-          <span class="s-docs__no" aria-hidden="true">{{@index}}</span>
+          <span class="s-docs__no" aria-hidden="true">{{@pad}}</span>
           <div><h3 class="s-docs__h">{{this}}</h3></div>
         </li>
         {{/each}}
@@ -130,7 +130,7 @@ ogImage: "{{item.image}}"
       <div class="s-values__grid s-values__grid--3">
         {{#each item.outcomes}}
         <article class="s-values__item s-values__item--metric" data-reveal="up" data-reveal-delay="{{@index}}">
-          <span class="s-values__no" aria-hidden="true">{{@index}}</span>
+          <span class="s-values__no" aria-hidden="true">{{@pad}}</span>
           <strong class="s-values__metric">{{value}}</strong>
           <p class="s-values__text">{{label}}</p>
         </article>
@@ -189,7 +189,7 @@ ogImage: "{{item.image}}"
           {{#each item.faq}}
           <div class="acc__item">
             <button class="acc__head" type="button" id="sfaq-h-{{@index}}" aria-expanded="false" aria-controls="sfaq-p-{{@index}}">
-              <span class="acc__no">{{@index}}</span>
+              <span class="acc__no">{{@pad}}</span>
               <span>{{q}}</span>
               <span class="acc__icon" aria-hidden="true"></span>
             </button>

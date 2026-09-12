@@ -19,6 +19,7 @@
      {{> header }}                include partial  (resolves partials/, sections/, pages/)
      {{#each projects}} … {{/each}}   loop; inside, fields resolve on the item
      {{ @index }} {{ @first }} {{ @last }} {{ @count }}   loop helpers
+     {{ @number }} 1-based index   {{ @pad }} 1-based, zero-padded to two digits
      {{#if featured}} … {{else}} … {{/if}}                truthiness test
      {{#unless hidden}} … {{/unless}}                     inverse test
      {{ year }}                   current year
@@ -319,6 +320,13 @@ function parseFrontMatter(src) {
 
 /* ------------------------------------------------------------- renderer */
 /* Scope chain: item scopes (innermost first) → page → data → globals */
+/* Loop helpers injected into every {{#each}} scope. @index is 0-based because
+   it is used for delays, keys and array maths; @number and @pad are 1-based
+   because they are printed for people to read. Sections that numbered visible
+   cards with @index produced "Promise 0" and value lists starting at 0, which
+   is an off-by-one showing in the copy rather than in the logic. */
+const LOOP_HELPERS = new Set(['@index', '@first', '@last', '@count', '@key', '@number', '@pad']);
+
 function lookup(scopes, key) {
   /* Handlebars-style parent traversal: ../name, ../../base
      Each "../" starts the search one scope further out. The search still
@@ -329,7 +337,7 @@ function lookup(scopes, key) {
   k = k.trim();
   if (!k) return undefined;
 
-  if (k === '@index' || k === '@first' || k === '@last' || k === '@count' || k === '@key') {
+  if (LOOP_HELPERS.has(k)) {
     for (let i = skip; i < scopes.length; i++) {
       const s = scopes[i];
       if (s && Object.prototype.hasOwnProperty.call(s, k)) return s[k];
@@ -445,10 +453,11 @@ function render(template, scopes, fileLabel = 'string') {
         const ctx = (item && typeof item === 'object')
           ? Object.assign({}, item, {
               '@index': i, '@first': i === 0, '@last': i === list.length - 1,
-              '@count': list.length, '@key': key,
+              '@count': list.length, '@key': key, '@number': i + 1,
+              '@pad': String(i + 1).padStart(2, '0'),
               ...(alias ? { [alias]: item } : {})
             })
-          : { this: item, value: item, '@index': i, '@first': i === 0, '@last': i === list.length - 1, '@count': list.length, ...(alias ? { [alias]: item } : {}) };
+          : { this: item, value: item, '@index': i, '@first': i === 0, '@last': i === list.length - 1, '@count': list.length, '@number': i + 1, '@pad': String(i + 1).padStart(2, '0'), ...(alias ? { [alias]: item } : {}) };
         return render(inner, [ctx, ...scopes], fileLabel);
       }).join('');
     })();

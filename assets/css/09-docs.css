@@ -355,7 +355,6 @@
   font-family: var(--ff-mono); font-size: var(--fs-eyebrow); letter-spacing: var(--tr-wider);
   color: var(--c-text-faint);
 }
-.s-values__no::before { content: "0"; }
 .s-values__icon { width: 2.4rem; height: 2.4rem; color: var(--c-accent); }
 .s-values__icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.25; }
 .s-values__title { font-family: var(--ff-display); font-size: var(--fs-h4); line-height: var(--lh-snug); color: var(--c-text); }
@@ -431,7 +430,6 @@
 }
 .s-topics__card:hover { border-color: var(--c-accent); transform: translateY(-3px); background: var(--c-bg-alt); }
 .s-topics__no { font-family: var(--ff-mono); font-size: var(--fs-eyebrow); letter-spacing: var(--tr-widest); color: var(--c-text-faint); }
-.s-topics__no::before { content: "0"; }
 .s-topics__title { font-family: var(--ff-display); font-size: var(--fs-h4); line-height: var(--lh-snug); color: var(--c-text); }
 .s-topics__text { margin: 0; font-size: var(--fs-small); line-height: var(--lh-relaxed); color: var(--c-text-soft); }
 .s-topics__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); margin-top: var(--sp-3); padding-top: var(--sp-4); border-top: 1px solid var(--c-line-soft); }
@@ -467,7 +465,6 @@
   padding-block: var(--sp-4); border-top: 1px solid var(--c-line-soft);
 }
 .s-thanks__no { font-family: var(--ff-mono); font-size: var(--fs-xs); letter-spacing: var(--tr-wide); color: var(--c-accent); }
-.s-thanks__no::before { content: "0"; }
 .s-thanks__step-v { color: var(--c-text); font-weight: var(--fw-medium); }
 .s-thanks__step-t { font-family: var(--ff-mono); font-size: var(--fs-eyebrow); letter-spacing: var(--tr-wider); text-transform: uppercase; color: var(--c-text-muted); white-space: nowrap; }
 
@@ -489,7 +486,6 @@
 /* ---------- 12. CONTACT ASIDE / META ADDITIONS --------------------------- */
 .s-contact__aside-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-3); align-items: baseline; font-size: var(--fs-small); color: var(--c-text-soft); }
 .s-contact__aside-no { font-family: var(--ff-mono); font-size: var(--fs-eyebrow); letter-spacing: var(--tr-wide); color: var(--c-accent); }
-.s-contact__aside-no::before { content: "0"; }
 
 .s-contact__meta { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--c-line); }
 .s-contact__meta-row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--sp-4); padding-block: var(--sp-3); border-bottom: 1px solid var(--c-line-soft); }

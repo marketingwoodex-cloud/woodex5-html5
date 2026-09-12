@@ -18,7 +18,7 @@
     <div class="s-values__grid s-values__grid--{{#if valuesCols}}{{valuesCols}}{{else}}3{{/if}}">
       {{#each values}}
       <article class="s-values__item" data-reveal="up" data-reveal-delay="{{@index}}">
-        <span class="s-values__no" aria-hidden="true">{{@index}}</span>
+        <span class="s-values__no" aria-hidden="true">{{@pad}}</span>
         {{#if icon}}
         <span class="s-values__icon" aria-hidden="true"><svg><use href="#{{icon}}"/></svg></span>
         {{/if}}

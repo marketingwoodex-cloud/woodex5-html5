@@ -64,8 +64,8 @@
     <div class="grid grid-4" style="margin-top:var(--sp-10)">
       {{#each process.promises}}
       <div class="idx-card" data-reveal="up" data-reveal-delay="{{@index}}">
-        <span class="idx-card__no">Promise {{@index}}</span>
-        <h4 class="idx-card__title">{{title}}</h4>
+        <span class="idx-card__no">Promise {{@pad}}</span>
+        <h3 class="idx-card__title">{{title}}</h3>
         <p class="idx-card__text">{{text}}</p>
       </div>
       {{/each}}

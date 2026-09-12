@@ -19,7 +19,7 @@
     <div class="s-topics__grid">
       {{#each topics}}
       <a class="s-topics__card" href="{{base}}{{href}}" data-reveal="up" data-reveal-delay="{{@index}}" data-topic="{{slug}}">
-        <span class="s-topics__no" aria-hidden="true">{{@index}}</span>
+        <span class="s-topics__no" aria-hidden="true">{{@pad}}</span>
         <h3 class="s-topics__title">{{label}}</h3>
         <p class="s-topics__text">{{text}}</p>
         <span class="s-topics__foot">
