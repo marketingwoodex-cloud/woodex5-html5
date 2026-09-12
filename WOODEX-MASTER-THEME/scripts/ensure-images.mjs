@@ -134,7 +134,8 @@ function placeholderSvg(label, ratio = '4/3', kind) {
 /* ── Main ──────────────────────────────────────────────────────────────── */
 const map = {};
 let created = 0;
-let real = 0;
+let real = 0;      // photo slots whose real photograph is on disk
+let vector = 0;    // slots that are vector art by design (logos, swatches)
 
 for (const entry of allImagePaths()) {
   const canonical = entry.path;                       // /images/…/x.jpg
@@ -145,7 +146,8 @@ for (const entry of allImagePaths()) {
 
   if (fs.existsSync(realFile)) {
     map[canonical] = canonical;
-    real += 1;
+    if (/\.svg$/i.test(canonical)) vector += 1;
+    else real += 1;
     continue;
   }
 
@@ -166,8 +168,11 @@ fs.writeFileSync(
 );
 
 const total = Object.keys(map).length;
+const photoSlots = total - vector;
 console.log(
-  `[ensure-images] ${real}/${total} real photo${real === 1 ? '' : 's'}, ` +
-  `${total - real} placeholder${total - real === 1 ? '' : 's'} ` +
-  `(${created} newly written). Map → src/generated/image-map.json`
+  `[ensure-images] ${real}/${photoSlots} photo slot${photoSlots === 1 ? '' : 's'} filled ` +
+    `(${photoSlots - real} branded placeholder${photoSlots - real === 1 ? '' : 's'}` +
+    `${created ? `, ${created} newly written` : ''}), ` +
+    `${vector} vector asset${vector === 1 ? '' : 's'} on disk. ` +
+    `Map → src/generated/image-map.json`
 );
