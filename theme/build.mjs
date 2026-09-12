@@ -29,6 +29,8 @@
      node theme/build.mjs              build once
      node theme/build.mjs --watch      rebuild on change
      node theme/build.mjs --out=dist   build to another folder
+     node theme/build.mjs --check      validate only, write nothing to disk
+     node theme/build.mjs --quiet      suppress the summary line
    ========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -42,6 +44,12 @@ const arg = (k) => argv.find((a) => a.startsWith(`--${k}=`))?.split('=')[1];
 const WATCH = argv.includes('--watch');
 const OUT = path.resolve(arg('out') || ROOT);
 const QUIET = argv.includes('--quiet');
+/* Validate-only mode. Every write path checks this, so a --check run renders
+   the whole site, reports exactly what would change and what warns, and leaves
+   the filesystem untouched. Useful as a pre-commit or CI gate.
+   There is deliberately no --clean flag: OUT defaults to the repository root,
+   so "delete the output folder first" would mean deleting the repo. */
+const CHECK = argv.includes('--check');
 
 const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'site.config.json'), 'utf8'));
 
@@ -469,9 +477,13 @@ function tidy(html) {
 }
 function writeFileSafe(rel, content) {
   const p = path.join(OUT, rel);
-  fs.mkdirSync(path.dirname(p), { recursive: true });
   const prev = fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null;
-  if (prev !== content) { fs.writeFileSync(p, content); written.push(rel); } else { unchanged++; }
+  if (prev === content) { unchanged++; return; }
+  /* Would change. In --check mode, report it without touching the disk. */
+  written.push(rel);
+  if (CHECK) return;
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, content);
 }
 
 /* --------------------------------------------------------------- pages */
@@ -686,17 +698,21 @@ function copyAssets() {
       if (e.isDirectory()) walk(s, r);
       else {
         const target = path.join(dest, r);
-        fs.mkdirSync(path.dirname(target), { recursive: true });
         const a = fs.statSync(s);
         const b = fs.existsSync(target) ? fs.statSync(target) : null;
         if (!b || b.size !== a.size || b.mtimeMs < a.mtimeMs) {
-          fs.copyFileSync(s, target); written.push('assets/' + r);
+          written.push('assets/' + r);
+          if (!CHECK) {
+            fs.mkdirSync(path.dirname(target), { recursive: true });
+            fs.copyFileSync(s, target);
+          }
         } else unchanged++;
       }
     }
   };
   walk(src);
   /* Data files double as the runtime API */
+  if (CHECK) return;
   fs.mkdirSync(path.join(dest, 'data'), { recursive: true });
   for (const f of fs.readdirSync(path.join(SRC, 'data'))) {
     if (!f.endsWith('.json')) continue;
@@ -732,6 +748,7 @@ function buildManifest() {
      when nothing substantive changed. `built` therefore means "when the output
      last actually changed", which is the more useful reading anyway. */
   const file = path.join(__dirname, 'build-manifest.json');
+  if (CHECK) return;
   if (fs.existsSync(file)) {
     try {
       const prev = JSON.parse(fs.readFileSync(file, 'utf8'));

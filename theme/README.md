@@ -10,13 +10,20 @@ in.
 ## Build
 
 ```bash
-node theme/build.mjs           # writes changed pages to the repo root
-node theme/build.mjs --clean   # delete generated output first
-node theme/build.mjs --check   # validate only, write nothing
+node theme/build.mjs           # build once, writing changed pages to the repo root
+node theme/build.mjs --check   # validate only: report what would change, write nothing
+node theme/build.mjs --watch   # rebuild on change (~250ms full build)
+node theme/build.mjs --out=dist  # build to an alternate directory
+node theme/build.mjs --quiet   # suppress the summary line
 ```
 
 Zero dependencies. Node 18 or newer, no install step. The build is
 content-hash aware, so an unchanged page is not rewritten.
+
+There is no `--clean` flag, deliberately. The default output directory is the
+repository root, so "delete the output folder first" would mean deleting the
+repository. If you need a scratch build, use `--out=` to point at a throwaway
+directory instead.
 
 ## Preview
 

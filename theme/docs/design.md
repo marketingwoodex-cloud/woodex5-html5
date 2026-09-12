@@ -224,12 +224,17 @@ Each named key must be an object in the page parameters whose keys are the secti
 
 ```bash
 node theme/build.mjs                 # build once → repository root
+node theme/build.mjs --check         # validate only: report what would change, write nothing
 node theme/build.mjs --watch         # rebuild on change (~250ms full build)
 node theme/build.mjs --out=dist      # build to an alternate directory
 node theme/build.mjs --quiet         # suppress the progress log
 ```
 
 Requirements: **Node 18 or newer. No packages to install.** The generator is a single ES module.
+
+`--check` renders the entire site and reports exactly what would change and what warns, without touching the filesystem — every write path (`writeFileSafe`, `copyAssets`, `buildManifest`) short-circuits on it. Use it as a pre-commit or CI gate.
+
+There is deliberately no `--clean` flag. The default output directory is the repository root, so "delete the output folder first" would mean deleting the repository. Use `--out=` for a scratch build instead.
 
 ### 5.2 Outputs
 
