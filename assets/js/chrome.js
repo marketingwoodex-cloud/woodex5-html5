@@ -15,6 +15,12 @@
      ===================================================================== */
   var Loader = {
     init: function () {
+      /* Idempotent: boot() starts this ahead of the API, and Theme.init() also
+         calls it when root === doc. Without the guard the second call stacked a
+         duplicate load listener, a second safety net and a second progress
+         interval on the same overlay. */
+      if (Loader.started) return;
+      Loader.started = true;
       var el = util.q('.loader');
       if (!el) { doc.body.classList.remove('is-loading'); return; }
       if (util.reduced() || win.performance && performance.getEntriesByType('navigation')[0] &&
@@ -22,6 +28,7 @@
         return Loader.done(el, true);
       }
       doc.body.classList.add('is-loading');
+      var finished = false;
       var bar = util.q('.loader__bar i', el);
       var pct = util.q('.loader__pct', el);
       var p = 0;
@@ -32,6 +39,10 @@
       }, 110);
 
       var finish = function () {
+        /* Registered twice on purpose -- once on window load and once as a
+           safety net -- so it has to be a no-op the second time around. */
+        if (finished) return;
+        finished = true;
         clearInterval(tick);
         if (bar) bar.style.setProperty('--lp', 1);
         if (pct) pct.textContent = '100%';
@@ -235,7 +246,12 @@
         var target = doc.getElementById(id.slice(1));
         if (!target) return;
         e.preventDefault();
-        var header = util.q('.header, [data-header]');
+        /* Must match the selector Header.init uses. This previously looked for
+           '.header, [data-header]', neither of which the markup ever emitted —
+           the element is <header class="site-header">. The lookup returned null,
+           the offset collapsed to a bare 20px, and because .site-header is
+           position:fixed every anchor target landed underneath it. */
+        var header = util.q('.site-header, [data-header]');
         var offset = (header ? header.offsetHeight : 0) + 20;
         util.scrollTo(target, offset);
         if (history.replaceState) history.replaceState(null, '', id);

@@ -188,7 +188,23 @@
 
   /* ---------- BOOT SEQUENCE ---------- */
   function boot() {
-    /* Content API first so renderers can peek at cached data, then init UI. */
+    /* Start the loader BEFORE waiting on the content API.
+
+       The loader owns the full-screen overlay and the body scroll lock, and its
+       safety net is the only thing that guarantees either is released. It used
+       to be init-ed inside Theme.init(), which runs only once api.boot()
+       settles -- so a stalled JSON fetch left the overlay up, the progress bar
+       frozen (its interval lives in Loader.init too) and the page unscrollable
+       for as long as api.js takes to abort, which is CONFIG.timeout = 8000ms.
+
+       The home page was the worst hit: it declares seven collections, more than
+       any other page, and Promise.all waits on the slowest of them.
+
+       Init-ing it first means the overlay always clears within ~2.2s of
+       DOMContentLoaded regardless of what the network does. The API still
+       resolves before the rest of the UI inits, so renderers keep their cached
+       data. */
+    W.Loader.init();
     W.api.boot().then(function () {
       W.api.render(doc);
       Theme.init(doc);
