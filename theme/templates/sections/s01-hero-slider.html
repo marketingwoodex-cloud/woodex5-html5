@@ -1,0 +1,53 @@
+<!-- ==========================================================================
+     S01 · s01-hero-slider.html — Hero slider — eyebrow, display H1, sub, CTAs, stacked image cards, dots, autoplay. Home One.
+     Extracted from: index.html · Auto-synced by build.mjs — edit the page, rerun build.
+     Usage: copy this block into any page between <main> and </main>.
+     ========================================================================== -->
+<section class="hero-slider" aria-label="Woodex Interior — featured work"
+         data-slides='["assets/images/hero-01.jpg","assets/images/dining.jpg","assets/images/facade.jpg"]'>
+  <div class="hero-slider__bg" style="background-image:url(assets/images/hero-01.jpg)"></div>
+
+  <div class="wx-container hero-slider__inner">
+    <div class="hero-slide is-active">
+      <p class="wx-eyebrow">Built for everyday life</p>
+      <h1 class="wx-display wx-lines">Rooms designed around the way you live</h1>
+      <p class="hero-slider__sub">Woodex Interior is a design studio and joinery workshop crafting warm, considered homes and workplaces across Pakistan — designed, built and warranted under one roof.</p>
+      <div class="hero-slider__actions">
+        <a class="btn btn-light" href="contact-one.html"><span>Start a project</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a class="btn btn-light btn-outline" href="portfolio-one.html"><span>See our work</span></a>
+      </div>
+    </div>
+
+    <div class="hero-slide">
+      <p class="wx-eyebrow">From our own workshop</p>
+      <h1 class="wx-display">Joinery made to fit the room exactly</h1>
+      <p class="hero-slider__sub">Kitchens, libraries and wardrobes built by hand in our Lahore workshop — drawn to the millimetre, signed, and warranted for ten years.</p>
+      <div class="hero-slider__actions">
+        <a class="btn btn-light" href="service/custom-furniture-joinery.html"><span>Custom joinery</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a class="btn btn-light btn-outline" href="services.html"><span>All services</span></a>
+      </div>
+    </div>
+
+    <div class="hero-slide">
+      <p class="wx-eyebrow">Turnkey delivery</p>
+      <h1 class="wx-display">One contract, every detail handled</h1>
+      <p class="hero-slider__sub">From approvals to the final deep clean — homes, offices, cafés and stores delivered on the schedule we publish, with one point of contact.</p>
+      <div class="hero-slider__actions">
+        <a class="btn btn-light" href="contact-one.html"><span>Book a consultation</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a class="btn btn-light btn-outline" href="portfolio-one.html"><span>View portfolio</span></a>
+      </div>
+    </div>
+
+    <div class="hero-slider__dots" role="tablist" aria-label="Hero slides">
+      <button class="hero-slider__dot is-active" type="button" aria-label="Slide 1"></button>
+      <button class="hero-slider__dot" type="button" aria-label="Slide 2"></button>
+      <button class="hero-slider__dot" type="button" aria-label="Slide 3"></button>
+    </div>
+  </div>
+
+  <div class="hero-slider__cards" aria-hidden="true">
+    <div class="hero-card is-in"><img src="assets/images/hero-01.jpg" alt="" loading="lazy"><strong>The Oak House</strong><span>Lahore · Full interior</span></div>
+    <div class="hero-card"><img src="assets/images/lounge.jpg" alt="" loading="lazy"><strong>Dusk Lounge</strong><span>Lahore · Hospitality</span></div>
+    <div class="hero-card"><img src="assets/images/workspace.jpg" alt="" loading="lazy"><strong>Clearline Office</strong><span>Karachi · Workplace</span></div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+/* ==========================================================================
+   WOODEX MASTER THEME — theme.css
+   Import hub. Load order matters: tokens → base → components → sections.
+   ========================================================================== */
+@import "tokens.css";
+@import "base.css";
+@import "components.css";
+@import "sections.css";

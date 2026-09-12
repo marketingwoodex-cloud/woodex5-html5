@@ -1,0 +1,7 @@
+[
+  { "number": 1, "title": "Discovery", "text": "We walk your space, listen to how you live or work, and agree on scope, budget range and timing before anything is drawn.", "duration": "1–2 weeks" },
+  { "number": 2, "title": "Concept", "text": "Moodboards, layout options and material palettes. You see two clear directions — never ten half-ideas.", "duration": "2–3 weeks" },
+  { "number": 3, "title": "Design development", "text": "Drawings, 3D views, joinery details and a fixed quotation. Every finish is chosen and priced before work starts.", "duration": "3–4 weeks" },
+  { "number": 4, "title": "Joinery & build", "text": "Our workshop fabricates your bespoke pieces while the site team prepares services, surfaces and fittings.", "duration": "6–12 weeks" },
+  { "number": 5, "title": "Install & handover", "text": "White-glove installation, snagging with you room by room, then a signed handover with warranty documents.", "duration": "1–2 weeks" }
+]

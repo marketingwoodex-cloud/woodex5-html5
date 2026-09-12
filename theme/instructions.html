@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instructions — Woodex Master Theme</title>
+  <meta name="description" content="How to run, edit and extend the Woodex Master Theme — for humans and AI agents alike.">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body data-header="light" data-footer="compact">
+<div class="wx-page">
+<main id="main">
+
+  <section class="hero-page wx-light">
+    <div class="wx-container hero-page__inner">
+      <nav class="wx-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true"></span><a href="instructions.html" aria-current="page">Instructions</a></nav>
+      <p class="wx-eyebrow" data-reveal>Getting started</p>
+      <h1 class="wx-statement" data-reveal>Run it, edit it, extend it</h1>
+      <p class="wx-lead" data-reveal data-reveal-delay="1">The Woodex Master Theme is static HTML + CSS + JS with a JSON content layer. No build step required — one optional script for SEO prerendering.</p>
+    </div>
+  </section>
+
+  <section class="wx-section wx-light wx-section--flush" style="padding-top:0">
+    <div class="wx-container wx-contact-split">
+
+      <aside class="wx-contact-split__aside" data-reveal="left">
+        <div class="wx-project-aside" style="background:var(--wx-beige)">
+          <h3>Quick start</h3>
+          <ul>
+            <li>cd theme</li>
+            <li>python3 -m http.server 4174 --bind 0.0.0.0</li>
+            <li>open http://localhost:4174</li>
+          </ul>
+          <p class="wx-sub">Serve over HTTP — opening files directly (file://) blocks the JSON content layer.</p>
+        </div>
+        <div class="wx-project-aside" style="background:var(--wx-ink);color:var(--wx-paper);--wx-fg-soft:var(--wx-muted-inv)">
+          <h3>Optional prerender</h3>
+          <ul><li>node build.mjs</li></ul>
+          <p class="wx-sub">Writes static detail pages (project/, service/, blog/) and fills data-api grids for no-JS crawlers.</p>
+        </div>
+      </aside>
+
+      <div class="wx-rich" data-reveal>
+        <h2>Editing content (no HTML)</h2>
+        <p>Everything repeatable lives in <strong>assets/data/*.json</strong> — services, projects, articles, testimonials, pricing, FAQs, team, process, navigation and site settings. Change the JSON, refresh, done. The header, footer and mega menu rebuild themselves from <strong>navigation.json</strong>.</p>
+
+        <h2>Adding a page</h2>
+        <p>Copy the closest skeleton from <strong>templates/pages/</strong>, set <code>data-header</code> and <code>data-footer</code> on the body tag, and compose sections copied from <strong>templates/sections/</strong>. Reorder freely — sections are self-contained.</p>
+        <ul>
+          <li><code>data-header</code> — transparent · light · dark · centered · side</li>
+          <li><code>data-footer</code> — classic · compact · cta</li>
+        </ul>
+
+        <h2>Adding a project, service or article</h2>
+        <p>Add a record to the matching JSON file. It appears in every grid immediately (via the data layer), and <code>node build.mjs</code> generates its static page in <code>project/</code>, <code>service/</code> or <code>blog/</code>.</p>
+
+        <h2>Changing the look</h2>
+        <p>Re-skin the entire theme from <strong>assets/css/tokens.css</strong> — colors, fonts, radius, spacing. Motion timing lives there too (<code>--wx-ease</code>, <code>--wx-dur</code>). The full design reference is <a class="wx-link" href="../design.md">design.md</a> in the repository root.</p>
+
+        <h2>Motion</h2>
+        <ul>
+          <li><code>data-reveal</code> on any block — up · fade · left · right · zoom · blur · mask</li>
+          <li><code>data-reveal-delay="1–8"</code> staggers by .12s</li>
+          <li><code>data-counter</code> rolls numbers on scroll</li>
+          <li><code>.wx-marquee</code> loops anything — add <code>--slow</code> or <code>--reverse</code></li>
+          <li><code>data-parallax="0.15"</code> drifts media on scroll</li>
+        </ul>
+
+        <h2>Forms</h2>
+        <p>Forms validate and show success/error states locally. To actually collect submissions, point them at Formspree, Netlify Forms or your own endpoint in the form's action — see <strong>docs in design.md §12</strong>.</p>
+
+        <h2>AI agents</h2>
+        <p><strong>AGENTS.md</strong> in the theme root carries the customization rules for Codex, Claude, Kimi or any coding assistant — what to edit, what never to touch.</p>
+
+        <blockquote>Golden rule: content in JSON, structure in templates, skin in tokens. Break nothing else.</blockquote>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

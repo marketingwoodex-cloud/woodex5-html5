@@ -1,0 +1,34 @@
+{
+  "brand": {
+    "name": "Woodex Interior",
+    "wordmark": "WOODEX",
+    "kicker": "Interior",
+    "tagline": "Designed around you, built to last.",
+    "about": "Woodex Interior is a full-service interior architecture and joinery studio crafting warm, considered spaces for homes and businesses across Pakistan.",
+    "market": "Lahore · Islamabad · Karachi — and remote worldwide"
+  },
+  "contact": {
+    "email": "hello@woodexinterior.com",
+    "phones": ["+92 300 000 0000", "+92 42 000 0000"],
+    "whatsapp": "+92 300 000 0000",
+    "address": "14-C, Sector Z, DHA Phase 6, Lahore, Pakistan",
+    "hours": "Mon – Sat, 10:00 – 19:00 PKT",
+    "mapNote": "Studio visits by appointment"
+  },
+  "socials": {
+    "facebook": "https://facebook.com/",
+    "instagram": "https://instagram.com/",
+    "linkedin": "https://linkedin.com/",
+    "pinterest": "https://pinterest.com/"
+  },
+  "stats": [
+    { "value": 250, "suffix": "+", "label": "Projects delivered", "text": "Homes, offices, cafés and stores across Pakistan since 2011." },
+    { "value": 15, "suffix": "", "label": "Years of craft", "text": "A joinery workshop and design studio under one roof." },
+    { "value": 98, "suffix": "%", "label": "On-time handover", "text": "Planned in weeks, not months — schedules we publish and keep." },
+    { "value": 10, "suffix": "-yr", "label": "Joinery warranty", "text": "Every piece we make is signed, dated and guaranteed." }
+  ],
+  "seo": {
+    "title": "Woodex Interior — Interior Architecture & Fit-Out Studio",
+    "description": "Premium interior design, fit-out and custom joinery for homes and businesses across Pakistan. 250+ projects delivered since 2011."
+  }
+}

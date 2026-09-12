@@ -1,0 +1,54 @@
+<!-- ==========================================================================
+     S26 · s26-contact-form.html — Contact form — underlined inputs, select, textarea, states.
+     Extracted from: contact-one.html · Auto-synced by build.mjs — edit the page, rerun build.
+     Usage: copy this block into any page between <main> and </main>.
+     ========================================================================== -->
+<section class="wx-section wx-light wx-section--flush" style="padding-top:0">
+  <div class="wx-container wx-contact-split">
+    <aside class="wx-contact-split__aside" data-reveal="left">
+      <div class="wx-project-aside" style="background:var(--wx-beige)">
+        <h3>Prefer to talk?</h3>
+        <p class="wx-sub">Call, message or visit — a human answers, not a bot.</p>
+        <ul>
+          <li><a href="tel:+923000000000">+92 300 000 0000</a></li>
+          <li><a href="mailto:hello@woodexinterior.com">hello@woodexinterior.com</a></li>
+          <li>Mon – Sat, 10:00 – 19:00 PKT</li>
+        </ul>
+      </div>
+      <div class="wx-project-aside" style="background:var(--wx-ink);color:var(--wx-paper);--wx-fg-soft:var(--wx-muted-inv)">
+        <h3>Studio</h3>
+        <ul>
+          <li>14-C, Sector Z, DHA Phase 6</li>
+          <li>Lahore, Pakistan</li>
+          <li>Visits by appointment</li>
+        </ul>
+        <a class="btn btn-light btn-sm" href="contact-two.html"><span>Studio &amp; map</span></a>
+      </div>
+    </aside>
+
+    <form class="wx-form" data-form="contact" novalidate data-reveal>
+      <div class="wx-grid wx-grid--2" style="gap:var(--wx-space-6)">
+        <div class="wx-field"><label for="c-name">Your name</label><input id="c-name" name="name" type="text" placeholder="Full name" required autocomplete="name"></div>
+        <div class="wx-field"><label for="c-phone">Phone / WhatsApp</label><input id="c-phone" name="phone" type="tel" placeholder="+92 3__ _______" autocomplete="tel"></div>
+      </div>
+      <div class="wx-field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email"></div>
+      <div class="wx-field">
+        <label for="c-service">What do you need?</label>
+        <select id="c-service" name="service" required>
+          <option value="" selected disabled>Choose a service…</option>
+          <option>Residential interior</option>
+          <option>Commercial / office</option>
+          <option>Café or restaurant</option>
+          <option>Retail store</option>
+          <option>Custom joinery</option>
+          <option>3D visualisation</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="wx-field"><label for="c-msg">Tell us about the project</label><textarea id="c-msg" name="message" placeholder="Room, city, timeline, rough budget — anything helps." required></textarea></div>
+      <p class="wx-form-status" role="status" aria-live="polite"></p>
+      <button class="btn" type="submit"><span>Send message</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+      <p class="wx-form-note">We reply within two working days. Your details stay with us — never shared, never sold.</p>
+    </form>
+  </div>
+</section>

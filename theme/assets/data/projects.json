@@ -1,0 +1,291 @@
+[
+  {
+    "slug": "oak-house",
+    "title": "The Oak House",
+    "category": "Residential",
+    "year": "2026",
+    "location": "DHA Phase 6, Lahore",
+    "client": "Farooq family",
+    "cover": "hero-01.jpg",
+    "meta": "Residential · Full interior",
+    "tagline": "A family villa re-planned around morning light, homework and slow Sunday breakfasts.",
+    "gallery": ["hero-01.jpg", "dining.jpg", "bedroom-min.jpg", "craft-detail.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "A 1-kanal villa with generous bones and a layout that fought the family at every turn. We opened the ground floor into one continuous day-lit space — kitchen, dining and lounge arranged around a new oak stair — and gave every bedroom its own dressing joinery.",
+      "The material palette was kept deliberately quiet: white-oiled oak, lime-washed walls, travertine and brass, so the family's collection of art and books does the talking. Delivered turnkey in nineteen weeks."
+    ],
+    "detail": {
+      "services": ["Services", "Full interior + joinery"],
+      "type": ["Type", "Residential villa"],
+      "date": ["Completed", "March 2026"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Space planning", "Joinery design", "Lighting design", "Styling & handover"],
+    "tags": ["Residential", "Turnkey"]
+  },
+  {
+    "slug": "courtyard-kitchen",
+    "title": "Courtyard Kitchen",
+    "category": "Kitchen",
+    "year": "2026",
+    "location": "Gulberg, Lahore",
+    "client": "Sheikh family",
+    "cover": "kitchen.jpg",
+    "meta": "Kitchen · Custom joinery",
+    "tagline": "A kitchen arranged around a courtyard window, built entirely in our workshop.",
+    "gallery": ["kitchen.jpg", "craft-detail.jpg", "dining.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "The brief was one line: cook facing the garden. We rebuilt the room around a fluted oak run with a travertine island, hiding the pantry, appliances and a breakfast bar behind full-height joinery that reads as furniture.",
+      "Every drawer is specified to what it holds — spices, pots, school lunchboxes — and the brass hardware was chosen to age with use. Fabricated and installed in six weeks."
+    ],
+    "detail": {
+      "services": ["Services", "Kitchen design + joinery"],
+      "type": ["Type", "Custom kitchen"],
+      "date": ["Completed", "January 2026"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Kitchen design", "Joinery drawings", "Stone & hardware spec", "Install"]
+  },
+  {
+    "slug": "clearline-office",
+    "title": "Clearline Office",
+    "category": "Commercial",
+    "year": "2025",
+    "location": "Clifton, Karachi",
+    "client": "Clearline Tech",
+    "cover": "workspace.jpg",
+    "meta": "Commercial · Workplace",
+    "tagline": "Ninety workstations, two floors and one schedule — delivered on the day we promised.",
+    "gallery": ["workspace.jpg", "loft.jpg", "facade.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "A growing tech firm needed a headquarters that matched how engineering teams actually work: deep focus blocks, noisy collaboration and quiet calls — all at once. The floor plate is zoned into acoustic bands, with workshop-built oak desk clusters and phone booths between.",
+      "Amenities — café, library, games room — were placed at the building's heart so no one is more than fifteen steps from a reset. Occupancy satisfaction measured 4.7/5 three months in."
+    ],
+    "detail": {
+      "services": ["Services", "Workplace design + fit-out"],
+      "type": ["Type", "Corporate HQ"],
+      "date": ["Completed", "November 2025"],
+      "client": ["Client", "Clearline Tech"]
+    },
+    "files": ["Workplace strategy", "Test fits", "Fit-out management", "Furniture package"]
+  },
+  {
+    "slug": "travertine-cafe",
+    "title": "Travertine Café",
+    "category": "Hospitality",
+    "year": "2025",
+    "location": "F-7, Islamabad",
+    "client": "Köra Coffee",
+    "cover": "cafe.jpg",
+    "meta": "Hospitality · Café",
+    "tagline": "A specialty café built around one photogenic curve — and it paid back in eleven months.",
+    "gallery": ["cafe.jpg", "dining.jpg", "lounge.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Köra wanted Islamabad's most photographed coffee counter. We gave them a curved travertine and oak bar under a paper-lantern light canopy, with terrazzo floors and banquette seating tucked into lime-washed walls.",
+      "The back-of-house is as considered as the front: a barista workflow choreographed to the second at peak, and storage that keeps the counter perpetually camera-ready. Fit-out completed in nine weeks."
+    ],
+    "detail": {
+      "services": ["Services", "Café design + fit-out"],
+      "type": ["Type", "Specialty café"],
+      "date": ["Completed", "September 2025"],
+      "client": ["Client", "Köra Coffee"]
+    },
+    "files": ["Concept & brand", "Counter joinery", "Lighting design", "Fit-out"]
+  },
+  {
+    "slug": "linen-bedroom",
+    "title": "Linen Suite",
+    "category": "Residential",
+    "year": "2026",
+    "location": "Remote package · Dubai client",
+    "client": "Marsh family",
+    "cover": "bedroom-min.jpg",
+    "meta": "Residential · Remote design",
+    "tagline": "A master suite designed over video calls and built to match its renders nail for nail.",
+    "gallery": ["bedroom-min.jpg", "hero-03.jpg", "craft-detail.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Clients in Dubai, a bedroom in Lahore, zero flights. Measurements came from our local site team; decisions happened on video walkthroughs; approvals happened inside the 3D model. The palette — linen, pale oak, brushed brass — was sampled by courier.",
+      "The suite ships as a complete remote package: drawings, joinery, furniture list and install supervision. The reveal matched the approved renders to the millimetre."
+    ],
+    "detail": {
+      "services": ["Services", "Remote design package"],
+      "type": ["Type", "Master bedroom"],
+      "date": ["Completed", "February 2026"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Remote design", "3D walkthrough", "Joinery package", "Install supervision"]
+  },
+  {
+    "slug": "atelier-loft",
+    "title": "Atelier Loft",
+    "category": "Commercial",
+    "year": "2025",
+    "location": "DHA, Karachi",
+    "client": "Studio Mera",
+    "cover": "loft.jpg",
+    "meta": "Commercial · Creative studio",
+    "tagline": "A concrete-shell loft turned into a photography studio that doubles as a set.",
+    "gallery": ["loft.jpg", "workspace.jpg", "hero-02.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Studio Mera shoots furniture campaigns, so their own space had to earn its keep as a location. We kept the raw concrete columns and black steel, then slid in a warm oak mezzanine, curtain walls on rails and a lighting grid that reconfigures in minutes.",
+      "Downstairs works as a studio four days a week and an event space on the fifth. Nothing in the fit-out takes longer than two people and ten minutes to reset."
+    ],
+    "detail": {
+      "services": ["Services", "Design + fit-out"],
+      "type": ["Type", "Creative studio"],
+      "date": ["Completed", "June 2025"],
+      "client": ["Client", "Studio Mera"]
+    },
+    "files": ["Concept", "Mezzanine structure", "Lighting grid", "Joinery"]
+  },
+  {
+    "slug": "sandstone-villa",
+    "title": "Sandstone Villa",
+    "category": "Residential",
+    "year": "2025",
+    "location": "Bahria Enclave, Islamabad",
+    "client": "Private",
+    "cover": "villa.jpg",
+    "meta": "Residential · Turnkey",
+    "tagline": "A turnkey hillside villa where every finish was approved in 3D before a single order.",
+    "gallery": ["villa.jpg", "facade.jpg", "hero-01.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Two years abroad, one summer to move in. The family approved every room — from the pool terrace's pergola shadow to the pantry drawer runners — inside our 3D model, then landed to a finished home.",
+      "The architecture's stone and plaster language continues indoors: sandstone floors, oak joinery, linen curtains and a sunken lounge arranged around the valley view. Fully documented under our ten-year joinery warranty."
+    ],
+    "detail": {
+      "services": ["Services", "Turnkey interior"],
+      "type": ["Type", "Hillside villa"],
+      "date": ["Completed", "August 2025"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Full design", "Procurement", "Joinery package", "Styling"]
+  },
+  {
+    "slug": "walnut-library",
+    "title": "Walnut Library",
+    "category": "Joinery",
+    "year": "2026",
+    "location": "Model Town, Lahore",
+    "client": "Dr. Qureshi",
+    "cover": "craft-detail.jpg",
+    "meta": "Joinery · Library wall",
+    "tagline": "A double-height walnut library wall — the piece clients now ask for by name.",
+    "gallery": ["craft-detail.jpg", "dining.jpg", "hero-01.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Four thousand books, one wall, no visible fixings. The library rises two storeys in book-matched walnut with a rolling ladder, a hidden desk and lighting that fades to reading warmth in the evening.",
+      "Every shelf was set out against the actual collection — measured and mapped before a single board was cut. Built and installed by our workshop in nine weeks, signed and warranted for ten years."
+    ],
+    "detail": {
+      "services": ["Services", "Bespoke joinery"],
+      "type": ["Type", "Library wall"],
+      "date": ["Completed", "February 2026"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Joinery design", "Book survey", "Fabrication", "Install"]
+  },
+  {
+    "slug": "dusk-lounge",
+    "title": "Dusk Lounge",
+    "category": "Hospitality",
+    "year": "2024",
+    "location": "Gulberg III, Lahore",
+    "client": "Nomad Hospitality",
+    "cover": "lounge.jpg",
+    "meta": "Hospitality · Restaurant lounge",
+    "tagline": "A dinner lounge tuned to 8pm — low light, deep banquettes, perfect acoustics.",
+    "gallery": ["lounge.jpg", "hero-02.jpg", "dining.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Nomad wanted the room guests choose for anniversaries. We wrapped the lounge in oak slats and bouclé banquettes, dropped the lighting to candle level with dimmable scenes, and tuned the ceiling so a whisper carries but a full room never roars.",
+      "The bar — fluted oak under a brass canopy — anchors the room and turns three covers a night. Rebuilt in eleven weeks while the kitchen kept trading."
+    ],
+    "detail": {
+      "services": ["Services", "Restaurant design + fit-out"],
+      "type": ["Type", "Dinner lounge"],
+      "date": ["Completed", "December 2024"],
+      "client": ["Client", "Nomad Hospitality"]
+    },
+    "files": ["Concept", "Bar joinery", "Lighting scenes", "Fit-out"]
+  },
+  {
+    "slug": "ridge-apartment",
+    "title": "The Ridge Apartment",
+    "category": "Residential",
+    "year": "2025",
+    "location": "E-11, Islamabad",
+    "client": "Kamran & Amna",
+    "cover": "apartment.jpg",
+    "meta": "Residential · Fit-out",
+    "tagline": "A builder-finish apartment taken to showroom level in ten weeks.",
+    "gallery": ["apartment.jpg", "hero-01.jpg", "kitchen.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "New possession, bare walls, a couple with busy jobs. We ran the full residential fit-out: oak herringbone floors, a re-planned kitchen, two bathrooms in travertine and brass, and full-height wardrobe joinery in both bedrooms.",
+      "Weekly photo reports replaced site visits, and handover landed on the original date with a snag list of just three items — all closed in a day."
+    ],
+    "detail": {
+      "services": ["Services", "Residential fit-out"],
+      "type": ["Type", "Apartment"],
+      "date": ["Completed", "May 2025"],
+      "client": ["Client", "Private"]
+    },
+    "files": ["Condition survey", "Finishes plan", "Joinery", "Handover"]
+  },
+  {
+    "slug": "mercer-retail",
+    "title": "Mercer Retail",
+    "category": "Retail",
+    "year": "2024",
+    "location": "Emporium Mall, Lahore",
+    "client": "Mercer & Co.",
+    "cover": "retail.jpg",
+    "meta": "Retail · Brand store",
+    "tagline": "A menswear store where the oak displays are the first thing customers touch.",
+    "gallery": ["retail.jpg", "materials.jpg", "workspace.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Mercer's clothes sell on feel, so the store had to invite touch: solid oak display tables on castors, brushed-steel rails and a try-on lounge that feels like a members' club. The storefront sign glows warm against the mall's white corridors.",
+      "The whole store reconfigures for drops and seasons — every unit rolls, every shelf repositions. Rolled out as the brand's second location in seven weeks."
+    ],
+    "detail": {
+      "services": ["Services", "Retail design + joinery"],
+      "type": ["Type", "Brand store"],
+      "date": ["Completed", "October 2024"],
+      "client": ["Client", "Mercer & Co."]
+    },
+    "files": ["Journey plan", "Display joinery", "Lighting", "Install"]
+  },
+  {
+    "slug": "herringbone-office",
+    "title": "Herringbone Studio",
+    "category": "Commercial",
+    "year": "2024",
+    "location": "Johar Town, Lahore",
+    "client": "Herringbone Architects",
+    "cover": "model.jpg",
+    "meta": "Commercial · Architecture office",
+    "tagline": "An architecture practice's own office — a workshop for models, drawings and critiques.",
+    "gallery": ["model.jpg", "workspace.jpg", "loft.jpg"],
+    "overviewTitle": "About this project",
+    "overview": [
+      "Architects are the hardest clients, and Herringbone knew exactly what they wanted: a pin-up wall that runs the length of the studio, north light that never flickers on drawings, and a model workshop with extraction that stays quiet.",
+      "We delivered all three inside a warm, herringbone-oak environment with workshop-built desks, a materials library and a critique corner under a linen canopy. Their words at handover: 'It works better than we drew it.'"
+    ],
+    "detail": {
+      "services": ["Services", "Office design + furniture"],
+      "type": ["Type", "Architecture studio"],
+      "date": ["Completed", "July 2024"],
+      "client": ["Client", "Herringbone Architects"]
+    },
+    "files": ["Studio design", "Custom desks", "Materials library", "Install"]
+  }
+]

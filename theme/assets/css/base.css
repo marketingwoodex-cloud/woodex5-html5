@@ -1,0 +1,334 @@
+/* ==========================================================================
+   WOODEX MASTER THEME — base.css
+   Reset, element defaults, typography, layout primitives, buttons, forms,
+   utilities. Component-agnostic.
+   ========================================================================== */
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--wx-paper);
+  color:var(--wx-ink);
+  font-family:var(--wx-font-body);
+  font-size:var(--wx-body);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.wx-no-scroll{ overflow:hidden; }
+
+img,picture,video,canvas,svg{ display:block; max-width:100%; }
+img{ height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+input,select,textarea{ font:inherit; color:inherit; }
+ul,ol{ margin:0; padding:0; }
+h1,h2,h3,h4,h5,h6,p,figure,blockquote,dl,dd{ margin:0; }
+ul[class],ol[class]{ list-style:none; }
+::selection{ background:var(--wx-wood); color:var(--wx-white); }
+
+:focus-visible{
+  outline:2px solid var(--wx-wood);
+  outline-offset:4px;
+  border-radius:2px;
+}
+
+/* ---- Layout primitives ---------------------------------------------- */
+
+.wx-container{
+  width:min(var(--wx-container), 100% - var(--wx-gutter)*2);
+  margin-inline:auto;
+}
+.wx-container--narrow{ width:min(880px, 100% - var(--wx-gutter)*2); }
+
+section.wx-section{ padding-block:var(--wx-section); position:relative; }
+.wx-section--tight{ padding-block:calc(var(--wx-section)*.55); }
+.wx-section--flush{ padding-block:0; }
+
+/* Surface scopes apply bg + fg (see tokens.css) */
+.wx-light,.wx-dark,.wx-beige-surface{
+  background:var(--wx-bg);
+  color:var(--wx-fg);
+}
+
+/* ---- Typography ------------------------------------------------------ */
+
+h1,h2,h3,h4{ font-family:var(--wx-font-display); font-weight:500; }
+
+.wx-display{
+  font-family:var(--wx-font-display);
+  font-size:var(--wx-d1);
+  line-height:1.04;
+  letter-spacing:-.02em;
+  font-weight:500;
+  text-wrap:balance;
+}
+.wx-statement{
+  font-family:var(--wx-font-display);
+  font-size:var(--wx-d2);
+  line-height:1.08;
+  letter-spacing:-.015em;
+  font-weight:500;
+  text-wrap:balance;
+}
+h1{ font-size:var(--wx-d2); line-height:1.12; letter-spacing:-.015em; text-wrap:balance; }
+h2{ font-size:var(--wx-h2); line-height:1.22; text-wrap:balance; }
+h3{ font-size:var(--wx-h3); line-height:1.33; }
+h4{ font-size:var(--wx-h4); line-height:1.28; }
+h5{ font-size:var(--wx-h5); line-height:1.5; font-weight:500; }
+h6{ font-size:var(--wx-h6); line-height:1.55; font-weight:400; }
+
+.wx-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.65rem;
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--wx-accent, var(--wx-wood));
+}
+.wx-eyebrow::before{
+  content:"";
+  width:2rem; height:1px;
+  background:currentColor;
+  opacity:.7;
+}
+.wx-eyebrow--plain::before{ display:none; }
+
+.wx-lead{ font-size:clamp(1rem, 1.4vw, 1.125rem); line-height:1.7; color:var(--wx-fg-soft, var(--wx-muted)); max-width:56ch; }
+.wx-sub{ font-size:var(--wx-sub); line-height:1.85; color:var(--wx-fg-soft, var(--wx-muted)); }
+.wx-meta{
+  font-size:.8125rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--wx-fg-soft, var(--wx-muted)); font-weight:500;
+}
+
+.wx-section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:var(--wx-space-6);
+  margin-bottom:clamp(2.5rem, 5vw, 4.5rem);
+}
+.wx-section-head > div{ max-width:720px; display:grid; gap:var(--wx-space-4); }
+.wx-section-head h2{ margin-top:-.15em; }
+
+/* ---- Buttons (2 styles + variants) — design.md §4.4 ------------------ */
+
+.btn{
+  --btn-bg:var(--wx-ink);
+  --btn-fg:var(--wx-white);
+  --btn-chip-bg:var(--wx-wood);
+  --btn-chip-fg:var(--wx-white);
+  display:inline-flex;
+  align-items:center;
+  gap:var(--wx-space-4);
+  padding:.9rem .9rem .9rem 1.6rem;
+  background:var(--btn-bg);
+  color:var(--btn-fg);
+  border:1px solid var(--btn-bg);
+  border-radius:var(--wx-r-pill);
+  font-size:var(--wx-btn);
+  font-weight:600;
+  line-height:1;
+  transition:transform var(--wx-dur-fast) var(--wx-ease),
+             background var(--wx-dur-fast) var(--wx-ease),
+             color var(--wx-dur-fast) var(--wx-ease),
+             border-color var(--wx-dur-fast) var(--wx-ease),
+             box-shadow var(--wx-dur-fast) var(--wx-ease);
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:var(--wx-shadow-md); }
+.btn:active{ transform:translateY(0) scale(.97); }
+
+.btn-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:2rem; height:2rem;
+  border-radius:50%;
+  background:var(--btn-chip-bg);
+  color:var(--btn-chip-fg);
+  font-style:normal;
+  font-size:1rem;
+  line-height:1;
+  transition:transform var(--wx-dur-fast) var(--wx-ease),
+             background var(--wx-dur-fast) var(--wx-ease);
+}
+.btn:hover .btn-chip{ transform:translateX(4px); }
+
+/* Style two — outline with sweeping fill */
+.btn-outline{
+  --btn-bg:transparent;
+  --btn-fg:var(--wx-ink);
+  border-color:var(--wx-ink);
+}
+.btn-outline:hover{
+  background:var(--wx-ink);
+  color:var(--wx-white);
+}
+
+/* On dark surfaces */
+.btn-light{
+  --btn-bg:var(--wx-white);
+  --btn-fg:var(--wx-ink);
+  --btn-chip-bg:var(--wx-ink);
+  --btn-chip-fg:var(--wx-white);
+}
+.btn-light.btn-outline{
+  --btn-bg:transparent;
+  --btn-fg:var(--wx-white);
+  border-color:var(--wx-white);
+}
+.btn-light.btn-outline:hover{ background:var(--wx-white); color:var(--wx-ink); }
+
+/* Accent fill */
+.btn-wood{
+  --btn-bg:var(--wx-wood);
+  --btn-fg:var(--wx-white);
+  --btn-chip-bg:var(--wx-ink);
+  --btn-chip-fg:var(--wx-white);
+}
+.btn-wood:hover{ background:var(--wx-wood-deep); border-color:var(--wx-wood-deep); }
+
+.btn-sm{ padding:.65rem .65rem .65rem 1.25rem; font-size:.8125rem; }
+.btn[disabled]{ opacity:.55; pointer-events:none; }
+
+/* Text link with sliding arrow */
+.wx-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  font-weight:600;
+  font-size:.9375rem;
+  color:var(--wx-accent-ink, var(--wx-wood-deep));
+}
+.wx-link::after{
+  content:"→";
+  transition:transform var(--wx-dur-fast) var(--wx-ease);
+}
+.wx-link:hover::after{ transform:translateX(5px); }
+
+/* ---- Forms (underlined inputs — design.md S26) ----------------------- */
+
+.wx-form{ display:grid; gap:var(--wx-space-6); }
+.wx-field{ display:grid; gap:var(--wx-space-2); }
+.wx-field > label{
+  font-size:.75rem; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--wx-fg-soft, var(--wx-muted));
+}
+.wx-field input,
+.wx-field select,
+.wx-field textarea{
+  border:0;
+  border-bottom:1px solid var(--wx-hairline, var(--wx-line));
+  background:transparent;
+  padding:.9rem 0;
+  border-radius:0;
+  transition:border-color var(--wx-dur-fast) var(--wx-ease);
+}
+.wx-field textarea{ min-height:130px; resize:vertical; }
+.wx-field input:focus,
+.wx-field select:focus,
+.wx-field textarea:focus{
+  outline:0;
+  border-bottom-color:var(--wx-accent, var(--wx-wood));
+}
+.wx-field input::placeholder,
+.wx-field textarea::placeholder{ color:var(--wx-fg-soft, var(--wx-muted)); opacity:.65; }
+.wx-field select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236F665B' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right .25rem center;
+  padding-right:2rem;
+  cursor:pointer;
+}
+.wx-form-note{ font-size:.8125rem; color:var(--wx-fg-soft, var(--wx-muted)); }
+.wx-form-status{ display:none; padding:1rem 1.25rem; border-radius:var(--wx-r-sm); font-size:.9375rem; }
+.wx-form-status.is-success{ display:block; background:rgba(62,124,79,.1); color:var(--wx-success); }
+.wx-form-status.is-error{ display:block; background:rgba(180,69,47,.1); color:var(--wx-error); }
+
+/* ---- Media ------------------------------------------------------------ */
+
+.wx-media{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--wx-r-lg);
+  background:var(--wx-sand);
+}
+.wx-media img{
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform 1s var(--wx-ease);
+}
+.wx-media--zoom:hover img{ transform:scale(1.06); }
+.wx-media--ratio-43{ aspect-ratio:4/3; }
+.wx-media--ratio-32{ aspect-ratio:3/2; }
+.wx-media--ratio-169{ aspect-ratio:16/9; }
+.wx-media--ratio-34{ aspect-ratio:3/4; }
+.wx-media--full{ height:100%; }
+
+.wx-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.45rem .95rem;
+  border-radius:var(--wx-r-pill);
+  background:var(--wx-beige);
+  color:var(--wx-ink);
+  font-size:.75rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+}
+.wx-dark .wx-badge,
+.wx-badge--inverse{ background:var(--wx-ink-2); color:var(--wx-paper); }
+
+/* ---- Grid helpers ------------------------------------------------------ */
+
+.wx-grid{ display:grid; gap:var(--wx-space-6); }
+.wx-grid--2{ grid-template-columns:repeat(2, 1fr); }
+.wx-grid--3{ grid-template-columns:repeat(3, 1fr); }
+.wx-grid--4{ grid-template-columns:repeat(4, 1fr); }
+
+/* ---- Accessibility ------------------------------------------------------ */
+
+.wx-skip{
+  position:absolute; left:1rem; top:-4rem; z-index:200;
+  background:var(--wx-ink); color:var(--wx-white);
+  padding:.75rem 1.25rem; border-radius:var(--wx-r-sm);
+  transition:top var(--wx-dur-fast) var(--wx-ease);
+}
+.wx-skip:focus{ top:1rem; }
+.wx-visually-hidden{
+  position:absolute; width:1px; height:1px; margin:-1px;
+  clip:rect(0 0 0 0); overflow:hidden; white-space:nowrap;
+}
+
+/* ---- Motion preferences -------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+}
+
+/* ---- Responsive type scale ---------------------------------------------- */
+
+@media (max-width: 900px){
+  h2{ font-size:2.15rem; }
+  h3{ font-size:1.55rem; }
+  h4{ font-size:1.3rem; }
+  .wx-grid--3,.wx-grid--4{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  .wx-grid--2,.wx-grid--3,.wx-grid--4{ grid-template-columns:1fr; }
+  .wx-section-head{ display:block; }
+  .wx-section-head > div{ margin-bottom:1.5rem; }
+}

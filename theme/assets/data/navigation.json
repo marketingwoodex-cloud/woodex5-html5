@@ -1,0 +1,113 @@
+{
+  "main": [
+    {
+      "label": "Homes",
+      "href": "index.html",
+      "match": "index.html",
+      "drop": [
+        { "label": "Home One — Studio", "href": "index.html", "image": "hero-01.jpg" },
+        { "label": "Home Two — Showcase", "href": "home-two.html", "image": "hero-02.jpg" },
+        { "label": "Home Three — Editorial", "href": "home-three.html", "image": "hero-03.jpg" }
+      ]
+    },
+    {
+      "label": "About",
+      "href": "about.html"
+    },
+    {
+      "label": "Services",
+      "href": "services.html",
+      "mega": "services",
+      "nav": {
+        "columns": [
+          {
+            "title": "Interior Design",
+            "services": [
+              { "slug": "residential-interior", "title": "Residential Interior", "summary": "Homes designed around how you live." },
+              { "slug": "commercial-interior", "title": "Commercial Interior", "summary": "Spaces built to perform, not just impress." },
+              { "slug": "office-corporate", "title": "Office & Corporate", "summary": "Workplaces shaped around people." }
+            ]
+          },
+          {
+            "title": "Fit-Out",
+            "services": [
+              { "slug": "office-fit-out", "title": "Office Fit-Out", "summary": "From shell to switch-on." },
+              { "slug": "retail-shop", "title": "Retail & Shop", "summary": "Interiors that turn heads into visits." },
+              { "slug": "turnkey-interiors", "summary": "One contract, every detail handled.", "title": "Turnkey Interiors" }
+            ]
+          },
+          {
+            "title": "Hospitality & Specialist",
+            "services": [
+              { "slug": "cafe-interior", "title": "Café Interior", "summary": "Rooms people photograph and revisit." },
+              { "slug": "custom-furniture-joinery", "title": "Custom Joinery", "summary": "Made to fit the room exactly." },
+              { "slug": "3d-studio", "title": "3D Studio", "summary": "See the space before we build it." }
+            ]
+          }
+        ],
+        "feature": {
+          "title": "Custom Joinery Workshop",
+          "text": "Our own workshop, our own hands. Ten-year warranty on every piece.",
+          "image": "craft-detail.jpg",
+          "href": "service/custom-furniture-joinery.html"
+        },
+        "asideLinks": [
+          { "label": "All services", "href": "services.html" },
+          { "label": "Our process", "href": "about.html#process" },
+          { "label": "Pricing", "href": "pricing-one.html" }
+        ]
+      }
+    },
+    {
+      "label": "Portfolio",
+      "href": "portfolio-one.html",
+      "mega": "portfolio",
+      "nav": {
+        "cards": [
+          { "slug": "oak-house", "title": "The Oak House", "category": "Residential", "image": "hero-01.jpg" },
+          { "slug": "travertine-cafe", "title": "Travertine Café", "category": "Hospitality", "image": "cafe.jpg" },
+          { "slug": "clearline-office", "title": "Clearline Office", "category": "Commercial", "image": "workspace.jpg" }
+        ],
+        "links": [
+          { "label": "Portfolio One — Grid", "href": "portfolio-one.html" },
+          { "label": "Portfolio Two — Editorial", "href": "portfolio-two.html" },
+          { "label": "Portfolio Three — Showcase", "href": "portfolio-three.html" }
+        ]
+      }
+    },
+    {
+      "label": "Blog",
+      "href": "blog-one.html",
+      "drop": [
+        { "label": "Journal — All articles", "href": "blog-one.html", "image": "dining.jpg" },
+        { "label": "Journal — Featured", "href": "blog-two.html", "image": "kitchen.jpg" }
+      ]
+    },
+    { "label": "Contact", "href": "contact-one.html" }
+  ],
+  "footer": {
+    "ctaEyebrow": "Have a space in mind?",
+    "ctaTitle": "Let’s design something that lasts.",
+    "ctaText": "Tell us about your project — we reply within two working days with next steps and an honest estimate range.",
+    "ctaLabel": "Get in touch",
+    "quick": [
+      { "label": "About us", "href": "about.html" },
+      { "label": "Portfolio", "href": "portfolio-one.html" },
+      { "label": "Pricing", "href": "pricing-one.html" },
+      { "label": "Journal", "href": "blog-one.html" },
+      { "label": "Contact", "href": "contact-one.html" }
+    ],
+    "services": [
+      { "label": "Residential Interior", "href": "service/residential-interior.html" },
+      { "label": "Office Fit-Out", "href": "service/office-fit-out.html" },
+      { "label": "Café & Restaurant", "href": "service/cafe-interior.html" },
+      { "label": "Custom Joinery", "href": "service/custom-furniture-joinery.html" },
+      { "label": "3D Design Studio", "href": "service/3d-studio.html" }
+    ],
+    "legal": [
+      { "label": "Privacy", "href": "404.html" },
+      { "label": "Terms", "href": "404.html" },
+      { "label": "Style guide", "href": "style-guide.html" }
+    ]
+  }
+}

@@ -2,6 +2,19 @@
 
 Premium, human, modern interior design website for Woodex Interior.
 
+## ⭐ Woodex Master Theme — `/theme`
+
+The current flagship: a complete multi-page master theme (57 served HTML pages) with a JSON
+frontend API, 34 section templates, 5 header variants, 3 footer variants, mega menu,
+full motion system and an optional prerender build.
+
+- **Master PRD:** [`design.md`](design.md) — theme plan, tokens, section library, page compositions, motion system, AI-agent guide
+- **Theme root:** [`theme/`](theme/) — see [`theme/README.md`](theme/README.md) and [`theme/AGENTS.md`](theme/AGENTS.md)
+- **Run it:** `cd theme && python3 -m http.server 4174 --bind 0.0.0.0`
+- **Prerender:** `cd theme && node build.mjs`
+
+## Legacy prototype — `/WOODEX-INT`
+
 ## Project
 
 This repository contains the production-ready HTML5 prototype for Woodex Interior:

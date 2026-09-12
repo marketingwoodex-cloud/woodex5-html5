@@ -1,0 +1,49 @@
+<!-- ==========================================================================
+     S02 · s02-hero-showcase.html — Fullscreen showcase hero — rotating headline slides with arrows and dots. Home Two.
+     Extracted from: home-two.html · Auto-synced by build.mjs — edit the page, rerun build.
+     Usage: copy this block into any page between <main> and </main>.
+     ========================================================================== -->
+<section class="hero-showcase" aria-label="Showcase">
+  <div class="hero-showcase__slide is-active">
+    <div class="hero-showcase__bg" style="background-image:url(assets/images/hero-02.jpg)"></div>
+    <div class="wx-container hero-showcase__body">
+      <p class="wx-eyebrow hero-showcase__kicker">Residential · Lahore</p>
+      <h1 class="wx-display hero-showcase__title">Spaces shaped by purpose and identity</h1>
+      <div class="hero-showcase__row">
+        <p>Villas and apartments planned around real routines — morning light, homework, slow Sundays — and built joinery-first in our own workshop.</p>
+        <div class="hero-showcase__controls">
+          <button class="hero-showcase__arrow" type="button" data-showcase-prev aria-label="Previous slide">←</button>
+          <button class="hero-showcase__arrow" type="button" data-showcase-next aria-label="Next slide">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-showcase__slide">
+    <div class="hero-showcase__bg" style="background-image:url(assets/images/workspace.jpg)"></div>
+    <div class="wx-container hero-showcase__body">
+      <p class="wx-eyebrow hero-showcase__kicker">Workplace · Karachi</p>
+      <h1 class="wx-display hero-showcase__title">Offices people actually want to arrive at</h1>
+      <div class="hero-showcase__row">
+        <p>Acoustic zoning, daylight and workshop-built furniture for teams of ten to three hundred — delivered on one published schedule.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-showcase__slide">
+    <div class="hero-showcase__bg" style="background-image:url(assets/images/dining.jpg)"></div>
+    <div class="wx-container hero-showcase__body">
+      <p class="wx-eyebrow hero-showcase__kicker">Hospitality · Islamabad</p>
+      <h1 class="wx-display hero-showcase__title">Rooms worth photographing, worth returning to</h1>
+      <div class="hero-showcase__row">
+        <p>Cafés and restaurants tuned to 8pm — low light, deep banquettes, acoustics that keep a full room conversational.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wx-container hero-showcase__controls" style="position:absolute;bottom:2rem;right:var(--wx-gutter);z-index:3">
+    <button class="wx-testi__dot is-active" type="button" aria-label="Slide 1"></button>
+    <button class="wx-testi__dot" type="button" aria-label="Slide 2"></button>
+    <button class="wx-testi__dot" type="button" aria-label="Slide 3"></button>
+  </div>
+</section>

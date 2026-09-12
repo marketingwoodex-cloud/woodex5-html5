@@ -1,0 +1,21 @@
+<!-- ==========================================================================
+     S15 · s15-blog-grid.html — Blog grid — category chip, date, title, excerpt cards (JS-filled or static).
+     Extracted from: index.html · Auto-synced by build.mjs — edit the page, rerun build.
+     Usage: copy this block into any page between <main> and </main>.
+     ========================================================================== -->
+<section class="wx-section wx-beige-surface" id="journal">
+  <div class="wx-container">
+    <div class="wx-section-head" data-reveal>
+      <div>
+        <p class="wx-eyebrow">Journal</p>
+        <h2>Notes from the studio</h2>
+      </div>
+      <a class="wx-link" href="blog-one.html">All articles</a>
+    </div>
+    <div class="wx-grid wx-grid--3" data-api="articles" data-limit="3">
+        <article class="wx-card wx-post-card" data-category="Planning" data-reveal data-reveal-delay="0"><a class="wx-card__media wx-media--zoom" href="blog/kitchen-planning.html"><img src="assets/images/kitchen.jpg" alt="How to plan a kitchen that works every day" loading="lazy"></a><div class="wx-card__body"><div class="wx-post-card__meta"><span>Planning</span><i aria-hidden="true"></i><time>Aug 18, 2026</time></div><h3 class="wx-card__title"><a href="blog/kitchen-planning.html">How to plan a kitchen that works every day</a></h3><p class="wx-card__text">The five zones that decide whether your kitchen is a joy or a bottleneck — and how to test them before you build.</p></div></article>
+        <article class="wx-card wx-post-card" data-category="Materials" data-reveal data-reveal-delay="1"><a class="wx-card__media wx-media--zoom" href="blog/wood-finishes.html"><img src="assets/images/craft-detail.jpg" alt="Oak, walnut, or painted cabinetry?" loading="lazy"></a><div class="wx-card__body"><div class="wx-post-card__meta"><span>Materials</span><i aria-hidden="true"></i><time>Aug 2, 2026</time></div><h3 class="wx-card__title"><a href="blog/wood-finishes.html">Oak, walnut, or painted cabinetry?</a></h3><p class="wx-card__text">An honest guide to the three cabinetry families — how they age, what they cost, and which rooms they love.</p></div></article>
+        <article class="wx-card wx-post-card" data-category="Process" data-reveal data-reveal-delay="2"><a class="wx-card__media wx-media--zoom" href="blog/interior-consultation.html"><img src="assets/images/about-studio.jpg" alt="What actually happens in an interior consultation?" loading="lazy"></a><div class="wx-card__body"><div class="wx-post-card__meta"><span>Process</span><i aria-hidden="true"></i><time>Jul 21, 2026</time></div><h3 class="wx-card__title"><a href="blog/interior-consultation.html">What actually happens in an interior consultation?</a></h3><p class="wx-card__text">No mystique, no obligation — a walkthrough of our first ninety minutes together and what you leave with.</p></div></article>
+      </div>
+  </div>
+</section>

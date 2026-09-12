@@ -1,0 +1,93 @@
+/* ==========================================================================
+   WOODEX MASTER THEME — tokens.css
+   Single source of truth for the design system. Re-skin the entire theme
+   by editing ONLY this file. Never hardcode values in other CSS files.
+   Documented in /design.md §4.
+   ========================================================================== */
+
+:root{
+  /* ---- Core surfaces ------------------------------------------------ */
+  --wx-ink:        #17130E;   /* warm near-black — dark sections, headings  */
+  --wx-ink-2:      #241E16;   /* raised dark surface                        */
+  --wx-ink-3:      #2E271D;   /* dark hover surface                         */
+  --wx-paper:      #FAF6EF;   /* warm ivory — default light surface         */
+  --wx-beige:      #F1E9DC;   /* alt light surface / cards on paper         */
+  --wx-sand:       #E5DACA;   /* subtle fills, soft borders                 */
+
+  /* ---- Brand accent — oak ------------------------------------------- */
+  --wx-wood:       #A87848;   /* primary accent: eyebrows, links, active    */
+  --wx-wood-deep:  #7E5630;   /* accent hover / fills                       */
+  --wx-wood-soft:  #C9A273;   /* accent for use on dark surfaces            */
+
+  /* ---- Support ------------------------------------------------------- */
+  --wx-muted:      #6F665B;   /* secondary text on light                   */
+  --wx-muted-inv:  #B7AD9F;   /* secondary text on dark                    */
+  --wx-line:       #E3DACB;   /* hairlines on light                        */
+  --wx-line-inv:   #3A3226;   /* hairlines on dark                         */
+  --wx-white:      #FFFFFF;
+  --wx-success:    #3E7C4F;
+  --wx-error:      #B4452F;
+
+  /* ---- Typography ---------------------------------------------------- */
+  --wx-font-display: "Fraunces", "Georgia", serif;
+  --wx-font-body:    "Manrope", "Helvetica Neue", Arial, sans-serif;
+
+  --wx-d1: clamp(3.25rem, 7.5vw, 5.75rem);   /* hero display  */
+  --wx-d2: clamp(2.5rem, 5vw, 4.25rem);      /* statements    */
+  --wx-h2: 2.8125rem;
+  --wx-h3: 1.875rem;
+  --wx-h4: 1.5625rem;
+  --wx-h5: 1.25rem;
+  --wx-h6: 1.125rem;
+  --wx-body: 1rem;
+  --wx-sub: .875rem;
+
+  /* ---- Space --------------------------------------------------------- */
+  --wx-space-1:.25rem; --wx-space-2:.5rem;  --wx-space-3:.75rem; --wx-space-4:1rem;
+  --wx-space-5:1.5rem; --wx-space-6:2rem;   --wx-space-7:3rem;   --wx-space-8:4rem;
+  --wx-space-9:6rem;   --wx-space-10:8rem;
+  --wx-section: clamp(5.5rem, 10vw, 8.75rem);
+  --wx-container: 1240px;
+  --wx-gutter: clamp(1.25rem, 4vw, 4.5rem);
+
+  /* ---- Radius / shadow / z ------------------------------------------- */
+  --wx-r-pill: 999px; --wx-r-lg: 28px; --wx-r-md: 20px; --wx-r-sm: 12px;
+  --wx-shadow-sm: 0 2px 10px rgba(23,19,14,.06);
+  --wx-shadow-md: 0 12px 40px rgba(23,19,14,.10);
+  --wx-shadow-lg: 0 30px 80px rgba(23,19,14,.16);
+  --wx-z-header: 90; --wx-z-drawer: 100; --wx-z-mega: 80; --wx-z-toast: 120;
+
+  /* ---- Motion -------------------------------------------------------- */
+  --wx-ease: cubic-bezier(.22,.7,.24,1);
+  --wx-dur: .6s; --wx-dur-fast: .3s;
+}
+
+/* Section surface scopes — set on <section> or any wrapper.
+   Components read the scope vars, so a single class re-themes a block.   */
+.wx-light{
+  --wx-bg: var(--wx-paper);
+  --wx-fg: var(--wx-ink);
+  --wx-fg-soft: var(--wx-muted);
+  --wx-hairline: var(--wx-line);
+  --wx-card-bg: var(--wx-white);
+  --wx-accent: var(--wx-wood);
+  --wx-accent-ink: var(--wx-wood-deep);
+}
+.wx-dark{
+  --wx-bg: var(--wx-ink);
+  --wx-fg: var(--wx-paper);
+  --wx-fg-soft: var(--wx-muted-inv);
+  --wx-hairline: var(--wx-line-inv);
+  --wx-card-bg: var(--wx-ink-2);
+  --wx-accent: var(--wx-wood-soft);
+  --wx-accent-ink: var(--wx-wood-soft);
+}
+.wx-beige-surface{
+  --wx-bg: var(--wx-beige);
+  --wx-fg: var(--wx-ink);
+  --wx-fg-soft: var(--wx-muted);
+  --wx-hairline: var(--wx-sand);
+  --wx-card-bg: var(--wx-white);
+  --wx-accent: var(--wx-wood);
+  --wx-accent-ink: var(--wx-wood-deep);
+}

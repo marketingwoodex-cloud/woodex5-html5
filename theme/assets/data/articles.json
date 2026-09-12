@@ -1,0 +1,176 @@
+[
+  {
+    "slug": "kitchen-planning",
+    "category": "Planning",
+    "title": "How to plan a kitchen that works every day",
+    "date": "Aug 18, 2026",
+    "readTime": "6 min read",
+    "cover": "kitchen.jpg",
+    "excerpt": "The five zones that decide whether your kitchen is a joy or a bottleneck — and how to test them before you build.",
+    "author": { "name": "Sana Malik", "role": "Design Director", "initials": "SM" },
+    "body": [
+      { "type": "p", "text": "Most kitchens fail long before the style question. They fail at 7am with three people trying to make breakfast, or on Eid when four dishes need the same counter. Planning is the design — here is how we test a kitchen before a single cabinet is drawn." },
+      { "type": "h3", "text": "The five zones" },
+      { "type": "p", "text": "Every kitchen we draw is set out as five zones: consumables, non-consumables, cleaning, preparation and cooking. The distances between them — not the finishes — decide how the room feels to use." },
+      { "type": "list", "items": ["Consumables near the fridge and one step from the prep counter", "Plates and glasses between the dishwasher and the table", "A prep run of at least 90cm of clear, lit worktop", "Cooking zone with landing space on both sides of the hob", "A cleaning zone that never blocks the cook when the sink is in use"] },
+      { "type": "quote", "text": "If two people cannot pass behind an open dishwasher and oven door, the kitchen is too tight — whatever it looks like." },
+      { "type": "h3", "text": "The newspaper test" },
+      { "type": "p", "text": "Lay out your current kitchen's problems on paper: where do shopping bags land, where does the toast queue form, which drawer is always half-open? A new kitchen that does not answer those three habits is just new cupboards." },
+      { "type": "p", "text": "When we plan kitchens at Woodex, every drawer is specified to its contents — spices, pots, lunchboxes — before joinery drawings are issued. It is the least glamorous part of design and the part clients thank us for years later." }
+    ]
+  },
+  {
+    "slug": "wood-finishes",
+    "category": "Materials",
+    "title": "Oak, walnut, or painted cabinetry?",
+    "date": "Aug 2, 2026",
+    "readTime": "4 min read",
+    "cover": "craft-detail.jpg",
+    "excerpt": "An honest guide to the three cabinetry families — how they age, what they cost, and which rooms they love.",
+    "author": { "name": "Bilal Khan", "role": "Joinery Workshop Lead", "initials": "BK" },
+    "body": [
+      { "type": "p", "text": "Cabinetry is the biggest surface in most rooms, so the wood decision outweighs almost every other. Here is how we guide clients at the sample table." },
+      { "type": "h3", "text": "Oak — the worker" },
+      { "type": "p", "text": "White-oiled oak takes daily life, hides small marks in its grain, and moves gracefully between modern and classic rooms. It is our default for family kitchens and high-traffic joinery." },
+      { "type": "h3", "text": "Walnut — the statement" },
+      { "type": "p", "text": "Darker, richer, and happiest in rooms with good light and calmer palettes. We reserve it for libraries, headboards and statement pieces where it can be the hero rather than the background." },
+      { "type": "h3", "text": "Painted — the chameleon" },
+      { "type": "p", "text": "Painted MDF and birch plywood suits walls of integrated joinery: it disappears into the architecture and can be re-toned in ten years without replacing a door. Check that edges are solid-lipped — that is where cheap painted cabinetry shows its age first." },
+      { "type": "list", "items": ["Kitchens and kids' rooms: oak or painted", "Studies and bedrooms: walnut where budget allows", "Whole-wall storage: painted for a calm envelope", "Hardware: brass ages best, matte black photographs best"] }
+    ]
+  },
+  {
+    "slug": "interior-consultation",
+    "category": "Process",
+    "title": "What actually happens in an interior consultation?",
+    "date": "Jul 21, 2026",
+    "readTime": "5 min read",
+    "cover": "about-studio.jpg",
+    "excerpt": "No mystique, no obligation — a walkthrough of our first ninety minutes together and what you leave with.",
+    "author": { "name": "Maryam Nawaz", "role": "Client Relations", "initials": "MN" },
+    "body": [
+      { "type": "p", "text": "People often arrive at a first consultation expecting to be sold something. Ours is closer to a diagnosis. Here is exactly what happens." },
+      { "type": "h3", "text": "The first thirty minutes: listening" },
+      { "type": "p", "text": "We walk your space and ask about routines, not styles: who cooks, who works from home, where the clutter collects, what the current space makes hard. Styles emerge from habits — never the other way round." },
+      { "type": "h3", "text": "The next thirty: numbers" },
+      { "type": "p", "text": "We talk budget openly, in ranges, with real per-square-foot figures from comparable projects. If your brief and budget do not meet, we say so in the first meeting and show what a phased approach could look like instead." },
+      { "type": "h3", "text": "The last thirty: next steps" },
+      { "type": "p", "text": "You leave with a written summary: scope options, honest price ranges, a rough timeline — and space to think. No deposit, no pressure, no countdown discount. Good projects start with unforced decisions." },
+      { "type": "quote", "text": "The best consultations end with the client saying 'we finally know what to do' — whether or not they hire us." }
+    ]
+  },
+  {
+    "slug": "lighting-layers",
+    "category": "Design",
+    "title": "Three layers of light — the difference rooms are remembered by",
+    "date": "Jul 5, 2026",
+    "readTime": "5 min read",
+    "cover": "dining.jpg",
+    "excerpt": "Ambient, task and accent: how to layer light so a room flatters people, food and evenings.",
+    "author": { "name": "Ahmed Raza", "role": "Founder & Lead Designer", "initials": "AR" },
+    "body": [
+      { "type": "p", "text": "One ceiling light makes a room flat and everyone in it tired. Every memorable interior we have delivered uses the same three-layer logic — and it costs less than people expect to get right." },
+      { "type": "h3", "text": "Layer one: ambient" },
+      { "type": "p", "text": "The even, gentle base — cove lighting, shaded pendants, wall washes. Warm white (2700–3000K), always dimmable. This is the layer that sets mood and should never come from a single central fitting." },
+      { "type": "h3", "text": "Layer two: task" },
+      { "type": "p", "text": "Light where work happens: under-cabinet strips for counters, a focused beam over the reading chair, mirror lights at face height in bathrooms. Position task light between your eye and the task — never behind you." },
+      { "type": "h3", "text": "Layer three: accent" },
+      { "type": "p", "text": "The layer that flatters: picture lights, an uplit plant, a low pendant over the dining table at 60–70cm above the surface. Accent light is what makes guests ask why the room feels so good." },
+      { "type": "list", "items": ["Every room: at least two circuits, ideally three", "Dining pendant: 60–70cm above the table", "Bedside: warm light you can switch from the pillow", "Avoid: bright downlights directly over sofas and beds"] }
+    ]
+  },
+  {
+    "slug": "small-apartment",
+    "category": "Planning",
+    "title": "Seven tricks we use in small apartments",
+    "date": "Jun 18, 2026",
+    "readTime": "6 min read",
+    "cover": "apartment.jpg",
+    "excerpt": "Full-height joinery, borrowed light and one brave colour — how we make 900 sq.ft live like 1,400.",
+    "author": { "name": "Sana Malik", "role": "Design Director", "initials": "SM" },
+    "body": [
+      { "type": "p", "text": "Small apartments reward decisiveness. These are the moves we repeat project after project in 800–1,000 sq.ft apartments across Lahore and Islamabad." },
+      { "type": "list", "items": ["Take joinery full height — it draws the eye up and doubles real storage", "One material for the largest surfaces; variety only in small doses", "Doors that pocket or slide free up a square metre each", "A single 'hero' wall — colour, texture or joinery — instead of many small gestures", "Mirrors opposite windows to borrow light, never opposite clutter", "Furniture with legs and visible floor underneath keeps rooms breathing", "Curves in furniture navigate tight circulation more gracefully than corners"] },
+      { "type": "h3", "text": "The rule of one hero" },
+      { "type": "p", "text": "Every small space gets one hero moment — a joinery wall, a colour, a stone — and everything else stays quiet. Two heroes halve each other." },
+      { "type": "p", "text": "In our Ridge Apartment project, the hero was a full-height oak storage wall that hid the TV, desk, wardrobe and pantry behind five flush doors. Everything else in the apartment is linen and white — and the apartment photographs like a showroom." }
+    ]
+  },
+  {
+    "slug": "office-wellbeing",
+    "category": "Workplace",
+    "title": "Why your office should feel like a good café",
+    "date": "Jun 2, 2026",
+    "readTime": "5 min read",
+    "cover": "workspace.jpg",
+    "excerpt": "Acoustics, daylight and choice — the three things knowledge workers actually rank above table football.",
+    "author": { "name": "Usman Sheikh", "role": "3D & Visualisation Lead", "initials": "US" },
+    "body": [
+      { "type": "p", "text": "After our Clearline office project, we surveyed the teams six months in. The features they valued most were not the games room — they were the three below, in order." },
+      { "type": "h3", "text": "1. The ability to choose your setting" },
+      { "type": "p", "text": "Focus booths, standing benches, soft lounges, a proper café table. People do their best work when the setting matches the task — so give them four settings within a twenty-second walk." },
+      { "type": "h3", "text": "2. Acoustic comfort" },
+      { "type": "p", "text": "Noise is the number one complaint in open offices. Slatted timber, felt panels, soft seating and zoning cut reverberation to conversational levels — measure it, do not guess it." },
+      { "type": "h3", "text": "3. Daylight you can work beside" },
+      { "type": "p", "text": "Desks perpendicular to windows, glare controlled with fabric rather than blinds, and darker break-out corners so the eye can rest. Café-grade daylight is a retention strategy." },
+      { "type": "quote", "text": "Staff who choose their setting report 30% higher focus scores. The games room came fifth — behind plants." }
+    ]
+  },
+  {
+    "slug": "material-palette",
+    "category": "Materials",
+    "title": "How to build a material palette that ages well",
+    "date": "May 20, 2026",
+    "readTime": "4 min read",
+    "cover": "materials.jpg",
+    "excerpt": "The 60-30-10 of materials, why we sample in the room's own light, and the patina test.",
+    "author": { "name": "Ahmed Raza", "role": "Founder & Lead Designer", "initials": "AR" },
+    "body": [
+      { "type": "p", "text": "A material palette is a promise about the future: how the room will look in year ten, not on handover day. This is our process for keeping that promise." },
+      { "type": "h3", "text": "Start with the surfaces you cannot change" },
+      { "type": "p", "text": "Structure, stone, big windows — build the palette outward from what is fixed. The floor and the largest joinery run should be decided together, in the same sample session, in the room's actual light." },
+      { "type": "h3", "text": "60-30-10, the honest version" },
+      { "type": "p", "text": "Sixty percent neutral envelope, thirty percent supporting texture, ten percent accent that you can afford to fall out of love with. Kitchens: painted envelope, oak run, brass hardware. Bedrooms: linen envelope, oak headboard, one colour." },
+      { "type": "h3", "text": "The patina test" },
+      { "type": "p", "text": "Ask of every material: where will this be touched most, and what will it look like after ten years of that touch? Brass, oiled oak and lime plaster improve. High-gloss lacquer and dark stone show everything. Choose your battles." },
+      { "type": "p", "text": "We keep a library of over four hundred samples at the studio — clients touch, tilt and daylight-test everything before a single order is placed." }
+    ]
+  },
+  {
+    "slug": "project-timeline",
+    "category": "Process",
+    "title": "What a fair project timeline really looks like",
+    "date": "May 4, 2026",
+    "readTime": "5 min read",
+    "cover": "facade.jpg",
+    "excerpt": "Weeks, not vibes: the honest phasing of a residential or fit-out project — and where delays actually come from.",
+    "author": { "name": "Hina Tariq", "role": "Senior Project Manager", "initials": "HT" },
+    "body": [
+      { "type": "p", "text": "Every client asks how long. Few are shown a real answer. This is the schedule we publish at kickoff — the same one our project managers are measured against." },
+      { "type": "list", "items": ["Weeks 1–2: discovery, measure, scope agreement", "Weeks 3–5: concept and layout decisions", "Weeks 6–9: detailed design, 3D approval, fixed quotation", "Weeks 6–12 (parallel): joinery fabrication in our workshop", "Weeks 10–20: site works, services, finishes", "Final week: install, snag, deep clean, handover"] },
+      { "type": "h3", "text": "Where delays really come from" },
+      { "type": "p", "text": "In six years of project management, my delay ledger reads: late client decisions (most), hidden site conditions (second), imported material shipping (third). Only one of those three is invisible at kickoff — so we front-load decision deadlines and order imports the day drawings are approved." },
+      { "type": "quote", "text": "A schedule is a promise with dates on it. If your studio cannot show you one in week one, ask why." }
+    ]
+  },
+  {
+    "slug": "joinery-care",
+    "category": "Materials",
+    "title": "Caring for solid wood joinery — a ten-minute annual ritual",
+    "date": "Apr 15, 2026",
+    "readTime": "3 min read",
+    "cover": "hero-01.jpg",
+    "excerpt": "Re-oiling, honest cleaning and the three things that void warranties — from the person who signs ours.",
+    "author": { "name": "Bilal Khan", "role": "Joinery Workshop Lead", "initials": "BK" },
+    "body": [
+      { "type": "p", "text": "Solid wood joinery is the only surface in your home that improves with age — if you give it ten minutes a year. Here is the ritual I give every client at handover." },
+      { "type": "h3", "text": "Every week" },
+      { "type": "p", "text": "Dry or barely-damp cotton cloth, following the grain. No sprays, no silicone polishes — they seal the wood and stop future oiling from taking." },
+      { "type": "h3", "text": "Once a year" },
+      { "type": "p", "text": "Re-oil oiled surfaces with the care kit we hand over: thin coat, twenty minutes, wipe everything off with the grain. Kitchens and vanities may want twice a year near water and hobs." },
+      { "type": "h3", "text": "The three warranty-voiders" },
+      { "type": "list", "items": ["Standing water left on any joint for hours", "Steam mops or wet cloths on veneer and laminate edges", "Harsh chemical cleaners on oiled or waxed finishes"] },
+      { "type": "p", "text": "Do these three things and your joinery will outlive the fashion it was built in. Every Woodex piece carries a ten-year warranty — and most will be re-oiled by grandchildren." }
+    ]
+  }
+]

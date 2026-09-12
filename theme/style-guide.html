@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style Guide — Woodex Interior</title>
+  <meta name="description" content="The Woodex Master Theme style guide — colors, typography, buttons, forms, lists, icons, motion and section previews.">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body data-header="light" data-footer="compact">
+<div class="wx-page">
+<main id="main">
+
+  <section class="hero-page wx-light">
+    <div class="wx-container hero-page__inner">
+      <nav class="wx-breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true"></span><a href="style-guide.html" aria-current="page">Style guide</a></nav>
+      <p class="wx-eyebrow" data-reveal>Design system</p>
+      <h1 class="wx-statement" data-reveal>Every token, on one page</h1>
+      <p class="wx-lead" data-reveal data-reveal-delay="1">The living reference for the Woodex Master Theme. Change these in <code>assets/css/tokens.css</code> and the whole site follows.</p>
+    </div>
+  </section>
+
+  <!-- COLORS -->
+  <section class="wx-section wx-light wx-section--flush" style="padding-top:0" id="colors">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">01 · Colors</p><h2>Palette</h2></div></div>
+      <div class="wx-grid wx-grid--3" data-reveal-group>
+        <div class="wx-swatch" data-reveal><div><strong>Ink — warm near-black</strong><br><span class="wx-sub">Dark sections, headings</span></div><span style="text-align:right">--wx-ink<br>#17130E</span><i style="background:#17130E"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="1"><div><strong>Ink 2 — raised dark</strong><br><span class="wx-sub">Cards on dark</span></div><span style="text-align:right">--wx-ink-2<br>#241E16</span><i style="background:#241E16"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="2"><div><strong>Paper — warm ivory</strong><br><span class="wx-sub">Default light surface</span></div><span style="text-align:right">--wx-paper<br>#FAF6EF</span><i style="background:#FAF6EF"></i></div>
+        <div class="wx-swatch" data-reveal><div><strong>Beige</strong><br><span class="wx-sub">Alt light surface</span></div><span style="text-align:right">--wx-beige<br>#F1E9DC</span><i style="background:#F1E9DC"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="1"><div><strong>Sand</strong><br><span class="wx-sub">Soft borders, fills</span></div><span style="text-align:right">--wx-sand<br>#E5DACA</span><i style="background:#E5DACA"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="2"><div><strong>Wood — oak accent</strong><br><span class="wx-sub">Eyebrows, links, active</span></div><span style="text-align:right">--wx-wood<br>#A87848</span><i style="background:#A87848"></i></div>
+        <div class="wx-swatch" data-reveal><div><strong>Wood deep</strong><br><span class="wx-sub">Accent hover</span></div><span style="text-align:right">--wx-wood-deep<br>#7E5630</span><i style="background:#7E5630"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="1"><div><strong>Muted</strong><br><span class="wx-sub">Secondary text</span></div><span style="text-align:right">--wx-muted<br>#6F665B</span><i style="background:#6F665B"></i></div>
+        <div class="wx-swatch" data-reveal data-reveal-delay="2"><div><strong>Success / Error</strong><br><span class="wx-sub">Form states only</span></div><span style="text-align:right">#3E7C4F / #B4452F</span><i style="background:linear-gradient(90deg,#3E7C4F 50%,#B4452F 50%)"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="wx-section wx-beige-surface" id="typography">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">02 · Typography</p><h2>Fraunces + Manrope</h2></div></div>
+      <div class="wx-grid" style="gap:var(--wx-space-5)" data-reveal-group>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h1 class="wx-display" style="font-size:var(--wx-d1)">Display — 5.75rem / 1.04 / 500</h1><span class="wx-sub">.wx-display · Fraunces</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h1 style="font-size:var(--wx-d2)">Page H1 — 4.25rem</h1><span class="wx-sub">h1, .wx-statement</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h2>H2 — 2.8125rem / 1.22 / 500</h2><span class="wx-sub">h2</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h3>H3 — 1.875rem / 1.33 / 500</h3><span class="wx-sub">h3</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h4>H4 — 1.5625rem / 1.28</h4><span class="wx-sub">h4</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h5>H5 — 1.25rem / 1.5</h5><span class="wx-sub">h5</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><h6>H6 — 1.125rem / 1.55</h6><span class="wx-sub">h6</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><p>Body — 1rem / 1.62 / Manrope 400. The quick brown fox jumps over the lazy dog while judging the joinery.</p><span class="wx-sub">p, .wx-body</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><p class="wx-sub">Sub text — 0.875rem / 1.85. Secondary copy and captions.</p><span class="wx-sub">.wx-sub</span></div>
+        <div class="wx-swatch" style="grid-template-columns:1fr auto;align-items:baseline" data-reveal><p class="wx-eyebrow">Eyebrow label — 0.75rem / 600 / .18em</p><span class="wx-sub">.wx-eyebrow</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS + LINKS -->
+  <section class="wx-section wx-light" id="buttons">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">03 · Buttons</p><h2>Two styles, pill DNA</h2></div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--wx-space-5);align-items:center" data-reveal>
+        <a class="btn" href="#buttons"><span>Button style one</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a class="btn btn-outline" href="#buttons"><span>Button style two</span></a>
+        <a class="btn btn-wood" href="#buttons"><span>Accent fill</span></a>
+        <a class="btn btn-sm" href="#buttons"><span>Small</span></a>
+        <a class="wx-link" href="#buttons">Text link with arrow</a>
+        <span class="wx-badge">Badge</span>
+      </div>
+      <div class="wx-dark" style="margin-top:var(--wx-space-6);padding:var(--wx-space-6);border-radius:var(--wx-r-lg);display:flex;gap:var(--wx-space-5);flex-wrap:wrap;align-items:center" data-reveal>
+        <a class="btn btn-light" href="#buttons"><span>On dark</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a class="btn btn-light btn-outline" href="#buttons"><span>Outline on dark</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section class="wx-section wx-beige-surface" id="forms">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">04 · Forms</p><h2>Underlined inputs</h2></div></div>
+      <form class="wx-form" data-form="demo" novalidate style="max-width:560px" data-reveal>
+        <div class="wx-field"><label for="sg-name">Text input</label><input id="sg-name" type="text" placeholder="Placeholder text" required></div>
+        <div class="wx-field"><label for="sg-email">Email input</label><input id="sg-email" type="email" placeholder="you@example.com" required></div>
+        <div class="wx-field"><label for="sg-select">Select</label><select id="sg-select"><option selected disabled>Choose…</option><option>One</option><option>Two</option></select></div>
+        <div class="wx-field"><label for="sg-area">Text area</label><textarea id="sg-area" placeholder="Message"></textarea></div>
+        <p class="wx-form-status" role="status" aria-live="polite"></p>
+        <button class="btn" type="submit"><span>Submit now</span><i class="btn-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1em" height="1em" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- LISTS + ICONS -->
+  <section class="wx-section wx-light" id="lists">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">05 · Lists &amp; icons</p><h2>Marks and glyphs</h2></div></div>
+      <div class="wx-grid wx-grid--2">
+        <div data-reveal>
+          <h3 style="margin-bottom:var(--wx-space-4)">Check list</h3>
+          <ul class="wx-intro__checks">
+            <li>Check list item one</li><li>Check list item two</li><li>Check list item three</li>
+          </ul>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <h3 style="margin-bottom:var(--wx-space-4)">Rich text list</h3>
+          <div class="wx-rich"><ul><li>Rich list item one</li><li>Rich list item two</li><li>Rich list item three</li></ul></div>
+        </div>
+      </div>
+      <div class="wx-grid wx-grid--4" style="margin-top:var(--wx-space-7)" data-reveal>
+        <div class="wx-token-row" style="grid-column:1/-1">
+          <div><span class="wx-service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1.3em" height="1.3em" aria-hidden="true"><path d="M12 2l10 5.5L12 13 2 7.5z"/><path d="M2 12.5L12 18l10-5.5"/><path d="M2 17.5L12 23l10-5.5"/></svg></span><strong>layers</strong></div>
+          <div><span class="wx-service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1.3em" height="1.3em" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></span><strong>home</strong></div>
+          <div><span class="wx-service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="1.3em" height="1.3em" aria-hidden="true"><path d="M12 2l8 3.5V11c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V5.5z"/><path d="M9 11.5l2 2 4-4"/></svg></span><strong>shield</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION DEMO -->
+  <section class="wx-section wx-dark" id="motion">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">06 · Motion</p><h2>The reveal vocabulary</h2></div></div>
+      <div class="wx-grid wx-grid--3" data-reveal-group>
+        <div class="wx-stat" data-reveal><span class="wx-stat__label">data-reveal</span><span class="wx-stat__text">Fade-up 26px — the default.</span></div>
+        <div class="wx-stat" data-reveal="left"><span class="wx-stat__label">data-reveal="left"</span><span class="wx-stat__text">Slides in from the left.</span></div>
+        <div class="wx-stat" data-reveal="blur"><span class="wx-stat__label">data-reveal="blur"</span><span class="wx-stat__text">Focus pull from blur.</span></div>
+        <div class="wx-stat" data-reveal="zoom"><span class="wx-stat__label">data-reveal="zoom"</span><span class="wx-stat__text">Scale .94 to 1.</span></div>
+        <div class="wx-stat" data-reveal="mask"><span class="wx-stat__label">data-reveal="mask"</span><span class="wx-stat__text">Clip-path wipe for media.</span></div>
+        <div class="wx-stat" data-reveal data-reveal-delay="3"><span class="wx-stat__label">data-reveal-delay</span><span class="wx-stat__text">Stagger in steps of .12s.</span></div>
+      </div>
+      <div style="margin-top:var(--wx-space-7)" data-reveal>
+        <span class="wx-counter__value wx-counter" data-counter="250" data-suffix="+">0</span>
+        <p class="wx-sub">Counter: data-counter="250" data-suffix="+"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION PREVIEWS -->
+  <section class="wx-section wx-light" id="sections">
+    <div class="wx-container">
+      <div class="wx-section-head" data-reveal><div><p class="wx-eyebrow">07 · Sections</p><h2>Live previews</h2></div></div>
+      <div class="wx-grid wx-grid--3" data-api="services" data-limit="3">
+          <a class="wx-service-card" data-category="Interior Design" data-reveal data-reveal-delay="0" href="service/residential-interior.html"><span class="wx-service-card__no">01</span><span class="wx-service-card__icon"><svg class="wx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></svg></span><h3>Residential Interior</h3><p>Homes designed around how you actually live.</p><span class="wx-link">Discover more</span></a>
+          <a class="wx-service-card" data-category="Interior Design" data-reveal data-reveal-delay="1" href="service/commercial-interior.html"><span class="wx-service-card__no">02</span><span class="wx-service-card__icon"><svg class="wx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12L3 7M12 12v10"/></svg></span><h3>Commercial Interior</h3><p>Spaces built to perform, not just look good.</p><span class="wx-link">Discover more</span></a>
+          <a class="wx-service-card" data-category="Interior Design" data-reveal data-reveal-delay="2" href="service/office-corporate.html"><span class="wx-service-card__no">03</span><span class="wx-service-card__icon"><svg class="wx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="1em" height="1em" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span><h3>Office &amp; Corporate</h3><p>Workplaces shaped around people and purpose.</p><span class="wx-link">Discover more</span></a>
+        </div>
+      <div style="margin-top:var(--wx-space-8)">
+        <div class="wx-accordion" data-reveal>
+          <div class="wx-accordion__item"><h3><button class="wx-accordion__btn" type="button" aria-expanded="false">Accordion item one<i aria-hidden="true">+</i></button></h3><div class="wx-accordion__panel"><div class="wx-accordion__panel-inner"><p>Panel content — one open at a time by default.</p></div></div></div>
+          <div class="wx-accordion__item"><h3><button class="wx-accordion__btn" type="button" aria-expanded="false">Accordion item two<i aria-hidden="true">+</i></button></h3><div class="wx-accordion__panel"><div class="wx-accordion__panel-inner"><p>Add data-multi to the .wx-accordion to allow several open.</p></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

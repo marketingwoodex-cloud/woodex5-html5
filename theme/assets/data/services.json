@@ -1,0 +1,331 @@
+[
+  {
+    "slug": "residential-interior",
+    "group": "Interior Design",
+    "title": "Residential Interior",
+    "summary": "Homes designed around how you actually live.",
+    "icon": "home",
+    "image": "hero-01.jpg",
+    "description": [
+      "From a single room to a full villa, we design homes that start with your routine — where the school bags land, where the morning light should hit, where you actually eat dinner. Layouts, lighting, joinery and finishes are resolved together, so nothing is decorated over.",
+      "Every project includes 3D views of the main rooms, a fixed quotation before work begins, and one point of contact from first sketch to handover."
+    ],
+    "tags": ["Layout", "Lighting", "Joinery"],
+    "deliverables": ["Space planning & layouts", "Lighting and electrical drawings", "Material & finish palette", "Bespoke joinery design", "Styling & handover"],
+    "steps": [
+      { "title": "Home visit & brief", "text": "We walk the space together and agree scope, budget range and how you live.", "duration": "Week 1" },
+      { "title": "Concept & layouts", "text": "Two clear directions with moodboards, plans and light studies.", "duration": "Weeks 2–3" },
+      { "title": "Drawings & 3D", "text": "Full drawing set plus daylight-accurate visuals of every main room.", "duration": "Weeks 4–6" },
+      { "title": "Build & handover", "text": "Workshop, site and installation under one schedule you can track.", "duration": "6–12 weeks" }
+    ],
+    "price": { "from": "PKR 2,500", "unit": "per sq.ft" },
+    "relatedProjects": ["oak-house", "linen-bedroom", "sandstone-villa"]
+  },
+  {
+    "slug": "commercial-interior",
+    "group": "Interior Design",
+    "title": "Commercial Interior",
+    "summary": "Spaces built to perform, not just look good.",
+    "icon": "cube",
+    "image": "workspace.jpg",
+    "description": [
+      "Clinics, salons, showrooms and studios: rooms where the interior has to earn its keep. We design for footfall, maintenance and brand — durable materials, serviceable details and layouts that move customers or patients the way you need them to move.",
+      "Commercial work is quoted per square foot with phased delivery, so your business keeps trading while we build."
+    ],
+    "tags": ["Branding", "Durability", "Phasing"],
+    "deliverables": ["Brand-led concept", "Traffic-flow planning", "Durable material spec", "Signage & wayfinding", "Phased build plan"],
+    "steps": [
+      { "title": "Business brief", "text": "How the space earns money, who uses it, what must never break.", "duration": "Week 1" },
+      { "title": "Concept & flow", "text": "Layouts that direct movement and reflect the brand.", "duration": "Weeks 2–3" },
+      { "title": "Technical set", "text": "Drawings, 3D views and maintenance-friendly specifications.", "duration": "Weeks 4–6" },
+      { "title": "Phased delivery", "text": "Built around trading hours and business continuity.", "duration": "6–10 weeks" }
+    ],
+    "price": { "from": "PKR 3,500", "unit": "per sq.ft" },
+    "relatedProjects": ["clearline-office", "mercer-retail", "herringbone-office"]
+  },
+  {
+    "slug": "office-corporate",
+    "group": "Interior Design",
+    "title": "Office & Corporate",
+    "summary": "Workplaces shaped around people and purpose.",
+    "icon": "pen",
+    "image": "workspace.jpg",
+    "description": [
+      "Offices that people genuinely want to arrive at. We plan for the four modes of modern work — focus, collaboration, meeting and recharge — with acoustics, ergonomics and daylight treated as design materials, not afterthoughts.",
+      "From executive floors to startup lofts, every workstation, quiet booth and coffee point is placed with intent and drawn to detail."
+    ],
+    "tags": ["Acoustics", "Ergonomics", "Culture"],
+    "deliverables": ["Workplace strategy", "Floor plate planning", "Acoustic design", "Furniture specification", "Brand integration"],
+    "steps": [
+      { "title": "Workplace study", "text": "How teams work now and how you want them to work next year.", "duration": "Weeks 1–2" },
+      { "title": "Test fits", "text": "Two to three floor plate options with headcount and growth.", "duration": "Weeks 3–4" },
+      { "title": "Design & visuals", "text": "Full drawing set, 3D views and furniture schedules.", "duration": "Weeks 5–8" },
+      { "title": "Fit-out & move-in", "text": "Delivered with IT and facilities teams side by side.", "duration": "8–14 weeks" }
+    ],
+    "price": { "from": "PKR 4,000", "unit": "per sq.ft" },
+    "relatedProjects": ["clearline-office", "atelier-loft", "herringbone-office"]
+  },
+  {
+    "slug": "retail-shop",
+    "group": "Fit-Out",
+    "title": "Retail & Shop",
+    "summary": "Interiors that turn attention into connection.",
+    "icon": "spark",
+    "image": "facade.jpg",
+    "description": [
+      "Stores are measured in dwell time and basket size, so we design journeys: a facade that stops footfall, a threshold that sets the mood, displays that invite touch, and a counter that closes the sale. Materials are chosen for beauty under retail lighting and for surviving ten thousand touches.",
+      "Bespoke display joinery comes from our own workshop — built once, built right."
+    ],
+    "tags": ["Visual merchandising", "Displays", "Lighting"],
+    "deliverables": ["Customer journey plan", "Facade & signage design", "Custom display joinery", "Retail lighting design", "Stock & storage planning"],
+    "steps": [
+      { "title": "Brand & product review", "text": "What you sell, how it is bought, what makes customers linger.", "duration": "Week 1" },
+      { "title": "Journey concept", "text": "Storefront, threshold, display rhythm and pay point.", "duration": "Weeks 2–3" },
+      { "title": "Detail design", "text": "Joinery drawings, lighting plots and finish schedules.", "duration": "Weeks 4–5" },
+      { "title": "Build & launch", "text": "Workshop fabrication and overnight installation windows.", "duration": "5–8 weeks" }
+    ],
+    "price": { "from": "PKR 4,500", "unit": "per sq.ft" },
+    "relatedProjects": ["mercer-retail", "dusk-lounge", "travertine-cafe"]
+  },
+  {
+    "slug": "brand-shop-outlet",
+    "group": "Fit-Out",
+    "title": "Brand Shop & Outlet",
+    "summary": "Franchise-ready interiors your brand can repeat.",
+    "icon": "layers",
+    "image": "retail.jpg",
+    "description": [
+      "One flagship, then ten more: we design brand environments as systems — a kit of joinery, lighting and finish standards that can be rolled out city by city without losing the plot. Every element is documented so any contractor can build to the same line.",
+      "Perfect for fashion, food and lifestyle brands scaling across Pakistan's malls and high streets."
+    ],
+    "tags": ["Rollout", "Standards", "Franchise"],
+    "deliverables": ["Brand environment system", "Standard joinery kit", "Material & finish standards", "Rollout drawings", "Compliance pack"],
+    "steps": [
+      { "title": "Brand decode", "text": "The brand translated into space, light and material rules.", "duration": "Week 1" },
+      { "title": "Prototype store", "text": "The first environment, designed and detailed for repeat.", "duration": "Weeks 2–5" },
+      { "title": "System documentation", "text": "Drawings and specs any market can build from.", "duration": "Weeks 6–7" },
+      { "title": "Rollout support", "text": "Vendor vetting and site checks as stores multiply.", "duration": "Ongoing" }
+    ],
+    "price": { "from": "PKR 5,000", "unit": "per sq.ft" },
+    "relatedProjects": ["mercer-retail", "herringbone-office"]
+  },
+  {
+    "slug": "office-fit-out",
+    "group": "Fit-Out",
+    "title": "Office Fit-Out",
+    "summary": "From bare shell to switch-on in one schedule.",
+    "icon": "truck",
+    "image": "loft.jpg",
+    "description": [
+      "Take an empty floor and hand back a working office: partitions, ceilings, flooring, MEP, data, furniture and signage under one contract and one schedule. We coordinate landlords, approvals and IT teams so your move-in date is a promise, not a hope.",
+      "Cat A and Cat B fit-outs delivered for teams of ten to three hundred."
+    ],
+    "tags": ["MEP", "Partitions", "Turnkey"],
+    "deliverables": ["Shell assessment", "Space plan & test fits", "MEP coordination", "Furniture & workstation install", "Testing & commissioning"],
+    "steps": [
+      { "title": "Shell survey", "text": "Measure, services audit and landlord rules mapped.", "duration": "Week 1" },
+      { "title": "Plan & approvals", "text": "Layout locked and society or building approvals filed.", "duration": "Weeks 2–3" },
+      { "title": "Fit-out build", "text": "Floor, ceiling, partitions and services in sequenced waves.", "duration": "8–12 weeks" },
+      { "title": "Snag & move-in", "text": "Room-by-room snagging, commissioning and occupancy.", "duration": "1 week" }
+    ],
+    "price": { "from": "PKR 4,000", "unit": "per sq.ft" },
+    "relatedProjects": ["clearline-office", "atelier-loft", "herringbone-office"]
+  },
+  {
+    "slug": "commercial-fit-out",
+    "group": "Fit-Out",
+    "title": "Commercial Fit-Out",
+    "summary": "Clinics, salons and studios — delivered open-on-time.",
+    "icon": "shield",
+    "image": "workspace.jpg",
+    "description": [
+      "Specialist commercial spaces with technical hearts: dental surgeries, salons, labs and clinics where plumbing, power, sterilisation and equipment drive the plan. We coordinate equipment suppliers early so the interior fits the machines — not the other way round.",
+      "Delivered with compliance documentation and staff walkthrough training at handover."
+    ],
+    "tags": ["Technical", "Compliance", "Equipment"],
+    "deliverables": ["Equipment-led planning", "Specialist MEP design", "Hygienic material spec", "Compliance documentation", "Staff handover training"],
+    "steps": [
+      { "title": "Technical brief", "text": "Equipment lists, service loads and hygiene requirements.", "duration": "Week 1" },
+      { "title": "Coordination design", "text": "Layouts around machines, workflows and regulations.", "duration": "Weeks 2–4" },
+      { "title": "Fit-out build", "text": "Specialist contractors managed under one programme.", "duration": "6–10 weeks" },
+      { "title": "Commissioning", "text": "Equipment install, testing and staff training.", "duration": "1–2 weeks" }
+    ],
+    "price": { "from": "PKR 4,800", "unit": "per sq.ft" },
+    "relatedProjects": ["walnut-library", "clearline-office"]
+  },
+  {
+    "slug": "residential-fit-out",
+    "group": "Fit-Out",
+    "title": "Residential Fit-Out",
+    "summary": "Your apartment, finished to showroom level.",
+    "icon": "sofa",
+    "image": "apartment.jpg",
+    "description": [
+      "The last twenty percent of a home is where quality shows: skirting that meets flooring perfectly, doors hung flush, paint finished like furniture. We take builder-finish apartments to move-in condition with flooring, ceilings, bathrooms, kitchens and joinery under one team.",
+      "Ideal for new DHA and Bahria possessions — bring us the keys, we bring the schedule."
+    ],
+    "tags": ["Finishing", "Kitchens", "Bathrooms"],
+    "deliverables": ["Condition survey", "Finishes schedule", "Kitchen & bathroom fit", "Paint & flooring", "Snag & deep clean"],
+    "steps": [
+      { "title": "Possession survey", "text": "We record the builder's finish and plan the works around it.", "duration": "Week 1" },
+      { "title": "Finishes plan", "text": "Flooring, paint, stone and joinery scheduled to the last socket.", "duration": "Weeks 2–3" },
+      { "title": "Fit-out works", "text": "Trades sequenced so rooms finish one by one, not all at once.", "duration": "8–12 weeks" },
+      { "title": "Handover", "text": "Snagging, deep clean and a keys-back ceremony worth photographing.", "duration": "3–5 days" }
+    ],
+    "price": { "from": "PKR 2,800", "unit": "per sq.ft" },
+    "relatedProjects": ["ridge-apartment", "linen-bedroom", "oak-house"]
+  },
+  {
+    "slug": "restaurant-interior",
+    "group": "Hospitality",
+    "title": "Restaurant Interior",
+    "summary": "Atmosphere, flow, and a reason to return.",
+    "icon": "wood",
+    "image": "dining.jpg",
+    "description": [
+      "A restaurant interior is a machine for evenings: kitchen flow that servers never curse, banquettes that keep noise at conversation level, lighting that makes food and faces look their best at 8pm. We design the whole machine — then our workshop builds the parts that matter.",
+      "Covers, turnover and average check are design inputs here, not afterthoughts."
+    ],
+    "tags": ["Ambience", "Covers", "Acoustics"],
+    "deliverables": ["Covers & flow planning", "Dining lighting design", "Banquette & table joinery", "Bar & counter design", "Kitchen interface plan"],
+    "steps": [
+      { "title": "Concept & menu", "text": "The menu and service model shape the room — we start there.", "duration": "Weeks 1–2" },
+      { "title": "Layout & ambience", "text": "Covers, circulation, sightlines and sound modelled together.", "duration": "Weeks 3–4" },
+      { "title": "Detail design", "text": "Joinery, lighting plots and materials built for spill and scrub.", "duration": "Weeks 5–7" },
+      { "title": "Build & opening", "text": "Fabrication, install and soft opening support.", "duration": "8–12 weeks" }
+    ],
+    "price": { "from": "PKR 5,500", "unit": "per sq.ft" },
+    "relatedProjects": ["dusk-lounge", "travertine-cafe"]
+  },
+  {
+    "slug": "cafe-interior",
+    "group": "Hospitality",
+    "title": "Café Interior",
+    "summary": "Rooms people photograph and revisit.",
+    "icon": "spark",
+    "image": "cafe.jpg",
+    "description": [
+      "Cafés live or die by Instagram and repeatability. We design a hero moment — the counter, the banquette, the light at 4pm — and build the whole room to support it. Robust materials, quick-clean details and seating that turns four times a day without looking tired.",
+      "From 400 sq.ft espresso bars to two-storey specialty houses."
+    ],
+    "tags": ["Instagram-ready", "Durability", "Turnover"],
+    "deliverables": ["Hero-moment concept", "Counter & bar joinery", "Seating strategy", "Display & merchandising", "Lighting scenes"],
+    "steps": [
+      { "title": "Concept & brand", "text": "Finding the one moment customers will photograph.", "duration": "Week 1" },
+      { "title": "Layout", "text": "Queue, counter, seating and kitchen in a choreography.", "duration": "Weeks 2–3" },
+      { "title": "Detail & joinery", "text": "Counter, banquettes and displays drawn for the workshop.", "duration": "Weeks 4–5" },
+      { "title": "Build & open", "text": "Fast, clean installation — most cafés open in 8 weeks.", "duration": "6–8 weeks" }
+    ],
+    "price": { "from": "PKR 4,800", "unit": "per sq.ft" },
+    "relatedProjects": ["travertine-cafe", "dusk-lounge"]
+  },
+  {
+    "slug": "custom-furniture-joinery",
+    "group": "Specialist",
+    "title": "Custom Furniture & Joinery",
+    "summary": "Made to fit the room exactly.",
+    "icon": "wood",
+    "image": "craft-detail.jpg",
+    "description": [
+      "Our workshop is the heart of Woodex. Kitchens, wardrobes, vanities, libraries, doors and desks — designed to the millimetre for your walls, built from certified oak, walnut and birch plywood with hardware that closes like a good car door.",
+      "Every piece is signed, dated and covered by our ten-year warranty."
+    ],
+    "tags": ["Workshop", "Solid wood", "10-yr warranty"],
+    "deliverables": ["Millimetre site measure", "Joinery drawings", "Material & finish samples", "Workshop fabrication", "Install & warranty"],
+    "steps": [
+      { "title": "Measure & design", "text": "Laser-measured and drawn to the wall, not the tape.", "duration": "1–2 weeks" },
+      { "title": "Samples", "text": "Wood, finish and hardware in your hands before cutting.", "duration": "Week 2" },
+      { "title": "Fabrication", "text": "Built in our Lahore workshop by career cabinetmakers.", "duration": "3–6 weeks" },
+      { "title": "Install", "text": "Fitted, adjusted and signed off with warranty documents.", "duration": "2–4 days" }
+    ],
+    "price": { "from": "PKR 1,800", "unit": "per sq.ft of joinery" },
+    "relatedProjects": ["walnut-library", "courtyard-kitchen", "oak-house"]
+  },
+  {
+    "slug": "interior-renovation",
+    "group": "Specialist",
+    "title": "Interior Renovation",
+    "summary": "Old bones, new life — without demolishing your calendar.",
+    "icon": "ruler",
+    "image": "bedroom-min.jpg",
+    "description": [
+      "Renovation is surgery, not decoration: we diagnose what the building will allow — structure, plumbing, levels, light — then design the smallest intervention with the biggest result. Most renovations run while you keep living or trading in the space.",
+      "Phased works, dust control and daily site photos come as standard."
+    ],
+    "tags": ["Phased", "Live-in", "Structure"],
+    "deliverables": ["Condition assessment", "Phased works plan", "Structural coordination", "Finish restoration", "Daily photo reports"],
+    "steps": [
+      { "title": "Diagnosis", "text": "What the walls, pipes and slabs actually permit.", "duration": "Week 1" },
+      { "title": "Phased plan", "text": "Works sequenced around occupancy and budget waves.", "duration": "Weeks 2–3" },
+      { "title": "Execution", "text": "Careful demolition, corrections and new finishes.", "duration": "4–10 weeks" },
+      { "title": "Restore & reveal", "text": "Old charm kept, new comfort added, cleaned like nothing happened.", "duration": "1 week" }
+    ],
+    "price": { "from": "PKR 2,200", "unit": "per sq.ft" },
+    "relatedProjects": ["atelier-loft", "linen-bedroom", "ridge-apartment"]
+  },
+  {
+    "slug": "turnkey-interiors",
+    "group": "Specialist",
+    "title": "Turnkey Interiors",
+    "summary": "One contract, every detail handled.",
+    "icon": "check",
+    "image": "villa.jpg",
+    "description": [
+      "Hand us a bare shell and a brief; receive keys to a finished space. Design, approvals, contractors, joinery, furniture, art and the final deep clean — procured, managed and guaranteed under a single contract with a single schedule.",
+      "The way embassies, hoteliers and busy families prefer to build."
+    ],
+    "tags": ["Single contract", "Procurement", "Guaranteed"],
+    "deliverables": ["Complete design package", "Approvals & permits", "Full procurement", "Furniture & styling", "Deep clean & handover"],
+    "steps": [
+      { "title": "Brief & budget", "text": "Scope, style and a transparent all-in number.", "duration": "Week 1" },
+      { "title": "Full design", "text": "Every room designed, drawn and approved in 3D.", "duration": "Weeks 2–6" },
+      { "title": "Procure & build", "text": "Everything ordered, made and installed by our teams.", "duration": "8–16 weeks" },
+      { "title": "Keys day", "text": "Styled, cleaned, documented and handed over.", "duration": "1 week" }
+    ],
+    "price": { "from": "PKR 6,500", "unit": "per sq.ft" },
+    "relatedProjects": ["sandstone-villa", "oak-house", "ridge-apartment"]
+  },
+  {
+    "slug": "3d-studio",
+    "group": "Specialist",
+    "title": "3D Studio",
+    "summary": "See the space before we build it.",
+    "icon": "cube",
+    "image": "hero-02.jpg",
+    "description": [
+      "Our in-house visualisation team turns drawings into daylight-accurate stills and walkthroughs — the same sun your room will get, at the hour you will use it. Clients approve materials with confidence; nothing goes to production on imagination alone.",
+      "Also available as a standalone service for architects, developers and private clients with their own drawings."
+    ],
+    "tags": ["Visualisation", "Walkthroughs", "Standalone"],
+    "deliverables": ["Photoreal stills", "Animated walkthrough", "Material variants", "Sunlight studies", "Revision rounds"],
+    "steps": [
+      { "title": "Drawings in", "text": "Your plans or ours — modelled precisely to scale.", "duration": "Days 1–3" },
+      { "title": "Materials & light", "text": "Finishes, furniture and sun studies applied.", "duration": "Days 4–7" },
+      { "title": "Render & refine", "text": "Stills and walkthrough delivered with two revision rounds.", "duration": "Days 8–12" }
+    ],
+    "price": { "from": "PKR 45,000", "unit": "per room" },
+    "relatedProjects": ["linen-bedroom", "courtyard-kitchen"]
+  },
+  {
+    "slug": "office-furniture",
+    "group": "Specialist",
+    "title": "Office Furniture",
+    "summary": "Workshop-built furniture that survives real work.",
+    "icon": "sofa",
+    "image": "workspace.jpg",
+    "description": [
+      "Desks, meeting tables, reception counters and storage designed for eight-hour days and ten-year warranties. Ergonomic heights, cable intelligence, acoustic felt and solid oak edges — specified by the same designers who plan your floor plate.",
+      "Made in our workshop, installed over a weekend if needed."
+    ],
+    "tags": ["Ergonomic", "Cable-smart", "Weekend install"],
+    "deliverables": ["Furniture schedule", "Workshop drawings", "Material samples", "Fabrication", "Weekend installation"],
+    "steps": [
+      { "title": "Schedule & ergonomics", "text": "Headcount, tasks and heights mapped to furniture types.", "duration": "Week 1" },
+      { "title": "Design & samples", "text": "Drawings plus materials in your hands for approval.", "duration": "Week 2" },
+      { "title": "Fabrication", "text": "Built and pre-assembled in the workshop.", "duration": "3–5 weeks" },
+      { "title": "Install", "text": "Delivered and installed — overnight or over a weekend.", "duration": "2–3 days" }
+    ],
+    "price": { "from": "PKR 95,000", "unit": "per workstation" },
+    "relatedProjects": ["herringbone-office", "clearline-office", "atelier-loft"]
+  }
+]

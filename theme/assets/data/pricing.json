@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Essentials",
+    "tagline": "Design direction and drawings for clients managing their own build.",
+    "unit": "per sq.ft",
+    "price": { "onetime": "PKR 450", "monthly": "PKR 380,000/mo" },
+    "features": [
+      "Site measure & consultation",
+      "Concept + layout options",
+      "Material & finish palette",
+      "2D drawing set",
+      "Shopping & supplier list"
+    ],
+    "cta": "Book consultation"
+  },
+  {
+    "name": "Signature",
+    "tagline": "Design plus our joinery workshop — the complete home package.",
+    "unit": "per sq.ft",
+    "price": { "onetime": "PKR 850", "monthly": "PKR 720,000/mo" },
+    "features": [
+      "Everything in Essentials",
+      "3D walkthrough of every room",
+      "Bespoke joinery from our workshop",
+      "Procurement & installation",
+      "Two site visits per week",
+      "5-year fit-out warranty"
+    ],
+    "featured": true,
+    "cta": "Start a project"
+  },
+  {
+    "name": "Atelier",
+    "tagline": "Turnkey delivery for villas, offices and hospitality.",
+    "unit": "per sq.ft",
+    "price": { "onetime": "PKR 1,400", "monthly": "PKR 1,250,000/mo" },
+    "features": [
+      "Everything in Signature",
+      "Full site management & contractors",
+      "MEP & approvals coordination",
+      "Custom furniture collection",
+      "Weekly progress reports",
+      "10-year joinery warranty"
+    ],
+    "cta": "Request proposal"
+  }
+]
