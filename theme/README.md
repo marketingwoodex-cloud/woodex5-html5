@@ -125,18 +125,44 @@ Page-level configuration lives on `<body>`: `data-page`, `data-theme`
 ## Before you finish a change
 
 ```bash
-node theme/build.mjs --check
+node theme/build.mjs --check   # do the templates still render cleanly?
+node theme/qa.mjs              # is what they rendered actually correct?
 ```
 
-Expect zero warnings and zero unresolved tokens. Also confirm:
+`--check` validates the build: zero warnings, zero unresolved tokens, nothing
+written to disk. `qa.mjs` audits the built output and exits non-zero on any
+failure, so it works as a pre-commit or CI gate.
 
-- exactly one `<h1>` per page
-- every internal `href` and `src` resolves to a real file
-- every JSON-LD block parses
-- no `undefined`, `NaN` or `[object Object]` in the output
-- every new `data-*` hook has a consumer in JS or CSS
+The two are complementary. `--check` catches a template that will not compile;
+`qa.mjs` catches one that compiles into markup that is quietly wrong — a link to
+an id nobody emits, an icon referencing a sprite symbol that does not exist, an
+empty `data-*` attribute shadowing a config fallback.
 
-An unconsumed attribute is a broken promise to whoever reads the markup.
+`qa.mjs` covers:
+
+- exactly one `<h1>` per page, all four landmarks, a skip link, balanced tags
+- every internal reference resolves, checked across all five channels: `href`
+  and `src`, `<meta content>` (which is where `og:image` lives), CSS `url()`,
+  JSON-LD string values, and the data files themselves
+- every `href="#id"`, every cross-page `page.html#id`, and every SVG sprite
+  `<use href="#i-*">` points at an id or symbol that actually exists
+- no duplicate ids; every `role="button"` is keyboard focusable
+- every `<img>` has `alt`; every JSON-LD block parses with no empty `url`,
+  `sameAs` or `image`
+- no empty `href`/`src`, no dead `href="#"`, no empty `data-endpoint`, no
+  `undefined` / `NaN` / `[object Object]`, no unfilled social placeholders
+
+Auditing only `href` and `src` is not enough — `og:image`, CSS backgrounds and
+structured data are how broken images ship. Keep all five channels.
+
+```bash
+node theme/qa.mjs --out=dist   # audit an alternate build directory
+node theme/qa.mjs --quiet      # print only on failure
+```
+
+One thing it cannot check: whether a new `data-*` hook has a consumer in JS or
+CSS. An unconsumed attribute is a broken promise to whoever reads the markup, so
+grep for it before committing.
 
 ## Imagery
 

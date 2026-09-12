@@ -269,6 +269,37 @@ Requirements: **Node 18 or newer. No packages to install.** The generator is a s
 
 There is deliberately no `--clean` flag. The default output directory is the repository root, so "delete the output folder first" would mean deleting the repository. Use `--out=` for a scratch build instead.
 
+### 5.1.1 The QA gate
+
+```bash
+node theme/qa.mjs                    # audit the built output at the repository root
+node theme/qa.mjs --out=dist         # audit an alternate build directory
+node theme/qa.mjs --quiet            # print only on failure
+```
+
+`build.mjs --check` and `qa.mjs` answer different questions, and both are needed. `--check` asks *do the templates still render* — zero warnings, zero unresolved tokens. `qa.mjs` asks *is what they rendered correct* — and it exits non-zero on any failure, so it drops straight into a pre-commit hook or CI step.
+
+The second question is the one that catches the defects that ship. A template can compile perfectly and still emit a link to an id nobody renders, an icon pointing at a sprite symbol that does not exist, or an empty `data-*` attribute that shadows a documented config fallback. None of those produce a build warning; all of them are broken in the browser.
+
+Gates, all of which currently report zero findings:
+
+| Gate | Catches |
+| --- | --- |
+| Structure | wrong `<h1>` count, missing landmark, absent skip link, unbalanced tags |
+| References | any internal asset that does not exist, across five channels |
+| Fragments | `href="#id"`, cross-page `page.html#id`, and sprite `<use href="#i-*">` targets that are not emitted |
+| Ids | duplicates on a page; `role="button"` that is not keyboard focusable |
+| Data | unparseable JSON in `src/data/**`; unrendered `{{tokens}}` in output |
+| Structured data | JSON-LD that does not parse, or carries an empty `url`, `sameAs` or `image` |
+| Hygiene | empty `href`/`src`, dead `href="#"`, empty `data-endpoint`, `undefined` / `NaN` / `[object Object]`, unfilled social placeholders |
+| Accessibility | `<img>` without `alt` |
+
+**The five reference channels.** Auditing only `href` and `src` is not sufficient, and this is how broken images reach production. `og:image` lives in `<meta content>`, section backgrounds live in CSS `url()`, and `image` values live inside JSON-LD string fields — none of which a naive link check ever sees. `qa.mjs` walks all five: `href`/`src`, `<meta content>`, CSS `url()` (with comments stripped first, or commented-out paths inflate the count), JSON-LD strings recursively, and the data files.
+
+**Page discovery.** The gate reads the page list from `build-manifest.json → outputs`, so it audits exactly what the generator wrote rather than whatever HTML happens to be sitting in the directory. That matters at the repository root, which also contains the legacy prototype pages and the `WOODEX-INT/` duplicate — neither is built from `theme/src`, and sweeping them in produces hundreds of findings that mean nothing. When `--out=` points somewhere without a manifest, it falls back to a directory walk that skips `WOODEX-INT/`, `WOODEX-WP/` and `theme/` at the root.
+
+**Proving the gate fails.** A check that always passes is worse than no check, because it reads as assurance. The fault-injection run that validated this script covered a renamed image, a broken `og:image`, a broken `../` relative link from a nested page, a broken CSS `url()`, invalid JSON-LD, a duplicate id, an orphan fragment, an empty `data-endpoint`, a dead `href="#"`, an `<img>` without `alt`, and a junk `undefined` — every one reported, exit code 1. Re-run that after changing the gate itself.
+
 ### 5.2 Outputs
 
 - Every page under `src/pages/**.html`, with directories prefixed `_` skipped (templates live in `_templates/`).
