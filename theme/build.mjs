@@ -31,6 +31,7 @@
      node theme/build.mjs --out=dist   build to another folder
      node theme/build.mjs --check      validate only, write nothing to disk
      node theme/build.mjs --quiet      suppress the summary line
+     node theme/build.mjs --poll=800   with --watch, mtime sweep interval in ms
    ========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -51,7 +52,18 @@ const QUIET = argv.includes('--quiet');
    so "delete the output folder first" would mean deleting the repo. */
 const CHECK = argv.includes('--check');
 
-const CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'site.config.json'), 'utf8'));
+/* Read through a function rather than once at module load. Under --watch the
+   process stays alive, so a const captured at startup meant edits to
+   site.config.json were detected by the watcher, triggered a rebuild, and then
+   changed nothing — generate[] rules and site.url were frozen at the values
+   the process started with. Every read of CONFIG happens inside a function, so
+   reloading it at the top of build() is safe. */
+let CONFIG = null;
+function loadConfig() {
+  CONFIG = JSON.parse(fs.readFileSync(path.join(__dirname, 'site.config.json'), 'utf8'));
+  return CONFIG;
+}
+loadConfig();
 
 /* ------------------------------------------------------------------ data */
 const data = {};
@@ -766,6 +778,7 @@ function buildManifest() {
 function build() {
   const t0 = Date.now();
   written.length = 0; unchanged = 0; allOutputs.length = 0; includeCount.clear(); MISSING.clear();
+  loadConfig();
   loadData();
   derive();
   buildStaticPages();
@@ -779,10 +792,41 @@ function build() {
 build();
 
 if (WATCH) {
-  log('👀 watching theme/src …  (Ctrl-C to stop)');
-  let timer = null;
-  fs.watch(SRC, { recursive: true }, () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => { try { build(); } catch (e) { warn(e.message); } }, 120);
-  });
+  /* fs.watch({ recursive: true }) silently delivers no events on some Linux
+     kernels and Node builds — verified here on Node 22, where a controlled test
+     received zero callbacks for a real file write. --watch therefore looked
+     alive while never rebuilding, which is worse than failing loudly.
+
+     Poll mtimes instead. The source tree is ~150 files, so a stat sweep every
+     400ms is far cheaper than the rebuild it triggers, and the behaviour is
+     identical on every platform. site.config.json is included because it
+     changes generated-page output without any file under src/ changing. */
+  const POLL = Math.max(100, parseInt(arg('poll') || '400', 10));
+
+  function fingerprint() {
+    let fp = '';
+    const walk = (d) => {
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) { walk(p); continue; }
+        const st = fs.statSync(p);
+        fp += `${p}:${st.size}:${st.mtimeMs};`;
+      }
+    };
+    walk(SRC);
+    const cfg = fs.statSync(path.join(__dirname, 'site.config.json'));
+    fp += `config:${cfg.size}:${cfg.mtimeMs};`;
+    return fp;
+  }
+
+  let last = fingerprint();
+  log(`👀 watching theme/src (polling every ${POLL}ms) …  (Ctrl-C to stop)`);
+  setInterval(() => {
+    let now;
+    /* A sweep can land mid-write; skip this tick and pick it up on the next. */
+    try { now = fingerprint(); } catch { return; }
+    if (now === last) return;
+    last = now;
+    try { build(); } catch (e) { warn(e.message); }
+  }, POLL);
 }
