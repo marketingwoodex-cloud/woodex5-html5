@@ -474,7 +474,32 @@ Zero dependencies. All motion is gated behind `html.js` (added by `util.js` once
 | `data-tilt` | Bounded perspective tilt on cards |
 | `data-count="145000"` | Count-up on first view, respecting prefix/suffix/decimals |
 
-Set `data-motion="off"` on `<html>` to disable everything globally. Reduced-motion users receive identical content and identical final states — motion is never the only carrier of meaning.
+Set `data-motion="off"` on `<html>` to disable everything globally. This is enforced in two places that read the same attribute, so behaviour and styling can never disagree: `util.reduced()` returns true for it (every motion module routes through that one check), and `05-motion.css` carries an `html[data-motion="off"]` block that mirrors the `prefers-reduced-motion` rules exactly.
+
+Reduced-motion users receive identical content and identical final states — motion is never the only carrier of meaning.
+
+### 9.1 Interaction hooks beyond motion
+
+These drive real behaviour rather than presentation, and each is consumed by a named module:
+
+| Attribute | Behaviour | Module |
+|---|---|---|
+| `data-accordion="single\|multi"` | Expand/collapse, one-at-a-time or independent | `sections.js` Accordion |
+| `data-tabs` + `data-price-mode` | Tab switch; also swaps scoped `[data-price]` figures | `sections.js` Tabs |
+| `data-deck` + `data-deck-prev/next/dots/media/auto/index` | Auto and manual slider, thumbnail rail, synced media | `sections.js` Deck |
+| `data-filter-group` + `data-filter-item` | Portfolio filtering by category | `sections.js` Filter |
+| `data-lightbox` | Gallery overlay | `sections.js` Lightbox |
+| `data-swap-media` + `data-media-index` | Sticky image follows the hovered or open row | `motion.js` Swap |
+| `data-toc-link` | Scroll-spy `is-current` on article contents | `sections.js` TOC |
+| `data-form` + `data-validate` | Client validation and submit handling | `forms.js` Forms |
+| `data-render` + `data-template` | Runtime render slot fed from the JSON API | `theme.js` |
+| `data-nav`, `data-footer-links`, `data-site`, `data-latest-posts` | Runtime content slots | `api.js`, `theme.js` |
+| `data-count`, `data-counter` | Count-up on first view | `motion.js`, `forms.js` |
+| `data-share`, `data-copy`, `data-day`, `data-year`, `data-ref` | Share, clipboard, opening-hours, year, enquiry reference | `theme.js`, `forms.js` |
+| `data-scroll-to`, `data-scroll-top` | Fragment scroll offset past the sticky header; back to top | `chrome.js` |
+| `data-theme`, `data-density`, `data-page`, `data-api` | Page-level configuration read at boot | `theme.js` |
+
+Every `data-*` attribute emitted by a template is consumed by JS or CSS. When adding a new hook, add its consumer in the same change — an unconsumed attribute is a broken promise to whoever reads the markup.
 
 ---
 
@@ -555,7 +580,12 @@ All 21 named images plus the brand mark. Generated images are original AI work c
 | `favicon.svg` | Original brand mark: arch + mitred W + brass rule | ✅ hand-written |
 | `apple-touch-icon.png` | Same mark rasterised at 180×180 | ✅ generated in-house |
 
-Until the pending images exist, pages reference paths that resolve to nothing; the layout is unaffected because every image sits in a fixed-aspect `.media` wrapper. Adding a file with the right name is the only step required — no template or data change.
+Until the pending images exist, pages reference paths that resolve to nothing. Two safeguards keep that from looking broken:
+
+1. **Layout is unaffected** — every image sits in a fixed-aspect `.media` wrapper, so the grid holds its shape whether or not the file is there.
+2. **A branded placeholder paints instead of a broken-image glyph** — `js/util.js` attaches a capture-phase `error` listener plus a completed-image scan, marks the frame `.media--missing`, clears the `src` and `alt`, and appends a filename chip. `09-docs.css` then renders a warm canvas block with the arch motif and a low-strength accent wash, with an inverse variant for walnut, ink, hero-slider and reel surfaces.
+
+Adding a file with the right name is the only step required — no template or data change, and the placeholder disappears on its own. The placeholder block in `09-docs.css` is self-contained and can be deleted once the manifest is complete.
 
 ---
 
