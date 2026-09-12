@@ -239,6 +239,37 @@ Requirements: **Node 18 or newer. No packages to install.** The generator is a s
 - `build-manifest.json` — page inventory, warnings, timings, asset list.
 - `sitemap.xml` and `robots.txt` — emitted only when `site.url` is set in `site.config.json`.
 - Only changed files are rewritten, so `--watch` does not churn the filesystem.
+- `build-manifest.json` is compared against the committed copy ignoring its `built` timestamp, so a no-op build leaves the working tree clean. The timestamp therefore means *when the output last actually changed*.
+
+### 5.2.1 The `site.url` go-live switch
+
+One value in `site.config.json` turns on the whole SEO surface. It ships empty on purpose.
+
+| With `site.url` empty | With `site.url` set |
+|---|---|
+| no `<link rel="canonical">` | self-referencing canonical on all 56 pages |
+| no `og:url` | `og:url` on all 56 pages |
+| `url` key omitted from the Organization JSON-LD | real absolute `url` in that graph |
+| no `sitemap.xml` | 50 entries, utility pages excluded |
+| no `robots.txt` | robots.txt pointing at the sitemap |
+
+Set it as the last step before deploying:
+
+```json
+"site": { "url": "https://your-production-origin" }
+```
+
+`index.html` collapses to the bare origin, so the homepage does not canonicalise to `/index.html`. Front matter may override `canonical` per page, which is how an alternate home or portfolio variant points back at its primary.
+
+**Why it ships empty:** a wrong canonical is worse than no canonical. It tells a search engine that the page is a duplicate of a URL that does not exist, which can drop the page from the index entirely. An absent canonical is simply neutral. Do not set this value to a guess.
+
+Indexing is controlled separately, per page, through front matter:
+
+```
+robots: noindex, follow
+```
+
+`404.html` and `thank-you.html` already carry it — the first has no content to rank, the second is a post-conversion page that should never appear in results. The six utility pages (privacy, terms, accessibility, thank-you, instructions, style-guide) are excluded from the sitemap by `buildSitemap()`, which is a separate decision from `noindex`: exclusion keeps them out of the crawl budget, `noindex` keeps them out of results.
 
 ### 5.3 Template syntax reference
 
