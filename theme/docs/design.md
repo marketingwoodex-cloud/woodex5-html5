@@ -213,8 +213,24 @@ Each named key must be an object in the page parameters whose keys are the secti
 | `awards[].resultClass` / `resultLabel` | `result` | Badge modifier, preserving the human label |
 | `testimonials[].initials`, `team[].initials` | `name` | Avatar fallback |
 | `faqCategories`, `faqCount`, counts | — | Filters and copy |
+| `*.social[key]` blanked | any `social` map | Placeholder profile suppression, see below |
 
 `initialsOf()` is shared so every avatar fallback is consistent.
+
+#### Placeholder social profiles
+
+Any `social` map in any collection is normalised: a value that is empty, is not a parseable URL, or has no path beyond `/` is rewritten to an empty string. So `https://instagram.com/` is treated as an unfilled field, while `https://instagram.com/woodexinterior` is a real profile.
+
+This matters because a non-empty placeholder string defeats every guard around it:
+
+- `sameAs` in the Organization JSON-LD is built from the surviving values, and the key is omitted entirely when none remain. Publishing `sameAs: ["https://instagram.com/"]` tells a search engine that this studio's identity *is* instagram.com, which is worse than saying nothing — and it is invisible on the rendered page.
+- The footer, drawer and team-card anchors are wrapped in `{{#if site.social.x}}` / `{{#if social.x}}`, so a blanked value renders no icon at all rather than an icon that sends the visitor to a platform homepage.
+
+The rule runs across every collection, not just `site.social`, because `team[]` carries its own social maps. A new collection with a `social` map is covered automatically.
+
+**The source data is not modified.** Placeholders stay in `site.json` and `team.json` as the fields to fill in; they simply stop rendering and stop being claimed until they hold a real handle. If you add a social URL and no icon appears, this is why — the value needs a path.
+
+The now-empty `.footer-social` and `.member__social` containers leave no visual gap: the first is a zero-height flex row, the second absolutely positioned with `opacity: 0` until hover.
 
 ---
 
