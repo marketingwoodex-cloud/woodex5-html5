@@ -1,129 +1,120 @@
 # Woodex Interior — HTML5 Website
 
-Premium, human, modern interior design website for Woodex Interior.
+Premium, human, modern interior design website for Woodex Interior, Lahore.
 
-## Project
+## Source of truth
 
-This repository contains the production-ready HTML5 prototype for Woodex Interior:
-
-- Semantic HTML5 pages
-- Local CSS and JavaScript
-- Local image assets
-- JSON-ready content files
-- Responsive layouts
-- Services dropdown
-- Mobile navigation drawer
-- Three-slide hero
-- Scroll reveal motion
-- Portfolio and service page structure
-- Contact form draft
-- Legal and utility pages
-
-## Open locally
-
-From this folder, run:
+**`theme/` is the master theme.** Edit `theme/src/`, run the generator, and the
+finished site is written to this folder.
 
 ```bash
-python3 -m http.server 4174 --bind 0.0.0.0
+node theme/build.mjs
 ```
 
-Then open:
+The HTML at the repository root is generated output. Do not hand-edit it — the
+next build overwrites it. Zero dependencies, Node 18 or newer, no install step.
 
-```text
-http://localhost:4174/index.html
+| Read this | For |
+|---|---|
+| [`theme/README.md`](theme/README.md) | Quick start, layout, template syntax, common tasks |
+| [`theme/docs/design.md`](theme/docs/design.md) | Master PRD: identity, tokens, architecture, all 45 sections, all 56 pages, JSON API, motion, accessibility, image manifest, customisation guide |
+
+## Preview
+
+```bash
+python3 -m http.server 8080 --bind 0.0.0.0
 ```
 
-## Main files
+Serve from the repository root — generated pages use relative asset paths that
+assume root depth.
 
-- `index.html` — homepage
-- `company-index.html` — company draft
-- `about.html` — company story
-- `services.html` — complete services index
-- `portfolio.html` — portfolio index
-- `process.html` — process page
-- `journal.html` — journal index
-- `contact.html` — consultation form draft
-- `thank-you.html` — form success page
-- `404.html` — not-found page
-- `privacy.html` — privacy draft
-- `terms.html` — terms draft
-- `accessibility.html` — accessibility statement
+## What the theme contains
 
-## Service pages
-
-The `services/` folder contains 15 service pages:
-
-- Commercial Interior
-- Residential Interior
-- Office & Corporate
-- Retail & Shop
-- Brand Shop & Outlet
-- Office Fit-Out
-- Commercial Fit-Out
-- Residential Fit-Out
-- Restaurant Interior
-- Cafe Interior
-- Custom Furniture & Joinery
-- Interior Renovation
-- Turnkey Interiors
-- 3D Studio
-- Office Furniture
+- **56 pages**: three home variants, about, service index plus 15 service
+  detail pages, three portfolio variants plus 10 project case studies, two
+  journal indexes plus 8 long-form articles, three contact variants, pricing,
+  FAQ, process, instructions, style guide, 404, privacy, terms, accessibility
+  and thank-you.
+- **45 section templates**, each a single `.s-*` root driven entirely by
+  parameters, reusable across pages with different content.
+- **Header and footer variations**, a mega-menu option, and a mobile drawer.
+- **Content-driven**: 16 JSON collections in `assets/data/`, served at runtime
+  so editors can change content without a rebuild.
+- **Motion**: IntersectionObserver reveals, word-split headings, marquees,
+  parallax, sticky columns, Ken Burns, magnetic buttons, tilt, count-ups and a
+  curtain transition. Vanilla JS and CSS only — no GSAP, no framework, no CDN.
+- **Accessibility**: one `<h1>` per page, full landmark set, skip link, visible
+  focus, and every animation disabled under `prefers-reduced-motion` or
+  `data-motion="off"`.
 
 ## Content data
 
-JSON-ready content is stored in:
-
 ```text
 assets/data/
-├── site.json
-├── navigation.json
-├── services.json
-├── projects.json
-└── articles.json
+├── site.json          business identity, contact, socials
+├── navigation.json    header, mega menu, footer, drawer
+├── services.json      15 services
+├── projects.json      10 case studies
+├── posts.json         8 journal articles
+├── pricing.json       packages and the basis toggle
+├── faqs.json          24 questions across 5 categories
+├── process.json  team.json  awards.json  stats.json
+├── testimonials.json  clients.json  locations.json
+└── defaults.json      site-wide fallback for every section parameter
 ```
 
-The content model is prepared for future CMS or React conversion.
+To add a service, project or article, append an object to the matching file.
+Detail pages are generated automatically — no page registration needed.
 
 ## Assets
 
-Local assets live in:
-
 ```text
-assets/images/
-assets/css/site.css
-assets/js/main.js
+assets/css/    01-tokens … 09-docs, concatenated in filename order
+assets/js/     util → api → chrome → motion → sections → forms → theme
+assets/images/ original imagery and the brand mark
 ```
 
-No critical production content depends on remote images, remote fonts, or remote scripts.
+All imagery is original work made for this project. Nothing hotlinks a third
+party's CDN. Fonts load from Google Fonts with Georgia and system fallbacks, so
+the site stays legible if the request fails.
+
+While a manifest image is still pending, its frame renders a branded
+placeholder rather than a broken image. Adding a file with the right name
+replaces it with no template or data change. Status per file is in
+`theme/docs/design.md` §12.
+
+## Legacy prototypes
+
+`company-index.html`, `journal.html`, `portfolio.html` and `services.html` are
+earlier prototypes. They cross-link only each other; no theme page reaches
+them. `WOODEX-INT/` preserves copies and `WOODEX-WP/` holds the WordPress
+conversion. They are kept for reference and can be removed once you are happy
+the master theme supersedes them.
 
 ## Before production launch
 
-Replace or verify:
+Content that needs your approval:
 
-- Official Pakistan WhatsApp number
-- Official email
+- Official WhatsApp number and email
 - Service cities
-- Project names and locations
-- Project photography
+- Project names, locations and metrics
+- Approved project photography
 - Testimonials and client logos
-- Project metrics
-- Warranty wording
-- 3D guarantee wording
+- Warranty and 3D guarantee wording
 - Legal entity and privacy details
-- Form endpoint
+- Form endpoint — the form validates client-side and needs a backend to post to
+- Analytics
 
-## Deployment options
+## Deployment
 
-This is a static website and can be uploaded to:
+Static output. Upload the repository root to GitHub Pages, Netlify, Vercel,
+Cloudflare Pages, or any Apache or Nginx host. For GitHub Pages, enable Pages
+from the branch containing the built root.
 
-- GitHub Pages
-- Netlify
-- Vercel static hosting
-- Cloudflare Pages
-- Any Apache/Nginx hosting
+## Status
 
-For GitHub Pages, upload the contents of this folder to the repository root and enable Pages from the main branch.
-
-## Current status
-
-Technically complete prototype. Business content, approved photography, form backend, analytics, and final legal copy remain approval items.
+Structurally complete and building warning-free. All 56 pages pass the QA gates
+in `theme/docs/design.md` §14: one `<h1>` each, balanced markup, full landmarks,
+every internal link resolving, all 103 JSON-LD blocks valid, no unrendered
+template tokens. Remaining work is the 12 pending manifest images and the
+business approvals listed above.
