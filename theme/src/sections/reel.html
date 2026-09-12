@@ -5,7 +5,7 @@
     embed. Set reelSrc to a local .mp4 or a YouTube/Vimeo URL.
       reelPoster, reelSrc, reelEyebrow, reelTitle, reelText, reelStats[]
     ========================================================================== }}
-<section class="s-reel" aria-label="{{reelLabel}}" data-reel="{{reelSrc}}">
+<section class="s-reel" aria-label="{{reelLabel}}"{{#if reelSrc}} data-reel="{{reelSrc}}"{{/if}}>
   <div class="container">
     <div class="section-head section-head--split" style="margin-bottom:var(--sp-7)">
       <div>
@@ -15,6 +15,7 @@
       <div class="section-head__aside" data-reveal="up" data-reveal-delay="2"><p>{{reelText}}</p></div>
     </div>
 
+    {{#if reelSrc}}
     <div class="s-reel__frame media-hover" data-reveal="clip" role="button" tabindex="0" aria-label="Play the studio showreel" data-cursor-label="Play">
       <img src="{{base}}{{reelPoster}}" alt="Woodex Interior studio showreel" loading="lazy" decoding="async">
       <div class="s-reel__play">
@@ -22,6 +23,16 @@
         <span class="s-reel__label">{{reelDuration}}</span>
       </div>
     </div>
+    {{else}}
+    {{! No reelSrc configured. The poster still renders so the layout holds, but
+        as a plain figure: the Reel module bails on an empty source, so a
+        focusable role="button" announced as "Play the studio showreel" would be
+        a control that does nothing when activated. Set reelSrc to a local .mp4
+        or a YouTube/Vimeo URL and the interactive version returns. }}
+    <figure class="s-reel__frame" data-reveal="clip">
+      <img src="{{base}}{{reelPoster}}" alt="Woodex Interior studio showreel" loading="lazy" decoding="async">
+    </figure>
+    {{/if}}
 
     {{#if reelStats}}
     <div class="s-reel__meta">
