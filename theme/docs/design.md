@@ -553,7 +553,11 @@ Known limitations are documented honestly in the accessibility statement rather 
 
 All 21 named images plus the brand mark. Generated images are original AI work created for this project.
 
-**Current status: every image referenced by a built page now exists.** All 10,636 local references across the 56 pages resolve. Two manifest entries remain — `texture-wood.jpg` and `og-cover.jpg` — and neither is referenced by any page: the first is a reserved background texture, the second a 1200×630 social share card to be wired into the OG tags when the final crop is chosen.
+**Current status: complete.** Every image referenced by a built page exists. All local references across the 56 pages resolve on all five channels audited — `href`/`src`, `meta content`, inline `url()`, stylesheet `url()`, and string values inside JSON-LD.
+
+`texture-wood.jpg` and `og-cover.jpg` were retired rather than generated. Every image in this set is 1408×768 (1.83:1), which is close enough to the 1.91:1 that social scrapers prefer that a dedicated 1200×630 card adds nothing. The site-wide `og:image` now uses `space-lobby.jpg`, with contextually apt per-page overrides; `publisher.logo` in the blog JSON-LD uses `apple-touch-icon.png`, which is the actual brand mark and therefore more correct than a photograph ever was.
+
+Auditing note: checking only `href` and `src` misses real breakage. `og:image` lives in a `meta content` attribute and `publisher.logo` lives inside a JSON-LD string — neither is caught by a link checker, and both were broken here until the audit was widened.
 
 | File | Subject | Status |
 |---|---|---|
@@ -577,8 +581,8 @@ All 21 named images plus the brand mark. Generated images are original AI work c
 | `cta-workshop.jpg` | Workshop panel-processing bay | ✅ generated |
 | `reel-poster.jpg` | Showreel poster frame | ✅ generated |
 | `contact-studio.jpg` | Studio interior for contact pages | ✅ generated |
-| `texture-wood.jpg` | Wood grain texture, background use | ⏳ pending |
-| `og-cover.jpg` | 1200×630 social share card | ⏳ pending |
+| ~~`texture-wood.jpg`~~ | retired — no longer referenced | ✅ not needed |
+| ~~`og-cover.jpg`~~ | retired — no longer referenced | ✅ not needed |
 | `favicon.svg` | Original brand mark: arch + mitred W + brass rule | ✅ hand-written |
 | `apple-touch-icon.png` | Same mark rasterised at 180×180 | ✅ generated in-house |
 

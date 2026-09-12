@@ -20,12 +20,35 @@
   },
   "addressOneLine": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660, Pakistan",
   "hours": [
-    { "day": "mon", "label": "Monday – Thursday", "time": "10:00 – 19:00" },
-    { "day": "fri", "label": "Friday", "time": "10:00 – 13:00, 14:30 – 19:00" },
-    { "day": "sat", "label": "Saturday", "time": "11:00 – 17:00" },
-    { "day": "sun", "label": "Sunday", "time": "By appointment" }
+    {
+      "day": "mon",
+      "label": "Monday – Thursday",
+      "time": "10:00 – 19:00"
+    },
+    {
+      "day": "fri",
+      "label": "Friday",
+      "time": "10:00 – 13:00, 14:30 – 19:00"
+    },
+    {
+      "day": "sat",
+      "label": "Saturday",
+      "time": "11:00 – 17:00"
+    },
+    {
+      "day": "sun",
+      "label": "Sunday",
+      "time": "By appointment"
+    }
   ],
-  "serviceCities": ["Lahore", "Islamabad", "Rawalpindi", "Faisalabad", "Multan", "Karachi"],
+  "serviceCities": [
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Karachi"
+  ],
   "social": {
     "instagram": "https://instagram.com/",
     "facebook": "https://facebook.com/",
@@ -60,7 +83,7 @@
     "titleSuffix": " — Woodex Interior",
     "defaultTitle": "Woodex Interior — Interior Design & Turnkey Fit-Out in Lahore",
     "defaultDescription": "Woodex Interior designs and builds commercial, residential, retail and hospitality interiors across Pakistan. Fixed-price proposals, in-house joinery, 3D-approved before production.",
-    "ogImage": "assets/images/og-cover.jpg",
+    "ogImage": "assets/images/space-lobby.jpg",
     "twitterHandle": "@woodexinterior",
     "keywords": "interior design Lahore, office fit out Pakistan, turnkey interiors, retail shop interior, restaurant interior design, custom joinery Lahore, Woodex Interior"
   },
@@ -68,7 +91,10 @@
     "@type": "InteriorDesignBusiness",
     "priceRange": "PKR",
     "areaServed": "Pakistan",
-    "aggregateRating": { "ratingValue": "4.9", "reviewCount": "126" }
+    "aggregateRating": {
+      "ratingValue": "4.9",
+      "reviewCount": "126"
+    }
   },
   "build": {
     "themeName": "Woodex Master Theme",
