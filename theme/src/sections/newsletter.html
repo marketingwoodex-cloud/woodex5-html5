@@ -12,7 +12,7 @@
         <h3 style="font-family:var(--ff-display);font-size:var(--fs-h2);line-height:var(--lh-tight);letter-spacing:var(--tr-tightest);margin-top:var(--sp-3)">{{{newsTitle}}}</h3>
         <p class="muted">{{newsText}}</p>
       </div>
-      <form class="s-news__form" data-newsletter data-form="newsletter" data-endpoint="{{newsEndpoint}}" novalidate>
+      <form class="s-news__form" data-newsletter data-form="newsletter" {{#if newsEndpoint}}data-endpoint="{{newsEndpoint}}" {{/if}} novalidate>
         <div class="field field--boxed">
           <label class="field__label" for="news-email">Email address</label>
           <input class="field__control" id="news-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>

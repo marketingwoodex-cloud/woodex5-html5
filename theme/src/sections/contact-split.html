@@ -25,7 +25,7 @@
 
       <form class="s-contact__form{{#if contactFormVariant}} s-contact__form--{{contactFormVariant}}{{/if}}"
             data-form="{{contactFormKind}}" novalidate
-            data-endpoint="{{contactEndpoint}}"
+            {{#if contactEndpoint}}data-endpoint="{{contactEndpoint}}" {{/if}}
             data-redirect="{{base}}thank-you.html">
 
         <div class="eyebrow eyebrow--plain">Tell us about the space</div>

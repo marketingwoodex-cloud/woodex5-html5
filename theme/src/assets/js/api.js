@@ -229,7 +229,12 @@
        Posts to CONFIG.formEndpoint when set; otherwise falls back to a
        pre-filled WhatsApp / mailto handoff so the site is never dead-ended. */
     submitForm: function (form, payload) {
-      var endpoint = util.attr(form, 'data-endpoint', CONFIG.formEndpoint || '');
+      /* util.attr only falls back when the attribute is missing, and the
+         templates render data-endpoint="" when no endpoint is configured, so
+         reading it directly would shadow CONFIG.formEndpoint forever. Coalesce
+         empty and absent alike, then trim, so the documented global default is
+         actually reachable. */
+      var endpoint = (util.attr(form, 'data-endpoint', '') || CONFIG.formEndpoint || '').trim();
       if (!endpoint) {
         util.log('No form endpoint configured — using handoff fallback.');
         return Promise.resolve({ ok: true, mode: 'handoff' });
