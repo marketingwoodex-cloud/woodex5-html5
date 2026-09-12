@@ -182,6 +182,20 @@ Consequences worth knowing:
 - A section can be dropped on any page with **zero** parameters and still render valid, on-brand markup.
 - Front matter wins over the registry, so a one-off override is always possible without editing shared JSON.
 
+#### Tokens work inside data files too
+
+Any string in any collection may contain the same `{{…}}` tokens a template uses:
+
+```json
+{ "label": "{{site.phone}}", "href": "tel:{{site.phoneRaw}}" }
+```
+
+They are resolved in a pass at the end of `derive()`, so every derived field already exists by then. The pass is guarded on the literal `{{`, so ordinary content is never touched, and it skips `site` and `defaults` because they are the token source.
+
+**Use this for anything that appears in more than one place.** Contact details were once written as literals in five data files and five templates; changing the studio phone in `site.json` updated 234 occurrences and left 17 stale ones behind, in the legal pages and the structured data. One edit now reaches all of them.
+
+The exception is data that is genuinely different per record. `locations.json` holds a distinct phone number for each office — Islamabad, Karachi and Raiwind Road keep their own literals, and only the Lahore head office references `{{site.phone}}`.
+
 ### 4.3 Include-level parameter scoping
 
 The same section can appear several times on one page with different parameters, using `with=`:
@@ -214,8 +228,11 @@ Each named key must be an object in the page parameters whose keys are the secti
 | `testimonials[].initials`, `team[].initials` | `name` | Avatar fallback |
 | `faqCategories`, `faqCount`, counts | — | Filters and copy |
 | `*.social[key]` blanked | any `social` map | Placeholder profile suppression, see below |
+| `site.stats[key]Label` | any stat ≥ 1000 | Thousands-separated string for prose |
 
 `initialsOf()` is shared so every avatar fallback is consistent.
+
+The stat labels exist because a raw number token renders as `22000`, which reads wrong inside a sentence. The numeric field stays authoritative for data consumers and structured data; the parallel `*Label` carries the formatted string for copy. So `{{site.stats.workshopSqft}}` gives `22000` for a JSON-LD `QuantitativeValue`, and `{{site.stats.workshopSqftLabel}}` gives `22,000` for prose. Any new stat of 1000 or more gets a label automatically.
 
 #### Placeholder social profiles
 
