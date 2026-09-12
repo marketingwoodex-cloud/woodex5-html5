@@ -4,9 +4,9 @@
     "type": "Design studio",
     "city": "Lahore",
     "flag": "Head office",
-    "address": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660",
-    "phone": "+92 300 0000000",
-    "email": "studio@woodexinterior.pk",
+    "address": "{{site.address.line1}}, {{site.address.line2}}, {{site.address.city}} {{site.address.postalCode}}",
+    "phone": "{{site.phone}}",
+    "email": "{{site.email}}",
     "hours": "Mon – Thu 10:00–19:00 · Fri 10:00–13:00 & 14:30–19:00 · Sat 11:00–17:00",
     "map": "assets/images/contact-studio.jpg",
     "pin": { "x": "52%", "y": "46%" }

@@ -228,10 +228,51 @@ function derive() {
     data.faqCategories = [...new Set(data.faqs.map((f) => f.cat))];
     data.faqCount = data.faqs.length;
   }
+  /* stats → thousands-separated display labels.
+     A raw number token renders as "22000", which reads wrong inside prose. The
+     numeric field stays authoritative for data consumers and structured data;
+     a parallel *Label carries the formatted string for copy. Same pattern as
+     posts[].readLabel and awards[].resultLabel. */
+  if (data.site && data.site.stats && typeof data.site.stats === 'object') {
+    const st = data.site.stats;
+    for (const k of Object.keys(st)) {
+      const v = st[k];
+      if (typeof v === 'number' && Math.abs(v) >= 1000) {
+        st[`${k}Label`] = v.toLocaleString('en-US');
+      }
+    }
+  }
+
   /* flat helpers used across templates */
   data.serviceCount = Array.isArray(data.services) ? data.services.length : 0;
   data.postCount = Array.isArray(data.posts) ? data.posts.length : 0;
   data.teamCount = Array.isArray(data.team) ? data.team.length : 0;
+
+  /* tokens inside data values → resolved last, once every derived field exists.
+     Contact details were duplicated as literals across navigation.json and
+     several pages/*.json files, so changing the studio phone in site.json left
+     stale numbers behind: one edit updated 234 occurrences and missed 17 more.
+     Data files may now carry the same {{site.x}} tokens templates do, which
+     makes site.json the single source again.
+     Guarded on the literal "{{" so ordinary content is never touched, and it
+     runs after derivation so tokens resolve to final values. */
+  const dataScopes = [data.defaults || {}, data, { data }];
+  const renderDataTokens = (node, label) => {
+    if (typeof node === 'string') {
+      return node.indexOf('{{') === -1 ? node : render(node, dataScopes, label);
+    }
+    if (Array.isArray(node)) return node.map((v, i) => renderDataTokens(v, `${label}[${i}]`));
+    if (node && typeof node === 'object') {
+      for (const k of Object.keys(node)) node[k] = renderDataTokens(node[k], `${label}.${k}`);
+    }
+    return node;
+  };
+  for (const key of Object.keys(data)) {
+    /* site is the token source; rendering it against itself is a no-op at best
+       and a cycle at worst, so it is skipped. */
+    if (key === 'site' || key === 'defaults') continue;
+    data[key] = renderDataTokens(data[key], `data.${key}`);
+  }
 }
 
 const warn = (...m) => console.warn('⚠ ', ...m);

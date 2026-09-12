@@ -156,7 +156,7 @@
   ],
   "utility": [
     { "label": "Book a consultation", "href": "contact.html" },
-    { "label": "+92 300 0000000", "href": "tel:+923000000000" }
+    { "label": "{{site.phone}}", "href": "tel:{{site.phoneRaw}}" }
   ],
   "footer": {
     "studio": [

@@ -10,11 +10,11 @@
     "heroFactList": [
       {
         "k": "Studio line",
-        "v": "+92 300 0000000"
+        "v": "{{site.phone}}"
       },
       {
         "k": "Email",
-        "v": "studio@woodexinterior.pk"
+        "v": "{{site.email}}"
       },
       {
         "k": "Reply window",
@@ -32,7 +32,7 @@
     "heroActions": true,
     "heroCta": {
       "label": "Call the studio",
-      "href": "tel:+923000000000"
+      "href": "tel:{{site.phoneRaw}}"
     },
     "heroCta2": {
       "label": "WhatsApp",
@@ -66,7 +66,7 @@
     "contactMeta": [
       {
         "k": "Studio",
-        "v": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+        "v": "{{site.address.line1}}, {{site.address.line2}}, {{site.address.city}} {{site.address.postalCode}}"
       },
       {
         "k": "Workshop",
@@ -74,11 +74,11 @@
       },
       {
         "k": "Direct lines",
-        "v": "+92 300 0000000 · +92 42 0000 0000"
+        "v": "{{site.phone}} · +92 42 0000 0000"
       },
       {
         "k": "Email",
-        "v": "studio@woodexinterior.pk · projects@woodexinterior.pk"
+        "v": "{{site.email}} · {{site.salesEmail}}"
       }
     ],
     "contactNote": "We reply to every enquiry, including the ones we cannot help with. If we are not the right studio for your project we will say so and suggest who is.",
@@ -137,7 +137,7 @@
     "ctaPrimary": "Book a consultation",
     "ctaPrimaryHref": "#enquiry",
     "ctaSecondary": "Call the studio",
-    "ctaSecondaryHref": "tel:+923000000000",
+    "ctaSecondaryHref": "tel:{{site.phoneRaw}}",
     "ctaImage": "assets/images/contact-studio.jpg",
     "ctaAside": [
       {
@@ -170,7 +170,7 @@
     "contactAside": [
       {
         "k": "Studio & new projects",
-        "v": "+92 300 0000000"
+        "v": "{{site.phone}}"
       },
       {
         "k": "Projects & site queries",
@@ -178,11 +178,11 @@
       },
       {
         "k": "Design enquiries",
-        "v": "studio@woodexinterior.pk"
+        "v": "{{site.email}}"
       },
       {
         "k": "Live projects",
-        "v": "projects@woodexinterior.pk"
+        "v": "{{site.salesEmail}}"
       }
     ],
     "contactImage": "assets/images/studio-team.jpg",
@@ -190,7 +190,7 @@
     "contactMeta": [
       {
         "k": "Studio",
-        "v": "Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+        "v": "{{site.address.line1}}, {{site.address.line2}}, {{site.address.city}} {{site.address.postalCode}}"
       },
       {
         "k": "Workshop",
@@ -232,7 +232,7 @@
     },
     "heroCta2": {
       "label": "Call the studio",
-      "href": "tel:+923000000000"
+      "href": "tel:{{site.phoneRaw}}"
     },
     "locId": "offices",
     "locLabel": "Where to find us",
@@ -272,7 +272,7 @@
     "contactMeta": [
       {
         "k": "Studio",
-        "v": "Studio 4, Gulberg Galleria, Main Boulevard, Gulberg III, Lahore 54660"
+        "v": "{{site.address.line1}}, {{site.address.line2}}, {{site.address.city}} {{site.address.postalCode}}"
       },
       {
         "k": "Workshop",
@@ -343,11 +343,11 @@
     "thanksAside": [
       {
         "k": "Studio line",
-        "v": "+92 300 0000000"
+        "v": "{{site.phone}}"
       },
       {
         "k": "Email",
-        "v": "studio@woodexinterior.pk"
+        "v": "{{site.email}}"
       },
       {
         "k": "Hours",

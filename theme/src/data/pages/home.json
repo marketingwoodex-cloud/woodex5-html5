@@ -141,8 +141,8 @@
     "ctaSecondaryHref": "pricing.html",
     "ctaImage": "assets/images/hero-living.jpg",
     "ctaAside": [
-      { "k": "Studio line", "v": "+92 300 0000000" },
-      { "k": "Email", "v": "studio@woodexinterior.pk" },
+      { "k": "Studio line", "v": "{{site.phone}}" },
+      { "k": "Email", "v": "{{site.email}}" },
       { "k": "Reply window", "v": "One business day" }
     ]
   },

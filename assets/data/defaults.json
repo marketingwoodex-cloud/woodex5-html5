@@ -1,6 +1,5 @@
 {
   "_readme": "GLOBAL SECTION PARAMETER DEFAULTS. Every key here is the lowest-priority value for a section parameter. Resolution order is: page front matter → src/data/pages/*.json entry for that page → this file. Any section therefore renders sensibly with zero parameters, and a page only needs to override what it wants to change. Add a new section parameter here to give it a site-wide default.",
-
   "headerClass": "",
   "headerSolid": false,
   "hideHeaderCta": false,
@@ -10,7 +9,6 @@
   "crumbCurrent": "",
   "crumbParent": "",
   "crumbParentHref": "",
-
   "heroVariant": "plain",
   "heroEyebrow": "Woodex Interior",
   "heroTitle": "Interiors drawn, <em>made</em> and installed by one studio",
@@ -26,7 +24,6 @@
   "heroFacts": false,
   "heroActions": false,
   "heroPoints": [],
-
   "marqueeLabel": "What we do",
   "marqueeVariant": "display",
   "marqueeSurface": "canvas",
@@ -34,18 +31,15 @@
   "marqueeSpeed2": "58",
   "marqueeText": "Residential interiors — Commercial fit-out — Retail &amp; flagship — Hospitality — Bespoke joinery — 3D visualisation — ",
   "marqueeText2": "",
-
   "logosEyebrow": "Trusted by operators across Pakistan",
   "logosNote": "",
   "logosSpeed": "46",
-
   "statsLabel": "Studio numbers",
   "statsEyebrow": "By the numbers",
   "statsHead": "Eleven years, <em>measured</em>",
   "statsNote": "Every figure is tracked against a contract date and a handover record, not estimated for a website.",
   "statsVariant": "",
   "statsLimit": 4,
-
   "statementAside": "Our approach",
   "statementText": "",
   "statementSignName": "",
@@ -55,7 +49,6 @@
   "statementImageAlt": "",
   "statementCta": "",
   "statementCtaHref": "",
-
   "splitLabel": "",
   "splitEyebrow": "",
   "splitTitle": "",
@@ -73,14 +66,12 @@
   "splitSticky": false,
   "splitOrder": "",
   "splitParallax": "0.05",
-
   "scatterLabel": "Selected interiors",
   "scatterEyebrow": "Selected interiors",
   "scatterTitle": "",
   "scatterText": "",
   "scatterItems": [],
   "scatterSticker": "MEASURED · DRAWN · MADE · INSTALLED · ",
-
   "reelLabel": "Studio showreel",
   "reelEyebrow": "Inside the workshop",
   "reelTitle": "",
@@ -89,7 +80,6 @@
   "reelSrc": "",
   "reelDuration": "",
   "reelStats": [],
-
   "svcAccId": "services",
   "svcAccLabel": "Core services",
   "svcAccEyebrow": "Core services",
@@ -104,7 +94,6 @@
   "svcAccAsideCta": "",
   "svcAccAsideHref": "contact.html",
   "svcLimit": 6,
-
   "svcGridId": "services",
   "svcGridLabel": "Our services",
   "svcGridEyebrow": "What we do",
@@ -119,7 +108,6 @@
   "svcGridFootText": "",
   "svcGridFootCta": "",
   "svcGridFootCtaHref": "contact.html",
-
   "svcListId": "services",
   "svcListLabel": "All services",
   "svcListEyebrow": "Service index",
@@ -129,7 +117,6 @@
   "svcListLimit": 15,
   "svcListCta": "Service overview",
   "svcListCtaHref": "service.html",
-
   "featureId": "feature",
   "featureLabel": "",
   "featureEyebrow": "",
@@ -145,7 +132,6 @@
   "featureStats": [],
   "featureCta": "",
   "featureCtaHref": "",
-
   "processId": "process",
   "processLabel": "Our process",
   "processVariant": "",
@@ -154,28 +140,23 @@
   "processLimit": 6,
   "processPromises": false,
   "timeline": true,
-
   "awardsEyebrow": "Recognition",
   "awardsTitle": "Awarded and <em>shortlisted</em>",
   "awardsText": "",
-
   "quoteText": "",
   "quoteName": "",
   "quoteRole": "",
   "quoteInitials": "",
   "quoteRating": 5,
-
   "valuesEyebrow": "What we hold to",
   "valuesTitle": "",
   "valuesText": "",
   "valuesCols": 3,
   "values": [],
-
   "milestonesEyebrow": "Eleven years",
   "milestonesTitle": "",
   "milestonesText": "",
   "milestones": [],
-
   "projGridId": "work",
   "projGridLabel": "Selected projects",
   "projGridEyebrow": "Selected work",
@@ -187,7 +168,6 @@
   "projGridNoBar": false,
   "projGridCta": "Full portfolio",
   "projGridCtaHref": "portfolio-one.html",
-
   "projListId": "work",
   "projListLabel": "Project index",
   "projListEyebrow": "Project index",
@@ -197,7 +177,6 @@
   "projListLimit": 10,
   "projListCta": "Full portfolio",
   "projListCtaHref": "portfolio-one.html",
-
   "projCarId": "work",
   "projCarLabel": "Selected projects",
   "projCarEyebrow": "Selected work",
@@ -208,12 +187,10 @@
   "projCarLg": false,
   "projCarCta": "All projects",
   "projCarCtaHref": "portfolio-one.html",
-
   "projBriefTitle": "The brief and how we answered it",
   "galleryEyebrow": "Project gallery",
   "galleryTitle": "The <em>photographs</em>",
   "galleryText": "",
-
   "testiId": "testimonials",
   "testiLabel": "Client testimonials",
   "testiEyebrow": "Client words",
@@ -224,27 +201,22 @@
   "testiLimit": 6,
   "testiCta": "",
   "testiCtaHref": "",
-
   "teamEyebrow": "The people",
   "teamTitle": "",
   "teamText": "",
   "teamWhere": "",
   "teamLimit": 8,
-
   "pricingEyebrow": "Packages",
   "pricingTitle": "Packages and <em>indicative rates</em>",
-
   "compareTitle": "What is included <em>at each level</em>",
   "compareText": "",
   "compareNote": "",
   "compare": [],
-
   "faqEyebrow": "Frequently asked",
   "faqTitle": "",
   "faqText": "",
   "faqLimit": 12,
   "faqSchema": true,
-
   "blogId": "journal",
   "blogLabel": "From the journal",
   "blogEyebrow": "From the journal",
@@ -257,7 +229,6 @@
   "blogOffset": 0,
   "blogCta": "All articles",
   "blogCtaHref": "blog.html",
-
   "blogListId": "journal",
   "blogListLabel": "From the journal",
   "blogListEyebrow": "From the journal",
@@ -267,18 +238,15 @@
   "blogListLimit": 8,
   "blogListCta": "All articles",
   "blogListCtaHref": "blog.html",
-
   "topicsId": "topics",
   "topicsLabel": "Journal topics",
   "topicsEyebrow": "Browse by topic",
   "topicsTitle": "",
   "topicsText": "",
   "topics": [],
-
   "bodyLabel": "Article",
   "shareLabel": "Share this article",
   "authorNote": "",
-
   "ctaId": "start",
   "ctaLabel": "Start a project",
   "ctaVariant": "plain",
@@ -293,7 +261,6 @@
   "ctaImage": "",
   "ctaFoot": "",
   "ctaAside": [],
-
   "contactId": "contact",
   "contactLabel": "Project enquiry",
   "contactEyebrow": "Project enquiry",
@@ -311,33 +278,28 @@
   "contactAside": [],
   "contactMeta": [],
   "contactNote": "",
-
   "locId": "offices",
   "locLabel": "Our offices",
   "locEyebrow": "Where we work",
   "locTitle": "",
   "locText": "",
   "locLimit": 3,
-
   "newsId": "newsletter",
   "newsEyebrow": "Journal by email",
   "newsTitle": "One note a month, <em>no marketing</em>",
   "newsText": "Project releases, material notes and pricing updates for the Pakistan market. Unsubscribe in one click.",
   "newsEndpoint": "",
-
   "thanksTitle": "Thank you. <em>Your enquiry is with a designer.</em>",
   "thanksText": "",
   "thanksItems": [],
   "thanksAside": [],
   "thanksRef": true,
   "thanksNote": "",
-
   "legalTitle": "",
   "legalUpdated": "",
   "legalIntro": "",
   "legalToc": true,
   "legalSections": [],
-
   "docsId": "docs",
   "stepsTitle": "",
   "stepsText": "",
@@ -356,7 +318,6 @@
   "motionText": "",
   "motionItems": [],
   "motionNote": "",
-
   "guideId": "guide",
   "paletteTitle": "",
   "paletteText": "",
@@ -375,5 +336,6 @@
   "comps": [],
   "secTitle": "",
   "secText": "",
-  "secList": []
+  "secList": [],
+  "contactPhonePlaceholder": "+92 3XX XXXXXXX"
 }
