@@ -719,8 +719,8 @@ function buildManifest() {
     try {
       const prev = JSON.parse(fs.readFileSync(file, 'utf8'));
       const strip = (o) => JSON.stringify({ ...o, built: null });
+      /* Nothing but the clock differs: keep the committed file untouched. */
       if (strip(prev) === strip(manifest)) return;
-      manifest.built = prev.built || manifest.built;
     } catch {
       /* unreadable or corrupt manifest — fall through and rewrite it */
     }
