@@ -483,6 +483,14 @@
           if (host.classList.contains('is-playing')) return;
           e.preventDefault(); play();
         });
+        /* The frame carries role="button" tabindex="0", so it has to activate on
+           Enter and Space too -- otherwise it is reachable by keyboard and then
+           inert there. Space is preventDefault-ed so the page does not scroll. */
+        util.on(frame, 'keydown', function (e) {
+          if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+          if (host.classList.contains('is-playing')) return;
+          e.preventDefault(); play();
+        });
       });
     }
   };
