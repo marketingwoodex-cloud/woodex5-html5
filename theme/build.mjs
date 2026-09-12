@@ -126,6 +126,45 @@ const initialsOf = (name) => String(name || '')
   .map((w) => w[0]).join('').slice(0, 2).toUpperCase();
 
 function derive() {
+  /* social → drop placeholder values everywhere they occur.
+     A bare platform homepage such as "https://instagram.com/" is not a profile,
+     it is an unfilled field. Left in place it did two kinds of damage: it went
+     into the Organization sameAs array, telling a search engine that this
+     studio's identity is the same as instagram.com itself, and it rendered a
+     live icon that sent visitors to that platform's homepage. Blanking the
+     value lets both the graph and the templates treat it as absent, so nothing
+     is claimed until a real handle exists.
+
+     This walks every collection rather than only site.social, because team
+     members carry their own social maps and their templates already guard with
+     {{#if social.linkedin}} — a guard that a non-empty placeholder string sails
+     straight through. Any future collection with a social map is covered too.
+     A URL with no path beyond "/" counts as a placeholder. */
+  const isPlaceholderSocial = (raw) => {
+    const v = String(raw || '').trim();
+    if (!v) return true;
+    try {
+      const u = new URL(v);
+      return !u.pathname || u.pathname === '/';
+    } catch {
+      return true;                         /* not a URL at all */
+    }
+  };
+  const blankSocials = (obj) => {
+    if (!obj || typeof obj !== 'object') return;
+    const social = obj.social;
+    if (social && typeof social === 'object') {
+      for (const k of Object.keys(social)) {
+        if (isPlaceholderSocial(social[k])) social[k] = '';
+      }
+    }
+  };
+  blankSocials(data.site);
+  for (const key of Object.keys(data)) {
+    const list = data[key];
+    if (Array.isArray(list)) list.forEach(blankSocials);
+  }
+
   /* services → icon + index within group */
   if (Array.isArray(data.services)) {
     const groupCount = {};
@@ -631,7 +670,13 @@ ${JSON.stringify({
       addressCountry: 'PK'
     },
     areaServed: site.serviceCities,
-    sameAs: Object.values(site.social || {})
+    /* Only real profiles. derive() has already blanked placeholders, so filter
+       those out and drop the key when nothing is left rather than publishing an
+       empty or meaningless sameAs. */
+    ...(() => {
+      const profiles = Object.values(site.social || {}).filter(Boolean);
+      return profiles.length ? { sameAs: profiles } : {};
+    })()
   }, null, 0)}
 </script>
 ${s.extraHead || ''}

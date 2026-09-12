@@ -45,11 +45,11 @@
         </a>
         <p>{{site.shortDescription}}</p>
         <div class="footer-social">
-          <a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
-          <a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
-          <a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>
-          <a href="{{site.social.pinterest}}" aria-label="Pinterest" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pinterest"/></svg></a>
-          <a href="{{site.social.youtube}}" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a>
+          {{#if site.social.instagram}}<a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>{{/if}}
+          {{#if site.social.facebook}}<a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>{{/if}}
+          {{#if site.social.linkedin}}<a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>{{/if}}
+          {{#if site.social.pinterest}}<a href="{{site.social.pinterest}}" aria-label="Pinterest" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pinterest"/></svg></a>{{/if}}
+          {{#if site.social.youtube}}<a href="{{site.social.youtube}}" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a>{{/if}}
         </div>
         <div class="badge badge--outline" style="justify-self:start">
           <span class="badge__dot" style="background:var(--c-success)"></span> Taking projects for Q1 {{year}}

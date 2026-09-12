@@ -47,9 +47,9 @@
       <span class="meta">{{site.address.city}} · {{site.address.region}} · {{site.address.country}}</span>
     </div>
     <div class="drawer__social">
-      <a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
-      <a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
-      <a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+      {{#if site.social.instagram}}<a href="{{site.social.instagram}}" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>{{/if}}
+      {{#if site.social.facebook}}<a href="{{site.social.facebook}}" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>{{/if}}
+      {{#if site.social.linkedin}}<a href="{{site.social.linkedin}}" aria-label="LinkedIn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a>{{/if}}
       <a href="https://wa.me/{{site.whatsapp}}" aria-label="WhatsApp" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
     </div>
     <div class="meta">© <span data-year>{{year}}</span> {{site.legalName}}</div>
