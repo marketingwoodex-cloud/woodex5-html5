@@ -553,6 +553,8 @@ Known limitations are documented honestly in the accessibility statement rather 
 
 All 21 named images plus the brand mark. Generated images are original AI work created for this project.
 
+**Current status: every image referenced by a built page now exists.** All 10,636 local references across the 56 pages resolve. Two manifest entries remain — `texture-wood.jpg` and `og-cover.jpg` — and neither is referenced by any page: the first is a reserved background texture, the second a 1200×630 social share card to be wired into the OG tags when the final crop is chosen.
+
 | File | Subject | Status |
 |---|---|---|
 | `space-workspace.jpg` | Open-plan corporate office floor | ✅ generated |
@@ -561,20 +563,20 @@ All 21 named images plus the brand mark. Generated images are original AI work c
 | `space-cafe.jpg` | Coffee house counter and back bar | ✅ generated |
 | `space-showroom.jpg` | Furniture showroom hall | ✅ generated |
 | `space-villa.jpg` | Farmhouse exterior at golden hour | ✅ generated |
-| `space-restaurant.jpg` | Restaurant dining room, evening | ⏳ pending |
-| `space-apartment.jpg` | Compact apartment living space | ⏳ pending |
+| `space-restaurant.jpg` | Restaurant dining room, evening | ✅ generated |
+| `space-apartment.jpg` | Compact apartment living space | ✅ generated |
 | `studio-team.jpg` | Design studio workspace, no faces | ✅ generated |
 | `detail-joinery.jpg` | Macro mitred timber joint | ✅ generated |
 | `detail-materials.jpg` | Material palette flat-lay | ✅ generated |
 | `detail-lighting.jpg` | Cove lighting on plaster | ✅ generated |
-| `detail-staircase.jpg` | Stair with steel stringers | ⏳ pending |
-| `hero-living.jpg` | Living room, oak panelling | ⏳ pending |
-| `hero-kitchen.jpg` | Kitchen with walnut island | ⏳ pending |
-| `hero-bedroom.jpg` | Primary bedroom | ⏳ pending |
-| `hero-office.jpg` | Home office | ⏳ pending |
-| `cta-workshop.jpg` | Workshop panel-processing bay | ⏳ pending |
-| `reel-poster.jpg` | Showreel poster frame | ⏳ pending |
-| `contact-studio.jpg` | Studio interior for contact pages | ⏳ pending |
+| `detail-staircase.jpg` | Stair with steel stringers | ✅ generated |
+| `hero-living.jpg` | Living room, oak panelling | ✅ generated |
+| `hero-kitchen.jpg` | Kitchen with walnut island | ✅ generated |
+| `hero-bedroom.jpg` | Primary bedroom | ✅ generated |
+| `hero-office.jpg` | Home office | ✅ generated |
+| `cta-workshop.jpg` | Workshop panel-processing bay | ✅ generated |
+| `reel-poster.jpg` | Showreel poster frame | ✅ generated |
+| `contact-studio.jpg` | Studio interior for contact pages | ✅ generated |
 | `texture-wood.jpg` | Wood grain texture, background use | ⏳ pending |
 | `og-cover.jpg` | 1200×630 social share card | ⏳ pending |
 | `favicon.svg` | Original brand mark: arch + mitred W + brass rule | ✅ hand-written |
