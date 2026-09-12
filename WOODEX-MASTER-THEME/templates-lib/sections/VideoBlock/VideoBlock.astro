@@ -145,12 +145,12 @@ const id = `vid-${Math.random().toString(36).slice(2, 8)}`;
 
 <style>
   .vb { overflow: hidden; }
-  .vb--dark { background: var(--c-jet); color: var(--c-beige); }
-  .vb--beige { background: var(--c-beige); }
+  .vb--dark { background: var(--c-navy); color: var(--c-cream); }
+  .vb--beige { background: var(--c-cream); }
   .vb--light { background: var(--bg); }
 
   .vb--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
-  .vb--dark :global(h2) { color: var(--c-beige); }
+  .vb--dark :global(h2) { color: var(--c-cream); }
 
   .vb__bleed { width: 100%; }
 
@@ -184,7 +184,7 @@ const id = `vid-${Math.random().toString(36).slice(2, 8)}`;
   .vb__scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(17, 17, 17, 0.15), rgba(17, 17, 17, 0.45));
+    background: linear-gradient(180deg, rgba(15, 30, 54, 0.15), rgba(15, 30, 54, 0.45));
   }
 
   .vb__play {
@@ -200,11 +200,11 @@ const id = `vid-${Math.random().toString(36).slice(2, 8)}`;
     background: rgba(252, 242, 232, 0.14);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(252, 242, 232, 0.4);
-    color: var(--c-beige);
+    color: var(--c-cream);
     transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
   }
 
-  .vb__play:hover { background: var(--c-beige); color: var(--c-jet); }
+  .vb__play:hover { background: var(--c-cream); color: var(--c-navy); }
 
   .vb__play-ring {
     position: absolute;
@@ -261,8 +261,8 @@ const id = `vid-${Math.random().toString(36).slice(2, 8)}`;
   .vb--dark .vb__stats { background: rgba(252, 242, 232, 0.16); border-color: rgba(252, 242, 232, 0.16); }
 
   .vb__stat { padding: clamp(1.25rem, 2.4vw, 1.75rem); background: inherit; }
-  .vb--dark .vb__stat { background: var(--c-jet); }
-  .vb--beige .vb__stat { background: var(--c-beige); }
+  .vb--dark .vb__stat { background: var(--c-navy); }
+  .vb--beige .vb__stat { background: var(--c-cream); }
   .vb--light .vb__stat { background: var(--bg); }
 
   .vb__stat dt { font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 0.6rem; }

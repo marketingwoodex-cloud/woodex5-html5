@@ -35,20 +35,60 @@ Then run `npm run templates` so the library and its prop docs are regenerated.
 
 ## 2. Swap the palette
 
-All colour lives in `src/styles/tokens.css`. Change the eight raw colours and the
-semantic aliases follow:
+**The site uses four colours. Keep it that way.** All colour lives in `src/styles/tokens.css`
+under *1. Brand palette*:
 
 ```css
 :root {
-  --c-jet: #111111;      /* dark sections, primary buttons */
-  --c-beige: #fcf2e8;    /* page background, inverted text */
-  --bg: var(--c-beige);
-  --text: var(--c-black);
+  --c-white: #ffffff;   /* page ground, cards, text on blue */
+  --c-navy:  #0f1e36;   /* BLUE — every dark surface, buttons, links */
+  --c-cream: #fcf2e8;   /* warm alternate ground, accents */
+  --c-black: #000000;   /* body copy, hairlines, deepest ground */
 }
 ```
 
-Dark sections invert by setting `data-theme="dark"` on the section — you do not
-write new colour values for them.
+Everything softer is one of those four with alpha, listed directly beneath under
+*1a. Derived tints* (`--tint-ink-68`, `--tint-ice-50`, …). If you change a brand colour,
+re-check those tints — they are written as literal `rgba()` values so they can be tuned
+independently of the base.
+
+Then, if the new palette needs different semantics, adjust the aliases in *1c. Semantic
+aliases* (`--bg`, `--text`, `--line`, `--accent`). Components only ever read aliases.
+
+**Inversion is free.** A section flips to the dark treatment with one attribute:
+
+```html
+<section data-theme="dark"> … </section>   <!-- navy ground, white copy -->
+<section data-theme="cream"> … </section>  <!-- cream ground, black copy -->
+<section data-theme="black"> … </section>  <!-- deepest ground -->
+```
+
+`beige` and `gray` are accepted as aliases for `cream`, and `navy`/`blue` for `dark`.
+No component contains a light/dark branch — that is the whole point.
+
+**Never add a fifth colour.** Need a softer tone? Use a tint, an icon, or font weight.
+Error and warning states are deliberately colour-free: navy border + `alert` icon + text,
+which stays legible in greyscale (WCAG 1.4.1).
+
+### 2.1 Re-face photography onto the palette
+
+Photographs are tinted at paint time so any file — stock, AI, or a client's shoot — reads as
+part of the identity:
+
+| Where | Grade applied |
+| --- | --- |
+| Light sections | on-palette grade, `--tone-light` |
+| Dark / navy / black sections | cooler deeper grade, `--tone-dark` (automatic) |
+| Hover or focus on a linked image | dialled back toward full colour |
+
+- Global switch: `theme.imageTone` in `src/data/site.js` →
+  `'cream'` (default) · `'soft'` (barely there) · `'duo'` (hard navy/cream duotone) · `'none'`.
+- Per image: `<Img src="…" tone="duo" />`, `tone="navy"`, `tone="none"`.
+- Per subtree: put `data-tone="none"` on any wrapper to exempt everything inside (used for logos).
+- The recipes live in `src/styles/components.css` under *IMAGE TREATMENT* — tune the numbers there,
+  never in a component.
+
+Nothing is baked into the image files, so the originals in `/public/images/` remain full colour.
 
 ## 3. Swap the typography
 

@@ -25,10 +25,15 @@ interface Props {
   class?: string;
   /** Inline style passthrough (used for aspect-ratio / object-position). */
   style?: string;
+  /**
+   * Image treatment. Omit to inherit the site-wide tint (theme.imageTone).
+   * 'none' leaves the photograph untouched — use it for logos and swatches.
+   */
+  tone?: 'cream' | 'soft' | 'navy' | 'navy-soft' | 'duo' | 'duo-dark' | 'none';
   [key: string]: unknown;
 }
 
-const { src, alt = '', width, height, loading = 'lazy', fetchpriority, ...rest } = Astro.props;
+const { src, alt = '', width, height, loading = 'lazy', fetchpriority, tone, ...rest } = Astro.props;
 
 /* ── Resolve through the generated map ─────────────────────────────────── */
 const map = imageMap as Record<string, string>;
@@ -61,5 +66,6 @@ const isPlaceholder = resolved.endsWith('.svg') && resolved !== src;
   fetchpriority={fetchpriority}
   decoding="async"
   data-placeholder={isPlaceholder ? 'true' : undefined}
+  data-tone={tone}
   {...rest}
 />

@@ -379,9 +379,9 @@ const principles = [
 
   .mi--gray { background: var(--bg-soft); }
   .mi--gray .mi__lede code, .mi--gray code { background: var(--bg); }
-  .mi--dark { background: var(--c-jet); color: var(--c-beige); overflow: hidden; }
+  .mi--dark { background: var(--c-navy); color: var(--c-cream); overflow: hidden; }
   .mi--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
-  .mi--dark h2, .mi--dark h3 { color: var(--c-beige); }
+  .mi--dark h2, .mi--dark h3 { color: var(--c-cream); }
   .mi--dark .mi__lede { color: rgba(252, 242, 232, 0.68); }
 
   .mi__label {
@@ -402,13 +402,13 @@ const principles = [
   .mi__lead { max-width: 66rem; display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
   .mi__lead p { color: var(--text-soft); max-width: 68ch; }
 
-  .mi__code { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-jet); }
+  .mi__code { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-navy); }
   .mi__code-head { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.15rem; border-block-end: 1px solid rgba(252, 242, 232, 0.14); font-size: 0.75rem; color: rgba(252, 242, 232, 0.55); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   .mi__dots { display: inline-flex; gap: 0.35rem; }
   .mi__dots i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: rgba(252, 242, 232, 0.25); }
   .mi__code pre { margin: 0; padding: clamp(1.25rem, 2.5vw, 2rem); overflow-x: auto; }
   .mi__code code, .mi__a11y-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; line-height: 1.75; color: rgba(252, 242, 232, 0.82); background: none; padding: 0; }
-  .mi__code b { color: var(--c-beige); font-weight: 600; }
+  .mi__code b { color: var(--c-cream); font-weight: 600; }
 
   .mi__principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: clamp(2.5rem, 5vw, 3.5rem); }
   .mi__principle { padding-top: 1.35rem; border-top: 1px solid var(--line-strong); }
@@ -436,9 +436,9 @@ const principles = [
   .mi__scroll-item--wide { grid-column: 1 / -1; }
   .mi__parallax-frame { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-lg); background: var(--c-charcoal); }
   .mi__parallax-frame :global(img) { width: 100%; height: 118%; object-fit: cover; inset-block-start: -9%; position: relative; }
-  .mi__scrub { font-family: var(--ff-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem); line-height: 1.42; letter-spacing: -0.022em; color: var(--c-beige); max-width: 46ch; }
+  .mi__scrub { font-family: var(--ff-display); font-size: clamp(1.15rem, 2.2vw, 1.6rem); line-height: 1.42; letter-spacing: -0.022em; color: var(--c-cream); max-width: 46ch; }
   .mi__fill { position: relative; padding-top: 1.5rem; border-top: 1px solid rgba(252, 242, 232, 0.24); }
-  .mi__fill-bar { position: absolute; inset-block-start: -1px; inset-inline-start: 0; width: 100%; height: 1px; background: var(--c-beige); transform: scaleX(var(--fill, 0)); transform-origin: left center; }
+  .mi__fill-bar { position: absolute; inset-block-start: -1px; inset-inline-start: 0; width: 100%; height: 1px; background: var(--c-cream); transform: scaleX(var(--fill, 0)); transform-origin: left center; }
   .mi__fill-text { font-size: 0.9375rem; color: rgba(252, 242, 232, 0.7); }
 
   .mi__marquee-note { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
@@ -462,15 +462,15 @@ const principles = [
 
   .mi__tab-rail { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
   .mi__tab { padding: 0.55rem 1rem; border: 1px solid var(--line-strong); border-radius: var(--r-pill); font-size: 0.875rem; color: var(--text-mute); transition: all var(--dur) var(--ease-out); }
-  .mi__tab[aria-selected='true'] { background: var(--c-jet); border-color: var(--c-jet); color: var(--c-beige); }
+  .mi__tab[aria-selected='true'] { background: var(--c-navy); border-color: var(--c-navy); color: var(--c-cream); }
   .mi__tab-panel { font-size: 0.9375rem; color: var(--text-soft); animation: mi-fade 460ms var(--ease-out) both; }
   @keyframes mi-fade { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: none; } }
 
   .mi__pin-wrap { position: relative; min-height: 22rem; border: 1px dashed var(--line-strong); border-radius: var(--r-lg); padding: 1.5rem; }
-  .mi__pin { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.25rem; border-radius: var(--r-md); background: var(--c-jet); color: var(--c-beige); transition: box-shadow var(--dur) var(--ease-out); }
+  .mi__pin { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.25rem; border-radius: var(--r-md); background: var(--c-navy); color: var(--c-cream); transition: box-shadow var(--dur) var(--ease-out); }
   .mi__pin.is-pinned { box-shadow: var(--shadow-lg); }
   .mi__pin p { font-size: 0.875rem; color: rgba(252, 242, 232, 0.75); }
-  .mi__pin code { color: var(--c-beige); }
+  .mi__pin code { color: var(--c-cream); }
 
   /* ── Reference table ──────────────────────────────────────────────── */
   .mi__table { border-top: 1px solid var(--line-strong); }
@@ -482,7 +482,7 @@ const principles = [
 
   /* ── A11y ─────────────────────────────────────────────────────────── */
   .mi__a11y { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  .mi__a11y-card { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-jet); padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .mi__a11y-card { border: 1px solid var(--line-strong); border-radius: var(--r-lg); overflow: hidden; background: var(--c-navy); padding: clamp(1.25rem, 2.5vw, 1.75rem); }
   .mi__a11y-card .mi__label { border-color: rgba(252, 242, 232, 0.28); color: rgba(252, 242, 232, 0.6); }
   .mi__a11y-card pre { margin: 0; overflow-x: auto; }
 

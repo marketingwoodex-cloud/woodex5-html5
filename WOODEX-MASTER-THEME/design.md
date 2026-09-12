@@ -2,9 +2,12 @@
 
 **Project:** Woodex Interior — master front-end theme and template library
 **Deliverable:** `WOODEX-MASTER-THEME/` (Astro 5, static output, zero runtime dependencies)
-**Reference:** Linoxa (Webflow) — layout, spacing, palette and motion modelled 1:1, rebranded to Woodex Interior
-**Status:** v1.0 — 72 pages build clean; **37 section components**, 40 page templates
-**Last updated:** February 2026
+**Reference:** Linoxa (Webflow) — layout, spacing and motion modelled 1:1, rebranded to Woodex Interior
+**Palette:** re-planned as a strict four-colour identity (see §4.1). The reference's eight colours are gone;
+its `#111111` jet black is replaced by Woodex navy `#0F1E36` throughout.
+**Status:** v1.1 — 72 pages build clean; **37 section components**, 40 page templates
+**Colour brief:** four colours only — **white · blue · cream · black**
+**Last updated:** September 2026
 
 ---
 
@@ -123,22 +126,72 @@ adds a page automatically through `getStaticPaths()`.
 
 Derived from the reference style guide and locked into `src/styles/tokens.css`.
 
-### 4.1 Colour
+### 4.1 Colour — the four-colour system
 
-| Token | Hex | Use |
+**Brief: white · blue · cream · black. Nothing else ships.** Every surface, every piece of copy,
+every hairline and every hover state on the site resolves to one of these four values.
+
+| # | Name | Hex | Token | Role |
+| --- | --- | --- | --- | --- |
+| 1 | **White** | `#ffffff` | `--c-white` | Default page ground, cards, text on blue. ≈70% of surface area. |
+| 2 | **Blue** | `#0f1e36` | `--c-navy` | Every dark surface, primary buttons, links, focus rings, borders. ≈18%. |
+| 3 | **Cream** | `#fcf2e8` | `--c-cream` | Warm alternate ground, eyebrows, accent on blue. ≈10%. |
+| 4 | **Black** | `#000000` | `--c-black` | Body copy, hairlines, deepest ground (404, preloader, image scrims). ≈2%. |
+
+`#0F1E36` is the brand blue and is the **only** dark. Wherever the reference template used jet
+black `#111111` — headers on scroll, dark sections, primary buttons, the footer, the mega menu,
+pin/print/dark-theme values, the manifest and the favicon — Woodex now uses navy. That substitution
+is mechanical and complete: `--c-jet` survives as a deprecated alias that resolves to `--c-navy`,
+so no older snippet can reintroduce the wrong colour.
+
+#### How four colours cover everything
+
+Muted copy, hairlines and panels on dark are **not extra colours** — they are one of the four with
+alpha applied. The eight tints below are the complete non-solid vocabulary (`src/styles/tokens.css`,
+section *1a. Derived tints*):
+
+| Token | Value | Use |
 | --- | --- | --- |
-| `--c-black` | `#000000` | Body text on light backgrounds |
-| `--c-jet` | `#111111` | Dark sections, primary buttons |
-| `--c-charcoal` | `#525252` | Muted body copy |
-| `--c-silver` | `#c0c0c0` | Disabled states, subtle dividers |
-| `--c-light-gray` | `#e3e1e1` | Soft backgrounds |
-| `--c-deep-gray` | `#d9d9d9` | Borders, panels |
-| `--c-beige` | `#fcf2e8` | Page background, inverted text |
-| `--c-navy` | `#0f1e36` | Accent, data states |
+| `--tint-ink-68` | `rgba(0,0,0,.68)` | Secondary text on white/cream |
+| `--tint-ink-46` | `rgba(0,0,0,.46)` | Muted text, captions, meta |
+| `--tint-ink-12` / `-26` | `rgba(0,0,0,.12)` / `.26` | Hairlines / strong hairlines on light |
+| `--tint-ice-72` / `-50` | `rgba(255,255,255,.72)` / `.50` | Secondary / muted text on blue |
+| `--tint-ice-05` / `-16` | `rgba(255,255,255,.05)` / `.16` | Panel ground / hairline on blue |
+| `--tint-cream-72` / `-16` | `rgba(252,242,232,.72)` / `.16` | Inverted text and hairlines on blue |
 
-Semantic aliases (`--bg`, `--text`, `--text-soft`, `--text-mute`, `--bg-soft`, `--bg-card`, `--line`,
-`--line-strong`, `--line-invert`) sit on top of the raw palette. **A section inverts by setting
-`data-theme="dark"`, not by new colour values** — this is why dark and light variants cost nothing.
+If a design need seems to require a fifth colour, the answer is a tint, an icon, or weight — never
+a new hex. The style guide (`/style-guide`) renders all four swatches **and** all eight tints so any
+drift is visible immediately.
+
+#### Semantic aliases — how a section inverts
+
+Components never reference raw hexes. They consume aliases, and `data-theme` re-points them:
+
+| Attribute | Ground | Copy | Hairline |
+| --- | --- | --- | --- |
+| *(default)* | white | black | `rgba(0,0,0,.12)` |
+| `data-theme="cream"` (aliases: `beige`, `gray`) | cream | black | `rgba(0,0,0,.14)` |
+| `data-theme="dark"` / `"navy"` / `"blue"` | navy | white | `rgba(255,255,255,.16)` |
+| `data-theme="black"` | black | white | `rgba(255,255,255,.16)` |
+
+Aliases: `--bg`, `--bg-soft`, `--bg-card`, `--surface-dark`, `--text`, `--text-soft`, `--text-mute`,
+`--text-invert`, `--line`, `--line-strong`, `--line-invert`, `--accent`, `--accent-ink`.
+
+**A section inverts by setting one attribute, not by new colour values** — which is why every
+section still ships a light *and* a dark variant for free. The old `gray` theme (light grey panels)
+now renders as cream; the old beige theme is the cream theme.
+
+#### States without a fifth colour
+
+Error and warning states cannot use red in a four-colour identity, so they are built to be
+**legible without colour at all** (WCAG 1.4.1):
+
+- Field error → navy border plus a `3px` navy inset bar, with the `alert` icon and a text message.
+- Warning callout → navy left border, cream ground, `alert` icon.
+- Success → cream ground, black copy, `check` icon.
+
+Because the meaning is carried by icon, border and words, the states survive greyscale printing
+and colour-blindness. A red is *not* reserved for later — it is deliberately out of the identity.
 
 ### 4.2 Type
 
@@ -331,8 +384,38 @@ An image swap is therefore a file drop, not a merge. `<Img>` also carries a fall
 (`.jpg` → `.svg` → `.webp` → `.png`) so a mid-session addition never renders a broken image.
 The rule for all components: **images are always rendered through `src/components/ui/Img.astro`.**
 
-Shipped at v1.0: 10 AI-generated interior photographs plus 101 branded SVG placeholders across
-hero, feature, service, project, journal, people, office, material, client-logo and OG slots.
+#### 8.1 Keeping photography inside four colours
+
+Photography is the one asset nobody can guarantee is on-brand — a client's shoot arrives with its
+own white balance, and a licensed stock frame arrives with its own palette. Rather than retouching
+each image, the theme **re-faces every photograph at paint time** via a CSS filter chain, so the
+whole library reads as one palette no matter who supplied it:
+
+| Context | Treatment | Token |
+| --- | --- | --- |
+| Light ground (default) | On-palette grade — strays desaturated, blues kept | `--tone-light` |
+| Dark ground (`data-theme="dark"` / `"navy"` / `"black"`) | Cooler, deeper grade | `--tone-dark` |
+| Hard duotone (opt-in) | Cream highlights, navy shadows | `--tone-duo` / `--tone-duo-light` |
+| Hover / focus | Colour dialled back up | inline rule |
+
+- One switch for the whole site: `theme.imageTone` in `src/data/site.js` — `'cream'` (default,
+  the on-palette grade), `'soft'` (barely there), `'duo'` (hard navy/cream duotone, for a shoot
+  whose colours clash), `'none'` (ship photography untouched).
+- One switch per image: `<Img src="…" tone="duo" />`, `tone="navy"` or `tone="none"` — the last
+  used for logos, swatches and client marks that carry their own colour.
+- Dark sections flip automatically, because the rule keys off `data-theme`, not off per-section work.
+- The filter is a paint-time effect only: no file is altered, so the originals stay untouched in
+  `/public/images/` and can be used full-colour elsewhere at any time.
+
+The placeholder system was re-faced at the same time: every generated SVG now draws from white,
+navy, cream and black only (four palettes, one per image kind), and the inline fallback that
+`SmartImage` renders is gradient-drawn from the same four values.
+
+Shipped at v1.1: **10 AI-generated interior photographs, art-directed in the four colours** — navy
+fluted walls, cream bouclé seating, white surfaces, black steel framing — plus 101 branded SVG
+placeholders, 6 icon files and an on-brand favicon, all built from the same four values. The
+paint-time grade then unifies anything dropped in later, so the palette holds no matter who
+supplies the photography.
 
 ---
 
@@ -429,4 +512,8 @@ design.md                this document
 - **No CMS binding yet.** `RichText` is deliberately shaped like a headless CMS block schema
   (`h2 | h3 | p | list | quote | image | gallery | table | callout | divider | html`) so a Contentful
   or Sanity adapter is a mapping exercise, not a rewrite.
-- **Vector placeholders for client logos.** Real monochrome logo files should replace them.
+- **Vector placeholders for client logos.** Real monochrome logo files should replace them. Until
+  then they render in the four brand colours and are exempt from the image treatment (`tone="none"`).
+- **Photography is filtered, not re-shot.** The paint-time treatment guarantees on-palette output for
+  any file dropped in; a shoot art-directed in these four colours from the start would still be
+  better. The swap path is unchanged — drop the file at the canonical path and it inherits the look.

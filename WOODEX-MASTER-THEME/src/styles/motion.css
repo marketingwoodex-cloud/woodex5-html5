@@ -401,8 +401,8 @@ html.has-scroll-anim { scroll-behavior: smooth; }
   width: var(--cursor-size, 3.5rem);
   height: var(--cursor-size, 3.5rem);
   border-radius: 50%;
-  background: var(--c-beige);
-  color: var(--c-jet);
+  background: var(--c-cream);
+  color: var(--c-navy);
   display: grid;
   place-items: center;
   font-size: var(--fs-micro);
@@ -431,7 +431,7 @@ html.has-scroll-anim { scroll-behavior: smooth; }
 .page-veil {
   position: fixed;
   inset: 0;
-  background: var(--c-jet);
+  background: var(--c-navy);
   z-index: var(--z-overlay);
   transform: scaleY(0);
   transform-origin: bottom center;
@@ -460,8 +460,8 @@ html.has-scroll-anim { scroll-behavior: smooth; }
   position: fixed;
   inset: 0;
   z-index: var(--z-toast);
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   display: grid;
   place-items: center;
   transition: opacity 700ms var(--ease-soft), visibility 700ms;
@@ -483,7 +483,7 @@ html.has-scroll-anim { scroll-behavior: smooth; }
   display: block;
   height: 100%;
   width: 100%;
-  background: var(--c-beige);
+  background: var(--c-cream);
   transform-origin: 0 50%;
   transform: scaleX(0);
   transition: transform 200ms linear;

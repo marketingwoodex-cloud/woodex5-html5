@@ -85,11 +85,11 @@ const list = slugs?.length
 
 <style>
   .tg--gray { background: var(--bg-soft); }
-  .tg--dark { background: var(--c-jet); color: var(--c-beige); }
+  .tg--dark { background: var(--c-navy); color: var(--c-cream); }
   .tg--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
-  .tg--dark :global(h2) { color: var(--c-beige); }
+  .tg--dark :global(h2) { color: var(--c-cream); }
   .tg--dark .tg__meta { color: rgba(252, 242, 232, 0.55); }
-  .tg--dark .tg__tile--cta { border-color: rgba(252, 242, 232, 0.24); color: var(--c-beige); }
+  .tg--dark .tg__tile--cta { border-color: rgba(252, 242, 232, 0.24); color: var(--c-cream); }
 
   .tg__grid {
     display: grid;
@@ -116,7 +116,7 @@ const list = slugs?.length
     inset-inline-start: 0.85rem;
     font-size: 0.625rem;
     letter-spacing: 0.14em;
-    color: var(--c-beige);
+    color: var(--c-cream);
     mix-blend-mode: difference;
     font-variant-numeric: tabular-nums;
   }
@@ -130,8 +130,8 @@ const list = slugs?.length
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: var(--c-beige);
-    color: var(--c-jet);
+    background: var(--c-cream);
+    color: var(--c-navy);
     opacity: 0;
     transform: translateY(0.5rem) rotate(-20deg);
     transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
@@ -156,7 +156,7 @@ const list = slugs?.length
   .tg__tile--cta:hover { background: var(--bg-soft); border-color: var(--text); }
   .tg__cta-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
   .tg__cta-label { font-family: var(--ff-display); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 500; letter-spacing: -0.024em; }
-  .tg__arrow--static { position: static; opacity: 1; transform: none; background: var(--c-jet); color: var(--c-beige); }
+  .tg__arrow--static { position: static; opacity: 1; transform: none; background: var(--c-navy); color: var(--c-cream); }
 
   @media (max-width: 900px) { .tg__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) { .tg__grid { grid-template-columns: minmax(0, 1fr); } }

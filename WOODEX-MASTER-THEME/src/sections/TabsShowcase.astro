@@ -192,7 +192,7 @@ if (!tabs?.length) throw new Error('TabsShowcase requires at least one tab.');
     padding: 0.85rem 1.15rem;
     border-radius: var(--r-md);
     background: rgba(252, 242, 232, 0.94);
-    color: var(--c-jet);
+    color: var(--c-navy);
     backdrop-filter: blur(4px);
   }
 
@@ -214,17 +214,17 @@ if (!tabs?.length) throw new Error('TabsShowcase requires at least one tab.');
     flex: none;
     margin-top: 0.1rem;
     border-radius: 50%;
-    background: var(--c-beige);
-    color: var(--c-jet);
+    background: var(--c-cream);
+    color: var(--c-navy);
   }
 
   [data-theme='dark'] .ts__bullets li,
   [data-theme='dark'] .ts__body { color: rgba(252, 242, 232, 0.72); }
   [data-theme='dark'] .ts__tab { color: rgba(252, 242, 232, 0.5); }
-  [data-theme='dark'] .ts__tab[aria-selected='true'] { color: var(--c-beige); }
-  [data-theme='dark'] .ts__tab-bar { background: var(--c-beige); }
+  [data-theme='dark'] .ts__tab[aria-selected='true'] { color: var(--c-cream); }
+  [data-theme='dark'] .ts__tab-bar { background: var(--c-cream); }
   [data-theme='dark'] .ts__rail { border-color: rgba(252, 242, 232, 0.2); }
-  [data-theme='dark'] .ts__tick { background: var(--c-beige); color: var(--c-jet); }
+  [data-theme='dark'] .ts__tick { background: var(--c-cream); color: var(--c-navy); }
 
   @media (max-width: 900px) {
     .ts__panel { grid-template-columns: minmax(0, 1fr); gap: 2rem; }

@@ -105,7 +105,7 @@ export const projects = [
       ],
       notes: 'The cladding depth was set by the shading study, not by aesthetics — the baguette profile was chosen after modelling summer solar gain on the west face.',
     },
-    colour: '#e3e1e1',
+    colour: '#fcf2e8',
   },
   {
     slug: 'urban-living-concept',
@@ -147,7 +147,7 @@ export const projects = [
       ],
       notes: 'In a 2,150 sq ft apartment, storage is the whole design problem. Every wall was assessed for full-height cabinetry before a single layout was drawn.',
     },
-    colour: '#d9d9d9',
+    colour: '#ffffff',
   },
   {
     slug: 'concrete-harmony',
@@ -236,7 +236,7 @@ export const projects = [
       ],
       notes: 'The acoustic brief drove the plan: cellular meeting rooms were pulled to the core, and the perimeter was kept open so daylight reaches every desk.',
     },
-    colour: '#e3e1e1',
+    colour: '#fcf2e8',
   },
   {
     slug: 'minimal-space-design',
@@ -316,7 +316,7 @@ export const projects = [
       ],
       notes: 'Mall hours are unforgiving: all noisy work had to happen before 10:00 and the shopfront had to be glazed within a single night shift.',
     },
-    colour: '#d9d9d9',
+    colour: '#ffffff',
   },
   {
     slug: 'clinic-interior',
@@ -356,7 +356,7 @@ export const projects = [
       ],
       notes: 'Clinical briefs are the least forgiving interior work there is: every surface must be cleanable, every route must be documented, and nothing can be decided on appearance alone.',
     },
-    colour: '#e3e1e1',
+    colour: '#fcf2e8',
   },
   {
     slug: 'garden-pavilion',

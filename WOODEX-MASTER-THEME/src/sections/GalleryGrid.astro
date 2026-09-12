@@ -90,7 +90,7 @@ const {
   </button>
 
   <figure class="lb__figure">
-    <img class="lb__img" data-lb-img src="" alt="" />
+    <img class="lb__img" data-lb-img alt="" aria-hidden="true" />
     <figcaption class="lb__caption">
       <span data-lb-caption></span>
       <em data-lb-counter></em>
@@ -235,7 +235,7 @@ const {
     height: 2.25rem;
     border-radius: 50%;
     background: rgba(252, 242, 232, 0.92);
-    color: var(--c-jet);
+    color: var(--c-navy);
     opacity: 0;
     transform: scale(0.7);
     transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
@@ -249,7 +249,7 @@ const {
     inset-inline: 0;
     padding: 1.75rem 1.15rem 1rem;
     background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.75));
-    color: #fff;
+    color: var(--c-white);
     font-size: 0.8125rem;
     text-align: left;
     opacity: 0;
@@ -268,7 +268,7 @@ const {
     align-items: center;
     gap: 1rem;
     padding: clamp(1rem, 3vw, 2.5rem);
-    background: rgba(8, 8, 8, 0.94);
+    background: rgba(0, 0, 0, 0.94); /* black scrim */
     backdrop-filter: blur(14px);
     opacity: 0;
     visibility: hidden;
@@ -311,13 +311,13 @@ const {
     height: 3rem;
     border: 1px solid rgba(252, 242, 232, 0.28);
     border-radius: 50%;
-    color: var(--c-beige);
+    color: var(--c-cream);
     flex: none;
     transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
   }
 
   .lb__close { position: absolute; inset-block-start: 1.25rem; inset-inline-end: 1.25rem; }
-  .lb__close:hover, .lb__nav:hover { background: var(--c-beige); color: var(--c-jet); }
+  .lb__close:hover, .lb__nav:hover { background: var(--c-cream); color: var(--c-navy); }
   .lb__nav--prev:hover { transform: translateX(-3px); }
   .lb__nav--next:hover { transform: translateX(3px); }
 

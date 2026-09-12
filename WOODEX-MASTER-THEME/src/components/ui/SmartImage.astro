@@ -38,6 +38,11 @@ interface Props {
   label?: string;
   /** Overlay caption rendered on the fallback only — never on real photos. */
   decorative?: boolean;
+  /**
+   * Image treatment. Omit to inherit the site-wide tint (theme.imageTone);
+   * 'none' leaves the photograph untouched.
+   */
+  tone?: 'cream' | 'soft' | 'navy' | 'navy-soft' | 'duo' | 'duo-dark' | 'none';
 }
 
 const {
@@ -53,6 +58,7 @@ const {
   sizes,
   label,
   decorative = false,
+  tone,
 } = Astro.props;
 
 /* ── Build-time existence check ─────────────────────────────────────────
@@ -79,6 +85,7 @@ const placeholderLabel =
       decoding="async"
       fetchpriority={fetchpriority}
       sizes={sizes}
+      data-tone={tone}
       class={className}
       style={ratio ? `aspect-ratio:${rw}/${rh};object-fit:cover;object-position:${position}` : `object-position:${position}`}
     />
@@ -94,12 +101,12 @@ const placeholderLabel =
     >
       <defs>
         <linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#fcf2e8" />
-          <stop offset="55%" stop-color="#e3e1e1" />
-          <stop offset="100%" stop-color="#d9d9d9" />
+          <stop offset="0%" stop-color="#fcf2e8" />   {/* cream */}
+          <stop offset="55%" stop-color="#ffffff" />  {/* white */}
+          <stop offset="100%" stop-color="#0f1e36" /> {/* brand blue */}
         </linearGradient>
         <pattern id="sp" width="10" height="10" patternUnits="userSpaceOnUse">
-          <path d="M0 10L10 0" stroke="#00000010" stroke-width=".4" />
+          <path d="M0 10L10 0" stroke="#0f1e3626" stroke-width=".4" />
         </pattern>
       </defs>
 
@@ -109,7 +116,7 @@ const placeholderLabel =
       {/* Stylised interior abstraction: arch + horizon + light shaft */}
       <path d="M18 60V34a14 14 0 0 1 28 0v26Z" fill="#ffffff" opacity=".5" />
       <path d="M52 60V42a9 9 0 0 1 18 0v18Z" fill="#ffffff" opacity=".34" />
-      <path d="M0 60h100v1.2H0z" fill="#00000018" />
+      <path d="M0 60h100v1.2H0z" fill="#0f1e3633" />
       <path d="M78 0 100 0 62 75 40 75Z" fill="#ffffff" opacity=".26" />
 
       {!decorative && (
@@ -120,8 +127,8 @@ const placeholderLabel =
           font-family="system-ui, sans-serif"
           font-size="3.1"
           letter-spacing=".5"
-          fill="#525252"
-          opacity=".72"
+          fill="#0f1e36"
+          opacity=".78"
           style="text-transform:uppercase"
         >
           {placeholderLabel.slice(0, 34)}

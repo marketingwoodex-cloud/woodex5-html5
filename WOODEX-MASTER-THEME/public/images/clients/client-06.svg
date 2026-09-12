@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" width="400" height="160">
   <rect width="400" height="160" fill="none"/>
-  <path d="M24 44.800000000000004h28.000000000000004v70.4h-28.000000000000004Z" fill="#111111" fill-opacity="0.8"/>
+  <path d="M24 44.800000000000004h28.000000000000004v70.4h-28.000000000000004Z" fill="#0f1e36" fill-opacity="0.9"/>
   <path d="M38 44.800000000000004l14.000000000000002 44.800000000000004 14.000000000000002 -44.800000000000004Z" fill="#fcf2e8"/>
   <text x="74" y="93.6" font-family="system-ui,-apple-system,Segoe UI,sans-serif"
         font-size="32" font-weight="600" letter-spacing="2.4"
-        fill="#111111" fill-opacity="0.72">Client 06</text>
+        fill="#0f1e36" fill-opacity="0.85">Client 06</text>
 </svg>

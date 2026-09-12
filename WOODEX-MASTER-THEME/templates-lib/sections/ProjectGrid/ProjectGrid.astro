@@ -175,7 +175,7 @@ const list = (sector ? projects.filter((p) => p.sector === sector) : projects).s
   .pg__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.24) 0%, transparent 40%, rgba(0, 0, 0, 0.55) 100%); }
 
   .pg__tags { position: absolute; inset-block-start: 0.9rem; inset-inline-start: 0.9rem; display: flex; gap: 0.4rem; }
-  .pg__tags :global(.tag) { background: rgba(252, 242, 232, 0.92); color: var(--c-jet); backdrop-filter: blur(6px); text-transform: capitalize; letter-spacing: 0.06em; }
+  .pg__tags :global(.tag) { background: rgba(252, 242, 232, 0.92); color: var(--c-navy); backdrop-filter: blur(6px); text-transform: capitalize; letter-spacing: 0.06em; }
 
   .pg__arrow {
     position: absolute;
@@ -186,8 +186,8 @@ const list = (sector ? projects.filter((p) => p.sector === sector) : projects).s
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
-    background: var(--c-beige);
-    color: var(--c-jet);
+    background: var(--c-cream);
+    color: var(--c-navy);
     opacity: 0;
     transform: scale(0.7) rotate(-25deg);
     transition: opacity var(--dur) var(--ease-out), transform var(--dur-slow) var(--ease-expo);
@@ -223,7 +223,7 @@ const list = (sector ? projects.filter((p) => p.sector === sector) : projects).s
     inset-block-end: 0;
     inset-inline: 0;
     padding: clamp(1.25rem, 2.4vw, 2rem);
-    color: var(--c-beige);
+    color: var(--c-cream);
     transform: translateY(0.5rem);
     opacity: 0.92;
     transition: transform var(--dur-slow) var(--ease-expo), opacity var(--dur) var(--ease-out);
@@ -272,7 +272,7 @@ const list = (sector ? projects.filter((p) => p.sector === sector) : projects).s
     transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
   }
 
-  .pg__row a:hover .pg__row-arrow { transform: rotate(45deg); background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+  .pg__row a:hover .pg__row-arrow { transform: rotate(45deg); background: var(--c-navy); color: var(--c-cream); border-color: var(--c-navy); }
 
   /* ══ Foot ══════════════════════════════════════════════════════════ */
   .project-grid__foot {

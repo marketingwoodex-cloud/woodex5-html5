@@ -7,39 +7,65 @@
    ========================================================================= */
 
 :root {
-  /* ── 1. BRAND PALETTE ───────────────────────────────────────────────────
-     Exact hex values from the reference style guide.                        */
-  --c-black: #000000;          /* Black            — deepest ground        */
-  --c-jet: #111111;            /* Jet Black        — primary dark surface  */
-  --c-charcoal: #525252;       /* Charcoal Gray     — secondary text       */
-  --c-silver: #c0c0c0;         /* Silver            — muted / borders      */
-  --c-light-gray: #e3e1e1;     /* Light Gray        — soft section ground   */
-  --c-deep-gray: #d9d9d9;      /* Deep Gray         — card / divider tone   */
-  --c-beige: #fcf2e8;          /* Light Beige       — warm accent + paper   */
-  --c-navy: #0f1e36;           /* Deep Navy Blue    — alternate dark        */
-  --c-white: #ffffff;
+  /* ── 1. BRAND PALETTE — FOUR COLOURS, NOTHING ELSE ─────────────────────
+     White · Blue (navy) · Cream · Black. Every colour on the site resolves to
+     one of these four. Muted text, hairlines, cards and dark surfaces are all
+     produced from them with alpha, so no fifth hue ever enters the design.    */
+  --c-white: #ffffff;   /* WHITE — primary surface, cards, text on navy    */
+  --c-navy:  #0f1e36;   /* BLUE  — every dark surface, buttons, accents    */
+  --c-cream: #fcf2e8;   /* CREAM — warm accent, alternate section ground   */
+  --c-black: #000000;   /* BLACK — body text, hairlines, deepest ground    */
 
-  /* ── 1b. SEMANTIC ALIASES ───────────────────────────────────────────────
-     These are what components actually consume. Re-point them to rebrand.   */
-  --bg: var(--c-beige);
-  --bg-soft: var(--c-light-gray);
+  /* Short aliases used across components. */
+  --c-blue: var(--c-navy);
+  --c-ink: var(--c-navy);
+
+  /* ── 1a. DERIVED TINTS ──────────────────────────────────────────────────
+     Alpha values, not new hexes. Listed here so nobody invents a fifth colour.*/
+  --tint-ink-68: rgba(0, 0, 0, 0.68);      /* secondary text on light        */
+  --tint-ink-46: rgba(0, 0, 0, 0.46);      /* muted text on light            */
+  --tint-ink-12: rgba(0, 0, 0, 0.12);      /* hairlines on light             */
+  --tint-ink-26: rgba(0, 0, 0, 0.26);      /* strong hairlines on light      */
+  --tint-ice-72: rgba(255, 255, 255, 0.72);/* secondary text on navy         */
+  --tint-ice-50: rgba(255, 255, 255, 0.50);/* muted text on navy             */
+  --tint-ice-05: rgba(255, 255, 255, 0.05);/* panel ground on navy           */
+  --tint-ice-16: rgba(255, 255, 255, 0.16);/* hairlines on navy              */
+  --tint-cream-72: rgba(252, 242, 232, 0.72);
+  --tint-cream-50: rgba(252, 242, 232, 0.5);
+  --tint-cream-16: rgba(252, 242, 232, 0.16);
+
+  /* ── 1b. DEPRECATED ALIASES ─────────────────────────────────────────────
+     The reference template had eight colours. They are kept as aliases so any
+     older snippet still compiles — but they now resolve into the four brand
+     colours, so the output is always on-brand. Do not use in new work.        */
+  --c-jet: var(--c-navy);          /* was #111111 → now the brand blue      */
+  --c-beige: var(--c-cream);       /* was Light Beige → now Cream           */
+  --c-charcoal: var(--tint-ink-68);
+  --c-silver: var(--tint-ink-46);
+  --c-light-gray: var(--c-cream);
+  --c-deep-gray: rgba(0, 0, 0, 0.08);
+
+  /* ── 1c. SEMANTIC ALIASES ───────────────────────────────────────────────
+     These are what components actually consume. Re-point them to rebrand.    */
+  --bg: var(--c-white);
+  --bg-soft: var(--c-cream);
   --bg-card: var(--c-white);
-  --surface-dark: var(--c-jet);
+  --surface-dark: var(--c-navy);
   --surface-dark-2: var(--c-navy);
 
   --text: var(--c-black);
-  --text-soft: var(--c-charcoal);
-  --text-mute: var(--c-silver);
-  --text-invert: var(--c-beige);
-  --text-invert-soft: rgba(252, 242, 232, 0.62);
+  --text-soft: var(--tint-ink-68);
+  --text-mute: var(--tint-ink-46);
+  --text-invert: var(--c-cream);
+  --text-invert-soft: var(--tint-cream-72);
 
-  --line: rgba(0, 0, 0, 0.12);
-  --line-strong: rgba(0, 0, 0, 0.24);
-  --line-invert: rgba(252, 242, 232, 0.18);
-  --line-invert-strong: rgba(252, 242, 232, 0.4);
+  --line: var(--tint-ink-12);
+  --line-strong: var(--tint-ink-26);
+  --line-invert: var(--tint-cream-16);
+  --line-invert-strong: var(--tint-cream-50);
 
-  --accent: var(--c-beige);
-  --accent-ink: var(--c-black);
+  --accent: var(--c-cream);
+  --accent-ink: var(--c-navy);
 
   /* ── 2. TYPOGRAPHY SCALE ────────────────────────────────────────────────
      size / line-height / weight — mirrored from the reference style guide.  */
@@ -124,6 +150,9 @@
   --container-narrow: 62rem;
   --container-wide: 96rem;
   --gutter: 1.5rem;
+  --gutter-xs: 1rem;
+  --gutter-sm: 1.25rem;
+  --gutter-lg: 2rem;
   --header-h: 5.5rem;
   --header-h-compact: 4.25rem;
 
@@ -169,38 +198,77 @@
 }
 
 /* ── DARK SURFACE CONTEXT ─────────────────────────────────────────────────
-   Add `data-theme="dark"` (or the `.is-dark` class) to any wrapper and all
-   semantic tokens flip. No component needs to know it is on a dark ground.  */
+   `data-theme="dark"` (or `.is-dark`) flips every semantic token to the navy
+   ground. Panels, hairlines and muted text are white at alpha — still the same
+   four colours. No component needs to know it is on a dark ground.          */
 [data-theme='dark'],
 .is-dark {
-  --bg: var(--c-jet);
-  --bg-soft: var(--c-navy);
-  --bg-card: #1a1a1a;
-  --surface-dark: var(--c-beige);
+  --bg: var(--c-navy);
+  --bg-soft: var(--tint-ice-05);
+  --bg-card: rgba(255, 255, 255, 0.07);
+  --surface-dark: var(--c-navy);
+  --surface-dark-2: var(--c-black);
 
-  --text: var(--c-beige);
-  --text-soft: rgba(252, 242, 232, 0.68);
-  --text-mute: rgba(252, 242, 232, 0.42);
-  --text-invert: var(--c-black);
+  --text: var(--c-white);
+  --text-soft: var(--tint-ice-72);
+  --text-mute: var(--tint-ice-50);
+  --text-invert: var(--c-navy);
 
-  --line: var(--line-invert);
-  --line-strong: var(--line-invert-strong);
+  --line: var(--tint-ice-16);
+  --line-strong: rgba(255, 255, 255, 0.34);
 
-  --accent: var(--c-beige);
-  --accent-ink: var(--c-black);
+  --accent: var(--c-cream);
+  --accent-ink: var(--c-navy);
 }
 
-/* ── INVERTED / BEIGE CONTEXT ───────────────────────────────────────────── */
-[data-theme='beige'] {
-  --bg: var(--c-beige);
-  --text: var(--c-black);
-  --text-soft: var(--c-charcoal);
-  --line: rgba(0, 0, 0, 0.14);
-}
-
-/* ── COOL / LIGHT-GRAY CONTEXT ──────────────────────────────────────────── */
+/* ── CREAM CONTEXT ────────────────────────────────────────────────────────
+   The warm alternate ground. `beige` and `gray` are kept as accepted aliases
+   for backwards compatibility; both now render the cream ground.            */
+[data-theme='cream'],
+[data-theme='beige'],
 [data-theme='gray'] {
-  --bg: var(--c-light-gray);
+  --bg: var(--c-cream);
+  --bg-soft: var(--c-white);
+  --bg-card: var(--c-white);
+  --surface-dark: var(--c-navy);
+
   --text: var(--c-black);
-  --text-soft: var(--c-charcoal);
+  --text-soft: var(--tint-ink-68);
+  --text-mute: var(--tint-ink-46);
+
+  --line: rgba(0, 0, 0, 0.14);
+  --line-strong: var(--tint-ink-26);
+
+  --accent: var(--c-navy);
+  --accent-ink: var(--c-cream);
+}
+
+/* ── NAVY CONTEXT (explicit) ──────────────────────────────────────────────
+   Same as dark, but named for what it is. Use `theme="navy"` in new work.    */
+[data-theme='navy'],
+[data-theme='blue'] {
+  --bg: var(--c-navy);
+  --bg-soft: var(--tint-ice-05);
+  --bg-card: rgba(255, 255, 255, 0.07);
+  --text: var(--c-white);
+  --text-soft: var(--tint-ice-72);
+  --text-mute: var(--tint-ice-50);
+  --line: var(--tint-ice-16);
+  --line-strong: rgba(255, 255, 255, 0.34);
+  --accent: var(--c-cream);
+  --accent-ink: var(--c-navy);
+}
+
+/* ── BLACK CONTEXT ────────────────────────────────────────────────────────
+   Reserved for the deepest ground: 404, preloader, image scrims.             */
+[data-theme='black'] {
+  --bg: var(--c-black);
+  --bg-soft: rgba(255, 255, 255, 0.04);
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --text: var(--c-white);
+  --text-soft: var(--tint-ice-72);
+  --text-mute: var(--tint-ice-50);
+  --line: var(--tint-ice-16);
+  --line-strong: rgba(255, 255, 255, 0.3);
+  --accent: var(--c-cream);
 }

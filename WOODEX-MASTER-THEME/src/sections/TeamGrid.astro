@@ -50,13 +50,22 @@ const list = team.slice(0, limit);
 
             <div class="tg__hover">
               <p class="tg__bio">{m.bio}</p>
-              <div class="tg__social">
-                {Object.entries(m.social).map(([key, href]) => (
-                  <a href={href} aria-label={`${m.name} on ${key}`}>
-                    <Icon name={key} size={14} stroke={1.7} />
-                  </a>
-                ))}
-              </div>
+              {Object.values(m.social || {}).filter(Boolean).length > 0 && (
+                <div class="tg__social">
+                  {Object.entries(m.social || {})
+                    .filter(([, href]) => Boolean(href))
+                    .map(([key, href]) => (
+                      <a
+                        href={href}
+                        aria-label={`${m.name} on ${key}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon name={key} size={14} stroke={1.7} />
+                      </a>
+                    ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -104,7 +113,7 @@ const list = team.slice(0, limit);
   .tg__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 45%, rgba(17, 17, 17, 0.9));
+    background: linear-gradient(180deg, transparent 45%, rgba(15, 30, 54, 0.9));
     opacity: 0;
     transition: opacity var(--dur-slow) var(--ease-soft);
   }
@@ -116,7 +125,7 @@ const list = team.slice(0, limit);
     inset-block-end: 0;
     inset-inline: 0;
     padding: 1.35rem;
-    color: var(--c-beige);
+    color: var(--c-cream);
     transform: translateY(0.75rem);
     opacity: 0;
     transition: transform var(--dur-slow) var(--ease-expo), opacity var(--dur-slow) var(--ease-soft);
@@ -138,7 +147,7 @@ const list = team.slice(0, limit);
     transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
   }
 
-  .tg__social a:hover { background: var(--c-beige); color: var(--c-jet); }
+  .tg__social a:hover { background: var(--c-cream); color: var(--c-navy); }
 
   .tg__body { padding: 1.1rem 0.25rem 0; display: flex; flex-direction: column; gap: 0.2rem; }
   .tg__name { font-size: 1.1rem; letter-spacing: -0.018em; }
@@ -151,8 +160,8 @@ const list = team.slice(0, limit);
     gap: 0.75rem;
     padding: clamp(1.5rem, 2.4vw, 2rem);
     border-radius: var(--r-lg);
-    background: var(--c-jet);
-    color: var(--c-beige);
+    background: var(--c-navy);
+    color: var(--c-cream);
   }
 
   .tg__careers-icon {

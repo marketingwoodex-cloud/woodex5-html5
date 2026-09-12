@@ -115,12 +115,12 @@ const {
     transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
 
-  .bf__item:hover .bf__marker { background: var(--c-jet); border-color: var(--c-jet); color: var(--c-beige); }
+  .bf__item:hover .bf__marker { background: var(--c-navy); border-color: var(--c-navy); color: var(--c-cream); }
 
   .bf__item-title { font-size: clamp(1.05rem, 1.6vw, 1.3rem); letter-spacing: -0.022em; }
   .bf__item-text { margin-top: 0.35rem; font-size: 0.9375rem; color: var(--text-soft); max-width: 52ch; }
 
-  .bf__quote { margin-top: 2rem; padding-inline-start: 1.5rem; border-inline-start: 2px solid var(--c-beige); }
+  .bf__quote { margin-top: 2rem; padding-inline-start: 1.5rem; border-inline-start: 2px solid var(--c-cream); }
   .bf__quote p { font-family: var(--ff-display); font-size: clamp(1.1rem, 1.9vw, 1.4rem); line-height: 1.4; letter-spacing: -0.02em; }
   .bf__quote cite { display: block; margin-top: 0.75rem; font-size: var(--fs-sub); font-style: normal; color: var(--text-mute); }
 
@@ -143,14 +143,14 @@ const {
     padding: 1.5rem;
   }
 
-  .bf--dark { background: var(--c-jet); color: var(--c-beige); }
+  .bf--dark { background: var(--c-navy); color: var(--c-cream); }
   .bf--dark :global(.eyebrow) { color: rgba(252, 242, 232, 0.5); }
   .bf--dark .bf__lede,
   .bf--dark .bf__item-text { color: rgba(252, 242, 232, 0.68); }
   .bf--dark .bf__list { background: rgba(252, 242, 232, 0.16); border-color: rgba(252, 242, 232, 0.16); }
   .bf--dark .bf__marker { border-color: rgba(252, 242, 232, 0.28); color: rgba(252, 242, 232, 0.6); }
-  .bf--dark .bf__item:hover .bf__marker { background: var(--c-beige); border-color: var(--c-beige); color: var(--c-jet); }
-  .bf--dark .bf__quote { border-color: var(--c-beige); }
+  .bf--dark .bf__item:hover .bf__marker { background: var(--c-cream); border-color: var(--c-cream); color: var(--c-navy); }
+  .bf--dark .bf__quote { border-color: var(--c-cream); }
 
   @media (max-width: 900px) {
     .bf__grid { grid-template-columns: minmax(0, 1fr); }

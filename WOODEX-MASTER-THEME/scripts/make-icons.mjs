@@ -27,8 +27,8 @@ const root = path.resolve(__dirname, '..');
 const publicDir = path.join(root, 'public');
 
 /* ── Brand ─────────────────────────────────────────────────────────────── */
-const BG = [0x11, 0x11, 0x11]; // Jet Black
-const FG = [0xfc, 0xf2, 0xe8]; // Light Beige
+const BG = [0x0f, 0x1e, 0x36]; // Brand navy (blue)
+const FG = [0xfc, 0xf2, 0xe8]; // Cream
 
 /* The mark, in a 32×32 unit space: two spines with a chevron lattice between. */
 const MARK = [
@@ -206,7 +206,7 @@ function renderPng(size, opts) {
 }
 
 const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Woodex Interior">
-  <rect width="32" height="32" rx="7" fill="#111111"/>
+  <rect width="32" height="32" rx="7" fill="#0f1e36"/>
   <path d="${MARK.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x} ${y}`).join(' ')}"
         fill="none" stroke="#fcf2e8" stroke-width="2.4"
         stroke-linecap="round" stroke-linejoin="round"/>

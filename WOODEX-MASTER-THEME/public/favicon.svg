@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Woodex Interior">
-  <rect width="32" height="32" rx="7" fill="#111111"/>
+  <rect width="32" height="32" rx="7" fill="#0f1e36"/>
   <path d="M7 24 L7 10 L12 15 L16 8 L20 15 L25 10 L25 24"
         fill="none" stroke="#fcf2e8" stroke-width="2.4"
         stroke-linecap="round" stroke-linejoin="round"/>

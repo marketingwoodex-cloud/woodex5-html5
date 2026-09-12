@@ -13,15 +13,51 @@ import Img from '../components/ui/Img.astro';
 import { site } from '../data/site.js';
 import { images } from '../data/images.js';
 
+/* ── THE FOUR BRAND COLOURS ───────────────────────────────────────────────
+   White · Blue · Cream · Black. Nothing else ships. Every muted tone, hairline
+   and panel in the theme is one of these four with alpha applied — see the
+   "Tints" swatches below, all of which are generated, never hand-picked.     */
 const colours = [
-  { name: 'Black', hex: '#000000', token: '--c-black', note: 'Body text on light' },
-  { name: 'Jet Black', hex: '#111111', token: '--c-jet', note: 'Dark sections, buttons' },
-  { name: 'Charcoal Gray', hex: '#525252', token: '--c-charcoal', note: 'Muted body copy' },
-  { name: 'Silver', hex: '#c0c0c0', token: '--c-silver', note: 'Disabled, dividers' },
-  { name: 'Light Gray', hex: '#e3e1e1', token: '--c-light-gray', note: 'Soft backgrounds' },
-  { name: 'Deep Gray', hex: '#d9d9d9', token: '--c-deep-gray', note: 'Borders, panels' },
-  { name: 'Light Beige', hex: '#fcf2e8', token: '--c-beige', note: 'Page background, inverted text' },
-  { name: 'Deep Navy', hex: '#0f1e36', token: '--c-navy', note: 'Accent, data states' },
+  {
+    name: 'White',
+    hex: '#ffffff',
+    token: '--c-white',
+    note: 'Default page ground, cards, text on blue',
+    ratio: '≈70% of the surface area',
+  },
+  {
+    name: 'Blue',
+    hex: '#0f1e36',
+    token: '--c-navy',
+    note: 'Every dark surface, buttons, borders, links',
+    ratio: '≈18%',
+  },
+  {
+    name: 'Cream',
+    hex: '#fcf2e8',
+    token: '--c-cream',
+    note: 'Warm alternate ground, eyebrows, accents on blue',
+    ratio: '≈10%',
+  },
+  {
+    name: 'Black',
+    hex: '#000000',
+    token: '--c-black',
+    note: 'Body copy, hairlines, deepest ground (404, preloader)',
+    ratio: '≈2%',
+  },
+];
+
+/* Generated from the four colours — proof that no fifth hue is needed. */
+const tints = [
+  { name: 'Text soft', value: 'rgba(0,0,0,.68)', on: '#ffffff', token: '--tint-ink-68' },
+  { name: 'Text muted', value: 'rgba(0,0,0,.46)', on: '#ffffff', token: '--tint-ink-46' },
+  { name: 'Hairline', value: 'rgba(0,0,0,.12)', on: '#ffffff', token: '--tint-ink-12' },
+  { name: 'Text on blue', value: 'rgba(255,255,255,.72)', on: '#0f1e36', token: '--tint-ice-72' },
+  { name: 'Muted on blue', value: 'rgba(255,255,255,.50)', on: '#0f1e36', token: '--tint-ice-50' },
+  { name: 'Hairline on blue', value: 'rgba(255,255,255,.16)', on: '#0f1e36', token: '--tint-ice-16' },
+  { name: 'Cream soft', value: 'rgba(252,242,232,.72)', on: '#0f1e36', token: '--tint-cream-72' },
+  { name: 'Heavy cream', value: 'rgba(252,242,232,.16)', on: '#0f1e36', token: '--tint-cream-16' },
 ];
 
 const type = [
@@ -58,7 +94,7 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
     crumbs={[{ label: 'Style guide' }]}
     variant="soft"
     meta={[
-      { label: 'Colour tokens', value: `${colours.length}` },
+      { label: 'Brand colours', value: `${colours.length}` },
       { label: 'Type steps', value: `${type.length}` },
       { label: 'Sections', value: '37' },
       { label: 'Dependencies', value: 'None' },
@@ -71,7 +107,7 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
       <div class="sg__head">
         <span class="eyebrow" data-reveal="fade">01 — Colour</span>
         <h2 data-heading-reveal="words" data-heading-stagger="46">Palette</h2>
-        <p class="sg__lede">Eight reference colours, all exposed as tokens. Semantic aliases (<code>--bg</code>, <code>--text</code>, <code>--line</code>) map onto them, so dark sections invert by flipping one attribute.</p>
+        <p class="sg__lede">Four colours, no exceptions: <strong>white</strong>, <strong>blue</strong>, <code>cream</code> and <code>black</code>. Everything softer — muted text, hairlines, panels on dark — is one of those four at an alpha value, listed under Tints. Semantic aliases (<code>--bg</code>, <code>--text</code>, <code>--line</code>) map onto them, so a section inverts by flipping one attribute.</p>
       </div>
 
       <div class="sg__swatches" data-stagger="70">
@@ -83,7 +119,29 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
               <code>{c.hex}</code>
               <span class="sg__note">{c.note}</span>
               <code class="sg__token">var({c.token})</code>
+              <span class="sg__ratio">{c.ratio} of the page</span>
             </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Tints: the same four colours, nothing new added. -->
+      <div class="sg__subhead">
+        <h3 class="h5">Tints</h3>
+        <p class="sg__note">
+          Muted copy, hairlines and panels on dark are not extra colours — they are the four
+          brand colours at an alpha value. These eight cover every non-solid use in the theme.
+        </p>
+      </div>
+
+      <div class="sg__tints" data-stagger="40">
+        {tints.map((t) => (
+          <article class="sg__tint" data-reveal="fade">
+            <span class="sg__tint-chip" style={`background:${t.on}`}>
+              <span style={`background:${t.value}`}></span>
+            </span>
+            <code>{t.token}</code>
+            <span class="sg__note">{t.name}</span>
           </article>
         ))}
       </div>
@@ -374,6 +432,12 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
   .sg code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--text-soft); }
 
   /* ── Swatches ─────────────────────────────────────────────────────── */
+  .sg__subhead { margin: clamp(2rem, 4vw, 3rem) 0 1.25rem; display: grid; gap: 0.4rem; max-width: 52ch; }
+  .sg__ratio { font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-mute); }
+  .sg__tints { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .sg__tint { display: grid; gap: 0.35rem; padding: 0.9rem 1rem 1.1rem; background: var(--bg); }
+  .sg__tint-chip { display: block; height: 3.25rem; border: 1px solid var(--line); }
+  .sg__tint-chip > span { display: block; width: 100%; height: 100%; }
   .sg__swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .sg__swatch { display: flex; flex-direction: column; background: var(--bg); }
   .sg--gray .sg__swatch { background: var(--bg-soft); }
@@ -405,7 +469,7 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
 
   /* ── Buttons row ──────────────────────────────────────────────────── */
   .sg__row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1.25rem; }
-  .sg__row--dark { padding: 2rem; border-radius: var(--r-lg); background: var(--c-jet); }
+  .sg__row--dark { padding: 2rem; border-radius: var(--r-lg); background: var(--c-navy); }
 
   /* ── Tokens ───────────────────────────────────────────────────────── */
   .sg__triple { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.75rem, 4vw, 3rem); }
@@ -424,14 +488,14 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
   .sg__space { margin-top: clamp(2.5rem, 5vw, 4rem); }
   .sg__space-row { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.25rem; }
   .sg__space-item { display: flex; align-items: center; gap: 1rem; }
-  .sg__space-item span { height: 0.75rem; background: var(--c-jet); border-radius: 2px; }
+  .sg__space-item span { height: 0.75rem; background: var(--c-navy); border-radius: 2px; }
   .sg--gray .sg__space-item span { background: var(--text); }
 
   /* ── Forms ────────────────────────────────────────────────────────── */
   .sg__forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: clamp(1.5rem, 3vw, 2.25rem); max-width: 62rem; }
   .sg__checks { display: flex; flex-wrap: wrap; gap: 1rem 1.75rem; margin-top: 0.9rem; }
   .sg__checks :global(.check) { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.9375rem; color: var(--text-soft); }
-  .sg__checks :global(input) { width: 1.05rem; height: 1.05rem; accent-color: var(--c-jet); }
+  .sg__checks :global(input) { width: 1.05rem; height: 1.05rem; accent-color: var(--c-navy); }
   .sg :global(.field) { display: flex; flex-direction: column; gap: 0.5rem; }
   .sg :global(.field__label) { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
   .sg :global(.field input), .sg :global(.field textarea), .sg :global(.field select) {
@@ -445,9 +509,9 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
     color: var(--text);
   }
   .sg--gray :global(.field input), .sg--gray :global(.field textarea), .sg--gray :global(.field select) { background: var(--bg); }
-  .sg :global(.field__error) { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8125rem; color: #b3261e; }
-  .sg :global([data-invalid] input) { border-color: #b3261e; }
-  .sg :global(.is-focus-demo) { outline: 2px solid var(--c-jet); outline-offset: 1px; }
+  .sg :global(.field__error) { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8125rem; color: var(--c-navy); }
+  .sg :global([data-invalid] input) { border-color: var(--c-navy); }
+  .sg :global(.is-focus-demo) { outline: 2px solid var(--c-navy); outline-offset: 1px; }
 
   /* ── Cards ────────────────────────────────────────────────────────── */
   .sg__cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.25rem; }
@@ -458,7 +522,7 @@ const iconSample = ['home', 'office', 'kitchen', 'bed', 'blueprint', 'ruler', 'c
   .sg__cards :global(.card__text) { margin-top: 0.65rem; font-size: 0.9375rem; color: var(--text-soft); }
   .sg__cards :global(.card__body) { padding: 1.5rem; }
   .sg__callout { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg); }
-  .sg__quote { display: flex; flex-direction: column; gap: 1rem; padding: 1.75rem; border-radius: var(--r-lg); background: var(--c-jet); color: var(--c-beige); }
+  .sg__quote { display: flex; flex-direction: column; gap: 1rem; padding: 1.75rem; border-radius: var(--r-lg); background: var(--c-navy); color: var(--c-cream); }
   .sg__quote :global(svg) { opacity: 0.4; }
   .sg__quote :global(blockquote) { margin: 0; }
   .sg__quote :global(p) { font-family: var(--ff-display); font-size: 1.15rem; line-height: 1.45; letter-spacing: -0.02em; }

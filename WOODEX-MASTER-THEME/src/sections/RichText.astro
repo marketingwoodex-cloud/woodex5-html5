@@ -271,7 +271,9 @@ const headings = blocks
     background: var(--bg-soft);
   }
 
-  .rt__callout.is-warn { border-left-color: #a23b1e; background: rgba(162, 59, 30, 0.06); }
+  /* Warning leans on the brand blue + the alert icon rather than a fifth
+     hue — the icon carries the meaning, so it stays legible without colour. */
+  .rt__callout.is-warn { border-left-color: var(--c-navy); background: var(--c-cream); }
 
   .rt__callout :global(svg) { flex: none; margin-top: 0.2rem; opacity: 0.6; }
   .rt__callout strong { display: block; font-size: 0.9375rem; margin-bottom: 0.3rem; }

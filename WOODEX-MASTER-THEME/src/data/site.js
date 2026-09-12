@@ -35,10 +35,10 @@ export const site = {
 
   // ── Social ─────────────────────────────────────────────────────────────
   social: [
-    { label: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/', icon: 'linkedin' },
-    { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
-    { label: 'Pinterest', href: 'https://pinterest.com/', icon: 'pinterest' },
+    { label: 'Instagram', href: 'https://www.instagram.com/woodexinterior', icon: 'instagram' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/woodex-interior', icon: 'linkedin' },
+    { label: 'Facebook', href: 'https://www.facebook.com/woodexinterior', icon: 'facebook' },
+    { label: 'Pinterest', href: 'https://www.pinterest.com/woodexinterior', icon: 'pinterest' },
   ],
 
   // ── Conversion ─────────────────────────────────────────────────────────
@@ -79,15 +79,25 @@ export const site = {
 /* Brand colour overrides applied at runtime — lets a client rebrand by
    editing this one object instead of hunting through CSS. */
 export const theme = {
+  /* ── THE FOUR BRAND COLOURS ───────────────────────────────────────────
+     White · Blue (navy) · Cream · Black. Everything else in the theme is one
+     of these with alpha applied — see src/styles/tokens.css "derived tints". */
+  /* IMAGE TREATMENT — how photography is tinted to stay on-palette.
+     'cream' → warm cream cast (the look used across the theme)
+     'navy'  → cool blue cast, applied automatically on dark sections
+     'none'  → leave photography untouched (raw client photographs)
+     'soft'  → a lighter touch of the cream cast
+     Any single image can opt out with <Img src="…" tone="none" />.            */
+  imageTone: 'cream',
   palette: {
+    white: '#ffffff',
+    blue: '#0f1e36', // navy — all dark surfaces, buttons and accents
+    navy: '#0f1e36', // alias kept for compatibility
+    cream: '#fcf2e8',
     black: '#000000',
-    jet: '#111111',
-    charcoal: '#525252',
-    silver: '#c0c0c0',
-    lightGray: '#e3e1e1',
-    deepGray: '#d9d9d9',
+    // deprecated aliases (resolve into the four above)
+    jet: '#0f1e36',
     beige: '#fcf2e8',
-    navy: '#0f1e36',
   },
   /** Which palette key drives the page background and the primary text. */
   background: 'beige',

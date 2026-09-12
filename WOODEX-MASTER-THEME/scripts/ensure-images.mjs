@@ -30,14 +30,13 @@ const { allImagePaths } = await import(
 
 /* ── Placeholder palettes (brand palette only) ─────────────────────────── */
 const palettes = [
-  ['#fcf2e8', '#e3e1e1', '#d9d9d9', '#525252'],
-  ['#e3e1e1', '#fcf2e8', '#c0c0c0', '#000000'],
-  ['#d9d9d9', '#fcf2e8', '#e3e1e1', '#525252'],
-  ['#0f1e36', '#525252', '#c0c0c0', '#fcf2e8'],
-  ['#fcf2e8', '#ffffff', '#e3e1e1', '#525252'],
-  ['#e3e1e1', '#d9d9d9', '#fcf2e8', '#111111'],
+  /* Every placeholder is built from the four brand colours only:
+     white #ffffff · navy #0f1e36 · cream #fcf2e8 · black #000000 */
+  ['#ffffff', '#fcf2e8', '#0f1e36', '#0f1e36'], // white → cream
+  ['#fcf2e8', '#ffffff', '#0f1e36', '#0f1e36'], // cream → white
+  ['#0f1e36', '#000000', '#fcf2e8', '#ffffff'], // navy → black
+  ['#fcf2e8', '#0f1e36', '#ffffff', '#0f1e36'], // cream → navy
 ];
-
 const hash = (s) => {
   let h = 0;
   for (let i = 0; i < s.length; i += 1) h = (h * 31 + s.charCodeAt(i)) | 0;
@@ -55,11 +54,11 @@ function logoPlaceholderSvg(label, ratio = '5/2') {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
   <rect width="${w}" height="${h}" fill="none"/>
-  <path d="M${w * 0.06} ${h * 0.28}h${w * 0.07}v${h * 0.44}h${-w * 0.07}Z" fill="#111111" fill-opacity="0.8"/>
+  <path d="M${w * 0.06} ${h * 0.28}h${w * 0.07}v${h * 0.44}h${-w * 0.07}Z" fill="#0f1e36" fill-opacity="0.9"/>
   <path d="M${w * 0.06 + w * 0.035} ${h * 0.28}l${w * 0.035} ${h * 0.28} ${w * 0.035} ${-h * 0.28}Z" fill="#fcf2e8"/>
   <text x="${w * 0.185}" y="${h * 0.585}" font-family="system-ui,-apple-system,Segoe UI,sans-serif"
         font-size="${Math.round(h * 0.2)}" font-weight="600" letter-spacing="${w * 0.006}"
-        fill="#111111" fill-opacity="0.72">${name}</text>
+        fill="#0f1e36" fill-opacity="0.85">${name}</text>
 </svg>
 `;
 }

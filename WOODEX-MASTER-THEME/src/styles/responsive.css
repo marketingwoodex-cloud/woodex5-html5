@@ -146,7 +146,7 @@
   a[href^='http']::after {
     content: ' (' attr(href) ')';
     font-size: 0.8em;
-    color: #555;
+    color: #000000;
   }
 
   .section { padding-block: 1.5rem; break-inside: avoid; }

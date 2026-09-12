@@ -14,7 +14,7 @@ import Header from '../components/global/Header.astro';
 import Footer from '../components/global/Footer.astro';
 import Drawer from '../components/global/Drawer.astro';
 import Icon from '../components/ui/Icon.astro';
-import { site } from '../data/site.js';
+import { site, theme } from '../data/site.js';
 
 interface Props {
   title?: string;
@@ -35,6 +35,8 @@ interface Props {
   schema?: Record<string, unknown> | Record<string, unknown>[];
   /** Adds the bottom padding the fixed header would otherwise overlap. */
   padForHeader?: boolean;
+  /** Overrides theme.imageTone: how photography is tinted for the palette. */
+  imageTone?: string;
 }
 
 const {
@@ -52,11 +54,12 @@ const {
   bodyClass = '',
   schema,
   padForHeader = false,
+  imageTone = theme.imageTone ?? 'cream',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-image-tone={imageTone}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -72,13 +75,13 @@ const {
     <!-- ── Favicons (inline SVG data-URI — zero extra requests) ─────────── -->
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M7 24V10l5 5 4-7 4 7 5-5v14' fill='none' stroke='%23fcf2e8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1e36'/%3E%3Cpath d='M7 24V10l5 5 4-7 4 7 5-5v14' fill='none' stroke='%23fcf2e8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#111111" />
+    <meta name="theme-color" content="#0f1e36" />
     <meta name="apple-mobile-web-app-title" content={site.shortName} />
 
     <!-- ── Performance hints ───────────────────────────────────────────── -->

@@ -11,12 +11,12 @@
    ══════════════════════════════════════════════════════════════════════════ */
 
 .btn {
-  --btn-bg: var(--c-jet);
-  --btn-fg: var(--c-beige);
-  --btn-border: var(--c-jet);
+  --btn-bg: var(--c-navy);
+  --btn-fg: var(--c-cream);
+  --btn-border: var(--c-navy);
   --btn-bg-hover: transparent;
-  --btn-fg-hover: var(--c-jet);
-  --btn-border-hover: var(--c-jet);
+  --btn-fg-hover: var(--c-navy);
+  --btn-border-hover: var(--c-navy);
 
   position: relative;
   display: inline-flex;
@@ -69,56 +69,56 @@
 
 /* ── Variants ──────────────────────────────────────────────────────────── */
 .btn--primary {
-  --btn-bg: var(--c-jet);
-  --btn-fg: var(--c-beige);
-  --btn-bg-hover: var(--c-beige);
-  --btn-fg-hover: var(--c-jet);
-  --btn-border-hover: var(--c-jet);
+  --btn-bg: var(--c-navy);
+  --btn-fg: var(--c-cream);
+  --btn-bg-hover: var(--c-cream);
+  --btn-fg-hover: var(--c-navy);
+  --btn-border-hover: var(--c-navy);
 }
 
 .btn--ghost {
   --btn-bg: transparent;
   --btn-fg: currentColor;
-  --btn-bg-hover: var(--c-jet);
-  --btn-fg-hover: var(--c-beige);
+  --btn-bg-hover: var(--c-navy);
+  --btn-fg-hover: var(--c-cream);
   --btn-border: currentColor;
-  --btn-border-hover: var(--c-jet);
+  --btn-border-hover: var(--c-navy);
 }
 
 /* On dark grounds the ghost button inverts. */
 [data-theme='dark'] .btn--ghost,
 .is-dark .btn--ghost,
 .on-dark .btn--ghost {
-  --btn-bg-hover: var(--c-beige);
-  --btn-fg-hover: var(--c-jet);
-  --btn-border-hover: var(--c-beige);
+  --btn-bg-hover: var(--c-cream);
+  --btn-fg-hover: var(--c-navy);
+  --btn-border-hover: var(--c-cream);
 }
 
 .btn--beige {
-  --btn-bg: var(--c-beige);
-  --btn-fg: var(--c-jet);
-  --btn-bg-hover: var(--c-jet);
-  --btn-fg-hover: var(--c-beige);
-  --btn-border: var(--c-beige);
-  --btn-border-hover: var(--c-jet);
+  --btn-bg: var(--c-cream);
+  --btn-fg: var(--c-navy);
+  --btn-bg-hover: var(--c-navy);
+  --btn-fg-hover: var(--c-cream);
+  --btn-border: var(--c-cream);
+  --btn-border-hover: var(--c-navy);
 }
 
 .btn--light {
   --btn-bg: var(--c-white);
-  --btn-fg: var(--c-jet);
-  --btn-bg-hover: var(--c-jet);
+  --btn-fg: var(--c-navy);
+  --btn-bg-hover: var(--c-navy);
   --btn-fg-hover: var(--c-white);
   --btn-border: var(--c-white);
-  --btn-border-hover: var(--c-jet);
+  --btn-border-hover: var(--c-navy);
 }
 
 .btn--outline-invert {
   --btn-bg: transparent;
-  --btn-fg: var(--c-beige);
-  --btn-bg-hover: var(--c-beige);
-  --btn-fg-hover: var(--c-jet);
+  --btn-fg: var(--c-cream);
+  --btn-bg-hover: var(--c-cream);
+  --btn-fg-hover: var(--c-navy);
   --btn-border: rgba(252, 242, 232, 0.4);
-  --btn-border-hover: var(--c-beige);
+  --btn-border-hover: var(--c-cream);
 }
 
 .btn--sm { padding: 0.62rem 1.15rem; font-size: var(--fs-sub); }
@@ -225,7 +225,7 @@
 .header.is-hidden { transform: translate3d(0, -101%, 0); }
 
 /* Transparent-over-hero mode: header starts light-on-dark. */
-.header--overlay { color: var(--c-beige); }
+.header--overlay { color: var(--c-cream); }
 .header--overlay.is-scrolled { color: var(--text); }
 .header--overlay.is-scrolled::after {
   content: '';
@@ -340,8 +340,8 @@
   inset-inline: 0;
   inset-block-start: 100%;
   z-index: var(--z-mega);
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   border-block-start: 1px solid rgba(252, 242, 232, 0.12);
   opacity: 0;
   visibility: hidden;
@@ -402,7 +402,7 @@
 }
 
 .mega-list a:hover {
-  color: var(--c-beige);
+  color: var(--c-cream);
   transform: translateX(0.25rem);
 }
 
@@ -445,7 +445,7 @@
   height: 100%;
   min-height: 15rem;
   padding: var(--sp-5);
-  color: var(--c-beige);
+  color: var(--c-cream);
 }
 
 .mega-feature__body h4 { margin-bottom: 0.35rem; }
@@ -516,8 +516,8 @@
   inset-block: 0;
   inset-inline-end: 0;
   width: min(30rem, 100%);
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   display: flex;
   flex-direction: column;
   transform: translate3d(101%, 0, 0);
@@ -536,7 +536,7 @@
   border-block-end: 1px solid rgba(252, 242, 232, 0.12);
   position: sticky;
   top: 0;
-  background: var(--c-jet);
+  background: var(--c-navy);
   z-index: 2;
 }
 
@@ -576,7 +576,7 @@
   padding: 0.3rem 0;
 }
 
-.drawer__sub a:hover { color: var(--c-beige); }
+.drawer__sub a:hover { color: var(--c-cream); }
 
 .drawer__foot {
   padding: var(--sp-6);
@@ -593,12 +593,12 @@
   height: 2.5rem;
   border-radius: 50%;
   border: 1px solid rgba(252, 242, 232, 0.3);
-  color: var(--c-beige);
+  color: var(--c-cream);
   font-size: 1.1rem;
   transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
 }
 
-.drawer__close:hover { background: var(--c-beige); color: var(--c-jet); }
+.drawer__close:hover { background: var(--c-cream); color: var(--c-navy); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    4. CARDS
@@ -656,7 +656,7 @@
   position: relative;
   min-height: 22rem;
   border: 0;
-  color: var(--c-beige);
+  color: var(--c-cream);
   justify-content: flex-end;
 }
 
@@ -679,7 +679,7 @@
 
 .card--overlay:hover img { transform: scale(1.06); }
 
-.card--overlay .card__body { position: relative; z-index: 2; color: var(--c-beige); }
+.card--overlay .card__body { position: relative; z-index: 2; color: var(--c-cream); }
 .card--overlay .card__excerpt { color: rgba(252, 242, 232, 0.72); }
 
 /* Numbered service row — the reference's signature list treatment. */
@@ -702,13 +702,13 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--c-jet);
+  background: var(--c-navy);
   transform: scaleY(0);
   transform-origin: bottom center;
   transition: transform var(--dur-slow) var(--ease-expo);
 }
 
-.svc-row:hover { color: var(--c-beige); padding-inline: var(--sp-6); }
+.svc-row:hover { color: var(--c-cream); padding-inline: var(--sp-6); }
 .svc-row:hover::before { transform: scaleY(1); }
 
 .svc-row__no {
@@ -731,7 +731,7 @@
   transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out);
 }
 
-.svc-row:hover .svc-row__arrow { transform: rotate(45deg); background: var(--c-beige); color: var(--c-jet); border-color: var(--c-beige); }
+.svc-row:hover .svc-row__arrow { transform: rotate(45deg); background: var(--c-cream); color: var(--c-navy); border-color: var(--c-cream); }
 
 /* Stat block */
 .stat { display: flex; flex-direction: column; gap: 0.35rem; }
@@ -763,7 +763,7 @@
   white-space: nowrap;
 }
 
-.chip--solid { background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+.chip--solid { background: var(--c-navy); color: var(--c-cream); border-color: var(--c-navy); }
 
 .tag {
   display: inline-block;
@@ -858,16 +858,16 @@
 .check input[type='radio'] { border-radius: 50%; }
 
 .check input:checked {
-  background: var(--c-jet);
-  border-color: var(--c-jet);
+  background: var(--c-navy);
+  border-color: var(--c-navy);
 }
 
 .check input[type='checkbox']:checked::after {
   content: '';
   width: 0.6rem;
   height: 0.32rem;
-  border-left: 2px solid var(--c-beige);
-  border-bottom: 2px solid var(--c-beige);
+  border-left: 2px solid var(--c-cream);
+  border-bottom: 2px solid var(--c-cream);
   transform: rotate(-45deg) translateY(-1px);
 }
 
@@ -876,7 +876,7 @@
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
-  background: var(--c-beige);
+  background: var(--c-cream);
 }
 
 /* Inline newsletter form */
@@ -901,7 +901,16 @@
 }
 
 .form-note--success { background: rgba(15, 30, 54, 0.06); }
-.form-note--error { background: rgba(180, 40, 40, 0.08); color: #8a1f1f; }
+.form-note--error {
+  background: var(--c-cream);
+  color: var(--c-black);
+  border: 1px solid var(--c-navy);
+}
+.field__error,
+[data-invalid] .field__error { color: var(--c-black); }
+[data-invalid] input,
+[data-invalid] textarea,
+[data-invalid] select { border-color: var(--c-navy); box-shadow: inset 3px 0 0 var(--c-navy); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    6. ACCORDION
@@ -987,9 +996,9 @@
 .pill:hover { border-color: var(--line-strong); color: var(--text); }
 
 .pill.is-active {
-  background: var(--c-jet);
-  border-color: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  border-color: var(--c-navy);
+  color: var(--c-cream);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -998,8 +1007,8 @@
 
 .footer {
   position: relative;
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   overflow: hidden;
 }
 
@@ -1040,7 +1049,7 @@
   transition: color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
 }
 
-.footer__col a:hover { color: var(--c-beige); transform: translateX(0.25rem); }
+.footer__col a:hover { color: var(--c-cream); transform: translateX(0.25rem); }
 
 .footer__about {
   font-size: var(--fs-sub);
@@ -1065,8 +1074,8 @@
 }
 
 .footer__social a:hover {
-  background: var(--c-beige);
-  color: var(--c-jet);
+  background: var(--c-cream);
+  color: var(--c-navy);
   transform: translateY(-3px);
 }
 
@@ -1103,7 +1112,7 @@
 }
 
 .footer__legal { display: flex; gap: var(--sp-5); flex-wrap: wrap; }
-.footer__legal a:hover { color: var(--c-beige); }
+.footer__legal a:hover { color: var(--c-cream); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    9. PAGE HEADER (inner pages)
@@ -1112,8 +1121,8 @@
 .page-head {
   position: relative;
   padding-block: calc(var(--header-h) + clamp(3rem, 6vw, 6rem)) clamp(3rem, 6vw, 6rem);
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   overflow: hidden;
 }
 
@@ -1178,8 +1187,8 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   box-shadow: var(--shadow-lg);
   opacity: 0;
   transform: translateY(1rem);
@@ -1194,8 +1203,8 @@
 .announce {
   position: relative;
   z-index: var(--z-header);
-  background: var(--c-jet);
-  color: var(--c-beige);
+  background: var(--c-navy);
+  color: var(--c-cream);
   font-size: var(--fs-sub);
   padding-block: 0.6rem;
 }
@@ -1283,3 +1292,91 @@
 
 .is-in .underline-sketch,
 .underline-sketch.is-in { background-size: 100% 1px; }
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   IMAGE TREATMENT — keeping photography inside the four-colour palette
+   ──────────────────────────────────────────────────────────────────────────
+   Every photograph is graded at paint time so it reads as part of the
+   White · Blue · Cream · Black identity — no retouching, no per-image work,
+   and the original files on disk are never altered.
+
+   Two grades ship:
+     a soft on-palette grade (default) — pulls off-brand hues out, keeps blues
+     a hard duotone grade  (opt-in)     — maps any photo onto navy + cream
+
+   Site-wide switch:   theme.imageTone in src/data/site.js
+                       'cream' (default) · 'soft' · 'duo' · 'none'
+   Per image:          <Img src="…" tone="duo" | "navy" | "none" />
+   Per subtree:        <div data-tone="none"> … </div>
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Default grade on light grounds: desaturate the strays, lift slightly. */
+  --tone-light: saturate(0.78) contrast(1.06) brightness(1.03) sepia(0.05);
+  --tone-light-soft: saturate(0.92) contrast(1.02) brightness(1.01);
+  /* The same idea for navy/black grounds — cooler and a touch deeper. */
+  --tone-dark: saturate(0.72) contrast(1.09) brightness(0.94);
+  --tone-dark-soft: saturate(0.88) contrast(1.04) brightness(0.98);
+  /* Hard duotone: cream highlights, navy shadows. For a shoot that clashes. */
+  --tone-duo: grayscale(1) sepia(0.6) saturate(2.4) hue-rotate(178deg)
+    contrast(1.12) brightness(0.9);
+  /* Warm duotone, used on light grounds when 'duo' is selected site-wide. */
+  --tone-duo-light: grayscale(1) sepia(0.62) saturate(1.5) hue-rotate(-6deg)
+    contrast(1.04) brightness(1.06);
+}
+
+img {
+  transition: filter var(--dur, 400ms) var(--ease-out, ease);
+}
+
+/* Anything that carries brand colour of its own is never graded. */
+.brand img,
+[data-tone='none'] img,
+img[data-tone='none'],
+img.no-tone {
+  filter: none;
+}
+
+/* ── Site-wide switch, set on <html> by BaseLayout ───────────────────────── */
+html[data-image-tone='cream'] img:not([data-tone]) { filter: var(--tone-light); }
+html[data-image-tone='soft'] img:not([data-tone]) { filter: var(--tone-light-soft); }
+html[data-image-tone='duo'] img:not([data-tone]) { filter: var(--tone-duo-light); }
+html[data-image-tone='none'] img { filter: none; }
+
+/* ── Dark grounds flip to the cool grade automatically ───────────────────── */
+html[data-image-tone='cream'] [data-theme='dark'] img:not([data-tone]),
+html[data-image-tone='cream'] [data-theme='navy'] img:not([data-tone]),
+html[data-image-tone='cream'] [data-theme='blue'] img:not([data-tone]),
+html[data-image-tone='cream'] [data-theme='black'] img:not([data-tone]),
+html[data-image-tone='cream'] .is-dark img:not([data-tone]) { filter: var(--tone-dark); }
+
+html[data-image-tone='soft'] [data-theme='dark'] img:not([data-tone]),
+html[data-image-tone='soft'] [data-theme='navy'] img:not([data-tone]),
+html[data-image-tone='soft'] .is-dark img:not([data-tone]) { filter: var(--tone-dark-soft); }
+
+html[data-image-tone='duo'] [data-theme='dark'] img:not([data-tone]),
+html[data-image-tone='duo'] [data-theme='navy'] img:not([data-tone]),
+html[data-image-tone='duo'] [data-theme='black'] img:not([data-tone]),
+html[data-image-tone='duo'] .is-dark img:not([data-tone]) { filter: var(--tone-duo); }
+
+/* ── Per-image override ──────────────────────────────────────────────────── */
+img[data-tone='cream'] { filter: var(--tone-light); }
+img[data-tone='soft'] { filter: var(--tone-light-soft); }
+img[data-tone='navy'] { filter: var(--tone-dark); }
+img[data-tone='navy-soft'] { filter: var(--tone-dark-soft); }
+img[data-tone='duo'] { filter: var(--tone-duo-light); }
+img[data-tone='duo-dark'] { filter: var(--tone-duo); }
+img[data-tone='none'] { filter: none; }
+
+/* Hover / focus: let more of the original colour back in. */
+a:hover > img:not([data-tone='none']),
+a:focus-visible > img:not([data-tone='none']),
+.card:hover img:not([data-tone='none']),
+.card:focus-within img:not([data-tone='none']) {
+  filter: var(--tone-light-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img { transition: none; }
+}

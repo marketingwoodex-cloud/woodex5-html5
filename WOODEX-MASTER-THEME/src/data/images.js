@@ -17,12 +17,12 @@
 export const images = {
   /* ── HEROES ─────────────────────────────────────────────────────────── */
   hero: {
-    oneMain: { path: '/images/hero/hero-one-main.jpg', alt: 'Double-height contemporary living room with oak panelling and sheer curtains', ratio: '16/9' },
-    twoMain: { path: '/images/hero/hero-two-main.jpg', alt: 'Minimal dining area with solid oak table and cane-back chairs', ratio: '3/4' },
-    threeMain: { path: '/images/hero/hero-three-main.jpg', alt: 'Open-plan living and kitchen space at dusk with warm interior lighting', ratio: '16/9' },
-    card01: { path: '/images/hero/hero-card-01.jpg', alt: 'Detail of a precision-built oak veneer cabinet with consistent shadow gap', ratio: '3/4' },
-    card02: { path: '/images/hero/hero-card-02.jpg', alt: 'Sculptural staircase with vertical oak battens and steel handrail', ratio: '3/4' },
-    card03: { path: '/images/hero/hero-card-03.jpg', alt: 'Reading nook with full-height oak joinery and linen bench', ratio: '3/4' },
+    oneMain: { path: '/images/hero/hero-one-main.jpg', alt: 'Double-height contemporary living room with a navy fluted accent wall and cream bouclé seating', ratio: '16/9' },
+    twoMain: { path: '/images/hero/hero-two-main.jpg', alt: 'Minimal dining area with navy panelling, cream linen chairs and black pendant lighting', ratio: '3/4' },
+    threeMain: { path: '/images/hero/hero-three-main.jpg', alt: 'Open-plan living and kitchen space with navy cabinetry, cream counters and black-framed glazing', ratio: '16/9' },
+    card01: { path: '/images/hero/hero-card-01.jpg', alt: 'Detail of a precision-built navy lacquered cabinet with an even shadow gap against a cream wall', ratio: '3/4' },
+    card02: { path: '/images/hero/hero-card-02.jpg', alt: 'Sculptural staircase with a black steel balustrade against cream plaster and a navy stringer', ratio: '3/4' },
+    card03: { path: '/images/hero/hero-card-03.jpg', alt: 'Reading nook with full-height navy joinery, a cream linen bench and a slim black floor lamp', ratio: '3/4' },
   },
 
   /* ── MEGA MENU FEATURES ─────────────────────────────────────────────── */
@@ -37,8 +37,8 @@ export const images = {
 
   /* ── FEATURE BLOCKS ─────────────────────────────────────────────────── */
   features: {
-    siteAnalysis: { path: '/images/features/feature-site-analysis.jpg', alt: 'Architectural drawings and material samples flat-lay', ratio: '4/3' },
-    spacePlanning: { path: '/images/features/feature-space-planning.jpg', alt: 'Open-plan space with clear zoning and timber platform', ratio: '4/3' },
+    siteAnalysis: { path: '/images/features/feature-site-analysis.jpg', alt: 'Architectural drawings, navy colour chips and cream material samples laid out flat', ratio: '4/3' },
+    spacePlanning: { path: '/images/features/feature-space-planning.jpg', alt: 'Open-plan space with clear zoning, a cream raised platform and a navy accent wall', ratio: '4/3' },
     joinery: { path: '/images/features/feature-joinery.jpg', alt: 'Joinery workshop producing custom oak cabinetry', ratio: '4/3' },
     visualisation: { path: '/images/features/feature-visualisation.jpg', alt: '3D visualisation on a large monitor', ratio: '4/3' },
     lighting: { path: '/images/features/feature-lighting.jpg', alt: 'Layered architectural lighting in a living space', ratio: '4/3' },
@@ -47,7 +47,7 @@ export const images = {
 
   /* ── SERVICES (one per service slug) ────────────────────────────────── */
   services: {
-    'residential-interior': { path: '/images/services/residential-interior.jpg', alt: 'Refined modern family living room with custom oak joinery', ratio: '4/3' },
+    'residential-interior': { path: '/images/services/residential-interior.jpg', alt: 'Refined family living room with custom navy joinery, cream drapery and black steel frames', ratio: '4/3' },
     'kitchen-interior': { path: '/images/services/kitchen-interior.jpg', alt: 'Premium modern kitchen with charcoal cabinetry and stone island', ratio: '4/3' },
     'bedroom-suite': { path: '/images/services/bedroom-suite.jpg', alt: 'Serene primary bedroom suite with integrated wardrobes', ratio: '4/3' },
     'office-corporate': { path: '/images/services/office-corporate.jpg', alt: 'Modern corporate office with acoustic pods and oak slat wall', ratio: '4/3' },
@@ -205,7 +205,7 @@ export const images = {
 
   /* ── CTA / OG ───────────────────────────────────────────────────────── */
   cta: {
-    banner: { path: '/images/cta/cta-banner.jpg', alt: 'Premium office lounge at golden hour', ratio: '16/9' },
+    banner: { path: '/images/cta/cta-banner.jpg', alt: 'Premium office lounge with navy upholstery, cream rug and black linear lighting', ratio: '16/9' },
     consult: { path: '/images/cta/cta-consult.jpg', alt: 'Design consultation in progress', ratio: '4/3' },
   },
   og: {

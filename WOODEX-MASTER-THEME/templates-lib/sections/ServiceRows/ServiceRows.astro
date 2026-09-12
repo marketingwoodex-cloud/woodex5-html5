@@ -100,14 +100,14 @@ const list = (group ? servicesByGroup(group) : services).slice(0, limit);
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: var(--c-jet);
+    background: var(--c-navy);
     transform: scaleY(0);
     transform-origin: bottom center;
     transition: transform var(--dur-slow) var(--ease-expo);
   }
 
   .svc-list :global(.svc-row:hover) {
-    color: var(--c-beige);
+    color: var(--c-cream);
     padding-inline: clamp(1rem, 2vw, 1.75rem);
   }
 
@@ -174,9 +174,9 @@ const list = (group ? servicesByGroup(group) : services).slice(0, limit);
 
   .svc-list :global(.svc-row:hover .svc-row__arrow) {
     transform: rotate(45deg);
-    background: var(--c-beige);
-    border-color: var(--c-beige);
-    color: var(--c-jet);
+    background: var(--c-cream);
+    border-color: var(--c-cream);
+    color: var(--c-navy);
   }
 
   .service-rows__foot {

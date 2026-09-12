@@ -6,7 +6,7 @@ import RichText from '../sections/RichText.astro';
 import Icon from '../components/ui/Icon.astro';
 import { services } from '../data/services.js';
 import { projects } from '../data/projects.js';
-import { articles } from '../data/articles.js';
+import { articles, formatDate } from '../data/articles.js';
 
 /* Build a flat search index at build time — no runtime request needed. */
 const index = [
@@ -99,6 +99,19 @@ const results = q
             <div class="sr__count" data-reveal="fade-up"><strong>{projects.length}</strong><span>Projects indexed</span></div>
             <div class="sr__count" data-reveal="fade-up"><strong>{articles.length}</strong><span>Articles indexed</span></div>
           </div>
+
+          <div class="sr__recent">
+            <span class="sr__suggest-label">Recently published</span>
+            <div class="sr__recent-list" data-stagger="60">
+              {articles.slice(0, 4).map((a) => (
+                <a href={`/blog/${a.slug}`} class="sr__recent-item" data-reveal="fade-up">
+                  <span class="sr__recent-date">{formatDate(a.date)}</span>
+                  <span class="sr__recent-title">{a.title}</span>
+                  <span class="sr__recent-time">{a.readingTime}</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -139,7 +152,7 @@ const results = q
     transition: transform var(--dur-slow) var(--ease-expo), background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
   }
 
-  .sr__result:hover .sr__arrow { transform: rotate(45deg); background: var(--c-jet); color: var(--c-beige); border-color: var(--c-jet); }
+  .sr__result:hover .sr__arrow { transform: rotate(45deg); background: var(--c-navy); color: var(--c-cream); border-color: var(--c-navy); }
 
   /* ── Empty / suggest ───────────────────────────────────────────────── */
   .sr__empty { text-align: center; padding-block: 3rem; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
@@ -154,11 +167,27 @@ const results = q
   .sr__count strong { font-family: var(--ff-display); font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1; font-weight: 500; letter-spacing: -0.034em; }
   .sr__count span { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute); }
 
+  .sr__recent { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .sr__recent-list { border-top: 1px solid var(--line); }
+  .sr__recent-item {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr) auto;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-block-end: 1px solid var(--line);
+    transition: padding var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .sr__recent-item:hover { padding-inline-start: 0.75rem; background: var(--bg-soft); }
+  .sr__recent-date, .sr__recent-time { font-size: var(--fs-sub); color: var(--text-mute); }
+  .sr__recent-title { font-size: 1rem; letter-spacing: -0.018em; }
+
   @media (max-width: 640px) {
     .sr__result { grid-template-columns: minmax(0, 1fr); }
     .sr__result :global(.tag) { grid-row: auto; justify-self: start; }
     .sr__text { grid-column: 1 / -1; }
     .sr__arrow { display: none; }
     .sr__counts { grid-template-columns: minmax(0, 1fr); }
+    .sr__recent-item { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
   }
 </style>
