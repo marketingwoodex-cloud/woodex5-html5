@@ -708,7 +708,24 @@ function buildManifest() {
     collections: Object.keys(data).filter((k) => Array.isArray(data[k])).map((k) => ({ name: k, items: data[k].length })),
     includes: [...includeCount.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ include: k, used: v }))
   };
-  fs.writeFileSync(path.join(__dirname, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
+
+  /* The manifest is version-controlled, so rewriting it on a no-op build would
+     dirty the working tree with a timestamp diff and nothing else. Compare
+     against the committed copy ignoring `built`, and keep the existing file
+     when nothing substantive changed. `built` therefore means "when the output
+     last actually changed", which is the more useful reading anyway. */
+  const file = path.join(__dirname, 'build-manifest.json');
+  if (fs.existsSync(file)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const strip = (o) => JSON.stringify({ ...o, built: null });
+      if (strip(prev) === strip(manifest)) return;
+      manifest.built = prev.built || manifest.built;
+    } catch {
+      /* unreadable or corrupt manifest — fall through and rewrite it */
+    }
+  }
+  fs.writeFileSync(file, JSON.stringify(manifest, null, 2));
 }
 
 /* ------------------------------------------------------------------- run */
